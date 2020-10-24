@@ -3321,7 +3321,7 @@ module.exports = {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return PUBLIC_URL; });
 const API = 'https://api.oliverpetshop.com.ar/'; //const PUBLIC_URL = 'http://localhost:3000';
 
-const PUBLIC_URL = 'https://oliverpetshop.com.ar';
+const PUBLIC_URL = 'https://developers.oliverpetshop.com.ar';
 
 
 /***/ }),
