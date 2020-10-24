@@ -1,0 +1,1 @@
+{"ast":null,"code":"var API = 'https://api.oliverpetshop.com.ar/';\nvar PUBLIC_URL = 'http://localhost:3000';\nexport { API, PUBLIC_URL };","map":null,"metadata":{},"sourceType":"module"}
