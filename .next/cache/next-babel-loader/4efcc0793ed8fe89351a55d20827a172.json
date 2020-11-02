@@ -1,0 +1,1 @@
+{"ast":null,"code":"import slugify from 'slugify';\nexport default function slug(name) {\n  return slugify(name, {\n    lower: true\n  }).replace(/[^\\w\\-]+/g, '');\n}","map":null,"metadata":{},"sourceType":"module"}
