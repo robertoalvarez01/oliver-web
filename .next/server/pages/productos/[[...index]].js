@@ -641,7 +641,25 @@ const CardProducto = ({
   imagen,
   prd
 }) => {
-  return __jsx("div", {
+  const procesarNombre = nombre => {
+    let nombreProcesado = nombre;
+
+    if (Object(_helpers_index__WEBPACK_IMPORTED_MODULE_3__[/* isMobile */ "a"])()) {
+      if (nombreProcesado.length > 25) {
+        nombreProcesado = nombre.substring(0, 22) + '...';
+      }
+    } else {
+      if (nombreProcesado.length > 45) {
+        nombreProcesado = nombre.substring(0, 40) + '...';
+      }
+    }
+
+    return nombreProcesado;
+  };
+
+  return __jsx(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
+    href: `${_config_index__WEBPACK_IMPORTED_MODULE_4__[/* PUBLIC_URL */ "b"]}/producto/${Object(_helpers_index__WEBPACK_IMPORTED_MODULE_3__[/* slug */ "b"])(prd.subProducto)}/${prd.idSubProducto}`
+  }, __jsx("a", null, __jsx("div", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.container__producto + ' ' + `my-3`
   }, __jsx("section", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.header__card
@@ -651,21 +669,17 @@ const CardProducto = ({
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.img
   })), __jsx("section", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.body__card
-  }, __jsx("h6", {
+  }, __jsx("span", {
+    className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.label__marca + ' ' + `d-block text-muted`
+  }, "Marca"), __jsx("h6", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.nombre__producto + ' ' + `text-muted`
-  }, prd.subProducto), __jsx("span", {
+  }, procesarNombre(prd.subProducto)), __jsx("span", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.cantidad
   }, prd.peso, " KG"), __jsx("h3", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.precio + ' ' + `text-black`
-  }, "$", prd.precioUnidad)), __jsx("section", {
-    className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.footer__card
-  }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: `${_config_index__WEBPACK_IMPORTED_MODULE_4__[/* PUBLIC_URL */ "b"]}/producto/${Object(_helpers_index__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(prd.subProducto)}/${prd.idSubProducto}`
-  }, __jsx("a", {
-    className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.btn_comprar + ' ' + `boton bg-blue`
-  }, "Comprar"))), __jsx("span", {
+  }, "$", prd.precioUnidad)), __jsx("span", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.label__descuento + ' ' + `bg-red`
-  }, "15% Off"));
+  }, "15% Off"))));
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (CardProducto);
@@ -926,8 +940,12 @@ const Productos = props => {
     document.getElementsByClassName('Filtro_filtros__contanier__3knXf')[0].classList.add(Filtro_module_default.a.show_filtros);
   };
 
-  const getProductos = () => {
-    props.traerTodos();
+  const getProductos = async () => {
+    try {
+      await props.traerTodos();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const mostrarSolapaFiltro = filtro => {
@@ -1370,6 +1388,11 @@ const Filtro = props => {
             marca: '',
             filtrando: false
           }));
+          props.subproductosTraerTodos();
+
+          if (props.location != 'productos') {
+            router_default.a.push('/productos');
+          }
         } else {
           setEstadoFiltro(_objectSpread(_objectSpread({}, estadoFiltro), {}, {
             marca: ''
@@ -3185,7 +3208,10 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 const Header = ({
   title
 }) => {
-  return __jsx(next_head__WEBPACK_IMPORTED_MODULE_1___default.a, null, __jsx("title", null, title), __jsx("link", {
+  return __jsx(next_head__WEBPACK_IMPORTED_MODULE_1___default.a, null, __jsx("title", null, title), __jsx("meta", {
+    name: "theme-color",
+    content: "#df8f0e"
+  }), __jsx("link", {
     rel: "icon",
     href: `${_config_index__WEBPACK_IMPORTED_MODULE_2__[/* URL_CLOUD_STORAGE */ "c"]}/Perro.png`
   }));
@@ -3403,15 +3429,24 @@ const ERROR = 'subcategorias_error';
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return slug; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return slug; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return isMobile; });
 /* harmony import */ var slugify__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("06NB");
 /* harmony import */ var slugify__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(slugify__WEBPACK_IMPORTED_MODULE_0__);
+
 
 function slug(name) {
   return slugify__WEBPACK_IMPORTED_MODULE_0___default()(name, {
     lower: true
   }).replace(/[^\w\-]+/g, '');
 }
+
+function isMobile() {
+  if (window.innerWidth > 860) return false;
+  return navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/BlackBerry/i) || window.innerWidth <= 860;
+}
+
+
 
 /***/ }),
 

@@ -602,14 +602,14 @@ const InfoProducto = props => {
   }, infoProducto_jsx(external_reactstrap_["NavItem"], null, infoProducto_jsx(external_reactstrap_["NavLink"], {
     className: external_classnames_default()({
       active: activeTab === '1'
-    }) + ' ' + infoProducto_module_default.a.nav__item,
+    }),
     onClick: () => {
       toggle('1');
     }
   }, "Descripci\xF3n")), infoProducto_jsx(external_reactstrap_["NavItem"], null, infoProducto_jsx(external_reactstrap_["NavLink"], {
     className: external_classnames_default()({
       active: activeTab === '2'
-    }) + ' ' + infoProducto_module_default.a.nav__item,
+    }),
     onClick: () => {
       toggle('2');
     }
@@ -618,7 +618,7 @@ const InfoProducto = props => {
       backgroundColor: 'white'
     }
   }, infoProducto_jsx("div", {
-    className: "container"
+    className: "container pt-3"
   }, infoProducto_jsx(external_reactstrap_["TabContent"], {
     activeTab: activeTab,
     className: infoProducto_module_default.a.sub__container
@@ -671,7 +671,9 @@ const Producto = props => {
   const router = Object(router_["useRouter"])();
 
   const render = () => {
-    if (props.loading) return _producto_jsx(Loader["a" /* default */], null);
+    if (props.loading) return _producto_jsx("div", {
+      className: "col-12 text-center mt-4"
+    }, _producto_jsx(Loader["a" /* default */], null));
     if (props.error) return _producto_jsx(Error, null);
     const {
       descripcion,
@@ -1047,7 +1049,25 @@ const CardProducto = ({
   imagen,
   prd
 }) => {
-  return __jsx("div", {
+  const procesarNombre = nombre => {
+    let nombreProcesado = nombre;
+
+    if (Object(_helpers_index__WEBPACK_IMPORTED_MODULE_3__[/* isMobile */ "a"])()) {
+      if (nombreProcesado.length > 25) {
+        nombreProcesado = nombre.substring(0, 22) + '...';
+      }
+    } else {
+      if (nombreProcesado.length > 45) {
+        nombreProcesado = nombre.substring(0, 40) + '...';
+      }
+    }
+
+    return nombreProcesado;
+  };
+
+  return __jsx(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
+    href: `${_config_index__WEBPACK_IMPORTED_MODULE_4__[/* PUBLIC_URL */ "b"]}/producto/${Object(_helpers_index__WEBPACK_IMPORTED_MODULE_3__[/* slug */ "b"])(prd.subProducto)}/${prd.idSubProducto}`
+  }, __jsx("a", null, __jsx("div", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.container__producto + ' ' + `my-3`
   }, __jsx("section", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.header__card
@@ -1057,21 +1077,17 @@ const CardProducto = ({
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.img
   })), __jsx("section", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.body__card
-  }, __jsx("h6", {
+  }, __jsx("span", {
+    className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.label__marca + ' ' + `d-block text-muted`
+  }, "Marca"), __jsx("h6", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.nombre__producto + ' ' + `text-muted`
-  }, prd.subProducto), __jsx("span", {
+  }, procesarNombre(prd.subProducto)), __jsx("span", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.cantidad
   }, prd.peso, " KG"), __jsx("h3", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.precio + ' ' + `text-black`
-  }, "$", prd.precioUnidad)), __jsx("section", {
-    className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.footer__card
-  }, __jsx(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: `${_config_index__WEBPACK_IMPORTED_MODULE_4__[/* PUBLIC_URL */ "b"]}/producto/${Object(_helpers_index__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(prd.subProducto)}/${prd.idSubProducto}`
-  }, __jsx("a", {
-    className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.btn_comprar + ' ' + `boton bg-blue`
-  }, "Comprar"))), __jsx("span", {
+  }, "$", prd.precioUnidad)), __jsx("span", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.label__descuento + ' ' + `bg-red`
-  }, "15% Off"));
+  }, "15% Off"))));
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (CardProducto);
@@ -1222,8 +1238,7 @@ module.exports = {
 	"nav__item": "infoProducto_nav__item__2Jwvy",
 	"active": "infoProducto_active__2h4RZ",
 	"sub__container": "infoProducto_sub__container__3frM_",
-	"p": "infoProducto_p__21_wv",
-	"info__detalle__producto": "infoProducto_info__detalle__producto__3GG62"
+	"p": "infoProducto_p__21_wv"
 };
 
 
@@ -2889,7 +2904,10 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 const Header = ({
   title
 }) => {
-  return __jsx(next_head__WEBPACK_IMPORTED_MODULE_1___default.a, null, __jsx("title", null, title), __jsx("link", {
+  return __jsx(next_head__WEBPACK_IMPORTED_MODULE_1___default.a, null, __jsx("title", null, title), __jsx("meta", {
+    name: "theme-color",
+    content: "#df8f0e"
+  }), __jsx("link", {
     rel: "icon",
     href: `${_config_index__WEBPACK_IMPORTED_MODULE_2__[/* URL_CLOUD_STORAGE */ "c"]}/Perro.png`
   }));
@@ -3201,15 +3219,24 @@ module.exports = require("reactstrap");
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return slug; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return slug; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return isMobile; });
 /* harmony import */ var slugify__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("06NB");
 /* harmony import */ var slugify__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(slugify__WEBPACK_IMPORTED_MODULE_0__);
+
 
 function slug(name) {
   return slugify__WEBPACK_IMPORTED_MODULE_0___default()(name, {
     lower: true
   }).replace(/[^\w\-]+/g, '');
 }
+
+function isMobile() {
+  if (window.innerWidth > 860) return false;
+  return navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/BlackBerry/i) || window.innerWidth <= 860;
+}
+
+
 
 /***/ }),
 
