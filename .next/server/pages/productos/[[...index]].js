@@ -893,8 +893,13 @@ var free_solid_svg_icons_ = __webpack_require__("No/t");
 // EXTERNAL MODULE: external "@fortawesome/react-fontawesome"
 var react_fontawesome_ = __webpack_require__("uhWA");
 
+// EXTERNAL MODULE: ./src/components/Filtro/Filtro.module.css
+var Filtro_module = __webpack_require__("PsAh");
+var Filtro_module_default = /*#__PURE__*/__webpack_require__.n(Filtro_module);
+
 // CONCATENATED MODULE: ./src/components/Productos/index.js
 var __jsx = external_react_default.a.createElement;
+
 
 
 
@@ -918,7 +923,7 @@ const Productos = props => {
   }, []);
 
   const showFiltrosMobile = () => {
-    document.getElementsByClassName('Filtro_filtros__contanier__3knXf')[0].classList.add(FiltroStyle.show_filtros);
+    document.getElementsByClassName('Filtro_filtros__contanier__3knXf')[0].classList.add(Filtro_module_default.a.show_filtros);
   };
 
   const getProductos = () => {
@@ -946,7 +951,12 @@ const Productos = props => {
 
     ;
     return props.ordenarProductos(props.subproductos);
-  };
+  }; //ocultar la chapita que indica el nombre del filtro activo cuando se restablecen los filtros.
+
+
+  if (props.location == '/productos' && filtro != '') {
+    setFiltro('');
+  }
 
   return __jsx(external_react_default.a.Fragment, null, props.loading ? __jsx("div", {
     className: "col-12 text-center"
@@ -999,10 +1009,6 @@ const mapStateToProps = reducers => {
 };
 
 /* harmony default export */ var components_Productos = (Object(external_react_redux_["connect"])(mapStateToProps, subproductosActions)(Productos));
-// EXTERNAL MODULE: ./src/components/Filtro/Filtro.module.css
-var Filtro_module = __webpack_require__("PsAh");
-var Filtro_module_default = /*#__PURE__*/__webpack_require__.n(Filtro_module);
-
 // EXTERNAL MODULE: ./src/components/Modal/index.js
 var Modal = __webpack_require__("/Q2I");
 
@@ -1073,6 +1079,10 @@ const ModalMarca_mapStateToProps = reducers => {
 };
 
 /* harmony default export */ var components_ModalMarca = (Object(external_react_redux_["connect"])(ModalMarca_mapStateToProps, marcasActions)(ModalMarca));
+// EXTERNAL MODULE: external "next/router"
+var router_ = __webpack_require__("4Q3z");
+var router_default = /*#__PURE__*/__webpack_require__.n(router_);
+
 // EXTERNAL MODULE: ./store/actions/categoriasAction.js
 var categoriasAction = __webpack_require__("rfcl");
 
@@ -1131,6 +1141,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
 const {
   traerTodas: marcasTraerTodas
 } = marcasActions;
@@ -1174,22 +1185,24 @@ const Filtro = props => {
   }, []);
 
   const getData = async () => {
-    if (props.marcasReducer.marcas.length === 0 && props.categoriasReducer.categorias.length === 0 && props.subcategoriaReducer.subcategorias.length === 0) {
-      try {
+    try {
+      if (props.marcasReducer.marcas.length === 0) {
         await props.marcasTraerTodas();
-        await props.categoriasTraerTodas();
-        await props.subcategoriaTraerTodas();
-
-        if (props.location !== '/productos') {
-          activarFiltroPorUrl();
-        }
-      } catch (error) {
-        console.log(error);
       }
-    } else {
+
+      if (props.categoriasReducer.categorias.length === 0) {
+        await props.categoriasTraerTodas();
+      }
+
+      if (props.subcategoriaReducer.subcategorias.length === 0) {
+        await props.subcategoriaTraerTodas();
+      }
+
       if (props.location !== '/productos') {
         activarFiltroPorUrl();
       }
+    } catch (error) {
+      console.log(error);
     }
   }; //loop de efecto para hacer render cada vez que se agrega o elimina un filtro
 
@@ -1320,6 +1333,10 @@ const Filtro = props => {
             filtrando: false
           }));
           props.subproductosTraerTodos();
+
+          if (props.location != 'productos') {
+            router_default.a.push('/productos');
+          }
         } else {
           setEstadoFiltro(_objectSpread(_objectSpread({}, estadoFiltro), {}, {
             categoria: ''
@@ -1335,6 +1352,10 @@ const Filtro = props => {
             filtrando: false
           }));
           props.subproductosTraerTodos();
+
+          if (props.location != 'productos') {
+            router_default.a.push('/productos');
+          }
         } else {
           setEstadoFiltro(_objectSpread(_objectSpread({}, estadoFiltro), {}, {
             subcategoria: ''
@@ -1349,7 +1370,6 @@ const Filtro = props => {
             marca: '',
             filtrando: false
           }));
-          props.subproductosTraerTodos();
         } else {
           setEstadoFiltro(_objectSpread(_objectSpread({}, estadoFiltro), {}, {
             marca: ''
@@ -1359,7 +1379,6 @@ const Filtro = props => {
         break;
 
       default:
-        props.subproductosTraerTodos();
         setEstadoFiltro({
           filtrando: false,
           categoria: '',
@@ -1367,6 +1386,12 @@ const Filtro = props => {
           marca: '',
           buscador: ''
         });
+        props.subproductosTraerTodos();
+
+        if (props.location != 'productos') {
+          router_default.a.push('/productos');
+        }
+
         break;
     }
   };
@@ -1516,9 +1541,6 @@ const mapDispatchToProps = {
 /* harmony default export */ var components_Filtro = (Object(external_react_redux_["connect"])(Filtro_mapStateToProps, mapDispatchToProps)(Filtro));
 // EXTERNAL MODULE: ./src/components/Buscador/index.js
 var Buscador = __webpack_require__("t6HM");
-
-// EXTERNAL MODULE: external "next/router"
-var router_ = __webpack_require__("4Q3z");
 
 // CONCATENATED MODULE: ./pages/productos/[[...index]].js
 
