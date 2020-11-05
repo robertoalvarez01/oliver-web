@@ -582,17 +582,6 @@ const InfoProducto = props => {
     if (activeTab !== tab) setActiveTab(tab);
   };
 
-  const renderInfoNutricional = txt => {
-    if (!txt) return;
-
-    if (txt.includes('<h3>')) {
-      let h3 = document.createElement('h4');
-      let newTxt = txt.split('h3')[1];
-      h3.append(newTxt);
-      return txt.replace('<h3>   Valor Energético</h3>', h3);
-    }
-  };
-
   return infoProducto_jsx(external_react_default.a.Fragment, null, infoProducto_jsx("section", {
     className: infoProducto_module_default.a.detalles__producto
   }, infoProducto_jsx("div", {
@@ -631,8 +620,11 @@ const InfoProducto = props => {
     tabId: "2"
   }, infoProducto_jsx(external_reactstrap_["Row"], null, infoProducto_jsx(external_reactstrap_["Col"], {
     sm: "12",
-    className: infoProducto_module_default.a.p
-  }, renderInfoNutricional(props.descripcion)))))))));
+    className: infoProducto_module_default.a.p,
+    dangerouslySetInnerHTML: {
+      __html: props.descripcion
+    }
+  }))))))));
 };
 
 /* harmony default export */ var infoProducto = (InfoProducto);
@@ -1010,7 +1002,8 @@ const filtrarProductos = url => async dispatch => {
   });
 
   try {
-    return fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}subproducto?desde=1&limite=5`).then(res => res.json()).then(data => {
+    let urlFiltro = url.includes('buscar?busqueda') ? `subproductos/${url}` : 'subproducto?desde=1&limite=5';
+    return fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}${urlFiltro}`).then(res => res.json()).then(data => {
       dispatch({
         type: _types_subproductosTypes__WEBPACK_IMPORTED_MODULE_1__[/* FILTRANDO */ "b"],
         payload: data.data

@@ -602,7 +602,8 @@ const filtrarProductos = url => async dispatch => {
   });
 
   try {
-    return fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}subproducto?desde=1&limite=5`).then(res => res.json()).then(data => {
+    let urlFiltro = url.includes('buscar?busqueda') ? `subproductos/${url}` : 'subproducto?desde=1&limite=5';
+    return fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}${urlFiltro}`).then(res => res.json()).then(data => {
       dispatch({
         type: _types_subproductosTypes__WEBPACK_IMPORTED_MODULE_1__[/* FILTRANDO */ "b"],
         payload: data.data
@@ -930,7 +931,11 @@ const Productos = props => {
   } = Object(external_react_["useState"])('');
   Object(external_react_["useEffect"])(() => {
     if (props.location !== '/productos') {
-      mostrarSolapaFiltro(props.query.index[0]);
+      if (props.query.search) {
+        mostrarSolapaFiltro(props.query.search);
+      } else {
+        mostrarSolapaFiltro(props.query.index[0]);
+      }
     } else {
       getProductos();
     }
@@ -976,7 +981,7 @@ const Productos = props => {
     setFiltro('');
   }
 
-  return __jsx(external_react_default.a.Fragment, null, props.loading ? __jsx("div", {
+  return __jsx(external_react_default.a.Fragment, null, props.loading || !props.subproductos ? __jsx("div", {
     className: "col-12 text-center"
   }, __jsx(Loader["a" /* default */], null)) : __jsx(external_react_default.a.Fragment, null, filtro !== '' ? __jsx("span", {
     id: "label__filtro-busqueda",
@@ -1230,7 +1235,11 @@ const Filtro = props => {
   }, [estadoFiltro]);
 
   const activarFiltroPorUrl = () => {
-    return activarFiltro(props.query.type, props.query.index[1]);
+    if (props.query.search) {
+      return activarFiltro(Object.keys(props.query)[0], props.query.search);
+    } else {
+      return activarFiltro(props.query.type, props.query.index[1]);
+    }
   };
 
   const activarFiltro = (tipoFiltro, key) => {
@@ -1259,7 +1268,7 @@ const Filtro = props => {
         }));
         break;
 
-      case 'buscador':
+      case 'search':
         setEstadoFiltro(_objectSpread(_objectSpread({}, estadoFiltro), {}, {
           buscador: key,
           filtrando: true
@@ -1424,9 +1433,10 @@ const Filtro = props => {
   };
 
   const armarUrlFiltro = () => {
-    let url = 'filtrar'; //si buscador viene true, es porque viene desde el buscador del menu o modal de buscador(mobile).
+    let url = ''; //si buscador viene true, es porque viene desde el buscador del menu o modal de buscador(mobile).
 
-    if (estadoFiltro.buscador !== '') return url += `?buscar=${estadoFiltro.buscador}`;
+    if (estadoFiltro.buscador !== '') return url += `buscar?busqueda=${estadoFiltro.buscador}`;
+    url += 'filtrar';
     let categoria = estadoFiltro.categoria,
         subcategoria = estadoFiltro.subcategoria,
         marca = estadoFiltro.marca;
@@ -1578,6 +1588,7 @@ var _index_jsx = external_react_default.a.createElement;
 
 const ProductosPage = props => {
   const router = Object(router_["useRouter"])();
+  console.log(router);
   const {
     asPath,
     query
@@ -1585,7 +1596,11 @@ const ProductosPage = props => {
   let tituloSite = 'Oliver - Productos';
 
   if (asPath !== '/productos') {
-    tituloSite = query.index[0].replace("-", " ").replace(/\b\w/g, l => l.toUpperCase()) + ' en OliverPetShop';
+    if (query.search) {
+      tituloSite = query.search + ' en OliverPetShop';
+    } else if (query.index[0]) {
+      tituloSite = query.index[0].replace("-", " ").replace(/\b\w/g, l => l.toUpperCase()) + ' en OliverPetShop';
+    }
   }
 
   return _index_jsx(external_react_default.a.Fragment, null, _index_jsx(Head["a" /* default */], {
@@ -3526,13 +3541,16 @@ const traerTodas = () => async dispatch => {
 /* harmony import */ var styled_jsx_style__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(styled_jsx_style__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("cDcd");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _Modal_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("/Q2I");
-/* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("No/t");
-/* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("uhWA");
-/* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("4Q3z");
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _Modal_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("/Q2I");
+/* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("No/t");
+/* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("uhWA");
+/* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_5__);
 
 var __jsx = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement;
+
 
 
 
@@ -3562,15 +3580,15 @@ const Buscador = () => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    buscador.trim() !== '' ? window.location.assign(`/productos/search/${buscador}`) : false;
+    buscador.trim() !== '' ? next_router__WEBPACK_IMPORTED_MODULE_2___default.a.push(`/productos?search=${buscador}`) : false;
   };
 
   return __jsx(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, __jsx("button", {
     onClick: showModalBuscador,
     className: "jsx-194702073" + " " + "boton__float__search bg-yellow"
-  }, __jsx(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_4__["FontAwesomeIcon"], {
-    icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_3__["faSearch"]
-  })), modalIsOpen ? __jsx(_Modal_index__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"], {
+  }, __jsx(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_5__["FontAwesomeIcon"], {
+    icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_4__["faSearch"]
+  })), modalIsOpen ? __jsx(_Modal_index__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"], {
     closeModal: closeModal
   }, __jsx("form", {
     onSubmit: handleSubmit,

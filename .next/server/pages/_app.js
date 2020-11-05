@@ -279,6 +279,10 @@ var Navbar_module_default = /*#__PURE__*/__webpack_require__.n(Navbar_module);
 var next_link = __webpack_require__("YFqc");
 var link_default = /*#__PURE__*/__webpack_require__.n(next_link);
 
+// EXTERNAL MODULE: external "next/router"
+var router_ = __webpack_require__("4Q3z");
+var router_default = /*#__PURE__*/__webpack_require__.n(router_);
+
 // EXTERNAL MODULE: ./src/components/Modal/index.js
 var Modal = __webpack_require__("/Q2I");
 
@@ -552,6 +556,7 @@ var Navbar_jsx = external_react_default.a.createElement;
 
 
 
+
 const Navbar = () => {
   const {
     0: busqueda,
@@ -609,7 +614,7 @@ const Navbar = () => {
   const handleSubmitBuscador = event => {
     event.preventDefault();
     if (busqueda.trim() === '') return false;
-    return window.location.assign(`/productos/search/${busqueda}`);
+    return router_default.a.push(`/productos?search=${busqueda}`);
   };
 
   const renderContenidoModal = () => {
@@ -738,10 +743,6 @@ const Navbar = () => {
 // EXTERNAL MODULE: external "nprogress"
 var external_nprogress_ = __webpack_require__("GvLQ");
 var external_nprogress_default = /*#__PURE__*/__webpack_require__.n(external_nprogress_);
-
-// EXTERNAL MODULE: external "next/router"
-var router_ = __webpack_require__("4Q3z");
-var router_default = /*#__PURE__*/__webpack_require__.n(router_);
 
 // CONCATENATED MODULE: ./src/components/Layout.js
 
