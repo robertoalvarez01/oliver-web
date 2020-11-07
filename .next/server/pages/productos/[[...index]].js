@@ -547,8 +547,8 @@ const traerPorId = id => async dispatch => {
   try {
     return fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/subproducto/${id}`).then(res => res.json()).then(data => {
       dispatch({
-        type: _types_subproductosTypes__WEBPACK_IMPORTED_MODULE_1__[/* TRAER_TODOS */ "f"],
-        payload: data.data[0]
+        type: _types_subproductosTypes__WEBPACK_IMPORTED_MODULE_1__[/* TRAER_UNO */ "g"],
+        payload: data
       });
     });
   } catch (error) {
@@ -602,7 +602,7 @@ const filtrarProductos = url => async dispatch => {
   });
 
   try {
-    let urlFiltro = url.includes('buscar?busqueda') ? `subproductos/${url}` : 'subproducto?desde=1&limite=5';
+    let urlFiltro = url.includes('buscar?busqueda') ? `subproductos/${url}` : `subproductos/${url}`;
     return fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}${urlFiltro}`).then(res => res.json()).then(data => {
       dispatch({
         type: _types_subproductosTypes__WEBPACK_IMPORTED_MODULE_1__[/* FILTRANDO */ "b"],
@@ -665,14 +665,14 @@ const CardProducto = ({
   }, __jsx("section", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.header__card
   }, __jsx("img", {
-    src: `https://api.oliverpetshop.com.ar/img/` + imagen,
+    src: `${_config_index__WEBPACK_IMPORTED_MODULE_4__[/* URL_CLOUD_STORAGE */ "c"]}/` + imagen,
     alt: "prd",
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.img
   })), __jsx("section", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.body__card
   }, __jsx("span", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.label__marca + ' ' + `d-block text-muted`
-  }, "Marca"), __jsx("h6", {
+  }, prd.marca), __jsx("h6", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.nombre__producto + ' ' + `text-muted`
   }, procesarNombre(prd.subProducto)), __jsx("span", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.cantidad
@@ -1018,7 +1018,7 @@ const Productos = props => {
     className: `boton bg-yellow mt-3 d-none` + ' ' + Productos_module_default.a.boton_filtrar_mobile
   }, "Filtrar")), __jsx("div", {
     className: "row"
-  }, props.subproductos.map(prd => __jsx("div", {
+  }, !props.subproductos ? null : props.subproductos.map(prd => __jsx("div", {
     key: prd.idSubProducto,
     className: "col-6 col-md-3"
   }, __jsx(CardProducto["a" /* default */], {
@@ -1437,24 +1437,21 @@ const Filtro = props => {
 
     if (estadoFiltro.buscador !== '') return url += `buscar?busqueda=${estadoFiltro.buscador}`;
     url += 'filtrar';
-    let categoria = estadoFiltro.categoria,
-        subcategoria = estadoFiltro.subcategoria,
-        marca = estadoFiltro.marca;
 
-    if (categoria && categoria !== '') {
+    if (estadoFiltro.categoria && estadoFiltro.categoria !== '') {
       url += `?categoria=${estadoFiltro.categoria}`;
     }
 
     if (estadoFiltro.subcategoria && estadoFiltro.subcategoria !== '') {
-      if (categoria !== '') {
+      if (estadoFiltro.categoria !== '') {
         url += `&subcategoria=${estadoFiltro.subcategoria}`;
       } else {
         url += `?subcategoria=${estadoFiltro.subcategoria}`;
       }
     }
 
-    if (marca && marca !== '') {
-      if (categoria !== '' && subcategoria !== '') {
+    if (estadoFiltro.marca && estadoFiltro.marca !== '') {
+      if (estadoFiltro.categoria == '' && estadoFiltro.subcategoria == '') {
         url += `?marca=${estadoFiltro.marca}`;
       } else {
         url += `&marca=${estadoFiltro.marca}`;
@@ -2959,6 +2956,7 @@ Router.events = (0, _mitt.default)();
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return TRAER_TODOS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return TRAER_UNO; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return LOADING; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ERROR; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return TRAER_PROMOCIONES; });
@@ -2970,6 +2968,7 @@ const ERROR = 'producto_error';
 const TRAER_PROMOCIONES = 'producto_traer_promociones';
 const ORDENAR_PRODUCTOS = 'producto_ordenarproductos';
 const FILTRANDO = 'producto_filtrando';
+const TRAER_UNO = 'producto_traeruno';
 
 
 /***/ }),
@@ -3228,7 +3227,7 @@ const Header = ({
     content: "#df8f0e"
   }), __jsx("link", {
     rel: "icon",
-    href: `${_config_index__WEBPACK_IMPORTED_MODULE_2__[/* URL_CLOUD_STORAGE */ "c"]}/Perro.png`
+    href: `${_config_index__WEBPACK_IMPORTED_MODULE_2__[/* URL_CLOUD_STORAGE */ "c"]}/static/Perro.png`
   }));
 };
 
@@ -3487,10 +3486,10 @@ module.exports = {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return API; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return PUBLIC_URL; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return URL_CLOUD_STORAGE; });
-const API = 'https://api.oliverpetshop.com.ar/'; //const PUBLIC_URL = 'http://localhost:3000';
+const API = 'https://api.oliverpetshop.com.ar/';
+const PUBLIC_URL = 'http://localhost:3000'; //const PUBLIC_URL = 'https://developers.oliverpetshop.com.ar';
 
-const PUBLIC_URL = 'https://developers.oliverpetshop.com.ar';
-const URL_CLOUD_STORAGE = 'https://storage.googleapis.com/oliver-web/static';
+const URL_CLOUD_STORAGE = 'https://storage.googleapis.com/web-oliver';
 
 
 /***/ }),

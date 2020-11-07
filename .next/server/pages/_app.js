@@ -638,7 +638,7 @@ const Navbar = () => {
   }, Navbar_jsx(link_default.a, {
     href: "/"
   }, Navbar_jsx("a", null, Navbar_jsx("img", {
-    src: `${config["c" /* URL_CLOUD_STORAGE */]}/Perro.png`,
+    src: `${config["c" /* URL_CLOUD_STORAGE */]}/static/Perro.png`,
     className: Navbar_module_default.a.logo + ' ' + `img-fluid`,
     alt: "Oliver pet shop"
   })))), Navbar_jsx("span", {
@@ -679,7 +679,7 @@ const Navbar = () => {
   }, Navbar_jsx("section", {
     className: Navbar_module_default.a.header__collapsed_nav
   }, Navbar_jsx("img", {
-    src: `${config["c" /* URL_CLOUD_STORAGE */]}/Perro.png`,
+    src: `${config["c" /* URL_CLOUD_STORAGE */]}/static/Perro.png`,
     className: Navbar_module_default.a.logo,
     alt: "Oliver pet shop"
   }), Navbar_jsx("i", {
@@ -833,6 +833,7 @@ function subproductosReducer_defineProperty(obj, key, value) { if (key in obj) {
 
 const subproductosReducer_INITIAL_STATE = {
   subproductos: [],
+  subproducto: null,
   promociones: [],
   loading: false,
   error: null
@@ -843,6 +844,12 @@ const subproductosReducer = (state = subproductosReducer_INITIAL_STATE, action) 
     case subproductosTypes["f" /* TRAER_TODOS */]:
       return subproductosReducer_objectSpread(subproductosReducer_objectSpread({}, state), {}, {
         subproductos: action.payload,
+        loading: false
+      });
+
+    case subproductosTypes["g" /* TRAER_UNO */]:
+      return subproductosReducer_objectSpread(subproductosReducer_objectSpread({}, state), {}, {
+        subproducto: action.payload,
         loading: false
       });
 
@@ -2805,6 +2812,7 @@ Router.events = (0, _mitt.default)();
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return TRAER_TODOS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return TRAER_UNO; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return LOADING; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ERROR; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return TRAER_PROMOCIONES; });
@@ -2816,6 +2824,7 @@ const ERROR = 'producto_error';
 const TRAER_PROMOCIONES = 'producto_traer_promociones';
 const ORDENAR_PRODUCTOS = 'producto_ordenarproductos';
 const FILTRANDO = 'producto_filtrando';
+const TRAER_UNO = 'producto_traeruno';
 
 
 /***/ }),
@@ -3414,7 +3423,7 @@ const ProductoCarrito = props => {
   }), __jsx("div", {
     className: ProductoCarrito_module_default.a.img__producto__wrapper
   }, __jsx("img", {
-    src: `${config["a" /* API */]}img/${foto}`,
+    src: `${config["c" /* URL_CLOUD_STORAGE */]}/${foto}`,
     alt: "prd",
     className: "img-fluid"
   })), __jsx("div", {
@@ -3529,10 +3538,10 @@ module.exports = require("redux");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return API; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return PUBLIC_URL; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return URL_CLOUD_STORAGE; });
-const API = 'https://api.oliverpetshop.com.ar/'; //const PUBLIC_URL = 'http://localhost:3000';
+const API = 'https://api.oliverpetshop.com.ar/';
+const PUBLIC_URL = 'http://localhost:3000'; //const PUBLIC_URL = 'https://developers.oliverpetshop.com.ar';
 
-const PUBLIC_URL = 'https://developers.oliverpetshop.com.ar';
-const URL_CLOUD_STORAGE = 'https://storage.googleapis.com/oliver-web/static';
+const URL_CLOUD_STORAGE = 'https://storage.googleapis.com/web-oliver';
 
 
 /***/ }),

@@ -309,20 +309,25 @@ var Loader = __webpack_require__("XOuL");
 var style_ = __webpack_require__("HJQg");
 var style_default = /*#__PURE__*/__webpack_require__.n(style_);
 
+// EXTERNAL MODULE: ./config/index.js
+var config = __webpack_require__("rOcY");
+
 // CONCATENATED MODULE: ./src/components/ProductoSingle/sliderFotos.js
 
 var __jsx = external_react_default.a.createElement;
 
 
+
 const SliderFotosProducto = props => {
-  const setImagenActive = (img, key) => {
+  const setImagenActive = (img, key, peso, precioUnidad, tamaño, idSubProducto, subProducto) => {
     for (let index = 0; index < document.getElementsByClassName('img_small').length; index++) {
       document.getElementsByClassName('img_small')[index].classList.remove('active');
     }
 
     ;
     document.getElementsByClassName('img_small')[key].classList.add('active');
-    document.querySelector('.img__box-grande').src = img;
+    document.querySelector('.img__box-grande').src = `${config["c" /* URL_CLOUD_STORAGE */]}/${img}`;
+    props.changePeso(key, `${peso}`, precioUnidad, `${tamaño}`, idSubProducto, `${subProducto}`);
   };
 
   return __jsx("div", {
@@ -331,20 +336,20 @@ const SliderFotosProducto = props => {
     className: "jsx-2289326465" + " " + "col-12 col-md-4 text-center col__imagenes-chicas pt-5"
   }, props.imagenes.map((img, key) => key == 0 ? __jsx("img", {
     key: key,
-    src: `https://api.oliverpetshop.com.ar/img/${img}`,
+    src: `${config["c" /* URL_CLOUD_STORAGE */]}/${img}`,
     onClick: () => setImagenActive(img, key),
     alt: "prd",
     className: "jsx-2289326465" + " " + "img_small active"
   }) : __jsx("img", {
     key: key,
-    src: img,
-    onClick: () => setImagenActive(img, key),
+    src: `${config["c" /* URL_CLOUD_STORAGE */]}/${img}`,
+    onClick: () => setImagenActive(img, key, `${props.moreProducts[key - 1].peso}`, props.moreProducts[key - 1].precioUnidad, `${props.moreProducts[key - 1].tamaño}`, props.moreProducts[key - 1].idSubProducto, `${props.moreProducts[key - 1].subProducto}`),
     alt: "prd",
     className: "jsx-2289326465" + " " + "img_small"
   }))), __jsx("div", {
     className: "jsx-2289326465" + " " + "col-12 col-md-8 col__imagen-grande"
   }, __jsx("img", {
-    src: `https://api.oliverpetshop.com.ar/img/${props.imagenes[0]}`,
+    src: `${config["c" /* URL_CLOUD_STORAGE */]}/${props.imagenes[0]}`,
     alt: "prd",
     className: "jsx-2289326465" + " " + "img-fluid img__box-grande"
   })), __jsx(style_default.a, {
@@ -386,13 +391,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 const ProductoSingle = props => {
   const {
-    descripcion,
-    descripcion_basica,
-    foto,
     peso,
     precioUnidad,
-    producto,
-    stock,
+    idSubProducto,
     subProducto,
     tamaño
   } = props.subProducto; //console.log(props);
@@ -404,11 +405,17 @@ const ProductoSingle = props => {
       precioUnidad,
       producto,
       tamaño,
-      idSubProducto
+      idSubProducto,
+      marca,
+      subProducto
     } = props.subProducto;
-    guardarProductoEnState(foto, peso, precioUnidad, producto, tamaño, idSubProducto);
+    guardarProductoEnState(foto, peso, precioUnidad, producto, tamaño, idSubProducto, marca, subProducto);
   }, [props.subProducto]);
-  const imagenes = [props.subProducto.foto];
+  const imagenes = [props.subProducto.foto]; //al vector de imagenes, le sumo las imagenes de los productos relacionados al mismo padre
+
+  props.moreProducts.map(datamp => {
+    imagenes.push(datamp.foto);
+  });
   const {
     0: modalIsOpen,
     1: setModalIsOpen
@@ -435,13 +442,7 @@ const ProductoSingle = props => {
     }));
   };
 
-  const changePeso = (index, peso, precio) => {
-    //!!!!revisar//////
-    // setProducto({
-    //     ...producto,
-    //     precio,
-    //     peso
-    // });
+  const changePeso = (index, peso, precio, tamaño, idSubProducto, subProducto) => {
     let cajaPeso = document.getElementsByClassName(ProductoSingle_module_default.a.caja_cantidadKg);
 
     for (let index = 0; index < cajaPeso.length; index++) {
@@ -449,6 +450,25 @@ const ProductoSingle = props => {
     }
 
     cajaPeso[index].classList.add(ProductoSingle_module_default.a.active);
+
+    if (!peso || !precio || !tamaño || !idSubProducto || !subProducto) {
+      return setProductoData(_objectSpread(_objectSpread({}, productoData), {}, {
+        peso: props.subProducto.peso,
+        precio: props.subProducto.precioUnidad,
+        tamaño: props.subProducto.tamaño,
+        idSubProducto: props.subProducto.idSubProducto,
+        subProducto: props.subProducto.subProducto
+      }));
+    }
+
+    ;
+    setProductoData(_objectSpread(_objectSpread({}, productoData), {}, {
+      peso,
+      precio,
+      tamaño,
+      idSubProducto,
+      subProducto
+    }));
   };
 
   const agregarCarrito = async () => {
@@ -460,7 +480,7 @@ const ProductoSingle = props => {
 
   const closeModalCarrito = () => setModalIsOpen(false);
 
-  const guardarProductoEnState = (foto, peso, precioUnidad, producto, tamaño, idSubProducto) => {
+  const guardarProductoEnState = (foto, peso, precioUnidad, producto, tamaño, idSubProducto, marca, subProducto) => {
     setProductoData({
       producto,
       foto,
@@ -468,7 +488,9 @@ const ProductoSingle = props => {
       cantidad: 1,
       precioUnidad,
       tamaño,
-      idSubProducto
+      idSubProducto,
+      marca,
+      subProducto
     });
   };
 
@@ -477,12 +499,14 @@ const ProductoSingle = props => {
   }, ProductoSingle_jsx("div", {
     className: "col-12 col-sm-6"
   }, ProductoSingle_jsx(sliderFotos, {
-    imagenes: imagenes
+    imagenes: imagenes,
+    changePeso: changePeso,
+    moreProducts: props.moreProducts
   })), ProductoSingle_jsx("div", {
     className: `col-12 col-sm-6 pt-5` + ' ' + ProductoSingle_module_default.a.descripcionProducto
   }, ProductoSingle_jsx("h3", {
     className: ProductoSingle_module_default.a.marca
-  }, "PURINA EXCELLENT"), ProductoSingle_jsx("h1", null, subProducto), ProductoSingle_jsx("div", {
+  }, productoData.marca), ProductoSingle_jsx("h1", null, productoData.subProducto), ProductoSingle_jsx("div", {
     className: ProductoSingle_module_default.a.precios + ' ' + `d-flex my-3`
   }, ProductoSingle_jsx("div", {
     className: ProductoSingle_module_default.a.indicador__precio
@@ -496,33 +520,20 @@ const ProductoSingle = props => {
     className: "row justify-content-center"
   }, ProductoSingle_jsx("div", {
     className: ProductoSingle_module_default.a.caja_cantidadKg + ' ' + ProductoSingle_module_default.a.active,
-    onClick: () => changePeso(0, 3, 986)
+    onClick: () => changePeso(0, `${peso}`, precioUnidad, `${tamaño}`, idSubProducto, `${subProducto}`)
   }, ProductoSingle_jsx("p", {
     className: ProductoSingle_module_default.a.kilos
-  }, "3 Kgs"), ProductoSingle_jsx("span", {
+  }, productoData.peso, " Kgs"), ProductoSingle_jsx("span", {
     className: ProductoSingle_module_default.a.precioDelKg
-  }, "$986")), ProductoSingle_jsx("div", {
+  }, "$", productoData.precioUnidad)), props.moreProducts.map((mp, key) => ProductoSingle_jsx("div", {
+    key: key,
     className: ProductoSingle_module_default.a.caja_cantidadKg,
-    onClick: () => changePeso(1, 5, 1200)
+    onClick: () => changePeso(key + 1, `${mp.peso}`, mp.precioUnidad, `${mp.tamaño}`, mp.idSubProducto, `${mp.subProducto}`)
   }, ProductoSingle_jsx("p", {
     className: ProductoSingle_module_default.a.kilos
-  }, "5 Kgs"), ProductoSingle_jsx("span", {
+  }, mp.peso, " Kgs"), ProductoSingle_jsx("span", {
     className: ProductoSingle_module_default.a.precioDelKg
-  }, "$1200")), ProductoSingle_jsx("div", {
-    className: ProductoSingle_module_default.a.caja_cantidadKg,
-    onClick: () => changePeso(2, 9, 1500)
-  }, ProductoSingle_jsx("p", {
-    className: ProductoSingle_module_default.a.kilos
-  }, "9 Kgs"), ProductoSingle_jsx("span", {
-    className: ProductoSingle_module_default.a.precioDelKg
-  }, "$1500")), ProductoSingle_jsx("div", {
-    className: ProductoSingle_module_default.a.caja_cantidadKg,
-    onClick: () => changePeso(3, 11, 2000)
-  }, ProductoSingle_jsx("p", {
-    className: ProductoSingle_module_default.a.kilos
-  }, "11 Kgs"), ProductoSingle_jsx("span", {
-    className: ProductoSingle_module_default.a.precioDelKg
-  }, "$2000"))), ProductoSingle_jsx("div", {
+  }, "$", mp.precioUnidad)))), ProductoSingle_jsx("div", {
     className: "input-group mt-2"
   }, ProductoSingle_jsx("div", {
     className: "input-group-prepend",
@@ -667,12 +678,13 @@ const Producto = props => {
       className: "col-12 text-center mt-4"
     }, _producto_jsx(Loader["a" /* default */], null));
     if (props.error) return _producto_jsx(Error, null);
+    if (!props.subproducto) return null;
     const {
       descripcion,
       descripcion_basica
-    } = props.subproductos;
+    } = props.subproducto.data[0];
     return _producto_jsx(external_react_default.a.Fragment, null, _producto_jsx(Head["a" /* default */], {
-      title: props.subproductos.subProducto
+      title: props.subproducto.data[0].subProducto
     }), _producto_jsx("section", {
       className: "pb-5",
       style: {
@@ -681,7 +693,8 @@ const Producto = props => {
     }, _producto_jsx("div", {
       className: "wrapper__producto container mb-5"
     }, _producto_jsx(components_ProductoSingle, {
-      subProducto: props.subproductos
+      subProducto: props.subproducto.data[0],
+      moreProducts: props.subproducto.moreProducts
     })), _producto_jsx(infoProducto, {
       descripcion: descripcion,
       descripcion_basica: descripcion_basica
@@ -947,8 +960,8 @@ const traerPorId = id => async dispatch => {
   try {
     return fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/subproducto/${id}`).then(res => res.json()).then(data => {
       dispatch({
-        type: _types_subproductosTypes__WEBPACK_IMPORTED_MODULE_1__[/* TRAER_TODOS */ "f"],
-        payload: data.data[0]
+        type: _types_subproductosTypes__WEBPACK_IMPORTED_MODULE_1__[/* TRAER_UNO */ "g"],
+        payload: data
       });
     });
   } catch (error) {
@@ -1002,7 +1015,7 @@ const filtrarProductos = url => async dispatch => {
   });
 
   try {
-    let urlFiltro = url.includes('buscar?busqueda') ? `subproductos/${url}` : 'subproducto?desde=1&limite=5';
+    let urlFiltro = url.includes('buscar?busqueda') ? `subproductos/${url}` : `subproductos/${url}`;
     return fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}${urlFiltro}`).then(res => res.json()).then(data => {
       dispatch({
         type: _types_subproductosTypes__WEBPACK_IMPORTED_MODULE_1__[/* FILTRANDO */ "b"],
@@ -1065,14 +1078,14 @@ const CardProducto = ({
   }, __jsx("section", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.header__card
   }, __jsx("img", {
-    src: `https://api.oliverpetshop.com.ar/img/` + imagen,
+    src: `${_config_index__WEBPACK_IMPORTED_MODULE_4__[/* URL_CLOUD_STORAGE */ "c"]}/` + imagen,
     alt: "prd",
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.img
   })), __jsx("section", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.body__card
   }, __jsx("span", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.label__marca + ' ' + `d-block text-muted`
-  }, "Marca"), __jsx("h6", {
+  }, prd.marca), __jsx("h6", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.nombre__producto + ' ' + `text-muted`
   }, procesarNombre(prd.subProducto)), __jsx("span", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.cantidad
@@ -2581,6 +2594,7 @@ Router.events = (0, _mitt.default)();
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return TRAER_TODOS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return TRAER_UNO; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return LOADING; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ERROR; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return TRAER_PROMOCIONES; });
@@ -2592,6 +2606,7 @@ const ERROR = 'producto_error';
 const TRAER_PROMOCIONES = 'producto_traer_promociones';
 const ORDENAR_PRODUCTOS = 'producto_ordenarproductos';
 const FILTRANDO = 'producto_filtrando';
+const TRAER_UNO = 'producto_traeruno';
 
 
 /***/ }),
@@ -2902,7 +2917,7 @@ const Header = ({
     content: "#df8f0e"
   }), __jsx("link", {
     rel: "icon",
-    href: `${_config_index__WEBPACK_IMPORTED_MODULE_2__[/* URL_CLOUD_STORAGE */ "c"]}/Perro.png`
+    href: `${_config_index__WEBPACK_IMPORTED_MODULE_2__[/* URL_CLOUD_STORAGE */ "c"]}/static/Perro.png`
   }));
 };
 
@@ -3306,7 +3321,7 @@ const ProductoCarrito = props => {
   }), __jsx("div", {
     className: ProductoCarrito_module_default.a.img__producto__wrapper
   }, __jsx("img", {
-    src: `${config["a" /* API */]}img/${foto}`,
+    src: `${config["c" /* URL_CLOUD_STORAGE */]}/${foto}`,
     alt: "prd",
     className: "img-fluid"
   })), __jsx("div", {
@@ -3414,10 +3429,10 @@ module.exports = {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return API; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return PUBLIC_URL; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return URL_CLOUD_STORAGE; });
-const API = 'https://api.oliverpetshop.com.ar/'; //const PUBLIC_URL = 'http://localhost:3000';
+const API = 'https://api.oliverpetshop.com.ar/';
+const PUBLIC_URL = 'http://localhost:3000'; //const PUBLIC_URL = 'https://developers.oliverpetshop.com.ar';
 
-const PUBLIC_URL = 'https://developers.oliverpetshop.com.ar';
-const URL_CLOUD_STORAGE = 'https://storage.googleapis.com/oliver-web/static';
+const URL_CLOUD_STORAGE = 'https://storage.googleapis.com/web-oliver';
 
 
 /***/ }),
