@@ -631,7 +631,10 @@ const filtrarProductos = url => async dispatch => {
 /* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(next_link__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _helpers_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("pRT7");
 /* harmony import */ var _config_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("rOcY");
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("4Q3z");
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_5__);
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
+
 
 
 
@@ -642,6 +645,20 @@ const CardProducto = ({
   imagen,
   prd
 }) => {
+  const {
+    0: isProductoDetalle,
+    1: setIsProductoDetalle
+  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false);
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+    const {
+      router
+    } = next_router__WEBPACK_IMPORTED_MODULE_5___default.a;
+
+    if (router.route == '/producto/[...producto]') {
+      setIsProductoDetalle(true);
+    }
+  }, []);
+
   const procesarNombre = nombre => {
     let nombreProcesado = nombre;
 
@@ -658,14 +675,14 @@ const CardProducto = ({
     return nombreProcesado;
   };
 
-  return __jsx(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
+  return !isProductoDetalle ? __jsx(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
     href: `${_config_index__WEBPACK_IMPORTED_MODULE_4__[/* PUBLIC_URL */ "b"]}/producto/${Object(_helpers_index__WEBPACK_IMPORTED_MODULE_3__[/* slug */ "b"])(prd.subProducto)}/${prd.idSubProducto}`
   }, __jsx("a", null, __jsx("div", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.container__producto + ' ' + `my-3`
   }, __jsx("section", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.header__card
   }, __jsx("img", {
-    src: `${_config_index__WEBPACK_IMPORTED_MODULE_4__[/* URL_CLOUD_STORAGE */ "c"]}/` + imagen,
+    src: imagen,
     alt: "prd",
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.img
   })), __jsx("section", {
@@ -680,7 +697,29 @@ const CardProducto = ({
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.precio + ' ' + `text-black`
   }, "$", prd.precioUnidad)), __jsx("span", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.label__descuento + ' ' + `bg-red`
-  }, "15% Off"))));
+  }, "15% Off")))) : __jsx("a", {
+    href: `${_config_index__WEBPACK_IMPORTED_MODULE_4__[/* PUBLIC_URL */ "b"]}/producto/${Object(_helpers_index__WEBPACK_IMPORTED_MODULE_3__[/* slug */ "b"])(prd.subProducto)}/${prd.idSubProducto}`
+  }, __jsx("div", {
+    className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.container__producto + ' ' + `my-3`
+  }, __jsx("section", {
+    className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.header__card
+  }, __jsx("img", {
+    src: imagen,
+    alt: "prd",
+    className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.img
+  })), __jsx("section", {
+    className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.body__card
+  }, __jsx("span", {
+    className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.label__marca + ' ' + `d-block text-muted`
+  }, prd.marca), __jsx("h6", {
+    className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.nombre__producto + ' ' + `text-muted`
+  }, procesarNombre(prd.subProducto)), __jsx("span", {
+    className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.cantidad
+  }, prd.peso, " KG"), __jsx("h3", {
+    className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.precio + ' ' + `text-black`
+  }, "$", prd.precioUnidad)), __jsx("span", {
+    className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.label__descuento + ' ' + `bg-red`
+  }, "15% Off")));
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (CardProducto);
