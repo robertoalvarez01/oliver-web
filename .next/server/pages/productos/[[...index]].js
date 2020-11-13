@@ -506,119 +506,6 @@ const ERROR = 'categorias_error';
 
 /***/ }),
 
-/***/ "7y+a":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "traerTodos", function() { return traerTodos; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "traerPorId", function() { return traerPorId; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "traerPromociones", function() { return traerPromociones; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ordenarProductos", function() { return ordenarProductos; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "filtrarProductos", function() { return filtrarProductos; });
-/* harmony import */ var _config_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("rOcY");
-/* harmony import */ var _types_subproductosTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("fXWR");
-
-
-const traerTodos = () => async dispatch => {
-  dispatch({
-    type: _types_subproductosTypes__WEBPACK_IMPORTED_MODULE_1__[/* LOADING */ "c"]
-  });
-
-  try {
-    return fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/subproducto?desde=1&limite=30`).then(res => res.json()).then(data => {
-      dispatch({
-        type: _types_subproductosTypes__WEBPACK_IMPORTED_MODULE_1__[/* TRAER_TODOS */ "f"],
-        payload: data.data
-      });
-    });
-  } catch (error) {
-    dispatch({
-      type: _types_subproductosTypes__WEBPACK_IMPORTED_MODULE_1__[/* ERROR */ "a"],
-      payload: error
-    });
-  }
-};
-const traerPorId = id => async dispatch => {
-  dispatch({
-    type: _types_subproductosTypes__WEBPACK_IMPORTED_MODULE_1__[/* LOADING */ "c"]
-  });
-
-  try {
-    return fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/subproducto/${id}`).then(res => res.json()).then(data => {
-      dispatch({
-        type: _types_subproductosTypes__WEBPACK_IMPORTED_MODULE_1__[/* TRAER_UNO */ "g"],
-        payload: data
-      });
-    });
-  } catch (error) {
-    dispatch({
-      type: _types_subproductosTypes__WEBPACK_IMPORTED_MODULE_1__[/* ERROR */ "a"],
-      payload: error
-    });
-  }
-};
-const traerPromociones = () => async dispatch => {
-  dispatch({
-    type: _types_subproductosTypes__WEBPACK_IMPORTED_MODULE_1__[/* LOADING */ "c"]
-  });
-
-  try {
-    return fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/subproducto?desde=1&limite=8`).then(res => res.json()).then(data => {
-      dispatch({
-        type: _types_subproductosTypes__WEBPACK_IMPORTED_MODULE_1__[/* TRAER_PROMOCIONES */ "e"],
-        payload: data.data
-      });
-    });
-  } catch (error) {
-    dispatch({
-      type: _types_subproductosTypes__WEBPACK_IMPORTED_MODULE_1__[/* ERROR */ "a"],
-      payload: error
-    });
-  }
-};
-const ordenarProductos = productosOrdenados => async dispatch => {
-  dispatch({
-    type: _types_subproductosTypes__WEBPACK_IMPORTED_MODULE_1__[/* LOADING */ "c"]
-  });
-
-  try {
-    dispatch({
-      type: _types_subproductosTypes__WEBPACK_IMPORTED_MODULE_1__[/* ORDENAR_PRODUCTOS */ "d"],
-      payload: productosOrdenados
-    });
-  } catch (error) {
-    dispatch({
-      type: _types_subproductosTypes__WEBPACK_IMPORTED_MODULE_1__[/* ERROR */ "a"],
-      payload: error
-    });
-  }
-};
-const filtrarProductos = url => async dispatch => {
-  console.log('filtrando');
-  console.log(url);
-  dispatch({
-    type: _types_subproductosTypes__WEBPACK_IMPORTED_MODULE_1__[/* LOADING */ "c"]
-  });
-
-  try {
-    let urlFiltro = url.includes('buscar?busqueda') ? `subproductos/${url}` : `subproductos/${url}`;
-    return fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}${urlFiltro}`).then(res => res.json()).then(data => {
-      dispatch({
-        type: _types_subproductosTypes__WEBPACK_IMPORTED_MODULE_1__[/* FILTRANDO */ "b"],
-        payload: data.data
-      });
-    });
-  } catch (error) {
-    dispatch({
-      type: _types_subproductosTypes__WEBPACK_IMPORTED_MODULE_1__[/* ERROR */ "a"],
-      payload: error
-    });
-  }
-};
-
-/***/ }),
-
 /***/ "CI6Y":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -676,7 +563,7 @@ const CardProducto = ({
   };
 
   return !isProductoDetalle ? __jsx(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: `${_config_index__WEBPACK_IMPORTED_MODULE_4__[/* PUBLIC_URL */ "b"]}/producto/${Object(_helpers_index__WEBPACK_IMPORTED_MODULE_3__[/* slug */ "b"])(prd.subProducto)}/${prd.idSubProducto}`
+    href: `${_config_index__WEBPACK_IMPORTED_MODULE_4__[/* PUBLIC_URL */ "b"]}/producto/${Object(_helpers_index__WEBPACK_IMPORTED_MODULE_3__[/* slug */ "b"])(prd.producto)}/${prd.idProducto}`
   }, __jsx("a", null, __jsx("div", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.container__producto + ' ' + `my-3`
   }, __jsx("section", {
@@ -691,14 +578,14 @@ const CardProducto = ({
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.label__marca + ' ' + `d-block text-muted`
   }, prd.marca), __jsx("h6", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.nombre__producto + ' ' + `text-muted`
-  }, procesarNombre(prd.subProducto)), __jsx("span", {
+  }, procesarNombre(prd.producto)), prd.peso != null ? __jsx("span", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.cantidad
-  }, prd.peso, " KG"), __jsx("h3", {
+  }, prd.peso, " KG") : null, __jsx("h3", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.precio + ' ' + `text-black`
   }, "$", prd.precioUnidad)), __jsx("span", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.label__descuento + ' ' + `bg-red`
   }, "15% Off")))) : __jsx("a", {
-    href: `${_config_index__WEBPACK_IMPORTED_MODULE_4__[/* PUBLIC_URL */ "b"]}/producto/${Object(_helpers_index__WEBPACK_IMPORTED_MODULE_3__[/* slug */ "b"])(prd.subProducto)}/${prd.idSubProducto}`
+    href: `${_config_index__WEBPACK_IMPORTED_MODULE_4__[/* PUBLIC_URL */ "b"]}/producto/${Object(_helpers_index__WEBPACK_IMPORTED_MODULE_3__[/* slug */ "b"])(prd.producto)}/${prd.idProducto}`
   }, __jsx("div", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.container__producto + ' ' + `my-3`
   }, __jsx("section", {
@@ -713,7 +600,7 @@ const CardProducto = ({
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.label__marca + ' ' + `d-block text-muted`
   }, prd.marca), __jsx("h6", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.nombre__producto + ' ' + `text-muted`
-  }, procesarNombre(prd.subProducto)), __jsx("span", {
+  }, procesarNombre(prd.producto)), __jsx("span", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.cantidad
   }, prd.peso, " KG"), __jsx("h3", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.precio + ' ' + `text-black`
@@ -743,6 +630,28 @@ module.exports = require("styled-jsx/style");
 const TRAER_TODAS = 'marca_traer_todas';
 const LOADING = 'marca_loading';
 const ERROR = 'marca_error';
+
+
+/***/ }),
+
+/***/ "LwYX":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return TRAER_TODOS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return TRAER_UNO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return LOADING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ERROR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return TRAER_PROMOCIONES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return ORDENAR_PRODUCTOS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return FILTRANDO; });
+const TRAER_TODOS = 'producto_traer_todos';
+const LOADING = 'producto_loading';
+const ERROR = 'producto_error';
+const TRAER_PROMOCIONES = 'producto_traer_promociones';
+const ORDENAR_PRODUCTOS = 'producto_ordenarproductos';
+const FILTRANDO = 'producto_filtrando';
+const TRAER_UNO = 'producto_traeruno';
 
 
 /***/ }),
@@ -808,6 +717,119 @@ module.exports = {
 
 "use strict";
 
+
+/***/ }),
+
+/***/ "TVVT":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "traerTodos", function() { return traerTodos; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "traerPorId", function() { return traerPorId; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "traerPromociones", function() { return traerPromociones; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ordenarProductos", function() { return ordenarProductos; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "filtrarProductos", function() { return filtrarProductos; });
+/* harmony import */ var _config_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("rOcY");
+/* harmony import */ var _types_productosTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("LwYX");
+
+
+const traerTodos = () => async dispatch => {
+  dispatch({
+    type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_1__[/* LOADING */ "c"]
+  });
+
+  try {
+    return fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/producto?desde=1&limite=30`).then(res => res.json()).then(data => {
+      dispatch({
+        type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_1__[/* TRAER_TODOS */ "f"],
+        payload: data.data
+      });
+    });
+  } catch (error) {
+    dispatch({
+      type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_1__[/* ERROR */ "a"],
+      payload: error
+    });
+  }
+};
+const traerPorId = id => async dispatch => {
+  dispatch({
+    type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_1__[/* LOADING */ "c"]
+  });
+
+  try {
+    return fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}producto/${id}`).then(res => res.json()).then(data => {
+      dispatch({
+        type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_1__[/* TRAER_UNO */ "g"],
+        payload: data
+      });
+    });
+  } catch (error) {
+    dispatch({
+      type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_1__[/* ERROR */ "a"],
+      payload: error
+    });
+  }
+};
+const traerPromociones = () => async dispatch => {
+  dispatch({
+    type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_1__[/* LOADING */ "c"]
+  });
+
+  try {
+    return fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/producto?desde=1&limite=8`).then(res => res.json()).then(data => {
+      dispatch({
+        type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_1__[/* TRAER_PROMOCIONES */ "e"],
+        payload: data.data
+      });
+    });
+  } catch (error) {
+    dispatch({
+      type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_1__[/* ERROR */ "a"],
+      payload: error
+    });
+  }
+};
+const ordenarProductos = productosOrdenados => async dispatch => {
+  dispatch({
+    type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_1__[/* LOADING */ "c"]
+  });
+
+  try {
+    dispatch({
+      type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_1__[/* ORDENAR_PRODUCTOS */ "d"],
+      payload: productosOrdenados
+    });
+  } catch (error) {
+    dispatch({
+      type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_1__[/* ERROR */ "a"],
+      payload: error
+    });
+  }
+};
+const filtrarProductos = url => async dispatch => {
+  console.log('filtrando');
+  console.log(url);
+  dispatch({
+    type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_1__[/* LOADING */ "c"]
+  });
+
+  try {
+    let urlFiltro = url.includes('buscar?busqueda') ? `productos/${url}` : `productos/filtro/${url}`;
+    return fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}${urlFiltro}`).then(res => res.json()).then(data => {
+      dispatch({
+        type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_1__[/* FILTRANDO */ "b"],
+        payload: data.data
+      });
+    });
+  } catch (error) {
+    dispatch({
+      type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_1__[/* ERROR */ "a"],
+      payload: error
+    });
+  }
+};
 
 /***/ }),
 
@@ -931,8 +953,8 @@ var CardProducto = __webpack_require__("CI6Y");
 // EXTERNAL MODULE: external "react-redux"
 var external_react_redux_ = __webpack_require__("h74D");
 
-// EXTERNAL MODULE: ./store/actions/subproductosActions.js
-var subproductosActions = __webpack_require__("7y+a");
+// EXTERNAL MODULE: ./store/actions/productosActions.js
+var productosActions = __webpack_require__("TVVT");
 
 // EXTERNAL MODULE: ./src/components/Productos/Productos.module.css
 var Productos_module = __webpack_require__("34k4");
@@ -998,13 +1020,13 @@ const Productos = props => {
 
   const handleChangeOrdenProductos = event => {
     if (event.target.value === 'asc') {
-      props.subproductos.sort((a, b) => {
+      props.productos.sort((a, b) => {
         if (a.precioUnidad > b.precioUnidad) return 1;
         if (a.precioUnidad < b.precioUnidad) return -1;
         return 0;
       });
     } else {
-      props.subproductos.sort((a, b) => {
+      props.productos.sort((a, b) => {
         if (a.precioUnidad < b.precioUnidad) return 1;
         if (a.precioUnidad > b.precioUnidad) return -1;
         return 0;
@@ -1012,7 +1034,7 @@ const Productos = props => {
     }
 
     ;
-    return props.ordenarProductos(props.subproductos);
+    return props.ordenarProductos(props.productos);
   }; //ocultar la chapita que indica el nombre del filtro activo cuando se restablecen los filtros.
 
 
@@ -1020,7 +1042,7 @@ const Productos = props => {
     setFiltro('');
   }
 
-  return __jsx(external_react_default.a.Fragment, null, props.loading || !props.subproductos ? __jsx("div", {
+  return __jsx(external_react_default.a.Fragment, null, props.loading || !props.productos ? __jsx("div", {
     className: "col-12 text-center"
   }, __jsx(Loader["a" /* default */], null)) : __jsx(external_react_default.a.Fragment, null, filtro !== '' ? __jsx("span", {
     id: "label__filtro-busqueda",
@@ -1041,7 +1063,7 @@ const Productos = props => {
     className: "text-muted"
   }, __jsx("b", {
     className: "txt-yellow"
-  }, props.subproductos.length), " productos encontrados"), __jsx("div", {
+  }, props.productos.length), " productos encontrados"), __jsx("div", {
     className: Productos_module_default.a.ordenarProductos + ' ' + `d-flex align-items-center`
   }, __jsx("span", {
     className: "txt-yellow text-bold mr-2"
@@ -1057,8 +1079,8 @@ const Productos = props => {
     className: `boton bg-yellow mt-3 d-none` + ' ' + Productos_module_default.a.boton_filtrar_mobile
   }, "Filtrar")), __jsx("div", {
     className: "row"
-  }, !props.subproductos ? null : props.subproductos.map(prd => __jsx("div", {
-    key: prd.idSubProducto,
+  }, !props.productos ? null : props.productos.map(prd => __jsx("div", {
+    key: prd.idProducto,
     className: "col-6 col-md-3"
   }, __jsx(CardProducto["a" /* default */], {
     imagen: prd.foto,
@@ -1067,10 +1089,10 @@ const Productos = props => {
 };
 
 const mapStateToProps = reducers => {
-  return reducers.subproductosReducer;
+  return reducers.productosReducer;
 };
 
-/* harmony default export */ var components_Productos = (Object(external_react_redux_["connect"])(mapStateToProps, subproductosActions)(Productos));
+/* harmony default export */ var components_Productos = (Object(external_react_redux_["connect"])(mapStateToProps, productosActions)(Productos));
 // EXTERNAL MODULE: ./src/components/Modal/index.js
 var Modal = __webpack_require__("/Q2I");
 
@@ -1124,7 +1146,7 @@ const ModalMarca = props => {
   }, ModalMarca_jsx("div", {
     className: "col-6"
   }, ModalMarca_jsx("img", {
-    src: `https://api.oliverpetshop.com.ar/img/` + marca.imagen,
+    src: marca.imagen,
     alt: "marca",
     className: Marca_module_default.a.imgMarca + ' ' + `img-fluid`
   })), ModalMarca_jsx("div", {
@@ -1208,9 +1230,9 @@ const {
   traerTodas: marcasTraerTodas
 } = marcasActions;
 const {
-  filtrarProductos: subproductosFiltrarProductos,
-  traerTodos: subproductosTraerTodos
-} = subproductosActions;
+  filtrarProductos: productosFiltrarProductos,
+  traerTodos: productosTraerTodos
+} = productosActions;
 const {
   traerTodas: categoriasTraerTodas
 } = categoriasAction;
@@ -1384,7 +1406,7 @@ const Filtro = props => {
     if (estadoFiltro.filtrando) {
       let urlFiltro = armarUrlFiltro(); //armo la url que mando a la api para traer los resultados de lo filtrado.
 
-      props.subproductosFiltrarProductos(urlFiltro);
+      props.productosFiltrarProductos(urlFiltro);
     }
 
     ;
@@ -1398,7 +1420,7 @@ const Filtro = props => {
             categoria: '',
             filtrando: false
           }));
-          props.subproductosTraerTodos();
+          props.productosTraerTodos();
 
           if (props.location != 'productos') {
             router_default.a.push('/productos');
@@ -1417,7 +1439,7 @@ const Filtro = props => {
             subcategoria: '',
             filtrando: false
           }));
-          props.subproductosTraerTodos();
+          props.productosTraerTodos();
 
           if (props.location != 'productos') {
             router_default.a.push('/productos');
@@ -1436,7 +1458,7 @@ const Filtro = props => {
             marca: '',
             filtrando: false
           }));
-          props.subproductosTraerTodos();
+          props.productosTraerTodos();
 
           if (props.location != 'productos') {
             router_default.a.push('/productos');
@@ -1457,7 +1479,7 @@ const Filtro = props => {
           marca: '',
           buscador: ''
         });
-        props.subproductosTraerTodos();
+        props.productosTraerTodos();
 
         if (props.location != 'productos') {
           router_default.a.push('/productos');
@@ -1588,13 +1610,13 @@ const Filtro = props => {
 
 const Filtro_mapStateToProps = ({
   marcasReducer,
-  subproductosReducer,
+  productosReducer,
   categoriasReducer,
   subcategoriaReducer
 }) => {
   return {
     marcasReducer,
-    subproductosReducer,
+    productosReducer,
     categoriasReducer,
     subcategoriaReducer
   };
@@ -1602,8 +1624,8 @@ const Filtro_mapStateToProps = ({
 
 const mapDispatchToProps = {
   marcasTraerTodas,
-  subproductosFiltrarProductos,
-  subproductosTraerTodos,
+  productosFiltrarProductos,
+  productosTraerTodos,
   categoriasTraerTodas,
   subcategoriaTraerTodas
 };
@@ -2987,28 +3009,6 @@ class Router {
 
 exports.default = Router;
 Router.events = (0, _mitt.default)();
-
-/***/ }),
-
-/***/ "fXWR":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return TRAER_TODOS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return TRAER_UNO; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return LOADING; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ERROR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return TRAER_PROMOCIONES; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return ORDENAR_PRODUCTOS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return FILTRANDO; });
-const TRAER_TODOS = 'producto_traer_todos';
-const LOADING = 'producto_loading';
-const ERROR = 'producto_error';
-const TRAER_PROMOCIONES = 'producto_traer_promociones';
-const ORDENAR_PRODUCTOS = 'producto_ordenarproductos';
-const FILTRANDO = 'producto_filtrando';
-const TRAER_UNO = 'producto_traeruno';
-
 
 /***/ }),
 

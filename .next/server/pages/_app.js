@@ -820,64 +820,64 @@ const marcasReducer = (state = INITIAL_STATE, action) => {
 };
 
 /* harmony default export */ var reducers_marcasReducer = (marcasReducer);
-// EXTERNAL MODULE: ./store/types/subproductosTypes.js
-var subproductosTypes = __webpack_require__("fXWR");
+// EXTERNAL MODULE: ./store/types/productosTypes.js
+var productosTypes = __webpack_require__("LwYX");
 
-// CONCATENATED MODULE: ./store/reducers/subproductosReducer.js
-function subproductosReducer_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+// CONCATENATED MODULE: ./store/reducers/productosReducer.js
+function productosReducer_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function subproductosReducer_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { subproductosReducer_ownKeys(Object(source), true).forEach(function (key) { subproductosReducer_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { subproductosReducer_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function productosReducer_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { productosReducer_ownKeys(Object(source), true).forEach(function (key) { productosReducer_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { productosReducer_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-function subproductosReducer_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function productosReducer_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
-const subproductosReducer_INITIAL_STATE = {
-  subproductos: [],
-  subproducto: null,
+const productosReducer_INITIAL_STATE = {
+  productos: [],
+  producto: null,
   promociones: [],
   loading: false,
   error: null
 };
 
-const subproductosReducer = (state = subproductosReducer_INITIAL_STATE, action) => {
+const subproductosReducer = (state = productosReducer_INITIAL_STATE, action) => {
   switch (action.type) {
-    case subproductosTypes["f" /* TRAER_TODOS */]:
-      return subproductosReducer_objectSpread(subproductosReducer_objectSpread({}, state), {}, {
-        subproductos: action.payload,
+    case productosTypes["f" /* TRAER_TODOS */]:
+      return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
+        productos: action.payload,
         loading: false
       });
 
-    case subproductosTypes["g" /* TRAER_UNO */]:
-      return subproductosReducer_objectSpread(subproductosReducer_objectSpread({}, state), {}, {
-        subproducto: action.payload,
+    case productosTypes["g" /* TRAER_UNO */]:
+      return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
+        producto: action.payload,
         loading: false
       });
 
-    case subproductosTypes["e" /* TRAER_PROMOCIONES */]:
-      return subproductosReducer_objectSpread(subproductosReducer_objectSpread({}, state), {}, {
+    case productosTypes["e" /* TRAER_PROMOCIONES */]:
+      return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
         promociones: action.payload,
         loading: false
       });
 
-    case subproductosTypes["d" /* ORDENAR_PRODUCTOS */]:
-      return subproductosReducer_objectSpread(subproductosReducer_objectSpread({}, state), {}, {
-        subproductos: action.payload,
+    case productosTypes["d" /* ORDENAR_PRODUCTOS */]:
+      return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
+        productos: action.payload,
         loading: false
       });
 
-    case subproductosTypes["b" /* FILTRANDO */]:
-      return subproductosReducer_objectSpread(subproductosReducer_objectSpread({}, state), {}, {
-        subproductos: action.payload,
+    case productosTypes["b" /* FILTRANDO */]:
+      return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
+        productos: action.payload,
         loading: false
       });
 
-    case subproductosTypes["c" /* LOADING */]:
-      return subproductosReducer_objectSpread(subproductosReducer_objectSpread({}, state), {}, {
+    case productosTypes["c" /* LOADING */]:
+      return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
         loading: true
       });
 
-    case subproductosTypes["a" /* ERROR */]:
-      return subproductosReducer_objectSpread(subproductosReducer_objectSpread({}, state), {}, {
+    case productosTypes["a" /* ERROR */]:
+      return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
         loading: false,
         error: action.payload
       });
@@ -887,7 +887,7 @@ const subproductosReducer = (state = subproductosReducer_INITIAL_STATE, action) 
   }
 };
 
-/* harmony default export */ var reducers_subproductosReducer = (subproductosReducer);
+/* harmony default export */ var productosReducer = (subproductosReducer);
 // EXTERNAL MODULE: ./store/types/carritoTypes.js
 var carritoTypes = __webpack_require__("kqUl");
 
@@ -1040,7 +1040,7 @@ const subcategoriasReducer = (state = subcategoriasReducer_INITIAL_STATE, action
 
 /* harmony default export */ var reducers = (Object(external_redux_["combineReducers"])({
   marcasReducer: reducers_marcasReducer,
-  subproductosReducer: reducers_subproductosReducer,
+  productosReducer: productosReducer,
   carritoReducer: reducers_carritoReducer,
   categoriasReducer: reducers_categoriasReducer,
   subcategoriaReducer: reducers_subcategoriasReducer
@@ -1388,6 +1388,28 @@ module.exports = require("next-redux-wrapper");
 /***/ (function(module, exports) {
 
 module.exports = require("@fortawesome/free-brands-svg-icons");
+
+/***/ }),
+
+/***/ "LwYX":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return TRAER_TODOS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return TRAER_UNO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return LOADING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ERROR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return TRAER_PROMOCIONES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return ORDENAR_PRODUCTOS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return FILTRANDO; });
+const TRAER_TODOS = 'producto_traer_todos';
+const LOADING = 'producto_loading';
+const ERROR = 'producto_error';
+const TRAER_PROMOCIONES = 'producto_traer_promociones';
+const ORDENAR_PRODUCTOS = 'producto_ordenarproductos';
+const FILTRANDO = 'producto_filtrando';
+const TRAER_UNO = 'producto_traeruno';
+
 
 /***/ }),
 
@@ -2807,28 +2829,6 @@ Router.events = (0, _mitt.default)();
 
 /***/ }),
 
-/***/ "fXWR":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return TRAER_TODOS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return TRAER_UNO; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return LOADING; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ERROR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return TRAER_PROMOCIONES; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return ORDENAR_PRODUCTOS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return FILTRANDO; });
-const TRAER_TODOS = 'producto_traer_todos';
-const LOADING = 'producto_loading';
-const ERROR = 'producto_error';
-const TRAER_PROMOCIONES = 'producto_traer_promociones';
-const ORDENAR_PRODUCTOS = 'producto_ordenarproductos';
-const FILTRANDO = 'producto_filtrando';
-const TRAER_UNO = 'producto_traeruno';
-
-
-/***/ }),
-
 /***/ "faye":
 /***/ (function(module, exports) {
 
@@ -3388,9 +3388,6 @@ var Carrito_module_default = /*#__PURE__*/__webpack_require__.n(Carrito_module);
 var ProductoCarrito_module = __webpack_require__("eD2A");
 var ProductoCarrito_module_default = /*#__PURE__*/__webpack_require__.n(ProductoCarrito_module);
 
-// EXTERNAL MODULE: ./config/index.js
-var config = __webpack_require__("rOcY");
-
 // EXTERNAL MODULE: external "@fortawesome/free-solid-svg-icons"
 var free_solid_svg_icons_ = __webpack_require__("No/t");
 
@@ -3399,7 +3396,6 @@ var react_fontawesome_ = __webpack_require__("uhWA");
 
 // CONCATENATED MODULE: ./src/components/Carrito/ProductoCarrito.js
 var __jsx = external_react_default.a.createElement;
-
 
 
 
@@ -3423,7 +3419,7 @@ const ProductoCarrito = props => {
   }), __jsx("div", {
     className: ProductoCarrito_module_default.a.img__producto__wrapper
   }, __jsx("img", {
-    src: `${config["c" /* URL_CLOUD_STORAGE */]}/${foto}`,
+    src: foto,
     alt: "prd",
     className: "img-fluid"
   })), __jsx("div", {
