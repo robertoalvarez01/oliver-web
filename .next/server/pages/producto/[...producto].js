@@ -367,6 +367,9 @@ var Carrito = __webpack_require__("qC+Y");
 var ProductoSingle_module = __webpack_require__("lZUM");
 var ProductoSingle_module_default = /*#__PURE__*/__webpack_require__.n(ProductoSingle_module);
 
+// EXTERNAL MODULE: ./config/index.js
+var config = __webpack_require__("rOcY");
+
 // CONCATENATED MODULE: ./src/components/ProductoSingle/index.js
 var ProductoSingle_jsx = external_react_default.a.createElement;
 
@@ -385,28 +388,27 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
 const ProductoSingle = props => {
-  const {
-    peso,
-    precioUnidad,
-    idSubProducto,
-    subProducto,
-    tamaño
-  } = props.subProductos[0];
   Object(external_react_["useEffect"])(() => {
-    const {
-      foto,
-      peso,
-      precioUnidad,
-      tamaño,
-      idSubProducto,
-      subProducto
-    } = props.subProductos[0];
     const {
       marca,
       producto
     } = props.producto;
-    guardarProductoEnState(foto, peso, precioUnidad, producto, tamaño, idSubProducto, marca, subProducto);
+
+    if (props.subProductos.length > 0) {
+      const {
+        foto,
+        peso,
+        precioUnidad,
+        tamaño,
+        idSubProducto,
+        subProducto
+      } = props.subProductos[0];
+      guardarProductoEnState(foto, peso, precioUnidad, producto, tamaño, idSubProducto, marca, subProducto);
+    } else {
+      guardarProductoEnState(`${config["c" /* URL_CLOUD_STORAGE */]}/sin-imagen.png`, null, null, producto, null, null, marca, null);
+    }
   }, [props.producto]);
   const imagenes = []; //al vector de imagenes, le sumo las imagenes de los productos relacionados al mismo padre
 
@@ -517,7 +519,7 @@ const ProductoSingle = props => {
   }, props.subProductos.map((mp, key) => key == 0 ? ProductoSingle_jsx("div", {
     key: key,
     className: ProductoSingle_module_default.a.caja_cantidadKg + ' ' + ProductoSingle_module_default.a.active,
-    onClick: () => changePeso(key, `${peso}`, precioUnidad, `${tamaño}`, idSubProducto, `${subProducto}`)
+    onClick: () => changePeso(key, `${mp.peso}`, mp.precioUnidad, `${mp.tamaño}`, mp.idSubProducto, `${mp.subProducto}`)
   }, ProductoSingle_jsx("p", {
     className: ProductoSingle_module_default.a.kilos
   }, mp.peso, " Kgs"), ProductoSingle_jsx("span", {

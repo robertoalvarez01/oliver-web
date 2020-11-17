@@ -257,6 +257,13 @@ module.exports = {
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
+// NAMESPACE OBJECT: ./store/actions/usuarioActions.js
+var usuarioActions_namespaceObject = {};
+__webpack_require__.r(usuarioActions_namespaceObject);
+__webpack_require__.d(usuarioActions_namespaceObject, "login", function() { return usuarioActions_login; });
+__webpack_require__.d(usuarioActions_namespaceObject, "logout", function() { return logout; });
+__webpack_require__.d(usuarioActions_namespaceObject, "verificarSesion", function() { return verificarSesion; });
+
 // EXTERNAL MODULE: external "react"
 var external_react_ = __webpack_require__("cDcd");
 var external_react_default = /*#__PURE__*/__webpack_require__.n(external_react_);
@@ -303,6 +310,110 @@ const Error = ({
 var Login_module = __webpack_require__("yym0");
 var Login_module_default = /*#__PURE__*/__webpack_require__.n(Login_module);
 
+// EXTERNAL MODULE: ./src/components/Loader/index.js
+var Loader = __webpack_require__("XOuL");
+
+// EXTERNAL MODULE: external "react-redux"
+var external_react_redux_ = __webpack_require__("h74D");
+
+// EXTERNAL MODULE: ./config/index.js
+var config = __webpack_require__("rOcY");
+
+// CONCATENATED MODULE: ./store/types/usuarioTypes.js
+const VERIFICAR_SESION = 'usuario_verificarsesion';
+const LOGIN = 'usuario_login';
+const LOGOUT = 'usuario_logout';
+const LOADING = 'usuario_loading';
+const ERROR = 'usuario_error';
+
+// CONCATENATED MODULE: ./store/actions/usuarioActions.js
+
+
+const usuarioActions_login = data => async dispatch => {
+  dispatch({
+    type: LOADING
+  });
+
+  try {
+    if (data.email.trim() === '' || data.password.trim() === '') {
+      return dispatch({
+        type: ERROR,
+        payload: 'Es necesario completar todos los campos'
+      });
+    }
+
+    let headers = new Headers();
+    headers.append("Content-Type", "application/json");
+    return fetch(`${config["a" /* API */]}/login`, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers
+    }).then(res => res.json()).then(response => {
+      if (response.ok) {
+        let objUsuario = {
+          nombre: response.usuario.nombre,
+          email: response.usuario.email,
+          foto: response.usuario.foto
+        };
+        localStorage.setItem('oliverpetshop_usuario', JSON.stringify(objUsuario));
+        dispatch({
+          type: LOGIN,
+          payload: localStorage.getItem('oliverpetshop_usuario')
+        });
+      } else {
+        return dispatch({
+          type: ERROR,
+          payload: response.info
+        });
+      }
+    });
+  } catch (error) {
+    console.log(error);
+    return dispatch({
+      type: ERROR,
+      payload: error
+    });
+  }
+};
+const logout = () => async dispatch => {
+  dispatch({
+    type: LOADING
+  });
+
+  try {
+    localStorage.removeItem('oliverpetshop_usuario');
+    return dispatch({
+      type: LOGOUT
+    });
+  } catch (error) {
+    dispatch({
+      type: ERROR,
+      payload: error
+    });
+  }
+};
+const verificarSesion = () => async dispatch => {
+  try {
+    let dataUsuario = localStorage.getItem('oliverpetshop_usuario');
+
+    if (dataUsuario) {
+      return dispatch({
+        type: VERIFICAR_SESION,
+        payload: true
+      });
+    }
+
+    return dispatch({
+      type: VERIFICAR_SESION,
+      payload: false
+    });
+  } catch (error) {
+    dispatch({
+      type: ERROR,
+      payload: error
+    });
+  }
+};
 // CONCATENATED MODULE: ./src/components/Login/index.js
 var Login_jsx = external_react_default.a.createElement;
 
@@ -316,6 +427,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
+
+
 const Login = props => {
   const {
     0: formLoginValues,
@@ -324,10 +438,6 @@ const Login = props => {
     email: '',
     password: ''
   });
-  const {
-    0: error,
-    1: setError
-  } = Object(external_react_["useState"])(false);
 
   const handleChangeLogin = event => {
     setFormLoginValues(_objectSpread(_objectSpread({}, formLoginValues), {}, {
@@ -336,28 +446,31 @@ const Login = props => {
   };
 
   const handleSubmitLogin = event => {
-    event.preventDefault();
+    event.preventDefault(); //let btnSubmit = document.querySelector('#form-login .boton');
+    //btnSubmit.setAttribute('disabled',true);
 
-    if (formLoginValues.email.trim() === '' || formLoginValues.password.trim() === '') {
-      setError('Es necesario completar todos los campos');
-      return false;
-    }
-
-    setError(false);
-    return true;
+    return props.login(formLoginValues);
   };
 
   const habilitarRegister = () => {
     props.showRegister();
-  };
+  }; //console.log(props);
+
 
   return Login_jsx("div", {
     className: Login_module_default.a.login__container
   }, Login_jsx("h6", {
     className: Login_module_default.a.title__login + ' ' + `text-center`
-  }, "Ingres\xE1 a tu cuenta"), error ? Login_jsx(components_Error, {
-    message: error
-  }) : null, Login_jsx("form", {
+  }, "Ingres\xE1 a tu cuenta"), props.error ? Login_jsx(components_Error, {
+    message: props.error
+  }) : null, props.loading ? Login_jsx("div", {
+    className: "text-center"
+  }, Login_jsx(Loader["a" /* default */], null)) : null, props.logueado ? Login_jsx("div", null, Login_jsx("div", {
+    className: "text-center alert alert-success"
+  }, "Bienvenido/a ", props.usuario.nombre), Login_jsx("a", {
+    href: "/",
+    className: "boton bg-yellow mb-1"
+  }, "Continuar")) : Login_jsx(external_react_default.a.Fragment, null, Login_jsx("form", {
     className: Login_module_default.a.form + ' ' + `form-group`,
     name: "form-login",
     id: "form-login",
@@ -396,10 +509,14 @@ const Login = props => {
   }, "\xBFNo tenes cuenta?", Login_jsx("span", {
     className: Login_module_default.a.registerLink,
     onClick: habilitarRegister
-  }, " Registrate"))));
+  }, " Registrate")))));
 };
 
-/* harmony default export */ var components_Login = (Login);
+const mapStateToProps = reducers => {
+  return reducers.usuarioReducer;
+};
+
+/* harmony default export */ var components_Login = (Object(external_react_redux_["connect"])(mapStateToProps, usuarioActions_namespaceObject)(Login));
 // CONCATENATED MODULE: ./src/components/Login/Register.js
 var Register_jsx = external_react_default.a.createElement;
 
@@ -539,9 +656,6 @@ var free_brands_svg_icons_ = __webpack_require__("JVe5");
 // EXTERNAL MODULE: external "@fortawesome/react-fontawesome"
 var react_fontawesome_ = __webpack_require__("uhWA");
 
-// EXTERNAL MODULE: ./config/index.js
-var config = __webpack_require__("rOcY");
-
 // CONCATENATED MODULE: ./src/components/Navbar/index.js
 var Navbar_jsx = external_react_default.a.createElement;
 
@@ -557,7 +671,12 @@ var Navbar_jsx = external_react_default.a.createElement;
 
 
 
-const Navbar = () => {
+
+
+const Navbar = props => {
+  Object(external_react_["useEffect"])(() => {
+    props.verificarSesion();
+  }, []);
   const {
     0: busqueda,
     1: setBusqueda
@@ -577,7 +696,8 @@ const Navbar = () => {
   const {
     0: modalIsOpen,
     1: setModalIsOpen
-  } = Object(external_react_["useState"])(false); //actions login-register
+  } = Object(external_react_["useState"])(false);
+  const location = Object(router_["useRouter"])(); //actions login-register
 
   const showModalLogin = () => {
     register ? setRegister(false) : null;
@@ -614,7 +734,12 @@ const Navbar = () => {
   const handleSubmitBuscador = event => {
     event.preventDefault();
     if (busqueda.trim() === '') return false;
-    return router_default.a.push(`/productos?search=${busqueda}`);
+
+    if (location.pathname == '/') {
+      return router_default.a.push(`/productos?search=${busqueda}`);
+    }
+
+    return window.location.assign(`/productos?search=${busqueda}`);
   };
 
   const renderContenidoModal = () => {
@@ -625,6 +750,13 @@ const Navbar = () => {
       showLogin: showModalLogin
     });
     if (carrito) return Navbar_jsx(Carrito["a" /* default */], null);
+  };
+
+  const cerrarSesion = async () => {
+    await props.logout();
+    setTimeout(() => {
+      return showModalLogin();
+    }, 800);
   };
 
   return Navbar_jsx(external_react_default.a.Fragment, null, Navbar_jsx("div", {
@@ -663,7 +795,15 @@ const Navbar = () => {
     placeholder: "\xBFQu\xE9 andas buscando?"
   })), Navbar_jsx("div", {
     className: Navbar_module_default.a.container__login_menu + ' ' + `col-sm-7 col-xl-4 col-md-4 d-flex align-items-center justify-content-end`
+  }, props.logueado ? Navbar_jsx("span", {
+    onClick: cerrarSesion,
+    className: Navbar_module_default.a.boton__menu + ' ' + Navbar_module_default.a.btn_account
   }, Navbar_jsx("span", {
+    className: Navbar_module_default.a.txt__item_menu
+  }, Navbar_jsx(react_fontawesome_["FontAwesomeIcon"], {
+    icon: free_solid_svg_icons_["faSignOutAlt"],
+    className: Navbar_module_default.a.txt__item_menu
+  }), " Cerrar Sesi\xF3n")) : Navbar_jsx("span", {
     onClick: showModalLogin,
     className: Navbar_module_default.a.boton__menu + ' ' + Navbar_module_default.a.btn_account
   }, Navbar_jsx("span", {
@@ -699,15 +839,7 @@ const Navbar = () => {
     className: Navbar_module_default.a.icon__itemMenu__collapsed
   }), Navbar_jsx("span", {
     className: Navbar_module_default.a.label__item__menu
-  }, "Inicio")))), Navbar_jsx("li", {
-    className: Navbar_module_default.a.item__menu__collapsed,
-    onClick: showModalLogin
-  }, Navbar_jsx(react_fontawesome_["FontAwesomeIcon"], {
-    icon: free_solid_svg_icons_["faUser"],
-    className: Navbar_module_default.a.icon__itemMenu__collapsed
-  }), Navbar_jsx("span", {
-    className: Navbar_module_default.a.label__item__menu
-  }, "Ingres\xE1 ahora / Registrate")), Navbar_jsx(link_default.a, {
+  }, "Inicio")))), Navbar_jsx(link_default.a, {
     href: "/",
     onClick: toggleMenu
   }, Navbar_jsx("a", null, Navbar_jsx("li", {
@@ -717,7 +849,23 @@ const Navbar = () => {
     className: Navbar_module_default.a.icon__itemMenu__collapsed
   }), Navbar_jsx("span", {
     className: Navbar_module_default.a.label__item__menu
-  }, "Productos")))), Navbar_jsx("li", {
+  }, "Productos")))), props.logueado ? Navbar_jsx("li", {
+    className: Navbar_module_default.a.item__menu__collapsed,
+    onClick: cerrarSesion
+  }, Navbar_jsx(react_fontawesome_["FontAwesomeIcon"], {
+    icon: free_solid_svg_icons_["faUser"],
+    className: Navbar_module_default.a.icon__itemMenu__collapsed
+  }), Navbar_jsx("span", {
+    className: Navbar_module_default.a.label__item__menu
+  }, "Cerrar sesi\xF3n")) : Navbar_jsx("li", {
+    className: Navbar_module_default.a.item__menu__collapsed,
+    onClick: showModalLogin
+  }, Navbar_jsx(react_fontawesome_["FontAwesomeIcon"], {
+    icon: free_solid_svg_icons_["faUser"],
+    className: Navbar_module_default.a.icon__itemMenu__collapsed
+  }), Navbar_jsx("span", {
+    className: Navbar_module_default.a.label__item__menu
+  }, "Ingres\xE1 ahora / Registrate")), Navbar_jsx("li", {
     className: Navbar_module_default.a.item__menu__collapsed + ' ' + Navbar_module_default.a.__withButton
   }, Navbar_jsx("a", {
     href: "/",
@@ -739,7 +887,11 @@ const Navbar = () => {
   }, renderContenidoModal()));
 };
 
-/* harmony default export */ var components_Navbar = (Navbar);
+const Navbar_mapStateToProps = reducers => {
+  return reducers.usuarioReducer;
+};
+
+/* harmony default export */ var components_Navbar = (Object(external_react_redux_["connect"])(Navbar_mapStateToProps, usuarioActions_namespaceObject)(Navbar));
 // EXTERNAL MODULE: external "nprogress"
 var external_nprogress_ = __webpack_require__("GvLQ");
 var external_nprogress_default = /*#__PURE__*/__webpack_require__.n(external_nprogress_);
@@ -762,9 +914,6 @@ const Layout = props => {
 };
 
 /* harmony default export */ var components_Layout = (Layout);
-// EXTERNAL MODULE: external "react-redux"
-var external_react_redux_ = __webpack_require__("h74D");
-
 // EXTERNAL MODULE: external "next-redux-wrapper"
 var external_next_redux_wrapper_ = __webpack_require__("JMOJ");
 
@@ -1031,7 +1180,64 @@ const subcategoriasReducer = (state = subcategoriasReducer_INITIAL_STATE, action
 };
 
 /* harmony default export */ var reducers_subcategoriasReducer = (subcategoriasReducer);
+// CONCATENATED MODULE: ./store/reducers/usuarioReducer.js
+function usuarioReducer_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function usuarioReducer_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { usuarioReducer_ownKeys(Object(source), true).forEach(function (key) { usuarioReducer_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { usuarioReducer_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function usuarioReducer_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+const usuarioReducer_INITIAL_STATE = {
+  usuario: null,
+  logueado: false,
+  loading: false,
+  error: null
+};
+
+const usuarioReducer = (state = usuarioReducer_INITIAL_STATE, action) => {
+  switch (action.type) {
+    case VERIFICAR_SESION:
+      return usuarioReducer_objectSpread(usuarioReducer_objectSpread({}, state), {}, {
+        logueado: action.payload,
+        loading: false
+      });
+
+    case LOGIN:
+      return usuarioReducer_objectSpread(usuarioReducer_objectSpread({}, state), {}, {
+        logueado: true,
+        loading: false,
+        error: null,
+        usuario: JSON.parse(action.payload)
+      });
+
+    case LOGOUT:
+      return usuarioReducer_objectSpread(usuarioReducer_objectSpread({}, state), {}, {
+        usuario: null,
+        logueado: false,
+        loading: false
+      });
+
+    case LOADING:
+      return usuarioReducer_objectSpread(usuarioReducer_objectSpread({}, state), {}, {
+        loading: true
+      });
+
+    case ERROR:
+      return usuarioReducer_objectSpread(usuarioReducer_objectSpread({}, state), {}, {
+        logueado: false,
+        loading: false,
+        error: action.payload
+      });
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ var reducers_usuarioReducer = (usuarioReducer);
 // CONCATENATED MODULE: ./store/reducers/index.js
+
 
 
 
@@ -1043,7 +1249,8 @@ const subcategoriasReducer = (state = subcategoriasReducer_INITIAL_STATE, action
   productosReducer: productosReducer,
   carritoReducer: reducers_carritoReducer,
   categoriasReducer: reducers_categoriasReducer,
-  subcategoriaReducer: reducers_subcategoriasReducer
+  subcategoriaReducer: reducers_subcategoriasReducer,
+  usuarioReducer: reducers_usuarioReducer
 }));
 // CONCATENATED MODULE: ./store/index.js
 
@@ -1472,6 +1679,38 @@ function removePathTrailingSlash(path) {
 
 const normalizePathTrailingSlash =  false ? undefined : removePathTrailingSlash;
 exports.normalizePathTrailingSlash = normalizePathTrailingSlash;
+
+/***/ }),
+
+/***/ "XOuL":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var styled_jsx_style__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("HJQg");
+/* harmony import */ var styled_jsx_style__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(styled_jsx_style__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("cDcd");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+
+var __jsx = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement;
+
+
+const Loader = props => {
+  return __jsx("div", {
+    className: "jsx-3824642466" + " " + "lds-ring"
+  }, __jsx("div", {
+    className: "jsx-3824642466"
+  }), __jsx("div", {
+    className: "jsx-3824642466"
+  }), __jsx("div", {
+    className: "jsx-3824642466"
+  }), __jsx("div", {
+    className: "jsx-3824642466"
+  }), __jsx(styled_jsx_style__WEBPACK_IMPORTED_MODULE_0___default.a, {
+    id: "3824642466"
+  }, [".lds-ring.jsx-3824642466{display:inline-block;position:relative;width:80px;height:80px;}", ".lds-ring.jsx-3824642466 div.jsx-3824642466{box-sizing:border-box;display:block;position:absolute;width:54px;height:54px;margin:8px;border:7px solid #fff;border-radius:50%;-webkit-animation:lds-ring-jsx-3824642466 1.2s cubic-bezier(0.5,0,0.5,1) infinite;animation:lds-ring-jsx-3824642466 1.2s cubic-bezier(0.5,0,0.5,1) infinite;border-color:#FFB347 transparent transparent transparent;}", ".lds-ring.jsx-3824642466 div.jsx-3824642466:nth-child(1){-webkit-animation-delay:-0.45s;animation-delay:-0.45s;}", ".lds-ring.jsx-3824642466 div.jsx-3824642466:nth-child(2){-webkit-animation-delay:-0.3s;animation-delay:-0.3s;}", ".lds-ring.jsx-3824642466 div.jsx-3824642466:nth-child(3){-webkit-animation-delay:-0.15s;animation-delay:-0.15s;}", "@-webkit-keyframes lds-ring-jsx-3824642466{0%{-webkit-transform:rotate(0deg);-ms-transform:rotate(0deg);transform:rotate(0deg);}100%{-webkit-transform:rotate(360deg);-ms-transform:rotate(360deg);transform:rotate(360deg);}}", "@keyframes lds-ring-jsx-3824642466{0%{-webkit-transform:rotate(0deg);-ms-transform:rotate(0deg);transform:rotate(0deg);}100%{-webkit-transform:rotate(360deg);-ms-transform:rotate(360deg);transform:rotate(360deg);}}"]));
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (Loader);
 
 /***/ }),
 

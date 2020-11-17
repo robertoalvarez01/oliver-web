@@ -3603,6 +3603,7 @@ const Buscador = () => {
     0: buscador,
     1: setBuscador
   } = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])('');
+  const location = Object(next_router__WEBPACK_IMPORTED_MODULE_2__["useRouter"])();
 
   const showModalBuscador = () => {
     document.getElementsByTagName('body')[0].style.overflowY = 'hidden';
@@ -3618,7 +3619,13 @@ const Buscador = () => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    buscador.trim() !== '' ? next_router__WEBPACK_IMPORTED_MODULE_2___default.a.push(`/productos?search=${buscador}`) : false;
+    if (buscador.trim() == '') return false;
+
+    if (location.pathname == '/') {
+      return next_router__WEBPACK_IMPORTED_MODULE_2___default.a.push(`/productos?search=${buscador}`);
+    }
+
+    return window.location.assign(`/productos?search=${buscador}`);
   };
 
   return __jsx(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, __jsx("button", {
