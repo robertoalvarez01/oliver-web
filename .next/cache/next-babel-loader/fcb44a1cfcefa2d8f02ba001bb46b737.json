@@ -1,1 +1,0 @@
-{"ast":null,"code":"const TRAER_TODAS = 'subcategorias_traer_todas';\nconst LOADING = 'subcategorias_loading';\nconst ERROR = 'subcategorias_error';\nexport { TRAER_TODAS, LOADING, ERROR };","map":null,"metadata":{},"sourceType":"module"}
