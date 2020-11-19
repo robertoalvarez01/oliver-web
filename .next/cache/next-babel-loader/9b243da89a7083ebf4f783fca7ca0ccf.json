@@ -1,1 +1,0 @@
-{"ast":null,"code":"var TRAER_TODAS = 'subcategorias_traer_todas';\nvar LOADING = 'subcategorias_loading';\nvar ERROR = 'subcategorias_error';\nexport { TRAER_TODAS, LOADING, ERROR };","map":null,"metadata":{},"sourceType":"module"}

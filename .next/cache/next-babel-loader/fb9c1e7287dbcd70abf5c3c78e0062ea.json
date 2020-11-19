@@ -1,1 +1,0 @@
-{"ast":null,"code":"const VERIFICAR_SESION = 'usuario_verificarsesion';\nconst LOGIN = 'usuario_login';\nconst LOGOUT = 'usuario_logout';\nconst LOADING = 'usuario_loading';\nconst ERROR = 'usuario_error';\nexport { VERIFICAR_SESION, LOGIN, LOGOUT, LOADING, ERROR };","map":null,"metadata":{},"sourceType":"module"}

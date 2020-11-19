@@ -1,1 +1,0 @@
-{"ast":null,"code":"var API = 'https://api.oliverpetshop.com.ar/';\nvar PUBLIC_URL = 'http://localhost:3000'; //const PUBLIC_URL = 'https://developers.oliverpetshop.com.ar';\n\nvar URL_CLOUD_STORAGE = 'https://storage.googleapis.com/oliver-web/static';\nexport { API, PUBLIC_URL, URL_CLOUD_STORAGE };","map":null,"metadata":{},"sourceType":"module"}
