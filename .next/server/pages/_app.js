@@ -263,6 +263,8 @@ __webpack_require__.r(usuarioActions_namespaceObject);
 __webpack_require__.d(usuarioActions_namespaceObject, "login", function() { return usuarioActions_login; });
 __webpack_require__.d(usuarioActions_namespaceObject, "logout", function() { return logout; });
 __webpack_require__.d(usuarioActions_namespaceObject, "verificarSesion", function() { return verificarSesion; });
+__webpack_require__.d(usuarioActions_namespaceObject, "register", function() { return usuarioActions_register; });
+__webpack_require__.d(usuarioActions_namespaceObject, "singInWithGoogle", function() { return singInWithGoogle; });
 
 // EXTERNAL MODULE: external "react"
 var external_react_ = __webpack_require__("cDcd");
@@ -414,6 +416,88 @@ const verificarSesion = () => async dispatch => {
     });
   }
 };
+const usuarioActions_register = data => dispatch => {
+  dispatch({
+    type: LOADING
+  });
+
+  try {
+    let headers = new Headers();
+    headers.append("Content-Type", "application/json");
+    return fetch(`${config["a" /* API */]}register`, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers
+    }).then(res => res.json()).then(response => {
+      if (response.ok) {
+        let objUsuario = {
+          nombre: response.usuario.nombre,
+          email: response.usuario.email,
+          foto: response.usuario.foto
+        };
+        localStorage.setItem('oliverpetshop_usuario', JSON.stringify(objUsuario));
+        dispatch({
+          type: LOGIN,
+          payload: localStorage.getItem('oliverpetshop_usuario')
+        });
+      } else {
+        dispatch({
+          type: ERROR,
+          payload: response.info
+        });
+      }
+    });
+  } catch (error) {
+    dispatch({
+      type: ERROR,
+      payload: error
+    });
+  }
+};
+const singInWithGoogle = tokenId => async dispatch => {
+  dispatch({
+    type: LOADING
+  });
+
+  try {
+    let headers = new Headers();
+    headers.append("Content-Type", "application/json");
+    return fetch(`${config["a" /* API */]}google/tokensignin`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        token: tokenId
+      })
+    }).then(res => res.json()).then(response => {
+      if (!response.ok) {
+        return dispatch({
+          type: ERROR,
+          payload: response.info
+        });
+      }
+
+      ;
+      let objUsuario = {
+        nombre: response.usuario.nombre,
+        email: response.usuario.email,
+        foto: response.usuario.foto
+      };
+      localStorage.setItem('oliverpetshop_usuario', JSON.stringify(objUsuario));
+      dispatch({
+        type: LOGIN,
+        payload: localStorage.getItem('oliverpetshop_usuario')
+      });
+    });
+  } catch (error) {
+    dispatch({
+      type: ERROR,
+      payload: error
+    });
+  }
+};
+// EXTERNAL MODULE: external "react-google-login"
+var external_react_google_login_ = __webpack_require__("rCsO");
+
 // CONCATENATED MODULE: ./src/components/Login/index.js
 var Login_jsx = external_react_default.a.createElement;
 
@@ -422,6 +506,8 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
 
 
 
@@ -454,6 +540,12 @@ const Login = props => {
 
   const habilitarRegister = () => {
     props.showRegister();
+  };
+
+  const responseGoogle = data => {
+    if (data.tokenId) {
+      return props.singInWithGoogle(data.tokenId);
+    }
   }; //console.log(props);
 
 
@@ -509,7 +601,14 @@ const Login = props => {
   }, "\xBFNo tenes cuenta?", Login_jsx("span", {
     className: Login_module_default.a.registerLink,
     onClick: habilitarRegister
-  }, " Registrate")))));
+  }, " Registrate")), Login_jsx("br", null), Login_jsx(external_react_google_login_["GoogleLogin"], {
+    className: "mt-2",
+    clientId: config["b" /* GOOGLE_CLIENT_ID */],
+    buttonText: "Iniciar sesi\xF3n con Google",
+    onSuccess: responseGoogle,
+    onFailure: responseGoogle,
+    cookiePolicy: 'single_host_origin'
+  }))));
 };
 
 const mapStateToProps = reducers => {
@@ -517,14 +616,26 @@ const mapStateToProps = reducers => {
 };
 
 /* harmony default export */ var components_Login = (Object(external_react_redux_["connect"])(mapStateToProps, usuarioActions_namespaceObject)(Login));
+// EXTERNAL MODULE: external "react-places-autocomplete"
+var external_react_places_autocomplete_ = __webpack_require__("KOAY");
+var external_react_places_autocomplete_default = /*#__PURE__*/__webpack_require__.n(external_react_places_autocomplete_);
+
 // CONCATENATED MODULE: ./src/components/Login/Register.js
 var Register_jsx = external_react_default.a.createElement;
+
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 function Register_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function Register_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { Register_ownKeys(Object(source), true).forEach(function (key) { Register_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { Register_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function Register_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+
 
 
 
@@ -537,7 +648,9 @@ const Register = props => {
   } = Object(external_react_["useState"])({
     nombre: '',
     telefono: '',
-    ubicacion: '',
+    address: '',
+    lat: '',
+    lon: '',
     email: '',
     password: ''
   });
@@ -555,26 +668,56 @@ const Register = props => {
   const handleSubmitLogin = event => {
     event.preventDefault();
 
-    if (formRegisterValues.nombre.trim() === '' || formRegisterValues.telefono.trim() === '' || formRegisterValues.ubicacion.trim() === '' || formRegisterValues.email.trim() === '' || formRegisterValues.password.trim() === '') {
+    if (formRegisterValues.nombre.trim() === '' || formRegisterValues.telefono.trim() === '' || formRegisterValues.address.trim() === '' || formRegisterValues.lat === '' || formRegisterValues.lon === '' || formRegisterValues.email.trim() === '' || formRegisterValues.password.trim() === '') {
       setError('Es necesario completar todos los campos');
       return false;
     }
 
     setError(false);
-    return true;
+    return props.register(formRegisterValues);
+  };
+
+  const handleSelect = address => {
+    Object(external_react_places_autocomplete_["geocodeByAddress"])(address).then(results => Object(external_react_places_autocomplete_["getLatLng"])(results[0])).then(latLng => {
+      setFormRegisterValues(Register_objectSpread(Register_objectSpread({}, formRegisterValues), {}, {
+        address,
+        lat: latLng.lat,
+        lon: latLng.lng
+      }));
+    }).catch(error => console.error('Error', error));
+  };
+
+  const handleChange = address => {
+    setFormRegisterValues(Register_objectSpread(Register_objectSpread({}, formRegisterValues), {}, {
+      address
+    }));
   };
 
   const habilitarLogin = () => {
     props.showLogin();
   };
 
+  const redirigir = () => {
+    setTimeout(() => {
+      window.location.assign('/');
+    }, 1500);
+  };
+
+  const responseGoogle = data => {
+    if (data.tokenId) {
+      return props.singInWithGoogle(data.tokenId);
+    }
+  };
+
   return Register_jsx("div", {
     className: Login_module_default.a.login__container
   }, Register_jsx("h6", {
     className: Login_module_default.a.title__login + ' ' + `text-center`
-  }, "Registrate"), error ? Register_jsx(components_Error, {
-    message: error
-  }) : null, Register_jsx("form", {
+  }, "Registrate"), props.error ? Register_jsx(components_Error, {
+    message: props.error
+  }) : null, props.logueado ? Register_jsx("div", {
+    className: "alert alert-success text-center"
+  }, "Bienvenido/a ", props.usuario.nombre, " ", redirigir()) : Register_jsx(external_react_default.a.Fragment, null, Register_jsx("form", {
     className: Login_module_default.a.form + ' ' + `form-group`,
     name: "form-login",
     id: "form-login",
@@ -602,14 +745,42 @@ const Register = props => {
   }), Register_jsx("label", {
     className: Login_module_default.a.label,
     htmlFor: "ubicacion"
-  }, "Ubicaci\xF3n"), Register_jsx("input", {
-    type: "text",
+  }, "Ubicaci\xF3n"), Register_jsx(external_react_places_autocomplete_default.a, {
+    value: formRegisterValues.address,
+    onChange: handleChange,
+    onSelect: handleSelect
+  }, ({
+    getInputProps,
+    suggestions,
+    getSuggestionItemProps,
+    loading
+  }) => Register_jsx("div", null, Register_jsx("input", _extends({
     className: Login_module_default.a.input + ' ' + `form-control`,
-    id: "ubicacion",
-    name: "ubicacion",
-    value: formRegisterValues.ubicacion,
-    onChange: handleChangeLogin
-  }), Register_jsx("label", {
+    id: "ubicacion"
+  }, getInputProps({
+    placeholder: 'Buscá tu dirección ...'
+  }))), Register_jsx("div", {
+    className: "autocomplete-dropdown-container"
+  }, loading && Register_jsx("div", null, "Loading..."), suggestions.map((suggestion, key) => {
+    const className = suggestion.active ? 'suggestion-item--active' : 'suggestion-item'; // inline style for demonstration purpose
+
+    const style = suggestion.active ? {
+      backgroundColor: '#fafafa',
+      cursor: 'pointer',
+      margin: '10px',
+      padding: '5px'
+    } : {
+      backgroundColor: '#ffffff',
+      cursor: 'pointer',
+      margin: '10px',
+      padding: '5px'
+    };
+    return Register_jsx("div", getSuggestionItemProps(suggestion, {
+      className,
+      style,
+      key
+    }), Register_jsx("span", null, suggestion.description));
+  })))), Register_jsx("label", {
     className: Login_module_default.a.label,
     htmlFor: "emal"
   }, "Email"), Register_jsx("input", {
@@ -629,7 +800,9 @@ const Register = props => {
     name: "password",
     value: formRegisterValues.password,
     onChange: handleChangeLogin
-  }), Register_jsx("br", null), Register_jsx("input", {
+  }), Register_jsx("br", null), props.loading ? Register_jsx("div", {
+    className: "text-center"
+  }, Register_jsx(Loader["a" /* default */], null)) : Register_jsx("input", {
     type: "submit",
     className: "boton bg-yellow mb-1",
     value: "Registrarme"
@@ -640,10 +813,21 @@ const Register = props => {
   }, "\xBFYa tenes cuenta?", Register_jsx("span", {
     className: Login_module_default.a.registerLink,
     onClick: habilitarLogin
-  }, " Ingres\xE1"))));
+  }, " Ingres\xE1")), Register_jsx("br", null), Register_jsx(external_react_google_login_["GoogleLogin"], {
+    className: "mt-2",
+    clientId: config["b" /* GOOGLE_CLIENT_ID */],
+    buttonText: "Registrate con Google",
+    onSuccess: responseGoogle,
+    onFailure: responseGoogle,
+    cookiePolicy: 'single_host_origin'
+  }))));
 };
 
-/* harmony default export */ var Login_Register = (Register);
+const Register_mapStateToProps = reducers => {
+  return reducers.usuarioReducer;
+};
+
+/* harmony default export */ var Login_Register = (Object(external_react_redux_["connect"])(Register_mapStateToProps, usuarioActions_namespaceObject)(Register));
 // EXTERNAL MODULE: ./src/components/Carrito/index.js + 1 modules
 var Carrito = __webpack_require__("qC+Y");
 
@@ -770,7 +954,7 @@ const Navbar = props => {
   }, Navbar_jsx(link_default.a, {
     href: "/"
   }, Navbar_jsx("a", null, Navbar_jsx("img", {
-    src: `${config["c" /* URL_CLOUD_STORAGE */]}/static/Perro.png`,
+    src: `${config["d" /* URL_CLOUD_STORAGE */]}/static/Perro.png`,
     className: Navbar_module_default.a.logo + ' ' + `img-fluid`,
     alt: "Oliver pet shop"
   })))), Navbar_jsx("span", {
@@ -819,7 +1003,7 @@ const Navbar = props => {
   }, Navbar_jsx("section", {
     className: Navbar_module_default.a.header__collapsed_nav
   }, Navbar_jsx("img", {
-    src: `${config["c" /* URL_CLOUD_STORAGE */]}/static/Perro.png`,
+    src: `${config["d" /* URL_CLOUD_STORAGE */]}/static/Perro.png`,
     className: Navbar_module_default.a.logo,
     alt: "Oliver pet shop"
   }), Navbar_jsx("i", {
@@ -1595,6 +1779,13 @@ module.exports = require("next-redux-wrapper");
 /***/ (function(module, exports) {
 
 module.exports = require("@fortawesome/free-brands-svg-icons");
+
+/***/ }),
+
+/***/ "KOAY":
+/***/ (function(module, exports) {
+
+module.exports = require("react-places-autocomplete");
 
 /***/ }),
 
@@ -3759,6 +3950,13 @@ module.exports = {
 
 /***/ }),
 
+/***/ "rCsO":
+/***/ (function(module, exports) {
+
+module.exports = require("react-google-login");
+
+/***/ }),
+
 /***/ "rKB8":
 /***/ (function(module, exports) {
 
@@ -3771,12 +3969,14 @@ module.exports = require("redux");
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return API; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return PUBLIC_URL; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return URL_CLOUD_STORAGE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return PUBLIC_URL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return URL_CLOUD_STORAGE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return GOOGLE_CLIENT_ID; });
 const API = 'https://api.oliverpetshop.com.ar/'; //const PUBLIC_URL = 'http://localhost:3000';
 
 const PUBLIC_URL = 'https://developers.oliverpetshop.com.ar';
 const URL_CLOUD_STORAGE = 'https://storage.googleapis.com/web-oliver';
+const GOOGLE_CLIENT_ID = '85508910542-jfaoom4l84q0a9cdmeg382vi9hl986j1.apps.googleusercontent.com';
 
 
 /***/ }),
