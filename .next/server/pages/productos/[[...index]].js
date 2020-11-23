@@ -506,119 +506,6 @@ const ERROR = 'categorias_error';
 
 /***/ }),
 
-/***/ "7y+a":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "traerTodos", function() { return traerTodos; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "traerPorId", function() { return traerPorId; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "traerPromociones", function() { return traerPromociones; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ordenarProductos", function() { return ordenarProductos; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "filtrarProductos", function() { return filtrarProductos; });
-/* harmony import */ var _config_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("rOcY");
-/* harmony import */ var _types_subproductosTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("fXWR");
-
-
-const traerTodos = () => async dispatch => {
-  dispatch({
-    type: _types_subproductosTypes__WEBPACK_IMPORTED_MODULE_1__[/* LOADING */ "c"]
-  });
-
-  try {
-    return fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/subproducto?desde=1&limite=30`).then(res => res.json()).then(data => {
-      dispatch({
-        type: _types_subproductosTypes__WEBPACK_IMPORTED_MODULE_1__[/* TRAER_TODOS */ "f"],
-        payload: data.data
-      });
-    });
-  } catch (error) {
-    dispatch({
-      type: _types_subproductosTypes__WEBPACK_IMPORTED_MODULE_1__[/* ERROR */ "a"],
-      payload: error
-    });
-  }
-};
-const traerPorId = id => async dispatch => {
-  dispatch({
-    type: _types_subproductosTypes__WEBPACK_IMPORTED_MODULE_1__[/* LOADING */ "c"]
-  });
-
-  try {
-    return fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/subproducto/${id}`).then(res => res.json()).then(data => {
-      dispatch({
-        type: _types_subproductosTypes__WEBPACK_IMPORTED_MODULE_1__[/* TRAER_UNO */ "g"],
-        payload: data
-      });
-    });
-  } catch (error) {
-    dispatch({
-      type: _types_subproductosTypes__WEBPACK_IMPORTED_MODULE_1__[/* ERROR */ "a"],
-      payload: error
-    });
-  }
-};
-const traerPromociones = () => async dispatch => {
-  dispatch({
-    type: _types_subproductosTypes__WEBPACK_IMPORTED_MODULE_1__[/* LOADING */ "c"]
-  });
-
-  try {
-    return fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/subproducto?desde=1&limite=8`).then(res => res.json()).then(data => {
-      dispatch({
-        type: _types_subproductosTypes__WEBPACK_IMPORTED_MODULE_1__[/* TRAER_PROMOCIONES */ "e"],
-        payload: data.data
-      });
-    });
-  } catch (error) {
-    dispatch({
-      type: _types_subproductosTypes__WEBPACK_IMPORTED_MODULE_1__[/* ERROR */ "a"],
-      payload: error
-    });
-  }
-};
-const ordenarProductos = productosOrdenados => async dispatch => {
-  dispatch({
-    type: _types_subproductosTypes__WEBPACK_IMPORTED_MODULE_1__[/* LOADING */ "c"]
-  });
-
-  try {
-    dispatch({
-      type: _types_subproductosTypes__WEBPACK_IMPORTED_MODULE_1__[/* ORDENAR_PRODUCTOS */ "d"],
-      payload: productosOrdenados
-    });
-  } catch (error) {
-    dispatch({
-      type: _types_subproductosTypes__WEBPACK_IMPORTED_MODULE_1__[/* ERROR */ "a"],
-      payload: error
-    });
-  }
-};
-const filtrarProductos = url => async dispatch => {
-  console.log('filtrando');
-  console.log(url);
-  dispatch({
-    type: _types_subproductosTypes__WEBPACK_IMPORTED_MODULE_1__[/* LOADING */ "c"]
-  });
-
-  try {
-    let urlFiltro = url.includes('buscar?busqueda') ? `subproductos/${url}` : `subproductos/${url}`;
-    return fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}${urlFiltro}`).then(res => res.json()).then(data => {
-      dispatch({
-        type: _types_subproductosTypes__WEBPACK_IMPORTED_MODULE_1__[/* FILTRANDO */ "b"],
-        payload: data.data
-      });
-    });
-  } catch (error) {
-    dispatch({
-      type: _types_subproductosTypes__WEBPACK_IMPORTED_MODULE_1__[/* ERROR */ "a"],
-      payload: error
-    });
-  }
-};
-
-/***/ }),
-
 /***/ "CI6Y":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -631,7 +518,10 @@ const filtrarProductos = url => async dispatch => {
 /* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(next_link__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _helpers_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("pRT7");
 /* harmony import */ var _config_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("rOcY");
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("4Q3z");
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_5__);
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
+
 
 
 
@@ -642,6 +532,20 @@ const CardProducto = ({
   imagen,
   prd
 }) => {
+  const {
+    0: isProductoDetalle,
+    1: setIsProductoDetalle
+  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false);
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+    const {
+      router
+    } = next_router__WEBPACK_IMPORTED_MODULE_5___default.a;
+
+    if (router.route == '/producto/[...producto]') {
+      setIsProductoDetalle(true);
+    }
+  }, []);
+
   const procesarNombre = nombre => {
     let nombreProcesado = nombre;
 
@@ -658,14 +562,14 @@ const CardProducto = ({
     return nombreProcesado;
   };
 
-  return __jsx(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: `${_config_index__WEBPACK_IMPORTED_MODULE_4__[/* PUBLIC_URL */ "b"]}/producto/${Object(_helpers_index__WEBPACK_IMPORTED_MODULE_3__[/* slug */ "b"])(prd.subProducto)}/${prd.idSubProducto}`
+  return !isProductoDetalle ? __jsx(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
+    href: `${_config_index__WEBPACK_IMPORTED_MODULE_4__[/* PUBLIC_URL */ "c"]}/producto/${Object(_helpers_index__WEBPACK_IMPORTED_MODULE_3__[/* slug */ "b"])(prd.producto)}/${prd.idProducto}`
   }, __jsx("a", null, __jsx("div", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.container__producto + ' ' + `my-3`
   }, __jsx("section", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.header__card
   }, __jsx("img", {
-    src: `${_config_index__WEBPACK_IMPORTED_MODULE_4__[/* URL_CLOUD_STORAGE */ "c"]}/` + imagen,
+    src: imagen,
     alt: "prd",
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.img
   })), __jsx("section", {
@@ -674,13 +578,35 @@ const CardProducto = ({
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.label__marca + ' ' + `d-block text-muted`
   }, prd.marca), __jsx("h6", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.nombre__producto + ' ' + `text-muted`
-  }, procesarNombre(prd.subProducto)), __jsx("span", {
+  }, procesarNombre(prd.producto)), prd.peso != null ? __jsx("span", {
+    className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.cantidad
+  }, prd.peso, " KG") : null, __jsx("h3", {
+    className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.precio + ' ' + `text-black`
+  }, "$", prd.precioUnidad)), __jsx("span", {
+    className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.label__descuento + ' ' + `bg-red`
+  }, "15% Off")))) : __jsx("a", {
+    href: `${_config_index__WEBPACK_IMPORTED_MODULE_4__[/* PUBLIC_URL */ "c"]}/producto/${Object(_helpers_index__WEBPACK_IMPORTED_MODULE_3__[/* slug */ "b"])(prd.producto)}/${prd.idProducto}`
+  }, __jsx("div", {
+    className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.container__producto + ' ' + `my-3`
+  }, __jsx("section", {
+    className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.header__card
+  }, __jsx("img", {
+    src: imagen,
+    alt: "prd",
+    className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.img
+  })), __jsx("section", {
+    className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.body__card
+  }, __jsx("span", {
+    className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.label__marca + ' ' + `d-block text-muted`
+  }, prd.marca), __jsx("h6", {
+    className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.nombre__producto + ' ' + `text-muted`
+  }, procesarNombre(prd.producto)), __jsx("span", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.cantidad
   }, prd.peso, " KG"), __jsx("h3", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.precio + ' ' + `text-black`
   }, "$", prd.precioUnidad)), __jsx("span", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.label__descuento + ' ' + `bg-red`
-  }, "15% Off"))));
+  }, "15% Off")));
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (CardProducto);
@@ -704,6 +630,32 @@ module.exports = require("styled-jsx/style");
 const TRAER_TODAS = 'marca_traer_todas';
 const LOADING = 'marca_loading';
 const ERROR = 'marca_error';
+
+
+/***/ }),
+
+/***/ "LwYX":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return TRAER_TODOS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return TRAER_UNO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return LOADING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ERROR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return TRAER_PROMOCIONES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return ORDENAR_PRODUCTOS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return FILTRANDO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return LOADING_MAS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return TRAER_MAS; });
+const TRAER_TODOS = 'producto_traer_todos';
+const LOADING = 'producto_loading';
+const ERROR = 'producto_error';
+const TRAER_PROMOCIONES = 'producto_traer_promociones';
+const ORDENAR_PRODUCTOS = 'producto_ordenarproductos';
+const FILTRANDO = 'producto_filtrando';
+const TRAER_UNO = 'producto_traeruno';
+const LOADING_MAS = 'producto_loading_mas';
+const TRAER_MAS = 'producto_traer_mas';
 
 
 /***/ }),
@@ -769,6 +721,164 @@ module.exports = {
 
 "use strict";
 
+
+/***/ }),
+
+/***/ "TVVT":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "traerTodos", function() { return traerTodos; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "traerMas", function() { return traerMas; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "traerPorId", function() { return traerPorId; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "traerPromociones", function() { return traerPromociones; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ordenarProductos", function() { return ordenarProductos; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "filtrarProductos", function() { return filtrarProductos; });
+/* harmony import */ var _config_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("rOcY");
+/* harmony import */ var _helpers_index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("pRT7");
+/* harmony import */ var _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("LwYX");
+
+
+
+const traerTodos = ({
+  desde,
+  limiteDesktop,
+  limiteMobile
+}) => async dispatch => {
+  dispatch({
+    type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* LOADING */ "c"]
+  });
+
+  try {
+    let url = `${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}producto?desde=${desde}&limite=${limiteDesktop}`;
+
+    if (Object(_helpers_index__WEBPACK_IMPORTED_MODULE_1__[/* isMobile */ "a"])()) {
+      url = `${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}producto?desde=${desde}&limite=${limiteMobile}`;
+    }
+
+    return fetch(url).then(res => res.json()).then(data => {
+      dispatch({
+        type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* TRAER_TODOS */ "h"],
+        payload: data.data
+      });
+    });
+  } catch (error) {
+    dispatch({
+      type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* ERROR */ "a"],
+      payload: error
+    });
+  }
+};
+const traerMas = (rangoProducto, prevProductos) => async dispatch => {
+  dispatch({
+    type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* LOADING_MAS */ "d"]
+  });
+
+  try {
+    let url = `${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}producto?desde=${rangoProducto.desde}&limite=${rangoProducto.limiteDesktop}`;
+
+    if (Object(_helpers_index__WEBPACK_IMPORTED_MODULE_1__[/* isMobile */ "a"])()) {
+      url = `${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}producto?desde=${rangoProducto.desde}&limite=${rangoProducto.limiteMobile}`;
+    }
+
+    return fetch(url).then(res => res.json()).then(data => {
+      let updateproductos = [...prevProductos, ...data.data];
+      dispatch({
+        type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* TRAER_MAS */ "f"],
+        payload: updateproductos
+      });
+    });
+  } catch (error) {
+    dispatch({
+      type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* ERROR */ "a"],
+      payload: error
+    });
+  }
+};
+const traerPorId = id => async dispatch => {
+  dispatch({
+    type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* LOADING */ "c"]
+  });
+
+  try {
+    return fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}producto/${id}`).then(res => res.json()).then(data => {
+      dispatch({
+        type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* TRAER_UNO */ "i"],
+        payload: data
+      });
+    });
+  } catch (error) {
+    dispatch({
+      type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* ERROR */ "a"],
+      payload: error
+    });
+  }
+};
+const traerPromociones = () => async dispatch => {
+  dispatch({
+    type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* LOADING */ "c"]
+  });
+
+  try {
+    let url = `${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/producto?desde=1&limite=8`;
+
+    if (Object(_helpers_index__WEBPACK_IMPORTED_MODULE_1__[/* isMobile */ "a"])()) {
+      url = `${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/producto?desde=1&limite=4`;
+    }
+
+    return fetch(url).then(res => res.json()).then(data => {
+      dispatch({
+        type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* TRAER_PROMOCIONES */ "g"],
+        payload: data.data
+      });
+    });
+  } catch (error) {
+    dispatch({
+      type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* ERROR */ "a"],
+      payload: error
+    });
+  }
+};
+const ordenarProductos = productosOrdenados => async dispatch => {
+  dispatch({
+    type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* LOADING */ "c"]
+  });
+
+  try {
+    dispatch({
+      type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* ORDENAR_PRODUCTOS */ "e"],
+      payload: productosOrdenados
+    });
+  } catch (error) {
+    dispatch({
+      type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* ERROR */ "a"],
+      payload: error
+    });
+  }
+};
+const filtrarProductos = url => async dispatch => {
+  //console.log('filtrando');
+  //console.log(url);
+  dispatch({
+    type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* LOADING */ "c"]
+  });
+
+  try {
+    let urlFiltro = url.includes('buscar?busqueda') ? `productos/${url}` : `productos/filtro/${url}`;
+    return fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}${urlFiltro}`).then(res => res.json()).then(data => {
+      dispatch({
+        type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* FILTRANDO */ "b"],
+        payload: data.data
+      });
+    });
+  } catch (error) {
+    dispatch({
+      type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* ERROR */ "a"],
+      payload: error
+    });
+  }
+};
 
 /***/ }),
 
@@ -886,14 +996,18 @@ var external_react_default = /*#__PURE__*/__webpack_require__.n(external_react_)
 // EXTERNAL MODULE: ./src/components/Head.js
 var Head = __webpack_require__("k2JI");
 
+// EXTERNAL MODULE: external "styled-jsx/style"
+var style_ = __webpack_require__("HJQg");
+var style_default = /*#__PURE__*/__webpack_require__.n(style_);
+
 // EXTERNAL MODULE: ./src/components/CardProducto/index.js
 var CardProducto = __webpack_require__("CI6Y");
 
 // EXTERNAL MODULE: external "react-redux"
 var external_react_redux_ = __webpack_require__("h74D");
 
-// EXTERNAL MODULE: ./store/actions/subproductosActions.js
-var subproductosActions = __webpack_require__("7y+a");
+// EXTERNAL MODULE: ./store/actions/productosActions.js
+var productosActions = __webpack_require__("TVVT");
 
 // EXTERNAL MODULE: ./src/components/Productos/Productos.module.css
 var Productos_module = __webpack_require__("34k4");
@@ -912,8 +1026,20 @@ var react_fontawesome_ = __webpack_require__("uhWA");
 var Filtro_module = __webpack_require__("PsAh");
 var Filtro_module_default = /*#__PURE__*/__webpack_require__.n(Filtro_module);
 
+// EXTERNAL MODULE: ./helpers/index.js
+var helpers = __webpack_require__("pRT7");
+
 // CONCATENATED MODULE: ./src/components/Productos/index.js
+
 var __jsx = external_react_default.a.createElement;
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
 
 
 
@@ -929,6 +1055,14 @@ const Productos = props => {
     0: filtro,
     1: setFiltro
   } = Object(external_react_["useState"])('');
+  const {
+    0: rangoProducto,
+    1: setRangoProducto
+  } = Object(external_react_["useState"])({
+    desde: 1,
+    limiteDesktop: 20,
+    limiteMobile: 10
+  });
   Object(external_react_["useEffect"])(() => {
     if (props.location !== '/productos') {
       if (props.query.search) {
@@ -940,6 +1074,11 @@ const Productos = props => {
       getProductos();
     }
   }, []);
+  Object(external_react_["useEffect"])(() => {
+    if (rangoProducto.desde > 1) {
+      props.traerMas(rangoProducto, props.productos);
+    }
+  }, [rangoProducto]);
 
   const showFiltrosMobile = () => {
     document.getElementsByClassName('Filtro_filtros__contanier__3knXf')[0].classList.add(Filtro_module_default.a.show_filtros);
@@ -947,7 +1086,7 @@ const Productos = props => {
 
   const getProductos = async () => {
     try {
-      await props.traerTodos();
+      await props.traerTodos(rangoProducto);
     } catch (error) {
       console.log(error);
     }
@@ -959,13 +1098,13 @@ const Productos = props => {
 
   const handleChangeOrdenProductos = event => {
     if (event.target.value === 'asc') {
-      props.subproductos.sort((a, b) => {
+      props.productos.sort((a, b) => {
         if (a.precioUnidad > b.precioUnidad) return 1;
         if (a.precioUnidad < b.precioUnidad) return -1;
         return 0;
       });
     } else {
-      props.subproductos.sort((a, b) => {
+      props.productos.sort((a, b) => {
         if (a.precioUnidad < b.precioUnidad) return 1;
         if (a.precioUnidad > b.precioUnidad) return -1;
         return 0;
@@ -973,7 +1112,7 @@ const Productos = props => {
     }
 
     ;
-    return props.ordenarProductos(props.subproductos);
+    return props.ordenarProductos(props.productos);
   }; //ocultar la chapita que indica el nombre del filtro activo cuando se restablecen los filtros.
 
 
@@ -981,57 +1120,76 @@ const Productos = props => {
     setFiltro('');
   }
 
-  return __jsx(external_react_default.a.Fragment, null, props.loading || !props.subproductos ? __jsx("div", {
-    className: "col-12 text-center"
+  const cargarMas = () => {
+    if (Object(helpers["a" /* isMobile */])()) {
+      setRangoProducto(_objectSpread(_objectSpread({}, rangoProducto), {}, {
+        desde: rangoProducto.desde + rangoProducto.limiteMobile - 1
+      }));
+    } else {
+      setRangoProducto(_objectSpread(_objectSpread({}, rangoProducto), {}, {
+        desde: rangoProducto.desde + rangoProducto.limiteDesktop - 1
+      }));
+    }
+  };
+
+  return __jsx(external_react_default.a.Fragment, null, props.loading || !props.productos ? __jsx("div", {
+    className: "jsx-2778668712" + " " + "col-12 text-center"
   }, __jsx(Loader["a" /* default */], null)) : __jsx(external_react_default.a.Fragment, null, filtro !== '' ? __jsx("span", {
     id: "label__filtro-busqueda",
-    className: Productos_module_default.a.label__filtro_busqueda
+    className: "jsx-2778668712" + " " + (Productos_module_default.a.label__filtro_busqueda || "")
   }, __jsx(react_fontawesome_["FontAwesomeIcon"], {
     icon: free_solid_svg_icons_["faSearch"]
   }), __jsx("span", {
-    className: Productos_module_default.a.item_filtro_busqueda
+    className: "jsx-2778668712" + " " + (Productos_module_default.a.item_filtro_busqueda || "")
   }, __jsx("span", {
-    className: "text-mutedd",
-    id: "valor-busqueda"
+    id: "valor-busqueda",
+    className: "jsx-2778668712" + " " + "text-mutedd"
   }, filtro))) : null, __jsx("div", {
-    className: "row justify-content-between my-2 align-items-center",
     style: {
       padding: '0px 15px'
-    }
+    },
+    className: "jsx-2778668712" + " " + "row justify-content-between my-2 align-items-center"
   }, __jsx("span", {
-    className: "text-muted"
+    className: "jsx-2778668712" + " " + "text-muted"
   }, __jsx("b", {
-    className: "txt-yellow"
-  }, props.subproductos.length), " productos encontrados"), __jsx("div", {
-    className: Productos_module_default.a.ordenarProductos + ' ' + `d-flex align-items-center`
+    className: "jsx-2778668712" + " " + "txt-yellow"
+  }, props.productos.length), " productos encontrados"), __jsx("div", {
+    className: "jsx-2778668712" + " " + (Productos_module_default.a.ordenarProductos + ' ' + `d-flex align-items-center` || false)
   }, __jsx("span", {
-    className: "txt-yellow text-bold mr-2"
+    className: "jsx-2778668712" + " " + "txt-yellow text-bold mr-2"
   }, "Ordenar por: "), __jsx("select", {
-    className: Productos_module_default.a.select_ordenar,
-    onChange: handleChangeOrdenProductos
+    onChange: handleChangeOrdenProductos,
+    className: "jsx-2778668712" + " " + (Productos_module_default.a.select_ordenar || "")
   }, __jsx("option", {
-    value: "desc"
+    value: "desc",
+    className: "jsx-2778668712"
   }, "Mayor precio"), __jsx("option", {
-    value: "asc"
+    value: "asc",
+    className: "jsx-2778668712"
   }, "Menor precio"))), __jsx("button", {
     onClick: showFiltrosMobile,
-    className: `boton bg-yellow mt-3 d-none` + ' ' + Productos_module_default.a.boton_filtrar_mobile
+    className: "jsx-2778668712" + " " + (`boton bg-yellow mt-3 d-none` + ' ' + Productos_module_default.a.boton_filtrar_mobile || false)
   }, "Filtrar")), __jsx("div", {
-    className: "row"
-  }, !props.subproductos ? null : props.subproductos.map(prd => __jsx("div", {
-    key: prd.idSubProducto,
-    className: "col-6 col-md-3"
+    className: "jsx-2778668712" + " " + "row feedProductos"
+  }, !props.productos ? null : props.productos.map(prd => __jsx("div", {
+    key: prd.idProducto,
+    className: "jsx-2778668712" + " " + "col-6 col-md-3"
   }, __jsx(CardProducto["a" /* default */], {
     imagen: prd.foto,
     prd: prd
-  }))))));
+  })))), __jsx("button", {
+    onClick: cargarMas,
+    className: "jsx-2778668712" + " " + "boton bg-yellow btn-vermas"
+  }, props.loading_mas ? 'Obteniendo productos...' : 'Cargar más')), __jsx(style_default.a, {
+    id: "2778668712"
+  }, [".feedProductos.jsx-2778668712{height:75vh;overflow-y:scroll;}", ".btn-vermas.jsx-2778668712{position:relative;top:12px;}", ".feedProductos.jsx-2778668712::-webkit-scrollbar{width:8px;height:5px;}", ".feedProductos.jsx-2778668712::-webkit-scrollbar-thumb{background:#FFB347;border-radius:4px;}", ".feedProductos.jsx-2778668712::-webkit-scrollbar-thumb.jsx-2778668712:hover{background:#b3b3b3;box-shadow:0 0 2px 1px rgba(0,0,0,0.2);}", "@media(max-width:768px){.feedProductos.jsx-2778668712{height:65vh;overflow-y:scroll;}.feedProductos.jsx-2778668712::-webkit-scrollbar{width:8px;height:10px;}}"]));
 };
 
 const mapStateToProps = reducers => {
-  return reducers.subproductosReducer;
+  return reducers.productosReducer;
 };
 
-/* harmony default export */ var components_Productos = (Object(external_react_redux_["connect"])(mapStateToProps, subproductosActions)(Productos));
+/* harmony default export */ var components_Productos = (Object(external_react_redux_["connect"])(mapStateToProps, productosActions)(Productos));
 // EXTERNAL MODULE: ./src/components/Modal/index.js
 var Modal = __webpack_require__("/Q2I");
 
@@ -1085,7 +1243,7 @@ const ModalMarca = props => {
   }, ModalMarca_jsx("div", {
     className: "col-6"
   }, ModalMarca_jsx("img", {
-    src: `https://api.oliverpetshop.com.ar/img/` + marca.imagen,
+    src: marca.imagen,
     alt: "marca",
     className: Marca_module_default.a.imgMarca + ' ' + `img-fluid`
   })), ModalMarca_jsx("div", {
@@ -1146,11 +1304,11 @@ const traerTodas = () => async dispatch => {
 // CONCATENATED MODULE: ./src/components/Filtro/index.js
 var Filtro_jsx = external_react_default.a.createElement;
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+function Filtro_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function Filtro_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { Filtro_ownKeys(Object(source), true).forEach(function (key) { Filtro_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { Filtro_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function Filtro_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
@@ -1169,9 +1327,9 @@ const {
   traerTodas: marcasTraerTodas
 } = marcasActions;
 const {
-  filtrarProductos: subproductosFiltrarProductos,
-  traerTodos: subproductosTraerTodos
-} = subproductosActions;
+  filtrarProductos: productosFiltrarProductos,
+  traerTodos: productosTraerTodos
+} = productosActions;
 const {
   traerTodas: categoriasTraerTodas
 } = categoriasAction;
@@ -1245,7 +1403,7 @@ const Filtro = props => {
   const activarFiltro = (tipoFiltro, key) => {
     switch (tipoFiltro) {
       case 'categoria':
-        setEstadoFiltro(_objectSpread(_objectSpread({}, estadoFiltro), {}, {
+        setEstadoFiltro(Filtro_objectSpread(Filtro_objectSpread({}, estadoFiltro), {}, {
           categoria: key,
           buscador: '',
           filtrando: true
@@ -1253,7 +1411,7 @@ const Filtro = props => {
         break;
 
       case 'subcategoria':
-        setEstadoFiltro(_objectSpread(_objectSpread({}, estadoFiltro), {}, {
+        setEstadoFiltro(Filtro_objectSpread(Filtro_objectSpread({}, estadoFiltro), {}, {
           subcategoria: key,
           buscador: '',
           filtrando: true
@@ -1261,7 +1419,7 @@ const Filtro = props => {
         break;
 
       case 'marca':
-        setEstadoFiltro(_objectSpread(_objectSpread({}, estadoFiltro), {}, {
+        setEstadoFiltro(Filtro_objectSpread(Filtro_objectSpread({}, estadoFiltro), {}, {
           marca: key,
           buscador: '',
           filtrando: true
@@ -1269,7 +1427,7 @@ const Filtro = props => {
         break;
 
       case 'search':
-        setEstadoFiltro(_objectSpread(_objectSpread({}, estadoFiltro), {}, {
+        setEstadoFiltro(Filtro_objectSpread(Filtro_objectSpread({}, estadoFiltro), {}, {
           buscador: key,
           filtrando: true
         }));
@@ -1345,7 +1503,7 @@ const Filtro = props => {
     if (estadoFiltro.filtrando) {
       let urlFiltro = armarUrlFiltro(); //armo la url que mando a la api para traer los resultados de lo filtrado.
 
-      props.subproductosFiltrarProductos(urlFiltro);
+      props.productosFiltrarProductos(urlFiltro);
     }
 
     ;
@@ -1355,17 +1513,17 @@ const Filtro = props => {
     switch (tipo) {
       case 'categoria':
         if (estadoFiltro.subcategoria === '' && estadoFiltro.marca === '') {
-          setEstadoFiltro(_objectSpread(_objectSpread({}, estadoFiltro), {}, {
+          setEstadoFiltro(Filtro_objectSpread(Filtro_objectSpread({}, estadoFiltro), {}, {
             categoria: '',
             filtrando: false
           }));
-          props.subproductosTraerTodos();
+          props.productosTraerTodos();
 
           if (props.location != 'productos') {
             router_default.a.push('/productos');
           }
         } else {
-          setEstadoFiltro(_objectSpread(_objectSpread({}, estadoFiltro), {}, {
+          setEstadoFiltro(Filtro_objectSpread(Filtro_objectSpread({}, estadoFiltro), {}, {
             categoria: ''
           }));
         }
@@ -1374,17 +1532,17 @@ const Filtro = props => {
 
       case 'subcategoria':
         if (estadoFiltro.categoria === '' && estadoFiltro.marca === '') {
-          setEstadoFiltro(_objectSpread(_objectSpread({}, estadoFiltro), {}, {
+          setEstadoFiltro(Filtro_objectSpread(Filtro_objectSpread({}, estadoFiltro), {}, {
             subcategoria: '',
             filtrando: false
           }));
-          props.subproductosTraerTodos();
+          props.productosTraerTodos();
 
           if (props.location != 'productos') {
             router_default.a.push('/productos');
           }
         } else {
-          setEstadoFiltro(_objectSpread(_objectSpread({}, estadoFiltro), {}, {
+          setEstadoFiltro(Filtro_objectSpread(Filtro_objectSpread({}, estadoFiltro), {}, {
             subcategoria: ''
           }));
         }
@@ -1393,17 +1551,17 @@ const Filtro = props => {
 
       case 'marca':
         if (estadoFiltro.categoria === '' && estadoFiltro.subcategoria == '') {
-          setEstadoFiltro(_objectSpread(_objectSpread({}, estadoFiltro), {}, {
+          setEstadoFiltro(Filtro_objectSpread(Filtro_objectSpread({}, estadoFiltro), {}, {
             marca: '',
             filtrando: false
           }));
-          props.subproductosTraerTodos();
+          props.productosTraerTodos();
 
           if (props.location != 'productos') {
             router_default.a.push('/productos');
           }
         } else {
-          setEstadoFiltro(_objectSpread(_objectSpread({}, estadoFiltro), {}, {
+          setEstadoFiltro(Filtro_objectSpread(Filtro_objectSpread({}, estadoFiltro), {}, {
             marca: ''
           }));
         }
@@ -1418,7 +1576,11 @@ const Filtro = props => {
           marca: '',
           buscador: ''
         });
-        props.subproductosTraerTodos();
+        props.productosTraerTodos({
+          desde: 1,
+          limiteDesktop: 20,
+          limiteMobile: 10
+        });
 
         if (props.location != 'productos') {
           router_default.a.push('/productos');
@@ -1549,13 +1711,13 @@ const Filtro = props => {
 
 const Filtro_mapStateToProps = ({
   marcasReducer,
-  subproductosReducer,
+  productosReducer,
   categoriasReducer,
   subcategoriaReducer
 }) => {
   return {
     marcasReducer,
-    subproductosReducer,
+    productosReducer,
     categoriasReducer,
     subcategoriaReducer
   };
@@ -1563,8 +1725,8 @@ const Filtro_mapStateToProps = ({
 
 const mapDispatchToProps = {
   marcasTraerTodas,
-  subproductosFiltrarProductos,
-  subproductosTraerTodos,
+  productosFiltrarProductos,
+  productosTraerTodos,
   categoriasTraerTodas,
   subcategoriaTraerTodas
 };
@@ -2951,28 +3113,6 @@ Router.events = (0, _mitt.default)();
 
 /***/ }),
 
-/***/ "fXWR":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return TRAER_TODOS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return TRAER_UNO; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return LOADING; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ERROR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return TRAER_PROMOCIONES; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return ORDENAR_PRODUCTOS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return FILTRANDO; });
-const TRAER_TODOS = 'producto_traer_todos';
-const LOADING = 'producto_loading';
-const ERROR = 'producto_error';
-const TRAER_PROMOCIONES = 'producto_traer_promociones';
-const ORDENAR_PRODUCTOS = 'producto_ordenarproductos';
-const FILTRANDO = 'producto_filtrando';
-const TRAER_UNO = 'producto_traeruno';
-
-
-/***/ }),
-
 /***/ "faye":
 /***/ (function(module, exports) {
 
@@ -3227,7 +3367,9 @@ const Header = ({
     content: "#df8f0e"
   }), __jsx("link", {
     rel: "icon",
-    href: `${_config_index__WEBPACK_IMPORTED_MODULE_2__[/* URL_CLOUD_STORAGE */ "c"]}/static/Perro.png`
+    href: `${_config_index__WEBPACK_IMPORTED_MODULE_2__[/* URL_CLOUD_STORAGE */ "d"]}/static/Perro.png`
+  }), __jsx("script", {
+    src: "https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyDh6iZtfmNFUiGqEn6-7qENrzRKSIqh6qw"
   }));
 };
 
@@ -3484,12 +3626,14 @@ module.exports = {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return API; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return PUBLIC_URL; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return URL_CLOUD_STORAGE; });
-const API = 'https://api.oliverpetshop.com.ar/';
-const PUBLIC_URL = 'http://localhost:3000'; //const PUBLIC_URL = 'https://developers.oliverpetshop.com.ar';
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return PUBLIC_URL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return URL_CLOUD_STORAGE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return GOOGLE_CLIENT_ID; });
+const API = 'https://api.oliverpetshop.com.ar/'; //const PUBLIC_URL = 'http://localhost:3000';
 
+const PUBLIC_URL = 'https://developers.oliverpetshop.com.ar';
 const URL_CLOUD_STORAGE = 'https://storage.googleapis.com/web-oliver';
+const GOOGLE_CLIENT_ID = '85508910542-jfaoom4l84q0a9cdmeg382vi9hl986j1.apps.googleusercontent.com';
 
 
 /***/ }),
@@ -3564,6 +3708,7 @@ const Buscador = () => {
     0: buscador,
     1: setBuscador
   } = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])('');
+  const location = Object(next_router__WEBPACK_IMPORTED_MODULE_2__["useRouter"])();
 
   const showModalBuscador = () => {
     document.getElementsByTagName('body')[0].style.overflowY = 'hidden';
@@ -3579,7 +3724,13 @@ const Buscador = () => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    buscador.trim() !== '' ? next_router__WEBPACK_IMPORTED_MODULE_2___default.a.push(`/productos?search=${buscador}`) : false;
+    if (buscador.trim() == '') return false;
+
+    if (location.pathname == '/') {
+      return next_router__WEBPACK_IMPORTED_MODULE_2___default.a.push(`/productos?search=${buscador}`);
+    }
+
+    return window.location.assign(`/productos?search=${buscador}`);
   };
 
   return __jsx(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, __jsx("button", {

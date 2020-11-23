@@ -257,6 +257,15 @@ module.exports = {
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
+// NAMESPACE OBJECT: ./store/actions/usuarioActions.js
+var usuarioActions_namespaceObject = {};
+__webpack_require__.r(usuarioActions_namespaceObject);
+__webpack_require__.d(usuarioActions_namespaceObject, "login", function() { return usuarioActions_login; });
+__webpack_require__.d(usuarioActions_namespaceObject, "logout", function() { return logout; });
+__webpack_require__.d(usuarioActions_namespaceObject, "verificarSesion", function() { return verificarSesion; });
+__webpack_require__.d(usuarioActions_namespaceObject, "register", function() { return usuarioActions_register; });
+__webpack_require__.d(usuarioActions_namespaceObject, "singInWithGoogle", function() { return singInWithGoogle; });
+
 // EXTERNAL MODULE: external "react"
 var external_react_ = __webpack_require__("cDcd");
 var external_react_default = /*#__PURE__*/__webpack_require__.n(external_react_);
@@ -303,6 +312,192 @@ const Error = ({
 var Login_module = __webpack_require__("yym0");
 var Login_module_default = /*#__PURE__*/__webpack_require__.n(Login_module);
 
+// EXTERNAL MODULE: ./src/components/Loader/index.js
+var Loader = __webpack_require__("XOuL");
+
+// EXTERNAL MODULE: external "react-redux"
+var external_react_redux_ = __webpack_require__("h74D");
+
+// EXTERNAL MODULE: ./config/index.js
+var config = __webpack_require__("rOcY");
+
+// CONCATENATED MODULE: ./store/types/usuarioTypes.js
+const VERIFICAR_SESION = 'usuario_verificarsesion';
+const LOGIN = 'usuario_login';
+const LOGOUT = 'usuario_logout';
+const LOADING = 'usuario_loading';
+const ERROR = 'usuario_error';
+
+// CONCATENATED MODULE: ./store/actions/usuarioActions.js
+
+
+const usuarioActions_login = data => async dispatch => {
+  dispatch({
+    type: LOADING
+  });
+
+  try {
+    if (data.email.trim() === '' || data.password.trim() === '') {
+      return dispatch({
+        type: ERROR,
+        payload: 'Es necesario completar todos los campos'
+      });
+    }
+
+    let headers = new Headers();
+    headers.append("Content-Type", "application/json");
+    return fetch(`${config["a" /* API */]}/login`, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers
+    }).then(res => res.json()).then(response => {
+      if (response.ok) {
+        let objUsuario = {
+          nombre: response.usuario.nombre,
+          email: response.usuario.email,
+          foto: response.usuario.foto
+        };
+        localStorage.setItem('oliverpetshop_usuario', JSON.stringify(objUsuario));
+        dispatch({
+          type: LOGIN,
+          payload: localStorage.getItem('oliverpetshop_usuario')
+        });
+      } else {
+        return dispatch({
+          type: ERROR,
+          payload: response.info
+        });
+      }
+    });
+  } catch (error) {
+    console.log(error);
+    return dispatch({
+      type: ERROR,
+      payload: error
+    });
+  }
+};
+const logout = () => async dispatch => {
+  dispatch({
+    type: LOADING
+  });
+
+  try {
+    localStorage.removeItem('oliverpetshop_usuario');
+    return dispatch({
+      type: LOGOUT
+    });
+  } catch (error) {
+    dispatch({
+      type: ERROR,
+      payload: error
+    });
+  }
+};
+const verificarSesion = () => async dispatch => {
+  try {
+    let dataUsuario = localStorage.getItem('oliverpetshop_usuario');
+
+    if (dataUsuario) {
+      return dispatch({
+        type: VERIFICAR_SESION,
+        payload: true
+      });
+    }
+
+    return dispatch({
+      type: VERIFICAR_SESION,
+      payload: false
+    });
+  } catch (error) {
+    dispatch({
+      type: ERROR,
+      payload: error
+    });
+  }
+};
+const usuarioActions_register = data => dispatch => {
+  dispatch({
+    type: LOADING
+  });
+
+  try {
+    let headers = new Headers();
+    headers.append("Content-Type", "application/json");
+    return fetch(`${config["a" /* API */]}register`, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers
+    }).then(res => res.json()).then(response => {
+      if (response.ok) {
+        let objUsuario = {
+          nombre: response.usuario.nombre,
+          email: response.usuario.email,
+          foto: response.usuario.foto
+        };
+        localStorage.setItem('oliverpetshop_usuario', JSON.stringify(objUsuario));
+        dispatch({
+          type: LOGIN,
+          payload: localStorage.getItem('oliverpetshop_usuario')
+        });
+      } else {
+        dispatch({
+          type: ERROR,
+          payload: response.info
+        });
+      }
+    });
+  } catch (error) {
+    dispatch({
+      type: ERROR,
+      payload: error
+    });
+  }
+};
+const singInWithGoogle = tokenId => async dispatch => {
+  dispatch({
+    type: LOADING
+  });
+
+  try {
+    let headers = new Headers();
+    headers.append("Content-Type", "application/json");
+    return fetch(`${config["a" /* API */]}google/tokensignin`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        token: tokenId
+      })
+    }).then(res => res.json()).then(response => {
+      if (!response.ok) {
+        return dispatch({
+          type: ERROR,
+          payload: response.info
+        });
+      }
+
+      ;
+      let objUsuario = {
+        nombre: response.usuario.nombre,
+        email: response.usuario.email,
+        foto: response.usuario.foto
+      };
+      localStorage.setItem('oliverpetshop_usuario', JSON.stringify(objUsuario));
+      dispatch({
+        type: LOGIN,
+        payload: localStorage.getItem('oliverpetshop_usuario')
+      });
+    });
+  } catch (error) {
+    dispatch({
+      type: ERROR,
+      payload: error
+    });
+  }
+};
+// EXTERNAL MODULE: external "react-google-login"
+var external_react_google_login_ = __webpack_require__("rCsO");
+
 // CONCATENATED MODULE: ./src/components/Login/index.js
 var Login_jsx = external_react_default.a.createElement;
 
@@ -316,6 +511,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
+
+
+
+
 const Login = props => {
   const {
     0: formLoginValues,
@@ -324,10 +524,6 @@ const Login = props => {
     email: '',
     password: ''
   });
-  const {
-    0: error,
-    1: setError
-  } = Object(external_react_["useState"])(false);
 
   const handleChangeLogin = event => {
     setFormLoginValues(_objectSpread(_objectSpread({}, formLoginValues), {}, {
@@ -336,28 +532,37 @@ const Login = props => {
   };
 
   const handleSubmitLogin = event => {
-    event.preventDefault();
+    event.preventDefault(); //let btnSubmit = document.querySelector('#form-login .boton');
+    //btnSubmit.setAttribute('disabled',true);
 
-    if (formLoginValues.email.trim() === '' || formLoginValues.password.trim() === '') {
-      setError('Es necesario completar todos los campos');
-      return false;
-    }
-
-    setError(false);
-    return true;
+    return props.login(formLoginValues);
   };
 
   const habilitarRegister = () => {
     props.showRegister();
   };
 
+  const responseGoogle = data => {
+    if (data.tokenId) {
+      return props.singInWithGoogle(data.tokenId);
+    }
+  }; //console.log(props);
+
+
   return Login_jsx("div", {
     className: Login_module_default.a.login__container
   }, Login_jsx("h6", {
     className: Login_module_default.a.title__login + ' ' + `text-center`
-  }, "Ingres\xE1 a tu cuenta"), error ? Login_jsx(components_Error, {
-    message: error
-  }) : null, Login_jsx("form", {
+  }, "Ingres\xE1 a tu cuenta"), props.error ? Login_jsx(components_Error, {
+    message: props.error
+  }) : null, props.loading ? Login_jsx("div", {
+    className: "text-center"
+  }, Login_jsx(Loader["a" /* default */], null)) : null, props.logueado ? Login_jsx("div", null, Login_jsx("div", {
+    className: "text-center alert alert-success"
+  }, "Bienvenido/a ", props.usuario.nombre), Login_jsx("a", {
+    href: "/",
+    className: "boton bg-yellow mb-1"
+  }, "Continuar")) : Login_jsx(external_react_default.a.Fragment, null, Login_jsx("form", {
     className: Login_module_default.a.form + ' ' + `form-group`,
     name: "form-login",
     id: "form-login",
@@ -396,18 +601,41 @@ const Login = props => {
   }, "\xBFNo tenes cuenta?", Login_jsx("span", {
     className: Login_module_default.a.registerLink,
     onClick: habilitarRegister
-  }, " Registrate"))));
+  }, " Registrate")), Login_jsx("br", null), Login_jsx(external_react_google_login_["GoogleLogin"], {
+    className: "mt-2",
+    clientId: config["b" /* GOOGLE_CLIENT_ID */],
+    buttonText: "Iniciar sesi\xF3n con Google",
+    onSuccess: responseGoogle,
+    onFailure: responseGoogle,
+    cookiePolicy: 'single_host_origin'
+  }))));
 };
 
-/* harmony default export */ var components_Login = (Login);
+const mapStateToProps = reducers => {
+  return reducers.usuarioReducer;
+};
+
+/* harmony default export */ var components_Login = (Object(external_react_redux_["connect"])(mapStateToProps, usuarioActions_namespaceObject)(Login));
+// EXTERNAL MODULE: external "react-places-autocomplete"
+var external_react_places_autocomplete_ = __webpack_require__("KOAY");
+var external_react_places_autocomplete_default = /*#__PURE__*/__webpack_require__.n(external_react_places_autocomplete_);
+
 // CONCATENATED MODULE: ./src/components/Login/Register.js
 var Register_jsx = external_react_default.a.createElement;
+
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 function Register_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function Register_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { Register_ownKeys(Object(source), true).forEach(function (key) { Register_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { Register_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function Register_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+
 
 
 
@@ -420,7 +648,9 @@ const Register = props => {
   } = Object(external_react_["useState"])({
     nombre: '',
     telefono: '',
-    ubicacion: '',
+    address: '',
+    lat: '',
+    lon: '',
     email: '',
     password: ''
   });
@@ -438,26 +668,56 @@ const Register = props => {
   const handleSubmitLogin = event => {
     event.preventDefault();
 
-    if (formRegisterValues.nombre.trim() === '' || formRegisterValues.telefono.trim() === '' || formRegisterValues.ubicacion.trim() === '' || formRegisterValues.email.trim() === '' || formRegisterValues.password.trim() === '') {
+    if (formRegisterValues.nombre.trim() === '' || formRegisterValues.telefono.trim() === '' || formRegisterValues.address.trim() === '' || formRegisterValues.lat === '' || formRegisterValues.lon === '' || formRegisterValues.email.trim() === '' || formRegisterValues.password.trim() === '') {
       setError('Es necesario completar todos los campos');
       return false;
     }
 
     setError(false);
-    return true;
+    return props.register(formRegisterValues);
+  };
+
+  const handleSelect = address => {
+    Object(external_react_places_autocomplete_["geocodeByAddress"])(address).then(results => Object(external_react_places_autocomplete_["getLatLng"])(results[0])).then(latLng => {
+      setFormRegisterValues(Register_objectSpread(Register_objectSpread({}, formRegisterValues), {}, {
+        address,
+        lat: latLng.lat,
+        lon: latLng.lng
+      }));
+    }).catch(error => console.error('Error', error));
+  };
+
+  const handleChange = address => {
+    setFormRegisterValues(Register_objectSpread(Register_objectSpread({}, formRegisterValues), {}, {
+      address
+    }));
   };
 
   const habilitarLogin = () => {
     props.showLogin();
   };
 
+  const redirigir = () => {
+    setTimeout(() => {
+      window.location.assign('/');
+    }, 1500);
+  };
+
+  const responseGoogle = data => {
+    if (data.tokenId) {
+      return props.singInWithGoogle(data.tokenId);
+    }
+  };
+
   return Register_jsx("div", {
     className: Login_module_default.a.login__container
   }, Register_jsx("h6", {
     className: Login_module_default.a.title__login + ' ' + `text-center`
-  }, "Registrate"), error ? Register_jsx(components_Error, {
-    message: error
-  }) : null, Register_jsx("form", {
+  }, "Registrate"), props.error ? Register_jsx(components_Error, {
+    message: props.error
+  }) : null, props.logueado ? Register_jsx("div", {
+    className: "alert alert-success text-center"
+  }, "Bienvenido/a ", props.usuario.nombre, " ", redirigir()) : Register_jsx(external_react_default.a.Fragment, null, Register_jsx("form", {
     className: Login_module_default.a.form + ' ' + `form-group`,
     name: "form-login",
     id: "form-login",
@@ -485,14 +745,42 @@ const Register = props => {
   }), Register_jsx("label", {
     className: Login_module_default.a.label,
     htmlFor: "ubicacion"
-  }, "Ubicaci\xF3n"), Register_jsx("input", {
-    type: "text",
+  }, "Ubicaci\xF3n"), Register_jsx(external_react_places_autocomplete_default.a, {
+    value: formRegisterValues.address,
+    onChange: handleChange,
+    onSelect: handleSelect
+  }, ({
+    getInputProps,
+    suggestions,
+    getSuggestionItemProps,
+    loading
+  }) => Register_jsx("div", null, Register_jsx("input", _extends({
     className: Login_module_default.a.input + ' ' + `form-control`,
-    id: "ubicacion",
-    name: "ubicacion",
-    value: formRegisterValues.ubicacion,
-    onChange: handleChangeLogin
-  }), Register_jsx("label", {
+    id: "ubicacion"
+  }, getInputProps({
+    placeholder: 'Buscá tu dirección ...'
+  }))), Register_jsx("div", {
+    className: "autocomplete-dropdown-container"
+  }, loading && Register_jsx("div", null, "Loading..."), suggestions.map((suggestion, key) => {
+    const className = suggestion.active ? 'suggestion-item--active' : 'suggestion-item'; // inline style for demonstration purpose
+
+    const style = suggestion.active ? {
+      backgroundColor: '#fafafa',
+      cursor: 'pointer',
+      margin: '10px',
+      padding: '5px'
+    } : {
+      backgroundColor: '#ffffff',
+      cursor: 'pointer',
+      margin: '10px',
+      padding: '5px'
+    };
+    return Register_jsx("div", getSuggestionItemProps(suggestion, {
+      className,
+      style,
+      key
+    }), Register_jsx("span", null, suggestion.description));
+  })))), Register_jsx("label", {
     className: Login_module_default.a.label,
     htmlFor: "emal"
   }, "Email"), Register_jsx("input", {
@@ -512,7 +800,9 @@ const Register = props => {
     name: "password",
     value: formRegisterValues.password,
     onChange: handleChangeLogin
-  }), Register_jsx("br", null), Register_jsx("input", {
+  }), Register_jsx("br", null), props.loading ? Register_jsx("div", {
+    className: "text-center"
+  }, Register_jsx(Loader["a" /* default */], null)) : Register_jsx("input", {
     type: "submit",
     className: "boton bg-yellow mb-1",
     value: "Registrarme"
@@ -523,10 +813,21 @@ const Register = props => {
   }, "\xBFYa tenes cuenta?", Register_jsx("span", {
     className: Login_module_default.a.registerLink,
     onClick: habilitarLogin
-  }, " Ingres\xE1"))));
+  }, " Ingres\xE1")), Register_jsx("br", null), Register_jsx(external_react_google_login_["GoogleLogin"], {
+    className: "mt-2",
+    clientId: config["b" /* GOOGLE_CLIENT_ID */],
+    buttonText: "Registrate con Google",
+    onSuccess: responseGoogle,
+    onFailure: responseGoogle,
+    cookiePolicy: 'single_host_origin'
+  }))));
 };
 
-/* harmony default export */ var Login_Register = (Register);
+const Register_mapStateToProps = reducers => {
+  return reducers.usuarioReducer;
+};
+
+/* harmony default export */ var Login_Register = (Object(external_react_redux_["connect"])(Register_mapStateToProps, usuarioActions_namespaceObject)(Register));
 // EXTERNAL MODULE: ./src/components/Carrito/index.js + 1 modules
 var Carrito = __webpack_require__("qC+Y");
 
@@ -538,9 +839,6 @@ var free_brands_svg_icons_ = __webpack_require__("JVe5");
 
 // EXTERNAL MODULE: external "@fortawesome/react-fontawesome"
 var react_fontawesome_ = __webpack_require__("uhWA");
-
-// EXTERNAL MODULE: ./config/index.js
-var config = __webpack_require__("rOcY");
 
 // CONCATENATED MODULE: ./src/components/Navbar/index.js
 var Navbar_jsx = external_react_default.a.createElement;
@@ -557,7 +855,12 @@ var Navbar_jsx = external_react_default.a.createElement;
 
 
 
-const Navbar = () => {
+
+
+const Navbar = props => {
+  Object(external_react_["useEffect"])(() => {
+    props.verificarSesion();
+  }, []);
   const {
     0: busqueda,
     1: setBusqueda
@@ -577,7 +880,8 @@ const Navbar = () => {
   const {
     0: modalIsOpen,
     1: setModalIsOpen
-  } = Object(external_react_["useState"])(false); //actions login-register
+  } = Object(external_react_["useState"])(false);
+  const location = Object(router_["useRouter"])(); //actions login-register
 
   const showModalLogin = () => {
     register ? setRegister(false) : null;
@@ -614,7 +918,12 @@ const Navbar = () => {
   const handleSubmitBuscador = event => {
     event.preventDefault();
     if (busqueda.trim() === '') return false;
-    return router_default.a.push(`/productos?search=${busqueda}`);
+
+    if (location.pathname == '/') {
+      return router_default.a.push(`/productos?search=${busqueda}`);
+    }
+
+    return window.location.assign(`/productos?search=${busqueda}`);
   };
 
   const renderContenidoModal = () => {
@@ -625,6 +934,13 @@ const Navbar = () => {
       showLogin: showModalLogin
     });
     if (carrito) return Navbar_jsx(Carrito["a" /* default */], null);
+  };
+
+  const cerrarSesion = async () => {
+    await props.logout();
+    setTimeout(() => {
+      return showModalLogin();
+    }, 800);
   };
 
   return Navbar_jsx(external_react_default.a.Fragment, null, Navbar_jsx("div", {
@@ -638,7 +954,7 @@ const Navbar = () => {
   }, Navbar_jsx(link_default.a, {
     href: "/"
   }, Navbar_jsx("a", null, Navbar_jsx("img", {
-    src: `${config["c" /* URL_CLOUD_STORAGE */]}/static/Perro.png`,
+    src: `${config["d" /* URL_CLOUD_STORAGE */]}/static/Perro.png`,
     className: Navbar_module_default.a.logo + ' ' + `img-fluid`,
     alt: "Oliver pet shop"
   })))), Navbar_jsx("span", {
@@ -663,7 +979,15 @@ const Navbar = () => {
     placeholder: "\xBFQu\xE9 andas buscando?"
   })), Navbar_jsx("div", {
     className: Navbar_module_default.a.container__login_menu + ' ' + `col-sm-7 col-xl-4 col-md-4 d-flex align-items-center justify-content-end`
+  }, props.logueado ? Navbar_jsx("span", {
+    onClick: cerrarSesion,
+    className: Navbar_module_default.a.boton__menu + ' ' + Navbar_module_default.a.btn_account
   }, Navbar_jsx("span", {
+    className: Navbar_module_default.a.txt__item_menu
+  }, Navbar_jsx(react_fontawesome_["FontAwesomeIcon"], {
+    icon: free_solid_svg_icons_["faSignOutAlt"],
+    className: Navbar_module_default.a.txt__item_menu
+  }), " Cerrar Sesi\xF3n")) : Navbar_jsx("span", {
     onClick: showModalLogin,
     className: Navbar_module_default.a.boton__menu + ' ' + Navbar_module_default.a.btn_account
   }, Navbar_jsx("span", {
@@ -679,7 +1003,7 @@ const Navbar = () => {
   }, Navbar_jsx("section", {
     className: Navbar_module_default.a.header__collapsed_nav
   }, Navbar_jsx("img", {
-    src: `${config["c" /* URL_CLOUD_STORAGE */]}/static/Perro.png`,
+    src: `${config["d" /* URL_CLOUD_STORAGE */]}/static/Perro.png`,
     className: Navbar_module_default.a.logo,
     alt: "Oliver pet shop"
   }), Navbar_jsx("i", {
@@ -699,15 +1023,7 @@ const Navbar = () => {
     className: Navbar_module_default.a.icon__itemMenu__collapsed
   }), Navbar_jsx("span", {
     className: Navbar_module_default.a.label__item__menu
-  }, "Inicio")))), Navbar_jsx("li", {
-    className: Navbar_module_default.a.item__menu__collapsed,
-    onClick: showModalLogin
-  }, Navbar_jsx(react_fontawesome_["FontAwesomeIcon"], {
-    icon: free_solid_svg_icons_["faUser"],
-    className: Navbar_module_default.a.icon__itemMenu__collapsed
-  }), Navbar_jsx("span", {
-    className: Navbar_module_default.a.label__item__menu
-  }, "Ingres\xE1 ahora / Registrate")), Navbar_jsx(link_default.a, {
+  }, "Inicio")))), Navbar_jsx(link_default.a, {
     href: "/",
     onClick: toggleMenu
   }, Navbar_jsx("a", null, Navbar_jsx("li", {
@@ -717,7 +1033,23 @@ const Navbar = () => {
     className: Navbar_module_default.a.icon__itemMenu__collapsed
   }), Navbar_jsx("span", {
     className: Navbar_module_default.a.label__item__menu
-  }, "Productos")))), Navbar_jsx("li", {
+  }, "Productos")))), props.logueado ? Navbar_jsx("li", {
+    className: Navbar_module_default.a.item__menu__collapsed,
+    onClick: cerrarSesion
+  }, Navbar_jsx(react_fontawesome_["FontAwesomeIcon"], {
+    icon: free_solid_svg_icons_["faUser"],
+    className: Navbar_module_default.a.icon__itemMenu__collapsed
+  }), Navbar_jsx("span", {
+    className: Navbar_module_default.a.label__item__menu
+  }, "Cerrar sesi\xF3n")) : Navbar_jsx("li", {
+    className: Navbar_module_default.a.item__menu__collapsed,
+    onClick: showModalLogin
+  }, Navbar_jsx(react_fontawesome_["FontAwesomeIcon"], {
+    icon: free_solid_svg_icons_["faUser"],
+    className: Navbar_module_default.a.icon__itemMenu__collapsed
+  }), Navbar_jsx("span", {
+    className: Navbar_module_default.a.label__item__menu
+  }, "Ingres\xE1 ahora / Registrate")), Navbar_jsx("li", {
     className: Navbar_module_default.a.item__menu__collapsed + ' ' + Navbar_module_default.a.__withButton
   }, Navbar_jsx("a", {
     href: "/",
@@ -739,7 +1071,11 @@ const Navbar = () => {
   }, renderContenidoModal()));
 };
 
-/* harmony default export */ var components_Navbar = (Navbar);
+const Navbar_mapStateToProps = reducers => {
+  return reducers.usuarioReducer;
+};
+
+/* harmony default export */ var components_Navbar = (Object(external_react_redux_["connect"])(Navbar_mapStateToProps, usuarioActions_namespaceObject)(Navbar));
 // EXTERNAL MODULE: external "nprogress"
 var external_nprogress_ = __webpack_require__("GvLQ");
 var external_nprogress_default = /*#__PURE__*/__webpack_require__.n(external_nprogress_);
@@ -762,9 +1098,6 @@ const Layout = props => {
 };
 
 /* harmony default export */ var components_Layout = (Layout);
-// EXTERNAL MODULE: external "react-redux"
-var external_react_redux_ = __webpack_require__("h74D");
-
 // EXTERNAL MODULE: external "next-redux-wrapper"
 var external_next_redux_wrapper_ = __webpack_require__("JMOJ");
 
@@ -820,64 +1153,76 @@ const marcasReducer = (state = INITIAL_STATE, action) => {
 };
 
 /* harmony default export */ var reducers_marcasReducer = (marcasReducer);
-// EXTERNAL MODULE: ./store/types/subproductosTypes.js
-var subproductosTypes = __webpack_require__("fXWR");
+// EXTERNAL MODULE: ./store/types/productosTypes.js
+var productosTypes = __webpack_require__("LwYX");
 
-// CONCATENATED MODULE: ./store/reducers/subproductosReducer.js
-function subproductosReducer_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+// CONCATENATED MODULE: ./store/reducers/productosReducer.js
+function productosReducer_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function subproductosReducer_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { subproductosReducer_ownKeys(Object(source), true).forEach(function (key) { subproductosReducer_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { subproductosReducer_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function productosReducer_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { productosReducer_ownKeys(Object(source), true).forEach(function (key) { productosReducer_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { productosReducer_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-function subproductosReducer_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function productosReducer_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
-const subproductosReducer_INITIAL_STATE = {
-  subproductos: [],
-  subproducto: null,
+const productosReducer_INITIAL_STATE = {
+  productos: [],
+  producto: null,
   promociones: [],
   loading: false,
+  loading_mas: false,
   error: null
 };
 
-const subproductosReducer = (state = subproductosReducer_INITIAL_STATE, action) => {
+const subproductosReducer = (state = productosReducer_INITIAL_STATE, action) => {
   switch (action.type) {
-    case subproductosTypes["f" /* TRAER_TODOS */]:
-      return subproductosReducer_objectSpread(subproductosReducer_objectSpread({}, state), {}, {
-        subproductos: action.payload,
+    case productosTypes["h" /* TRAER_TODOS */]:
+      return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
+        productos: action.payload,
         loading: false
       });
 
-    case subproductosTypes["g" /* TRAER_UNO */]:
-      return subproductosReducer_objectSpread(subproductosReducer_objectSpread({}, state), {}, {
-        subproducto: action.payload,
+    case productosTypes["f" /* TRAER_MAS */]:
+      return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
+        productos: action.payload,
+        loading_mas: false
+      });
+
+    case productosTypes["i" /* TRAER_UNO */]:
+      return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
+        producto: action.payload,
         loading: false
       });
 
-    case subproductosTypes["e" /* TRAER_PROMOCIONES */]:
-      return subproductosReducer_objectSpread(subproductosReducer_objectSpread({}, state), {}, {
+    case productosTypes["g" /* TRAER_PROMOCIONES */]:
+      return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
         promociones: action.payload,
         loading: false
       });
 
-    case subproductosTypes["d" /* ORDENAR_PRODUCTOS */]:
-      return subproductosReducer_objectSpread(subproductosReducer_objectSpread({}, state), {}, {
-        subproductos: action.payload,
+    case productosTypes["e" /* ORDENAR_PRODUCTOS */]:
+      return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
+        productos: action.payload,
         loading: false
       });
 
-    case subproductosTypes["b" /* FILTRANDO */]:
-      return subproductosReducer_objectSpread(subproductosReducer_objectSpread({}, state), {}, {
-        subproductos: action.payload,
+    case productosTypes["b" /* FILTRANDO */]:
+      return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
+        productos: action.payload,
         loading: false
       });
 
-    case subproductosTypes["c" /* LOADING */]:
-      return subproductosReducer_objectSpread(subproductosReducer_objectSpread({}, state), {}, {
+    case productosTypes["c" /* LOADING */]:
+      return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
         loading: true
       });
 
-    case subproductosTypes["a" /* ERROR */]:
-      return subproductosReducer_objectSpread(subproductosReducer_objectSpread({}, state), {}, {
+    case productosTypes["d" /* LOADING_MAS */]:
+      return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
+        loading_mas: true
+      });
+
+    case productosTypes["a" /* ERROR */]:
+      return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
         loading: false,
         error: action.payload
       });
@@ -887,7 +1232,7 @@ const subproductosReducer = (state = subproductosReducer_INITIAL_STATE, action) 
   }
 };
 
-/* harmony default export */ var reducers_subproductosReducer = (subproductosReducer);
+/* harmony default export */ var productosReducer = (subproductosReducer);
 // EXTERNAL MODULE: ./store/types/carritoTypes.js
 var carritoTypes = __webpack_require__("kqUl");
 
@@ -1031,7 +1376,64 @@ const subcategoriasReducer = (state = subcategoriasReducer_INITIAL_STATE, action
 };
 
 /* harmony default export */ var reducers_subcategoriasReducer = (subcategoriasReducer);
+// CONCATENATED MODULE: ./store/reducers/usuarioReducer.js
+function usuarioReducer_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function usuarioReducer_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { usuarioReducer_ownKeys(Object(source), true).forEach(function (key) { usuarioReducer_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { usuarioReducer_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function usuarioReducer_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+const usuarioReducer_INITIAL_STATE = {
+  usuario: null,
+  logueado: false,
+  loading: false,
+  error: null
+};
+
+const usuarioReducer = (state = usuarioReducer_INITIAL_STATE, action) => {
+  switch (action.type) {
+    case VERIFICAR_SESION:
+      return usuarioReducer_objectSpread(usuarioReducer_objectSpread({}, state), {}, {
+        logueado: action.payload,
+        loading: false
+      });
+
+    case LOGIN:
+      return usuarioReducer_objectSpread(usuarioReducer_objectSpread({}, state), {}, {
+        logueado: true,
+        loading: false,
+        error: null,
+        usuario: JSON.parse(action.payload)
+      });
+
+    case LOGOUT:
+      return usuarioReducer_objectSpread(usuarioReducer_objectSpread({}, state), {}, {
+        usuario: null,
+        logueado: false,
+        loading: false
+      });
+
+    case LOADING:
+      return usuarioReducer_objectSpread(usuarioReducer_objectSpread({}, state), {}, {
+        loading: true
+      });
+
+    case ERROR:
+      return usuarioReducer_objectSpread(usuarioReducer_objectSpread({}, state), {}, {
+        logueado: false,
+        loading: false,
+        error: action.payload
+      });
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ var reducers_usuarioReducer = (usuarioReducer);
 // CONCATENATED MODULE: ./store/reducers/index.js
+
 
 
 
@@ -1040,10 +1442,11 @@ const subcategoriasReducer = (state = subcategoriasReducer_INITIAL_STATE, action
 
 /* harmony default export */ var reducers = (Object(external_redux_["combineReducers"])({
   marcasReducer: reducers_marcasReducer,
-  subproductosReducer: reducers_subproductosReducer,
+  productosReducer: productosReducer,
   carritoReducer: reducers_carritoReducer,
   categoriasReducer: reducers_categoriasReducer,
-  subcategoriaReducer: reducers_subcategoriasReducer
+  subcategoriaReducer: reducers_subcategoriasReducer,
+  usuarioReducer: reducers_usuarioReducer
 }));
 // CONCATENATED MODULE: ./store/index.js
 
@@ -1391,6 +1794,39 @@ module.exports = require("@fortawesome/free-brands-svg-icons");
 
 /***/ }),
 
+/***/ "KOAY":
+/***/ (function(module, exports) {
+
+module.exports = require("react-places-autocomplete");
+
+/***/ }),
+
+/***/ "LwYX":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return TRAER_TODOS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return TRAER_UNO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return LOADING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ERROR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return TRAER_PROMOCIONES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return ORDENAR_PRODUCTOS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return FILTRANDO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return LOADING_MAS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return TRAER_MAS; });
+const TRAER_TODOS = 'producto_traer_todos';
+const LOADING = 'producto_loading';
+const ERROR = 'producto_error';
+const TRAER_PROMOCIONES = 'producto_traer_promociones';
+const ORDENAR_PRODUCTOS = 'producto_ordenarproductos';
+const FILTRANDO = 'producto_filtrando';
+const TRAER_UNO = 'producto_traeruno';
+const LOADING_MAS = 'producto_loading_mas';
+const TRAER_MAS = 'producto_traer_mas';
+
+
+/***/ }),
+
 /***/ "No/t":
 /***/ (function(module, exports) {
 
@@ -1450,6 +1886,38 @@ function removePathTrailingSlash(path) {
 
 const normalizePathTrailingSlash =  false ? undefined : removePathTrailingSlash;
 exports.normalizePathTrailingSlash = normalizePathTrailingSlash;
+
+/***/ }),
+
+/***/ "XOuL":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var styled_jsx_style__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("HJQg");
+/* harmony import */ var styled_jsx_style__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(styled_jsx_style__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("cDcd");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+
+var __jsx = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement;
+
+
+const Loader = props => {
+  return __jsx("div", {
+    className: "jsx-3824642466" + " " + "lds-ring"
+  }, __jsx("div", {
+    className: "jsx-3824642466"
+  }), __jsx("div", {
+    className: "jsx-3824642466"
+  }), __jsx("div", {
+    className: "jsx-3824642466"
+  }), __jsx("div", {
+    className: "jsx-3824642466"
+  }), __jsx(styled_jsx_style__WEBPACK_IMPORTED_MODULE_0___default.a, {
+    id: "3824642466"
+  }, [".lds-ring.jsx-3824642466{display:inline-block;position:relative;width:80px;height:80px;}", ".lds-ring.jsx-3824642466 div.jsx-3824642466{box-sizing:border-box;display:block;position:absolute;width:54px;height:54px;margin:8px;border:7px solid #fff;border-radius:50%;-webkit-animation:lds-ring-jsx-3824642466 1.2s cubic-bezier(0.5,0,0.5,1) infinite;animation:lds-ring-jsx-3824642466 1.2s cubic-bezier(0.5,0,0.5,1) infinite;border-color:#FFB347 transparent transparent transparent;}", ".lds-ring.jsx-3824642466 div.jsx-3824642466:nth-child(1){-webkit-animation-delay:-0.45s;animation-delay:-0.45s;}", ".lds-ring.jsx-3824642466 div.jsx-3824642466:nth-child(2){-webkit-animation-delay:-0.3s;animation-delay:-0.3s;}", ".lds-ring.jsx-3824642466 div.jsx-3824642466:nth-child(3){-webkit-animation-delay:-0.15s;animation-delay:-0.15s;}", "@-webkit-keyframes lds-ring-jsx-3824642466{0%{-webkit-transform:rotate(0deg);-ms-transform:rotate(0deg);transform:rotate(0deg);}100%{-webkit-transform:rotate(360deg);-ms-transform:rotate(360deg);transform:rotate(360deg);}}", "@keyframes lds-ring-jsx-3824642466{0%{-webkit-transform:rotate(0deg);-ms-transform:rotate(0deg);transform:rotate(0deg);}100%{-webkit-transform:rotate(360deg);-ms-transform:rotate(360deg);transform:rotate(360deg);}}"]));
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (Loader);
 
 /***/ }),
 
@@ -2807,28 +3275,6 @@ Router.events = (0, _mitt.default)();
 
 /***/ }),
 
-/***/ "fXWR":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return TRAER_TODOS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return TRAER_UNO; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return LOADING; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ERROR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return TRAER_PROMOCIONES; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return ORDENAR_PRODUCTOS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return FILTRANDO; });
-const TRAER_TODOS = 'producto_traer_todos';
-const LOADING = 'producto_loading';
-const ERROR = 'producto_error';
-const TRAER_PROMOCIONES = 'producto_traer_promociones';
-const ORDENAR_PRODUCTOS = 'producto_ordenarproductos';
-const FILTRANDO = 'producto_filtrando';
-const TRAER_UNO = 'producto_traeruno';
-
-
-/***/ }),
-
 /***/ "faye":
 /***/ (function(module, exports) {
 
@@ -3388,9 +3834,6 @@ var Carrito_module_default = /*#__PURE__*/__webpack_require__.n(Carrito_module);
 var ProductoCarrito_module = __webpack_require__("eD2A");
 var ProductoCarrito_module_default = /*#__PURE__*/__webpack_require__.n(ProductoCarrito_module);
 
-// EXTERNAL MODULE: ./config/index.js
-var config = __webpack_require__("rOcY");
-
 // EXTERNAL MODULE: external "@fortawesome/free-solid-svg-icons"
 var free_solid_svg_icons_ = __webpack_require__("No/t");
 
@@ -3399,7 +3842,6 @@ var react_fontawesome_ = __webpack_require__("uhWA");
 
 // CONCATENATED MODULE: ./src/components/Carrito/ProductoCarrito.js
 var __jsx = external_react_default.a.createElement;
-
 
 
 
@@ -3423,7 +3865,7 @@ const ProductoCarrito = props => {
   }), __jsx("div", {
     className: ProductoCarrito_module_default.a.img__producto__wrapper
   }, __jsx("img", {
-    src: `${config["c" /* URL_CLOUD_STORAGE */]}/${foto}`,
+    src: foto,
     alt: "prd",
     className: "img-fluid"
   })), __jsx("div", {
@@ -3524,6 +3966,13 @@ module.exports = {
 
 /***/ }),
 
+/***/ "rCsO":
+/***/ (function(module, exports) {
+
+module.exports = require("react-google-login");
+
+/***/ }),
+
 /***/ "rKB8":
 /***/ (function(module, exports) {
 
@@ -3536,12 +3985,14 @@ module.exports = require("redux");
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return API; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return PUBLIC_URL; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return URL_CLOUD_STORAGE; });
-const API = 'https://api.oliverpetshop.com.ar/';
-const PUBLIC_URL = 'http://localhost:3000'; //const PUBLIC_URL = 'https://developers.oliverpetshop.com.ar';
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return PUBLIC_URL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return URL_CLOUD_STORAGE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return GOOGLE_CLIENT_ID; });
+const API = 'https://api.oliverpetshop.com.ar/'; //const PUBLIC_URL = 'http://localhost:3000';
 
+const PUBLIC_URL = 'https://developers.oliverpetshop.com.ar';
 const URL_CLOUD_STORAGE = 'https://storage.googleapis.com/web-oliver';
+const GOOGLE_CLIENT_ID = '85508910542-jfaoom4l84q0a9cdmeg382vi9hl986j1.apps.googleusercontent.com';
 
 
 /***/ }),
