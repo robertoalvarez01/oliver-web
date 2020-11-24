@@ -1175,12 +1175,17 @@ const productosReducer_INITIAL_STATE = {
 
 const subproductosReducer = (state = productosReducer_INITIAL_STATE, action) => {
   switch (action.type) {
+<<<<<<< HEAD
     case productosTypes["h" /* TRAER_TODOS */]:
+=======
+    case productosTypes["f" /* TRAER_TODOS */]:
+>>>>>>> be9cafb466a0d29123531ee0f5288085b7a429cc
       return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
         productos: action.payload,
         loading: false
       });
 
+<<<<<<< HEAD
     case productosTypes["f" /* TRAER_MAS */]:
       return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
         productos: action.payload,
@@ -1188,18 +1193,29 @@ const subproductosReducer = (state = productosReducer_INITIAL_STATE, action) => 
       });
 
     case productosTypes["i" /* TRAER_UNO */]:
+=======
+    case productosTypes["g" /* TRAER_UNO */]:
+>>>>>>> be9cafb466a0d29123531ee0f5288085b7a429cc
       return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
         producto: action.payload,
         loading: false
       });
 
+<<<<<<< HEAD
     case productosTypes["g" /* TRAER_PROMOCIONES */]:
+=======
+    case productosTypes["e" /* TRAER_PROMOCIONES */]:
+>>>>>>> be9cafb466a0d29123531ee0f5288085b7a429cc
       return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
         promociones: action.payload,
         loading: false
       });
 
+<<<<<<< HEAD
     case productosTypes["e" /* ORDENAR_PRODUCTOS */]:
+=======
+    case productosTypes["d" /* ORDENAR_PRODUCTOS */]:
+>>>>>>> be9cafb466a0d29123531ee0f5288085b7a429cc
       return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
         productos: action.payload,
         loading: false
@@ -1216,11 +1232,14 @@ const subproductosReducer = (state = productosReducer_INITIAL_STATE, action) => 
         loading: true
       });
 
+<<<<<<< HEAD
     case productosTypes["d" /* LOADING_MAS */]:
       return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
         loading_mas: true
       });
 
+=======
+>>>>>>> be9cafb466a0d29123531ee0f5288085b7a429cc
     case productosTypes["a" /* ERROR */]:
       return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
         loading: false,
@@ -1805,6 +1824,7 @@ module.exports = require("react-places-autocomplete");
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+<<<<<<< HEAD
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return TRAER_TODOS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return TRAER_UNO; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return LOADING; });
@@ -1814,6 +1834,15 @@ module.exports = require("react-places-autocomplete");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return FILTRANDO; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return LOADING_MAS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return TRAER_MAS; });
+=======
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return TRAER_TODOS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return TRAER_UNO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return LOADING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ERROR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return TRAER_PROMOCIONES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return ORDENAR_PRODUCTOS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return FILTRANDO; });
+>>>>>>> be9cafb466a0d29123531ee0f5288085b7a429cc
 const TRAER_TODOS = 'producto_traer_todos';
 const LOADING = 'producto_loading';
 const ERROR = 'producto_error';
@@ -1821,8 +1850,11 @@ const TRAER_PROMOCIONES = 'producto_traer_promociones';
 const ORDENAR_PRODUCTOS = 'producto_ordenarproductos';
 const FILTRANDO = 'producto_filtrando';
 const TRAER_UNO = 'producto_traeruno';
+<<<<<<< HEAD
 const LOADING_MAS = 'producto_loading_mas';
 const TRAER_MAS = 'producto_traer_mas';
+=======
+>>>>>>> be9cafb466a0d29123531ee0f5288085b7a429cc
 
 
 /***/ }),
