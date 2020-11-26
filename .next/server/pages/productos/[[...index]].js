@@ -213,6 +213,45 @@ function withRouter(ComposedComponent) {
 
 /***/ }),
 
+/***/ "0JKX":
+/***/ (function(module, exports) {
+
+// Exports
+module.exports = {
+	"navbar": "Navbar_navbar__1cna4",
+	"container__logo": "Navbar_container__logo__HySyy",
+	"logo": "Navbar_logo__3vj75",
+	"container__login_menu": "Navbar_container__login_menu__2vQdj",
+	"boton__menu": "Navbar_boton__menu__3c6F3",
+	"btn_account": "Navbar_btn_account__2Zaoz",
+	"imgProfile": "Navbar_imgProfile__jeFPI",
+	"btn_carrito": "Navbar_btn_carrito__2mZY8",
+	"carrito_mobile": "Navbar_carrito_mobile__2IYef",
+	"icon_menu": "Navbar_icon_menu__2CorA",
+	"img_menu": "Navbar_img_menu__3sk-n",
+	"menu__collapsed": "Navbar_menu__collapsed__3ww75",
+	"form_search_menu": "Navbar_form_search_menu__1b8gM",
+	"wrapper__navbar": "Navbar_wrapper__navbar__14EZG",
+	"lupa_buscador": "Navbar_lupa_buscador__3_vvJ",
+	"input-group-text": "Navbar_input-group-text__2_pHE",
+	"buscador": "Navbar_buscador__3L3ob",
+	"header__collapsed_nav": "Navbar_header__collapsed_nav__3rPMs",
+	"close_btn_menu": "Navbar_close_btn_menu__3jnG0",
+	"main__collapsed": "Navbar_main__collapsed__3kXMF",
+	"list__menu__collapsed": "Navbar_list__menu__collapsed__3BK5O",
+	"icon__itemMenu__collapsed": "Navbar_icon__itemMenu__collapsed__1Zemk",
+	"item__menu__collapsed": "Navbar_item__menu__collapsed__3BZ2r",
+	"label__item__menu": "Navbar_label__item__menu__3zFoO",
+	"collapsed_info": "Navbar_collapsed_info__3Zugh",
+	"redes__collapsed": "Navbar_redes__collapsed__1JfQC",
+	"iconoRed": "Navbar_iconoRed__3PYtV",
+	"showCollapsed": "Navbar_showCollapsed__2N6Tr",
+	"sinBorder": "Navbar_sinBorder__2nVJZ"
+};
+
+
+/***/ }),
+
 /***/ "284h":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1029,6 +1068,10 @@ var Filtro_module_default = /*#__PURE__*/__webpack_require__.n(Filtro_module);
 // EXTERNAL MODULE: ./helpers/index.js
 var helpers = __webpack_require__("pRT7");
 
+// EXTERNAL MODULE: ./src/components/Navbar/Navbar.module.css
+var Navbar_module = __webpack_require__("0JKX");
+var Navbar_module_default = /*#__PURE__*/__webpack_require__.n(Navbar_module);
+
 // CONCATENATED MODULE: ./src/components/Productos/index.js
 
 var __jsx = external_react_default.a.createElement;
@@ -1038,6 +1081,7 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -1081,6 +1125,10 @@ const Productos = props => {
   }, [rangoProducto]);
 
   const showFiltrosMobile = () => {
+    if (document.getElementsByClassName(Navbar_module_default.a.menu__collapsed)[0].classList.contains(Navbar_module_default.a.showCollapsed)) {
+      document.getElementsByClassName(Navbar_module_default.a.menu__collapsed)[0].classList.remove(Navbar_module_default.a.showCollapsed);
+    }
+
     document.getElementsByClassName('Filtro_filtros__contanier__3knXf')[0].classList.add(Filtro_module_default.a.show_filtros);
   };
 
@@ -1139,16 +1187,37 @@ const Productos = props => {
     let alturaActual = feedProductos.scrollTop;
     let porcentajeSuficiente = alturaTotalFeed * 80 / 100;
 
-    if (alturaTotalFeed == 2060) {
-      porcentajeSuficiente = alturaTotalFeed * 65 / 100;
+    if (Object(helpers["a" /* isMobile */])()) {
+      porcentajeSuficiente = alturaTotalFeed * 70 / 100;
+    } else {
+      if (alturaTotalFeed == 2060) {
+        porcentajeSuficiente = alturaTotalFeed * 65 / 100;
+      }
+
+      ;
     }
 
-    ;
+    if (botonCargarMas) {
+      if (alturaActual >= porcentajeSuficiente) {
+        return botonCargarMas.classList.remove('d-none');
+      } else {
+        return botonCargarMas.classList.add('d-none');
+      }
+    }
+  };
 
-    if (alturaActual >= porcentajeSuficiente) {
-      return botonCargarMas.classList.remove('d-none');
-    } else {
-      return botonCargarMas.classList.add('d-none');
+  const renderBotonCargarMas = () => {
+    let minimoPosteos = 20;
+
+    if (Object(helpers["a" /* isMobile */])()) {
+      minimoPosteos = 10;
+    }
+
+    if (props.productos && props.productos.length >= minimoPosteos) {
+      return __jsx("button", {
+        className: "boton bg-yellow btn-vermas d-none",
+        onClick: cargarMas
+      }, props.loading_mas ? 'Obteniendo productos...' : 'Cargar más');
     }
   };
 
@@ -1198,10 +1267,7 @@ const Productos = props => {
   }, __jsx(CardProducto["a" /* default */], {
     imagen: prd.foto,
     prd: prd
-  })))), props.productos && props.productos.length >= 20 ? __jsx("button", {
-    onClick: cargarMas,
-    className: "jsx-2778668712" + " " + "boton bg-yellow btn-vermas d-none"
-  }, props.loading_mas ? 'Obteniendo productos...' : 'Cargar más') : null), __jsx(style_default.a, {
+  })))), renderBotonCargarMas()), __jsx(style_default.a, {
     id: "2778668712"
   }, [".feedProductos.jsx-2778668712{height:75vh;overflow-y:scroll;}", ".btn-vermas.jsx-2778668712{position:relative;top:12px;}", ".feedProductos.jsx-2778668712::-webkit-scrollbar{width:8px;height:5px;}", ".feedProductos.jsx-2778668712::-webkit-scrollbar-thumb{background:#FFB347;border-radius:4px;}", ".feedProductos.jsx-2778668712::-webkit-scrollbar-thumb.jsx-2778668712:hover{background:#b3b3b3;box-shadow:0 0 2px 1px rgba(0,0,0,0.2);}", "@media(max-width:768px){.feedProductos.jsx-2778668712{height:65vh;overflow-y:scroll;}.feedProductos.jsx-2778668712::-webkit-scrollbar{width:8px;height:10px;}}"]));
 };
@@ -3405,9 +3471,7 @@ const Header = ({
   }), metadesc ? __jsx("meta", {
     name: "description",
     content: metadesc
-  }) : null, __jsx("script", {
-    src: "https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyDh6iZtfmNFUiGqEn6-7qENrzRKSIqh6qw"
-  }));
+  }) : null);
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (Header);
@@ -3635,8 +3699,7 @@ function slug(name) {
 }
 
 function isMobile() {
-  if (window.innerWidth > 860) return false;
-  return navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/BlackBerry/i) || window.innerWidth <= 860;
+  if (false) {}
 }
 
 

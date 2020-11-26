@@ -229,6 +229,7 @@ module.exports = {
 	"btn_carrito": "Navbar_btn_carrito__2mZY8",
 	"carrito_mobile": "Navbar_carrito_mobile__2IYef",
 	"icon_menu": "Navbar_icon_menu__2CorA",
+	"img_menu": "Navbar_img_menu__3sk-n",
 	"menu__collapsed": "Navbar_menu__collapsed__3ww75",
 	"form_search_menu": "Navbar_form_search_menu__1b8gM",
 	"wrapper__navbar": "Navbar_wrapper__navbar__14EZG",
@@ -845,8 +846,13 @@ var react_fontawesome_ = __webpack_require__("uhWA");
 // EXTERNAL MODULE: external "reactstrap"
 var external_reactstrap_ = __webpack_require__("oL/c");
 
+// EXTERNAL MODULE: ./src/components/Filtro/Filtro.module.css
+var Filtro_module = __webpack_require__("PsAh");
+var Filtro_module_default = /*#__PURE__*/__webpack_require__.n(Filtro_module);
+
 // CONCATENATED MODULE: ./src/components/Navbar/index.js
 var Navbar_jsx = external_react_default.a.createElement;
+
 
 
 
@@ -912,12 +918,17 @@ const Navbar = props => {
 
   const showModalCarrito = () => {
     login ? setLogin(false) : null;
-    register ? setRegister(false) : null;
+    register ? setRegister(false) : null; //si el menu esta abierto, lo cierro.
+
     setCarrito(true);
     setModalIsOpen(true);
   };
 
   const toggleMenu = () => {
+    if (document.getElementsByClassName('Filtro_filtros__contanier__3knXf')[0] && document.getElementsByClassName('Filtro_filtros__contanier__3knXf')[0].classList.contains(Filtro_module_default.a.show_filtros)) {
+      document.getElementsByClassName('Filtro_filtros__contanier__3knXf')[0].classList.remove(Filtro_module_default.a.show_filtros);
+    }
+
     document.getElementsByClassName(Navbar_module_default.a.menu__collapsed)[0].classList.toggle(Navbar_module_default.a.showCollapsed);
   };
 
@@ -975,7 +986,11 @@ const Navbar = props => {
   }, Navbar_jsx(react_fontawesome_["FontAwesomeIcon"], {
     icon: free_solid_svg_icons_["faShoppingCart"],
     className: Navbar_module_default.a.txt__item_menu
-  })), Navbar_jsx(react_fontawesome_["FontAwesomeIcon"], {
+  })), props.logueado ? Navbar_jsx("img", {
+    src: props.usuario.foto != 'null' ? props.usuario.foto : `https://storage.googleapis.com/web-oliver/user-default.png`,
+    className: Navbar_module_default.a.imgProfile + ' ' + Navbar_module_default.a.img_menu,
+    onClick: toggleMenu
+  }) : Navbar_jsx(react_fontawesome_["FontAwesomeIcon"], {
     onClick: toggleMenu,
     icon: free_solid_svg_icons_["faAlignLeft"],
     className: Navbar_module_default.a.icon_menu
@@ -1032,27 +1047,7 @@ const Navbar = props => {
   }), Navbar_jsx("i", {
     onClick: toggleMenu,
     className: Navbar_module_default.a.close_btn_menu + ' ' + `fas fa-times`
-  }), props.logueado ? Navbar_jsx(external_reactstrap_["ButtonDropdown"], {
-    isOpen: dropdownOpen,
-    toggle: toggle
-  }, Navbar_jsx(external_reactstrap_["DropdownToggle"], {
-    caret: true,
-    size: "sm",
-    className: Navbar_module_default.a.boton__menu + ' ' + Navbar_module_default.a.btn_account + ' ' + Navbar_module_default.a.sinBorder
-  }, Navbar_jsx("img", {
-    src: props.usuario.foto != 'null' ? props.usuario.foto : `https://storage.googleapis.com/web-oliver/user-default.png`,
-    className: Navbar_module_default.a.imgProfile
-  })), Navbar_jsx(external_reactstrap_["DropdownMenu"], null, Navbar_jsx(link_default.a, {
-    href: `${config["c" /* PUBLIC_URL */]}/perfil`,
-    onClick: toggleMenu
-  }, Navbar_jsx("a", null, Navbar_jsx(external_reactstrap_["DropdownItem"], null, "Mi perfil"))), Navbar_jsx(external_reactstrap_["DropdownItem"], {
-    divider: true
-  }), Navbar_jsx(external_reactstrap_["DropdownItem"], {
-    onClick: cerrarSesion
-  }, Navbar_jsx(react_fontawesome_["FontAwesomeIcon"], {
-    icon: free_solid_svg_icons_["faSignOutAlt"],
-    className: Navbar_module_default.a.txt__item_menu
-  }), " Cerrar sesi\xF3n"))) : null), Navbar_jsx("div", {
+  })), Navbar_jsx("div", {
     className: Navbar_module_default.a.main__collapsed
   }, Navbar_jsx("ul", {
     className: Navbar_module_default.a.list__menu__collapsed
@@ -1076,7 +1071,25 @@ const Navbar = props => {
     className: Navbar_module_default.a.icon__itemMenu__collapsed
   }), Navbar_jsx("span", {
     className: Navbar_module_default.a.label__item__menu
-  }, "Productos")))), props.logueado ? null : Navbar_jsx("li", {
+  }, "Productos")))), props.logueado ? Navbar_jsx(external_react_default.a.Fragment, null, Navbar_jsx(link_default.a, {
+    href: `${config["c" /* PUBLIC_URL */]}/perfil`,
+    onClick: toggleMenu
+  }, Navbar_jsx("a", null, Navbar_jsx("li", {
+    className: Navbar_module_default.a.item__menu__collapsed
+  }, Navbar_jsx(react_fontawesome_["FontAwesomeIcon"], {
+    icon: free_solid_svg_icons_["faUser"],
+    className: Navbar_module_default.a.icon__itemMenu__collapsed
+  }), Navbar_jsx("span", {
+    className: Navbar_module_default.a.label__item__menu
+  }, "Mi perfil")))), Navbar_jsx("li", {
+    className: Navbar_module_default.a.item__menu__collapsed,
+    onClick: cerrarSesion
+  }, Navbar_jsx(react_fontawesome_["FontAwesomeIcon"], {
+    icon: free_solid_svg_icons_["faSignOutAlt"],
+    className: Navbar_module_default.a.icon__itemMenu__collapsed
+  }), Navbar_jsx("span", {
+    className: Navbar_module_default.a.label__item__menu
+  }, "Cerrar Sesi\xF3n"))) : Navbar_jsx("li", {
     className: Navbar_module_default.a.item__menu__collapsed,
     onClick: showModalLogin
   }, Navbar_jsx(react_fontawesome_["FontAwesomeIcon"], {
@@ -1115,9 +1128,14 @@ const Navbar_mapStateToProps = reducers => {
 var external_nprogress_ = __webpack_require__("GvLQ");
 var external_nprogress_default = /*#__PURE__*/__webpack_require__.n(external_nprogress_);
 
+// EXTERNAL MODULE: external "next/head"
+var head_ = __webpack_require__("xnum");
+var head_default = /*#__PURE__*/__webpack_require__.n(head_);
+
 // CONCATENATED MODULE: ./src/components/Layout.js
 
 var Layout_jsx = external_react_default.a.createElement;
+
 
 
 
@@ -1127,7 +1145,10 @@ router_default.a.events.on('routeChangeComplete', () => external_nprogress_defau
 router_default.a.events.on('routeChangeError', () => external_nprogress_default.a.done());
 
 const Layout = props => {
-  return Layout_jsx(external_react_default.a.Fragment, null, Layout_jsx(components_Navbar, null), props.children, Layout_jsx(style_default.a, {
+  return Layout_jsx(external_react_default.a.Fragment, null, Layout_jsx(head_default.a, null, Layout_jsx("script", {
+    src: "https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyDh6iZtfmNFUiGqEn6-7qENrzRKSIqh6qw",
+    className: "jsx-413395772"
+  })), Layout_jsx(components_Navbar, null), props.children, Layout_jsx(style_default.a, {
     id: "413395772"
   }, ["body{margin:0px;font-family:system-ui;background:white;}", "#nprogress{pointer-events:none;}", "#nprogress .bar{background:#29d;position:fixed;z-index:1031;top:0;left:0;width:100%;height:2px;}", "#nprogress .peg{display:block;position:absolute;right:0px;width:100px;height:100%;box-shadow:0 0 10px #29d,0 0 5px #29d;opacity:1.0;-webkit-transform:rotate(3deg) translate(0px,-4px);-ms-transform:rotate(3deg) translate(0px,-4px);-webkit-transform:rotate(3deg) translate(0px,-4px);-ms-transform:rotate(3deg) translate(0px,-4px);transform:rotate(3deg) translate(0px,-4px);}", "#nprogress .spinner{display:block;position:fixed;z-index:1031;top:15px;right:15px;}", "#nprogress .spinner-icon{width:18px;height:18px;box-sizing:border-box;border:solid 2px transparent;border-top-color:#29d;border-left-color:#29d;border-radius:50%;-webkit-animation:nprogress-spinner 400ms linear infinite;-webkit-animation:nprogress-spinner 400ms linear infinite;animation:nprogress-spinner 400ms linear infinite;}", ".nprogress-custom-parent{overflow:hidden;position:relative;}", ".nprogress-custom-parent #nprogress .spinner,.nprogress-custom-parent #nprogress .bar{position:absolute;}", "@-webkit-keyframes nprogress-spinner{0%{-webkit-transform:rotate(0deg);}100%{-webkit-transform:rotate(360deg);}}", "@-webkit-keyframes nprogress-spinner{0%{-webkit-transform:rotate(0deg);-ms-transform:rotate(0deg);transform:rotate(0deg);}100%{-webkit-transform:rotate(360deg);-ms-transform:rotate(360deg);transform:rotate(360deg);}}", "@keyframes nprogress-spinner{0%{-webkit-transform:rotate(0deg);-ms-transform:rotate(0deg);transform:rotate(0deg);}100%{-webkit-transform:rotate(360deg);-ms-transform:rotate(360deg);transform:rotate(360deg);}}"]));
 };
@@ -1874,6 +1895,29 @@ module.exports = require("@fortawesome/free-solid-svg-icons");
 /***/ (function(module, exports) {
 
 module.exports = require("next/dist/next-server/lib/router-context.js");
+
+/***/ }),
+
+/***/ "PsAh":
+/***/ (function(module, exports) {
+
+// Exports
+module.exports = {
+	"filtros__contanier": "Filtro_filtros__contanier__3knXf",
+	"show": "Filtro_show__1Rj5d",
+	"btn_close_filtro": "Filtro_btn_close_filtro__37rTH",
+	"rotar": "Filtro_rotar__2UEYw",
+	"lista": "Filtro_lista__3_b9b",
+	"item_filtro": "Filtro_item_filtro__3xqSt",
+	"active": "Filtro_active__32lB0",
+	"sinBorderBottom": "Filtro_sinBorderBottom__cF6G2",
+	"icon_close_filtro": "Filtro_icon_close_filtro__1xlv5",
+	"cerrar_filtro_mobile": "Filtro_cerrar_filtro_mobile__1SKrQ",
+	"titulo_filtros": "Filtro_titulo_filtros__2QgvL",
+	"boton": "Filtro_boton__3kHsa",
+	"show_filtros": "Filtro_show_filtros__2D1CA"
+};
+
 
 /***/ }),
 
@@ -4060,6 +4104,13 @@ module.exports = require("@fortawesome/react-fontawesome");
 "use strict";
 exports.__esModule=true;exports.normalizePathSep=normalizePathSep;exports.denormalizePagePath=denormalizePagePath;function normalizePathSep(path){return path.replace(/\\/g,'/');}function denormalizePagePath(page){page=normalizePathSep(page);if(page.startsWith('/index/')){page=page.slice(6);}else if(page==='/index'){page='/';}return page;}
 //# sourceMappingURL=denormalize-page-path.js.map
+
+/***/ }),
+
+/***/ "xnum":
+/***/ (function(module, exports) {
+
+module.exports = require("next/head");
 
 /***/ }),
 

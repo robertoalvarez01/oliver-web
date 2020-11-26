@@ -3010,9 +3010,7 @@ const Header = ({
   }), metadesc ? __jsx("meta", {
     name: "description",
     content: metadesc
-  }) : null, __jsx("script", {
-    src: "https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyDh6iZtfmNFUiGqEn6-7qENrzRKSIqh6qw"
-  }));
+  }) : null);
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (Header);
@@ -3334,8 +3332,7 @@ function slug(name) {
 }
 
 function isMobile() {
-  if (window.innerWidth > 860) return false;
-  return navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/BlackBerry/i) || window.innerWidth <= 860;
+  if (false) {}
 }
 
 
