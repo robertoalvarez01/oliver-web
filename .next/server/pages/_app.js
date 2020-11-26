@@ -225,6 +225,7 @@ module.exports = {
 	"container__login_menu": "Navbar_container__login_menu__2vQdj",
 	"boton__menu": "Navbar_boton__menu__3c6F3",
 	"btn_account": "Navbar_btn_account__2Zaoz",
+	"imgProfile": "Navbar_imgProfile__jeFPI",
 	"btn_carrito": "Navbar_btn_carrito__2mZY8",
 	"carrito_mobile": "Navbar_carrito_mobile__2IYef",
 	"icon_menu": "Navbar_icon_menu__2CorA",
@@ -244,7 +245,8 @@ module.exports = {
 	"collapsed_info": "Navbar_collapsed_info__3Zugh",
 	"redes__collapsed": "Navbar_redes__collapsed__1JfQC",
 	"iconoRed": "Navbar_iconoRed__3PYtV",
-	"showCollapsed": "Navbar_showCollapsed__2N6Tr"
+	"showCollapsed": "Navbar_showCollapsed__2N6Tr",
+	"sinBorder": "Navbar_sinBorder__2nVJZ"
 };
 
 
@@ -396,12 +398,12 @@ const logout = () => async dispatch => {
 };
 const verificarSesion = () => async dispatch => {
   try {
-    let dataUsuario = localStorage.getItem('oliverpetshop_usuario');
+    let dataUsuario = JSON.parse(localStorage.getItem('oliverpetshop_usuario'));
 
     if (dataUsuario) {
       return dispatch({
         type: VERIFICAR_SESION,
-        payload: true
+        payload: dataUsuario
       });
     }
 
@@ -840,8 +842,12 @@ var free_brands_svg_icons_ = __webpack_require__("JVe5");
 // EXTERNAL MODULE: external "@fortawesome/react-fontawesome"
 var react_fontawesome_ = __webpack_require__("uhWA");
 
+// EXTERNAL MODULE: external "reactstrap"
+var external_reactstrap_ = __webpack_require__("oL/c");
+
 // CONCATENATED MODULE: ./src/components/Navbar/index.js
 var Navbar_jsx = external_react_default.a.createElement;
+
 
 
 
@@ -880,6 +886,10 @@ const Navbar = props => {
   const {
     0: modalIsOpen,
     1: setModalIsOpen
+  } = Object(external_react_["useState"])(false);
+  const {
+    0: dropdownOpen,
+    1: setOpen
   } = Object(external_react_["useState"])(false);
   const location = Object(router_["useRouter"])(); //actions login-register
 
@@ -943,6 +953,8 @@ const Navbar = props => {
     }, 800);
   };
 
+  const toggle = () => setOpen(!dropdownOpen);
+
   return Navbar_jsx(external_react_default.a.Fragment, null, Navbar_jsx("div", {
     className: Navbar_module_default.a.navbar + ' ' + `sticky-top`
   }, Navbar_jsx("div", {
@@ -979,15 +991,26 @@ const Navbar = props => {
     placeholder: "\xBFQu\xE9 andas buscando?"
   })), Navbar_jsx("div", {
     className: Navbar_module_default.a.container__login_menu + ' ' + `col-sm-7 col-xl-4 col-md-4 d-flex align-items-center justify-content-end`
-  }, props.logueado ? Navbar_jsx("span", {
-    onClick: cerrarSesion,
-    className: Navbar_module_default.a.boton__menu + ' ' + Navbar_module_default.a.btn_account
-  }, Navbar_jsx("span", {
-    className: Navbar_module_default.a.txt__item_menu
+  }, props.logueado ? Navbar_jsx(external_reactstrap_["ButtonDropdown"], {
+    isOpen: dropdownOpen,
+    toggle: toggle
+  }, Navbar_jsx(external_reactstrap_["DropdownToggle"], {
+    caret: true,
+    size: "sm",
+    className: Navbar_module_default.a.boton__menu + ' ' + Navbar_module_default.a.btn_account + ' ' + Navbar_module_default.a.sinBorder
+  }, Navbar_jsx("img", {
+    src: props.usuario.foto != 'null' ? props.usuario.foto : `https://storage.googleapis.com/web-oliver/user-default.png`,
+    className: Navbar_module_default.a.imgProfile
+  })), Navbar_jsx(external_reactstrap_["DropdownMenu"], null, Navbar_jsx(link_default.a, {
+    href: `${config["c" /* PUBLIC_URL */]}/perfil`
+  }, Navbar_jsx("a", null, Navbar_jsx(external_reactstrap_["DropdownItem"], null, "Mi perfil"))), Navbar_jsx(external_reactstrap_["DropdownItem"], {
+    divider: true
+  }), Navbar_jsx(external_reactstrap_["DropdownItem"], {
+    onClick: cerrarSesion
   }, Navbar_jsx(react_fontawesome_["FontAwesomeIcon"], {
     icon: free_solid_svg_icons_["faSignOutAlt"],
     className: Navbar_module_default.a.txt__item_menu
-  }), " Cerrar Sesi\xF3n")) : Navbar_jsx("span", {
+  }), " Cerrar sesi\xF3n"))) : Navbar_jsx("span", {
     onClick: showModalLogin,
     className: Navbar_module_default.a.boton__menu + ' ' + Navbar_module_default.a.btn_account
   }, Navbar_jsx("span", {
@@ -1009,7 +1032,27 @@ const Navbar = props => {
   }), Navbar_jsx("i", {
     onClick: toggleMenu,
     className: Navbar_module_default.a.close_btn_menu + ' ' + `fas fa-times`
-  })), Navbar_jsx("div", {
+  }), props.logueado ? Navbar_jsx(external_reactstrap_["ButtonDropdown"], {
+    isOpen: dropdownOpen,
+    toggle: toggle
+  }, Navbar_jsx(external_reactstrap_["DropdownToggle"], {
+    caret: true,
+    size: "sm",
+    className: Navbar_module_default.a.boton__menu + ' ' + Navbar_module_default.a.btn_account + ' ' + Navbar_module_default.a.sinBorder
+  }, Navbar_jsx("img", {
+    src: props.usuario.foto != 'null' ? props.usuario.foto : `https://storage.googleapis.com/web-oliver/user-default.png`,
+    className: Navbar_module_default.a.imgProfile
+  })), Navbar_jsx(external_reactstrap_["DropdownMenu"], null, Navbar_jsx(link_default.a, {
+    href: `${config["c" /* PUBLIC_URL */]}/perfil`,
+    onClick: toggleMenu
+  }, Navbar_jsx("a", null, Navbar_jsx(external_reactstrap_["DropdownItem"], null, "Mi perfil"))), Navbar_jsx(external_reactstrap_["DropdownItem"], {
+    divider: true
+  }), Navbar_jsx(external_reactstrap_["DropdownItem"], {
+    onClick: cerrarSesion
+  }, Navbar_jsx(react_fontawesome_["FontAwesomeIcon"], {
+    icon: free_solid_svg_icons_["faSignOutAlt"],
+    className: Navbar_module_default.a.txt__item_menu
+  }), " Cerrar sesi\xF3n"))) : null), Navbar_jsx("div", {
     className: Navbar_module_default.a.main__collapsed
   }, Navbar_jsx("ul", {
     className: Navbar_module_default.a.list__menu__collapsed
@@ -1033,15 +1076,7 @@ const Navbar = props => {
     className: Navbar_module_default.a.icon__itemMenu__collapsed
   }), Navbar_jsx("span", {
     className: Navbar_module_default.a.label__item__menu
-  }, "Productos")))), props.logueado ? Navbar_jsx("li", {
-    className: Navbar_module_default.a.item__menu__collapsed,
-    onClick: cerrarSesion
-  }, Navbar_jsx(react_fontawesome_["FontAwesomeIcon"], {
-    icon: free_solid_svg_icons_["faUser"],
-    className: Navbar_module_default.a.icon__itemMenu__collapsed
-  }), Navbar_jsx("span", {
-    className: Navbar_module_default.a.label__item__menu
-  }, "Cerrar sesi\xF3n")) : Navbar_jsx("li", {
+  }, "Productos")))), props.logueado ? null : Navbar_jsx("li", {
     className: Navbar_module_default.a.item__menu__collapsed,
     onClick: showModalLogin
   }, Navbar_jsx(react_fontawesome_["FontAwesomeIcon"], {
@@ -1395,7 +1430,8 @@ const usuarioReducer = (state = usuarioReducer_INITIAL_STATE, action) => {
   switch (action.type) {
     case VERIFICAR_SESION:
       return usuarioReducer_objectSpread(usuarioReducer_objectSpread({}, state), {}, {
-        logueado: action.payload,
+        logueado: true,
+        usuario: action.payload,
         loading: false
       });
 
@@ -3786,6 +3822,13 @@ const TRAER_TODAS = 'subcategorias_traer_todas';
 const LOADING = 'subcategorias_loading';
 const ERROR = 'subcategorias_error';
 
+
+/***/ }),
+
+/***/ "oL/c":
+/***/ (function(module, exports) {
+
+module.exports = require("reactstrap");
 
 /***/ }),
 

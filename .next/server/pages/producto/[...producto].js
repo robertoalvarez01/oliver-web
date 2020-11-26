@@ -88,7 +88,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -213,14 +213,6 @@ function withRouter(ComposedComponent) {
 
 /***/ }),
 
-/***/ 2:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__("30mp");
-
-
-/***/ }),
-
 /***/ "284h":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -279,6 +271,14 @@ function _interopRequireWildcard(obj) {
 }
 
 module.exports = _interopRequireWildcard;
+
+/***/ }),
+
+/***/ 3:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__("30mp");
+
 
 /***/ }),
 
@@ -683,7 +683,8 @@ const Producto = props => {
       descripcion_basica
     } = props.producto.data[0];
     return _producto_jsx(external_react_default.a.Fragment, null, _producto_jsx(Head["a" /* default */], {
-      title: props.producto.data[0].producto
+      title: props.producto.data[0].producto,
+      metadesc: props.producto.data[0].descripcion_basica
     }), _producto_jsx("section", {
       className: "pb-5",
       style: {
@@ -2997,7 +2998,8 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
 
 const Header = ({
-  title
+  title,
+  metadesc
 }) => {
   return __jsx(next_head__WEBPACK_IMPORTED_MODULE_1___default.a, null, __jsx("title", null, title), __jsx("meta", {
     name: "theme-color",
@@ -3005,7 +3007,10 @@ const Header = ({
   }), __jsx("link", {
     rel: "icon",
     href: `${_config_index__WEBPACK_IMPORTED_MODULE_2__[/* URL_CLOUD_STORAGE */ "d"]}/static/Perro.png`
-  }), __jsx("script", {
+  }), metadesc ? __jsx("meta", {
+    name: "description",
+    content: metadesc
+  }) : null, __jsx("script", {
     src: "https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyDh6iZtfmNFUiGqEn6-7qENrzRKSIqh6qw"
   }));
 };

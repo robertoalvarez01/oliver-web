@@ -88,7 +88,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -274,14 +274,6 @@ module.exports = _interopRequireWildcard;
 
 /***/ }),
 
-/***/ 3:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__("YRs9");
-
-
-/***/ }),
-
 /***/ "34k4":
 /***/ (function(module, exports) {
 
@@ -351,6 +343,14 @@ function assign(target, ...searchParamsList) {
   });
   return target;
 }
+
+/***/ }),
+
+/***/ 4:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__("YRs9");
+
 
 /***/ }),
 
@@ -1132,6 +1132,26 @@ const Productos = props => {
     }
   };
 
+  const handleScrollFeedProductos = event => {
+    let feedProductos = document.querySelector('.feedProductos');
+    let botonCargarMas = document.querySelector('.btn-vermas');
+    let alturaTotalFeed = feedProductos.scrollHeight;
+    let alturaActual = feedProductos.scrollTop;
+    let porcentajeSuficiente = alturaTotalFeed * 80 / 100;
+
+    if (alturaTotalFeed == 2060) {
+      porcentajeSuficiente = alturaTotalFeed * 65 / 100;
+    }
+
+    ;
+
+    if (alturaActual >= porcentajeSuficiente) {
+      return botonCargarMas.classList.remove('d-none');
+    } else {
+      return botonCargarMas.classList.add('d-none');
+    }
+  };
+
   return __jsx(external_react_default.a.Fragment, null, props.loading || !props.productos ? __jsx("div", {
     className: "jsx-2778668712" + " " + "col-12 text-center"
   }, __jsx(Loader["a" /* default */], null)) : __jsx(external_react_default.a.Fragment, null, filtro !== '' ? __jsx("span", {
@@ -1170,6 +1190,7 @@ const Productos = props => {
     onClick: showFiltrosMobile,
     className: "jsx-2778668712" + " " + (`boton bg-yellow mt-3 d-none` + ' ' + Productos_module_default.a.boton_filtrar_mobile || false)
   }, "Filtrar")), __jsx("div", {
+    onScroll: handleScrollFeedProductos,
     className: "jsx-2778668712" + " " + "row feedProductos"
   }, !props.productos ? null : props.productos.map(prd => __jsx("div", {
     key: prd.idProducto,
@@ -1177,10 +1198,10 @@ const Productos = props => {
   }, __jsx(CardProducto["a" /* default */], {
     imagen: prd.foto,
     prd: prd
-  })))), __jsx("button", {
+  })))), props.productos && props.productos.length >= 20 ? __jsx("button", {
     onClick: cargarMas,
-    className: "jsx-2778668712" + " " + "boton bg-yellow btn-vermas"
-  }, props.loading_mas ? 'Obteniendo productos...' : 'Cargar más')), __jsx(style_default.a, {
+    className: "jsx-2778668712" + " " + "boton bg-yellow btn-vermas d-none"
+  }, props.loading_mas ? 'Obteniendo productos...' : 'Cargar más') : null), __jsx(style_default.a, {
     id: "2778668712"
   }, [".feedProductos.jsx-2778668712{height:75vh;overflow-y:scroll;}", ".btn-vermas.jsx-2778668712{position:relative;top:12px;}", ".feedProductos.jsx-2778668712::-webkit-scrollbar{width:8px;height:5px;}", ".feedProductos.jsx-2778668712::-webkit-scrollbar-thumb{background:#FFB347;border-radius:4px;}", ".feedProductos.jsx-2778668712::-webkit-scrollbar-thumb.jsx-2778668712:hover{background:#b3b3b3;box-shadow:0 0 2px 1px rgba(0,0,0,0.2);}", "@media(max-width:768px){.feedProductos.jsx-2778668712{height:65vh;overflow-y:scroll;}.feedProductos.jsx-2778668712::-webkit-scrollbar{width:8px;height:10px;}}"]));
 };
@@ -1517,7 +1538,11 @@ const Filtro = props => {
             categoria: '',
             filtrando: false
           }));
-          props.productosTraerTodos();
+          props.productosTraerTodos({
+            desde: 1,
+            limiteDesktop: 20,
+            limiteMobile: 10
+          });
 
           if (props.location != 'productos') {
             router_default.a.push('/productos');
@@ -1536,7 +1561,11 @@ const Filtro = props => {
             subcategoria: '',
             filtrando: false
           }));
-          props.productosTraerTodos();
+          props.productosTraerTodos({
+            desde: 1,
+            limiteDesktop: 20,
+            limiteMobile: 10
+          });
 
           if (props.location != 'productos') {
             router_default.a.push('/productos');
@@ -1555,7 +1584,11 @@ const Filtro = props => {
             marca: '',
             filtrando: false
           }));
-          props.productosTraerTodos();
+          props.productosTraerTodos({
+            desde: 1,
+            limiteDesktop: 20,
+            limiteMobile: 10
+          });
 
           if (props.location != 'productos') {
             router_default.a.push('/productos');
@@ -3360,7 +3393,8 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
 
 const Header = ({
-  title
+  title,
+  metadesc
 }) => {
   return __jsx(next_head__WEBPACK_IMPORTED_MODULE_1___default.a, null, __jsx("title", null, title), __jsx("meta", {
     name: "theme-color",
@@ -3368,7 +3402,10 @@ const Header = ({
   }), __jsx("link", {
     rel: "icon",
     href: `${_config_index__WEBPACK_IMPORTED_MODULE_2__[/* URL_CLOUD_STORAGE */ "d"]}/static/Perro.png`
-  }), __jsx("script", {
+  }), metadesc ? __jsx("meta", {
+    name: "description",
+    content: metadesc
+  }) : null, __jsx("script", {
     src: "https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyDh6iZtfmNFUiGqEn6-7qENrzRKSIqh6qw"
   }));
 };

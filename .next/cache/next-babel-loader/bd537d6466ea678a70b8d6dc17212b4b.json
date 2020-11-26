@@ -1,0 +1,1 @@
+{"ast":null,"code":"var __jsx = React.createElement;\nimport Head from '../../src/components/Head';\nimport React from 'react';\n\nvar Perfil = function Perfil(props) {\n  return __jsx(React.Fragment, null, __jsx(Head, {\n    title: \"Oliver Petshop - Mi perfil\"\n  }));\n};\n\nexport default Perfil;","map":null,"metadata":{},"sourceType":"module"}
