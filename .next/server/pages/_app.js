@@ -404,13 +404,19 @@ const verificarSesion = () => async dispatch => {
     if (dataUsuario) {
       return dispatch({
         type: VERIFICAR_SESION,
-        payload: dataUsuario
+        payload: {
+          data: dataUsuario,
+          logueado: true
+        }
       });
     }
 
     return dispatch({
       type: VERIFICAR_SESION,
-      payload: false
+      payload: {
+        data: null,
+        logueado: false
+      }
     });
   } catch (error) {
     dispatch({
@@ -831,7 +837,7 @@ const Register_mapStateToProps = reducers => {
 };
 
 /* harmony default export */ var Login_Register = (Object(external_react_redux_["connect"])(Register_mapStateToProps, usuarioActions_namespaceObject)(Register));
-// EXTERNAL MODULE: ./src/components/Carrito/index.js + 1 modules
+// EXTERNAL MODULE: ./src/components/Carrito/index.js
 var Carrito = __webpack_require__("qC+Y");
 
 // EXTERNAL MODULE: external "@fortawesome/free-solid-svg-icons"
@@ -986,7 +992,7 @@ const Navbar = props => {
   }, Navbar_jsx(react_fontawesome_["FontAwesomeIcon"], {
     icon: free_solid_svg_icons_["faShoppingCart"],
     className: Navbar_module_default.a.txt__item_menu
-  })), props.logueado ? Navbar_jsx("img", {
+  })), props.logueado && props.usuario ? Navbar_jsx("img", {
     src: props.usuario.foto != 'null' ? props.usuario.foto : `https://storage.googleapis.com/web-oliver/user-default.png`,
     className: Navbar_module_default.a.imgProfile + ' ' + Navbar_module_default.a.img_menu,
     onClick: toggleMenu
@@ -1006,7 +1012,7 @@ const Navbar = props => {
     placeholder: "\xBFQu\xE9 andas buscando?"
   })), Navbar_jsx("div", {
     className: Navbar_module_default.a.container__login_menu + ' ' + `col-sm-7 col-xl-4 col-md-4 d-flex align-items-center justify-content-end`
-  }, props.logueado ? Navbar_jsx(external_reactstrap_["ButtonDropdown"], {
+  }, props.logueado && props.usuario ? Navbar_jsx(external_reactstrap_["ButtonDropdown"], {
     isOpen: dropdownOpen,
     toggle: toggle
   }, Navbar_jsx(external_reactstrap_["DropdownToggle"], {
@@ -1071,7 +1077,7 @@ const Navbar = props => {
     className: Navbar_module_default.a.icon__itemMenu__collapsed
   }), Navbar_jsx("span", {
     className: Navbar_module_default.a.label__item__menu
-  }, "Productos")))), props.logueado ? Navbar_jsx(external_react_default.a.Fragment, null, Navbar_jsx(link_default.a, {
+  }, "Productos")))), props.logueado && props.usuario ? Navbar_jsx(external_react_default.a.Fragment, null, Navbar_jsx(link_default.a, {
     href: `${config["c" /* PUBLIC_URL */]}/perfil`,
     onClick: toggleMenu
   }, Navbar_jsx("a", null, Navbar_jsx("li", {
@@ -1451,8 +1457,8 @@ const usuarioReducer = (state = usuarioReducer_INITIAL_STATE, action) => {
   switch (action.type) {
     case VERIFICAR_SESION:
       return usuarioReducer_objectSpread(usuarioReducer_objectSpread({}, state), {}, {
-        logueado: true,
-        usuario: action.payload,
+        logueado: action.payload.logueado,
+        usuario: action.payload.data,
         loading: false
       });
 
@@ -1881,6 +1887,64 @@ const TRAER_UNO = 'producto_traeruno';
 const LOADING_MAS = 'producto_loading_mas';
 const TRAER_MAS = 'producto_traer_mas';
 
+
+/***/ }),
+
+/***/ "Mnxd":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("cDcd");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _ProductoCarrito_module_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("eD2A");
+/* harmony import */ var _ProductoCarrito_module_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_ProductoCarrito_module_css__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("No/t");
+/* harmony import */ var _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("uhWA");
+/* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__);
+var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
+
+
+
+
+
+const ProductoCarrito = props => {
+  const {
+    foto,
+    producto,
+    peso,
+    total,
+    idSubProducto,
+    cantidad
+  } = props;
+  return __jsx("div", {
+    className: _ProductoCarrito_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.card__productoCarrito + ' ' + `col-12`
+  }, __jsx(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeIcon"], {
+    icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__["faTrash"],
+    className: _ProductoCarrito_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.delete_producto_carrito,
+    onClick: () => props.eliminarProducto(idSubProducto)
+  }), __jsx("div", {
+    className: _ProductoCarrito_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.img__producto__wrapper
+  }, __jsx("img", {
+    src: foto,
+    alt: "prd",
+    className: "img-fluid"
+  })), __jsx("div", {
+    className: _ProductoCarrito_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.info__productoCarrito
+  }, __jsx("span", {
+    className: _ProductoCarrito_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.carrito__nombre__producto + ' ' + `d-block`
+  }, producto), __jsx("span", {
+    className: _ProductoCarrito_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.carrito__cantidad__producto + ' ' + `d-block`
+  }, "x ", peso, "Kg"), __jsx("span", {
+    className: "text-muted"
+  }, __jsx("b", null, cantidad), " ", cantidad > 1 ? 'unidades' : 'unidad')), __jsx("div", {
+    className: _ProductoCarrito_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.total__producto__carrito
+  }, __jsx("span", {
+    className: "text-black"
+  }, "$", total * cantidad)));
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (ProductoCarrito);
 
 /***/ }),
 
@@ -3902,77 +3966,15 @@ module.exports = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
-// EXTERNAL MODULE: external "react"
-var external_react_ = __webpack_require__("cDcd");
-var external_react_default = /*#__PURE__*/__webpack_require__.n(external_react_);
-
-// EXTERNAL MODULE: external "react-redux"
-var external_react_redux_ = __webpack_require__("h74D");
-
-// EXTERNAL MODULE: ./store/actions/carritoActions.js
-var carritoActions = __webpack_require__("nhAV");
-
-// EXTERNAL MODULE: ./src/components/Carrito/Carrito.module.css
-var Carrito_module = __webpack_require__("psAh");
-var Carrito_module_default = /*#__PURE__*/__webpack_require__.n(Carrito_module);
-
-// EXTERNAL MODULE: ./src/components/Carrito/ProductoCarrito.module.css
-var ProductoCarrito_module = __webpack_require__("eD2A");
-var ProductoCarrito_module_default = /*#__PURE__*/__webpack_require__.n(ProductoCarrito_module);
-
-// EXTERNAL MODULE: external "@fortawesome/free-solid-svg-icons"
-var free_solid_svg_icons_ = __webpack_require__("No/t");
-
-// EXTERNAL MODULE: external "@fortawesome/react-fontawesome"
-var react_fontawesome_ = __webpack_require__("uhWA");
-
-// CONCATENATED MODULE: ./src/components/Carrito/ProductoCarrito.js
-var __jsx = external_react_default.a.createElement;
-
-
-
-
-
-const ProductoCarrito = props => {
-  const {
-    foto,
-    producto,
-    peso,
-    total,
-    idSubProducto,
-    cantidad
-  } = props;
-  return __jsx("div", {
-    className: ProductoCarrito_module_default.a.card__productoCarrito + ' ' + `col-12`
-  }, __jsx(react_fontawesome_["FontAwesomeIcon"], {
-    icon: free_solid_svg_icons_["faTrash"],
-    className: ProductoCarrito_module_default.a.delete_producto_carrito,
-    onClick: () => props.eliminarProducto(idSubProducto)
-  }), __jsx("div", {
-    className: ProductoCarrito_module_default.a.img__producto__wrapper
-  }, __jsx("img", {
-    src: foto,
-    alt: "prd",
-    className: "img-fluid"
-  })), __jsx("div", {
-    className: ProductoCarrito_module_default.a.info__productoCarrito
-  }, __jsx("span", {
-    className: ProductoCarrito_module_default.a.carrito__nombre__producto + ' ' + `d-block`
-  }, producto), __jsx("span", {
-    className: ProductoCarrito_module_default.a.carrito__cantidad__producto + ' ' + `d-block`
-  }, "x ", peso, "Kg"), __jsx("span", {
-    className: "text-muted"
-  }, __jsx("b", null, cantidad), " ", cantidad > 1 ? 'unidades' : 'unidad')), __jsx("div", {
-    className: ProductoCarrito_module_default.a.total__producto__carrito
-  }, __jsx("span", {
-    className: "text-black"
-  }, "$", total * cantidad)));
-};
-
-/* harmony default export */ var Carrito_ProductoCarrito = (ProductoCarrito);
-// CONCATENATED MODULE: ./src/components/Carrito/index.js
-var Carrito_jsx = external_react_default.a.createElement;
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("cDcd");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("h74D");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _store_actions_carritoActions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("nhAV");
+/* harmony import */ var _Carrito_module_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("psAh");
+/* harmony import */ var _Carrito_module_css__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_Carrito_module_css__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _ProductoCarrito__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("Mnxd");
+var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
 
 
@@ -3980,18 +3982,18 @@ var Carrito_jsx = external_react_default.a.createElement;
 
 
 const Carrito = props => {
-  Object(external_react_["useEffect"])(() => {
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
     props.traerProductos();
   }, []);
   let totalCarrito = 0;
 
   const showProductos = () => {
-    if (!props.productos || props.productos.length === 0) return Carrito_jsx("div", {
+    if (!props.productos || props.productos.length === 0) return __jsx("div", {
       className: "alert alert-warning"
     }, "Ningun producto en el carrito"); //calculo el subtotal para mostrarlo abajo de todo en el modal
 
     totalCarrito = calcularTotal(props.productos);
-    return props.productos.map((prd, key) => Carrito_jsx(Carrito_ProductoCarrito, {
+    return props.productos.map((prd, key) => __jsx(_ProductoCarrito__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"], {
       key: key,
       idSubProducto: prd.idSubProducto,
       producto: prd.producto,
@@ -4012,19 +4014,19 @@ const Carrito = props => {
   }; //console.log(props);
 
 
-  return Carrito_jsx("section", {
-    className: Carrito_module_default.a.carrito__container + ' ' + `carrito`
-  }, Carrito_jsx("h6", {
+  return __jsx("section", {
+    className: _Carrito_module_css__WEBPACK_IMPORTED_MODULE_3___default.a.carrito__container + ' ' + `carrito`
+  }, __jsx("h6", {
     className: "text-center"
-  }, "Mi Carrito"), Carrito_jsx("section", {
-    className: Carrito_module_default.a.carrito__productos
-  }, showProductos()), Carrito_jsx("div", {
-    className: Carrito_module_default.a.footer__carrito
-  }, Carrito_jsx("section", {
-    className: Carrito_module_default.a.section__carrito__total + ' ' + `d-flex justify-content-between`
-  }, Carrito_jsx("p", null, "Subtotal"), Carrito_jsx("span", {
-    className: Carrito_module_default.a.subtotal__carrito
-  }, "$", totalCarrito)), Carrito_jsx("button", {
+  }, "Mi Carrito"), __jsx("section", {
+    className: _Carrito_module_css__WEBPACK_IMPORTED_MODULE_3___default.a.carrito__productos
+  }, showProductos()), __jsx("div", {
+    className: _Carrito_module_css__WEBPACK_IMPORTED_MODULE_3___default.a.footer__carrito
+  }, __jsx("section", {
+    className: _Carrito_module_css__WEBPACK_IMPORTED_MODULE_3___default.a.section__carrito__total + ' ' + `d-flex justify-content-between`
+  }, __jsx("p", null, "Subtotal"), __jsx("span", {
+    className: _Carrito_module_css__WEBPACK_IMPORTED_MODULE_3___default.a.subtotal__carrito
+  }, "$", totalCarrito)), __jsx("button", {
     className: "boton bg-yellow",
     type: "button"
   }, "Finalizar compra")));
@@ -4034,7 +4036,7 @@ const mapStateToProps = reducers => {
   return reducers.carritoReducer;
 };
 
-/* harmony default export */ var components_Carrito = __webpack_exports__["a"] = (Object(external_react_redux_["connect"])(mapStateToProps, carritoActions)(Carrito));
+/* harmony default export */ __webpack_exports__["a"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, _store_actions_carritoActions__WEBPACK_IMPORTED_MODULE_2__)(Carrito));
 
 /***/ }),
 

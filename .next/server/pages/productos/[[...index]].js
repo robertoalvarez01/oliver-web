@@ -614,7 +614,7 @@ const CardProducto = ({
   })), __jsx("section", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.body__card
   }, __jsx("span", {
-    className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.label__marca + ' ' + `d-block text-muted`
+    className: "d-block text-muted"
   }, prd.marca), __jsx("h6", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.nombre__producto + ' ' + `text-muted`
   }, procesarNombre(prd.producto)), prd.peso != null ? __jsx("span", {
@@ -748,8 +748,8 @@ module.exports = {
 	"cantidad": "CardProducto_cantidad__M84Dc",
 	"label__descuento": "CardProducto_label__descuento__1fclU",
 	"nombre__producto": "CardProducto_nombre__producto__3yzZP",
-	"precio": "CardProducto_precio__3WgOa",
-	"btn_comprar": "CardProducto_btn_comprar__3B3do"
+	"btn_comprar": "CardProducto_btn_comprar__3B3do",
+	"precio": "CardProducto_precio__3WgOa"
 };
 
 
