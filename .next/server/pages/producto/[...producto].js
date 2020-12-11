@@ -88,7 +88,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -271,14 +271,6 @@ function _interopRequireWildcard(obj) {
 }
 
 module.exports = _interopRequireWildcard;
-
-/***/ }),
-
-/***/ 3:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__("30mp");
-
 
 /***/ }),
 
@@ -778,6 +770,14 @@ function assign(target, ...searchParamsList) {
   });
   return target;
 }
+
+/***/ }),
+
+/***/ 4:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__("30mp");
+
 
 /***/ }),
 
@@ -3286,9 +3286,17 @@ const traerProductos = () => async dispatch => {
 
   try {
     const productos = JSON.parse(localStorage.getItem('carrito'));
+    let subtotal = 0;
+    productos.forEach(prd => {
+      subtotal += parseInt(prd.precioUnidad * prd.cantidad);
+    });
+    let payloadData = {
+      productos,
+      subtotal
+    };
     dispatch({
       type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* TRAER_PRODUCTOS */ "e"],
-      payload: productos
+      payload: payloadData
     });
   } catch (error) {
     dispatch({
@@ -3325,11 +3333,21 @@ const agregarProducto = producto => async (dispatch, getState) => {
     } //actualizo localstorage
 
 
-    localStorage.setItem('carrito', JSON.stringify(listProductosUpgrade));
+    localStorage.setItem('carrito', JSON.stringify(listProductosUpgrade)); //calculo el subtotal
+
+    const prds = JSON.parse(localStorage.getItem('carrito'));
+    let subtotal = 0;
+    prds.forEach(prd => {
+      subtotal += parseInt(prd.precioUnidad * prd.cantidad);
+    });
+    let payloadData = {
+      listProductosUpgrade,
+      subtotal
+    };
     setTimeout(() => {
       dispatch({
         type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* AGREGAR_PRODUCTO */ "a"],
-        payload: listProductosUpgrade
+        payload: payloadData
       });
     }, 1500);
   } catch (error) {
@@ -3349,12 +3367,22 @@ const eliminarProducto = idSubProducto => async (dispatch, getState) => {
       productos
     } = getState().carritoReducer; //filtro los productos que no tengan el idProducto que se recibió. entonces elimino ese producto y actualizo el reducer.
 
-    const newProductos = productos.filter(newArray => newArray.idSubProducto !== idSubProducto);
-    console.log(newProductos);
-    localStorage.setItem('carrito', JSON.stringify(newProductos));
+    const newProductos = productos.filter(newArray => newArray.idSubProducto !== idSubProducto); //console.log(newProductos);
+
+    localStorage.setItem('carrito', JSON.stringify(newProductos)); //calculo el subtotal
+
+    const prds = JSON.parse(localStorage.getItem('carrito'));
+    let subtotal = 0;
+    prds.forEach(prd => {
+      subtotal += parseInt(prd.precioUnidad * prd.cantidad);
+    });
+    let payloadData = {
+      newProductos,
+      subtotal
+    };
     dispatch({
       type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ELIMINAR_PRODUCTO */ "b"],
-      payload: newProductos
+      payload: payloadData
     });
   } catch (error) {
     dispatch({
@@ -3416,15 +3444,18 @@ module.exports = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("cDcd");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("h74D");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _store_actions_carritoActions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("nhAV");
-/* harmony import */ var _Carrito_module_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("psAh");
-/* harmony import */ var _Carrito_module_css__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_Carrito_module_css__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _ProductoCarrito__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("Mnxd");
-var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("4Q3z");
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("cDcd");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("h74D");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _store_actions_carritoActions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("nhAV");
+/* harmony import */ var _Carrito_module_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("psAh");
+/* harmony import */ var _Carrito_module_css__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_Carrito_module_css__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _ProductoCarrito__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("Mnxd");
+var __jsx = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement;
+
 
 
 
@@ -3432,7 +3463,7 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
 
 const Carrito = props => {
-  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+  Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(() => {
     props.traerProductos();
   }, []);
   let totalCarrito = 0;
@@ -3443,7 +3474,7 @@ const Carrito = props => {
     }, "Ningun producto en el carrito"); //calculo el subtotal para mostrarlo abajo de todo en el modal
 
     totalCarrito = calcularTotal(props.productos);
-    return props.productos.map((prd, key) => __jsx(_ProductoCarrito__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"], {
+    return props.productos.map((prd, key) => __jsx(_ProductoCarrito__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"], {
       key: key,
       idSubProducto: prd.idSubProducto,
       producto: prd.producto,
@@ -3461,23 +3492,32 @@ const Carrito = props => {
       total += parseInt(prd.precioUnidad * prd.cantidad);
     });
     return total;
+  };
+
+  const finalizarCompra = () => {
+    if (document.getElementsByTagName('body')[0].style.overflowY !== 'scroll') {
+      document.getElementsByTagName('body')[0].style.overflowY = 'auto';
+    }
+
+    next_router__WEBPACK_IMPORTED_MODULE_0___default.a.push('/checkout');
   }; //console.log(props);
 
 
   return __jsx("section", {
-    className: _Carrito_module_css__WEBPACK_IMPORTED_MODULE_3___default.a.carrito__container + ' ' + `carrito`
+    className: _Carrito_module_css__WEBPACK_IMPORTED_MODULE_4___default.a.carrito__container + ' ' + `carrito`
   }, __jsx("h6", {
     className: "text-center"
   }, "Mi Carrito"), __jsx("section", {
-    className: _Carrito_module_css__WEBPACK_IMPORTED_MODULE_3___default.a.carrito__productos
+    className: _Carrito_module_css__WEBPACK_IMPORTED_MODULE_4___default.a.carrito__productos
   }, showProductos()), __jsx("div", {
-    className: _Carrito_module_css__WEBPACK_IMPORTED_MODULE_3___default.a.footer__carrito
+    className: _Carrito_module_css__WEBPACK_IMPORTED_MODULE_4___default.a.footer__carrito
   }, __jsx("section", {
-    className: _Carrito_module_css__WEBPACK_IMPORTED_MODULE_3___default.a.section__carrito__total + ' ' + `d-flex justify-content-between`
+    className: _Carrito_module_css__WEBPACK_IMPORTED_MODULE_4___default.a.section__carrito__total + ' ' + `d-flex justify-content-between`
   }, __jsx("p", null, "Subtotal"), __jsx("span", {
-    className: _Carrito_module_css__WEBPACK_IMPORTED_MODULE_3___default.a.subtotal__carrito
+    className: _Carrito_module_css__WEBPACK_IMPORTED_MODULE_4___default.a.subtotal__carrito
   }, "$", totalCarrito)), __jsx("button", {
     className: "boton bg-yellow",
+    onClick: finalizarCompra,
     type: "button"
   }, "Finalizar compra")));
 };
@@ -3486,7 +3526,7 @@ const mapStateToProps = reducers => {
   return reducers.carritoReducer;
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, _store_actions_carritoActions__WEBPACK_IMPORTED_MODULE_2__)(Carrito));
+/* harmony default export */ __webpack_exports__["a"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapStateToProps, _store_actions_carritoActions__WEBPACK_IMPORTED_MODULE_3__)(Carrito));
 
 /***/ }),
 
