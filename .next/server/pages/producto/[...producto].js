@@ -962,7 +962,7 @@ const CardProducto = ({
   const procesarNombre = nombre => {
     let nombreProcesado = nombre;
 
-    if (Object(_helpers_index__WEBPACK_IMPORTED_MODULE_3__[/* isMobile */ "a"])()) {
+    if (Object(_helpers_index__WEBPACK_IMPORTED_MODULE_3__[/* isMobile */ "b"])()) {
       if (nombreProcesado.length > 25) {
         nombreProcesado = nombre.substring(0, 22) + '...';
       }
@@ -976,7 +976,7 @@ const CardProducto = ({
   };
 
   return !isProductoDetalle ? __jsx(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: `${_config_index__WEBPACK_IMPORTED_MODULE_4__[/* PUBLIC_URL */ "c"]}/producto/${Object(_helpers_index__WEBPACK_IMPORTED_MODULE_3__[/* slug */ "b"])(prd.producto)}/${prd.idProducto}`
+    href: `${_config_index__WEBPACK_IMPORTED_MODULE_4__[/* PUBLIC_URL */ "c"]}/producto/${Object(_helpers_index__WEBPACK_IMPORTED_MODULE_3__[/* slug */ "c"])(prd.producto)}/${prd.idProducto}`
   }, __jsx("a", null, __jsx("div", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.container__producto + ' ' + `my-3`
   }, __jsx("section", {
@@ -998,7 +998,7 @@ const CardProducto = ({
   }, "$", prd.precioUnidad)), __jsx("span", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.label__descuento + ' ' + `bg-red`
   }, "15% Off")))) : __jsx("a", {
-    href: `${_config_index__WEBPACK_IMPORTED_MODULE_4__[/* PUBLIC_URL */ "c"]}/producto/${Object(_helpers_index__WEBPACK_IMPORTED_MODULE_3__[/* slug */ "b"])(prd.producto)}/${prd.idProducto}`
+    href: `${_config_index__WEBPACK_IMPORTED_MODULE_4__[/* PUBLIC_URL */ "c"]}/producto/${Object(_helpers_index__WEBPACK_IMPORTED_MODULE_3__[/* slug */ "c"])(prd.producto)}/${prd.idProducto}`
   }, __jsx("div", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.container__producto + ' ' + `my-3`
   }, __jsx("section", {
@@ -1194,7 +1194,7 @@ const traerTodos = ({
   try {
     let url = `${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}producto?desde=${desde}&limite=${limiteDesktop}`;
 
-    if (Object(_helpers_index__WEBPACK_IMPORTED_MODULE_1__[/* isMobile */ "a"])()) {
+    if (Object(_helpers_index__WEBPACK_IMPORTED_MODULE_1__[/* isMobile */ "b"])()) {
       url = `${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}producto?desde=${desde}&limite=${limiteMobile}`;
     }
 
@@ -1219,7 +1219,7 @@ const traerMas = (rangoProducto, prevProductos) => async dispatch => {
   try {
     let url = `${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}producto?desde=${rangoProducto.desde}&limite=${rangoProducto.limiteDesktop}`;
 
-    if (Object(_helpers_index__WEBPACK_IMPORTED_MODULE_1__[/* isMobile */ "a"])()) {
+    if (Object(_helpers_index__WEBPACK_IMPORTED_MODULE_1__[/* isMobile */ "b"])()) {
       url = `${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}producto?desde=${rangoProducto.desde}&limite=${rangoProducto.limiteMobile}`;
     }
 
@@ -1264,7 +1264,7 @@ const traerPromociones = () => async dispatch => {
   try {
     let url = `${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/producto?desde=1&limite=8`;
 
-    if (Object(_helpers_index__WEBPACK_IMPORTED_MODULE_1__[/* isMobile */ "a"])()) {
+    if (Object(_helpers_index__WEBPACK_IMPORTED_MODULE_1__[/* isMobile */ "b"])()) {
       url = `${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/producto?desde=1&limite=4`;
     }
 
@@ -3405,8 +3405,9 @@ module.exports = require("reactstrap");
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return slug; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return isMobile; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return slug; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return isMobile; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ObtenerDia; });
 /* harmony import */ var slugify__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("06NB");
 /* harmony import */ var slugify__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(slugify__WEBPACK_IMPORTED_MODULE_0__);
 
@@ -3419,6 +3420,34 @@ function slug(name) {
 
 function isMobile() {
   if (false) {}
+}
+
+function ObtenerDia(numberDay) {
+  switch (numberDay) {
+    case 1:
+      return 'Lunes';
+
+    case 2:
+      return 'Martes';
+
+    case 3:
+      return 'Miercoles';
+
+    case 4:
+      return 'Jueves';
+
+    case 5:
+      return 'Viernes';
+
+    case 6:
+      return 'Sabado';
+
+    case 7:
+      return 'Domingo';
+
+    default:
+      break;
+  }
 }
 
 
@@ -3495,11 +3524,7 @@ const Carrito = props => {
   };
 
   const finalizarCompra = () => {
-    if (document.getElementsByTagName('body')[0].style.overflowY !== 'scroll') {
-      document.getElementsByTagName('body')[0].style.overflowY = 'auto';
-    }
-
-    next_router__WEBPACK_IMPORTED_MODULE_0___default.a.push('/checkout');
+    window.location.assign('/checkout');
   }; //console.log(props);
 
 
@@ -3553,12 +3578,19 @@ module.exports = {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return PUBLIC_URL; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return URL_CLOUD_STORAGE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return GOOGLE_CLIENT_ID; });
-const API = 'https://api.oliverpetshop.com.ar/'; //const PUBLIC_URL = 'http://localhost:3000';
+const API = 'https://api.oliverpetshop.com.ar/';
+const PUBLIC_URL = 'http://localhost:3000'; //const PUBLIC_URL = 'https://developers.oliverpetshop.com.ar';
 
-const PUBLIC_URL = 'https://developers.oliverpetshop.com.ar';
 const URL_CLOUD_STORAGE = 'https://storage.googleapis.com/web-oliver';
 const GOOGLE_CLIENT_ID = '85508910542-jfaoom4l84q0a9cdmeg382vi9hl986j1.apps.googleusercontent.com';
 
+/*https://www.mercadolibre.com.ar/gz/checkout/buy
+?mode=page
+&parent_url=https%3A%2F%2Farticulo.mercadolibre.com.ar%2FMLA-701482873-set-x-4-colchonetas-cama-inflable-pileta-piscina-oferta-mar-_JM
+&item_id=MLA701482873
+&context=vip
+&shipping_option_id=3630547635
+&quantity=1*/
 
 /***/ }),
 

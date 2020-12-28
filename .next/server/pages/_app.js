@@ -260,15 +260,6 @@ module.exports = {
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// NAMESPACE OBJECT: ./store/actions/usuarioActions.js
-var usuarioActions_namespaceObject = {};
-__webpack_require__.r(usuarioActions_namespaceObject);
-__webpack_require__.d(usuarioActions_namespaceObject, "login", function() { return usuarioActions_login; });
-__webpack_require__.d(usuarioActions_namespaceObject, "logout", function() { return logout; });
-__webpack_require__.d(usuarioActions_namespaceObject, "verificarSesion", function() { return verificarSesion; });
-__webpack_require__.d(usuarioActions_namespaceObject, "register", function() { return usuarioActions_register; });
-__webpack_require__.d(usuarioActions_namespaceObject, "singInWithGoogle", function() { return singInWithGoogle; });
-
 // EXTERNAL MODULE: external "react"
 var external_react_ = __webpack_require__("cDcd");
 var external_react_default = /*#__PURE__*/__webpack_require__.n(external_react_);
@@ -298,19 +289,9 @@ var router_default = /*#__PURE__*/__webpack_require__.n(router_);
 // EXTERNAL MODULE: ./src/components/Modal/index.js
 var Modal = __webpack_require__("/Q2I");
 
-// CONCATENATED MODULE: ./src/components/Error.js
-var __jsx = external_react_default.a.createElement;
+// EXTERNAL MODULE: ./src/components/Error.js
+var Error = __webpack_require__("t0wy");
 
-
-const Error = ({
-  message
-}) => {
-  return __jsx("div", {
-    className: "alert alert-warning text-center"
-  }, message);
-};
-
-/* harmony default export */ var components_Error = (Error);
 // EXTERNAL MODULE: ./src/components/Login/Login.module.css
 var Login_module = __webpack_require__("yym0");
 var Login_module_default = /*#__PURE__*/__webpack_require__.n(Login_module);
@@ -321,194 +302,17 @@ var Loader = __webpack_require__("XOuL");
 // EXTERNAL MODULE: external "react-redux"
 var external_react_redux_ = __webpack_require__("h74D");
 
-// EXTERNAL MODULE: ./config/index.js
-var config = __webpack_require__("rOcY");
+// EXTERNAL MODULE: ./store/actions/usuarioActions.js
+var usuarioActions = __webpack_require__("HdXA");
 
-// CONCATENATED MODULE: ./store/types/usuarioTypes.js
-const VERIFICAR_SESION = 'usuario_verificarsesion';
-const LOGIN = 'usuario_login';
-const LOGOUT = 'usuario_logout';
-const LOADING = 'usuario_loading';
-const ERROR = 'usuario_error';
-
-// CONCATENATED MODULE: ./store/actions/usuarioActions.js
-
-
-const usuarioActions_login = data => async dispatch => {
-  dispatch({
-    type: LOADING
-  });
-
-  try {
-    if (data.email.trim() === '' || data.password.trim() === '') {
-      return dispatch({
-        type: ERROR,
-        payload: 'Es necesario completar todos los campos'
-      });
-    }
-
-    let headers = new Headers();
-    headers.append("Content-Type", "application/json");
-    return fetch(`${config["a" /* API */]}/login`, {
-      method: 'POST',
-      body: JSON.stringify(data),
-      headers
-    }).then(res => res.json()).then(response => {
-      if (response.ok) {
-        let objUsuario = {
-          nombre: response.usuario.nombre,
-          email: response.usuario.email,
-          foto: response.usuario.foto
-        };
-        localStorage.setItem('oliverpetshop_usuario', JSON.stringify(objUsuario));
-        dispatch({
-          type: LOGIN,
-          payload: localStorage.getItem('oliverpetshop_usuario')
-        });
-      } else {
-        return dispatch({
-          type: ERROR,
-          payload: response.info
-        });
-      }
-    });
-  } catch (error) {
-    console.log(error);
-    return dispatch({
-      type: ERROR,
-      payload: error
-    });
-  }
-};
-const logout = () => async dispatch => {
-  dispatch({
-    type: LOADING
-  });
-
-  try {
-    localStorage.removeItem('oliverpetshop_usuario');
-    return dispatch({
-      type: LOGOUT
-    });
-  } catch (error) {
-    dispatch({
-      type: ERROR,
-      payload: error
-    });
-  }
-};
-const verificarSesion = () => async dispatch => {
-  try {
-    let dataUsuario = JSON.parse(localStorage.getItem('oliverpetshop_usuario'));
-
-    if (dataUsuario) {
-      return dispatch({
-        type: VERIFICAR_SESION,
-        payload: {
-          data: dataUsuario,
-          logueado: true
-        }
-      });
-    }
-
-    return dispatch({
-      type: VERIFICAR_SESION,
-      payload: {
-        data: null,
-        logueado: false
-      }
-    });
-  } catch (error) {
-    dispatch({
-      type: ERROR,
-      payload: error
-    });
-  }
-};
-const usuarioActions_register = data => dispatch => {
-  dispatch({
-    type: LOADING
-  });
-
-  try {
-    let headers = new Headers();
-    headers.append("Content-Type", "application/json");
-    return fetch(`${config["a" /* API */]}register`, {
-      method: 'POST',
-      body: JSON.stringify(data),
-      headers
-    }).then(res => res.json()).then(response => {
-      if (response.ok) {
-        let objUsuario = {
-          nombre: response.usuario.nombre,
-          email: response.usuario.email,
-          foto: response.usuario.foto
-        };
-        localStorage.setItem('oliverpetshop_usuario', JSON.stringify(objUsuario));
-        dispatch({
-          type: LOGIN,
-          payload: localStorage.getItem('oliverpetshop_usuario')
-        });
-      } else {
-        dispatch({
-          type: ERROR,
-          payload: response.info
-        });
-      }
-    });
-  } catch (error) {
-    dispatch({
-      type: ERROR,
-      payload: error
-    });
-  }
-};
-const singInWithGoogle = tokenId => async dispatch => {
-  dispatch({
-    type: LOADING
-  });
-
-  try {
-    let headers = new Headers();
-    headers.append("Content-Type", "application/json");
-    return fetch(`${config["a" /* API */]}google/tokensignin`, {
-      method: 'POST',
-      headers,
-      body: JSON.stringify({
-        token: tokenId
-      })
-    }).then(res => res.json()).then(response => {
-      if (!response.ok) {
-        return dispatch({
-          type: ERROR,
-          payload: response.info
-        });
-      }
-
-      ;
-      let objUsuario = {
-        nombre: response.usuario.nombre,
-        email: response.usuario.email,
-        foto: response.usuario.foto
-      };
-      localStorage.setItem('oliverpetshop_usuario', JSON.stringify(objUsuario));
-      dispatch({
-        type: LOGIN,
-        payload: localStorage.getItem('oliverpetshop_usuario')
-      });
-    });
-  } catch (error) {
-    dispatch({
-      type: ERROR,
-      payload: error
-    });
-  }
-};
 // EXTERNAL MODULE: external "react-google-login"
 var external_react_google_login_ = __webpack_require__("rCsO");
 
+// EXTERNAL MODULE: ./config/index.js
+var config = __webpack_require__("rOcY");
+
 // CONCATENATED MODULE: ./src/components/Login/index.js
-var Login_jsx = external_react_default.a.createElement;
+var __jsx = external_react_default.a.createElement;
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -558,59 +362,59 @@ const Login = props => {
   }; //console.log(props);
 
 
-  return Login_jsx("div", {
+  return __jsx("div", {
     className: Login_module_default.a.login__container
-  }, Login_jsx("h6", {
+  }, __jsx("h6", {
     className: Login_module_default.a.title__login + ' ' + `text-center`
-  }, "Ingres\xE1 a tu cuenta"), props.error ? Login_jsx(components_Error, {
+  }, "Ingres\xE1 a tu cuenta"), props.error ? __jsx(Error["a" /* default */], {
     message: props.error
-  }) : null, props.loading ? Login_jsx("div", {
+  }) : null, props.loading ? __jsx("div", {
     className: "text-center"
-  }, Login_jsx(Loader["a" /* default */], null)) : null, props.logueado ? Login_jsx("div", null, Login_jsx("div", {
+  }, __jsx(Loader["a" /* default */], null)) : null, props.logueado ? __jsx("div", null, __jsx("div", {
     className: "text-center alert alert-success"
-  }, "Bienvenido/a ", props.usuario.nombre), Login_jsx("a", {
+  }, "Bienvenido/a ", props.usuario.nombre), __jsx("a", {
     href: "/",
     className: "boton bg-yellow mb-1"
-  }, "Continuar")) : Login_jsx(external_react_default.a.Fragment, null, Login_jsx("form", {
+  }, "Continuar")) : __jsx(external_react_default.a.Fragment, null, __jsx("form", {
     className: Login_module_default.a.form + ' ' + `form-group`,
     name: "form-login",
     id: "form-login",
     onSubmit: handleSubmitLogin
-  }, Login_jsx("label", {
+  }, __jsx("label", {
     className: Login_module_default.a.label,
     htmlFor: "email"
-  }, "Email"), Login_jsx("input", {
+  }, "Email"), __jsx("input", {
     type: "email",
     className: Login_module_default.a.input + ' ' + `form-control`,
     id: "email",
     name: "email",
     value: formLoginValues.email,
     onChange: handleChangeLogin
-  }), Login_jsx("label", {
+  }), __jsx("label", {
     className: Login_module_default.a.label,
     htmlFor: "password"
-  }, "Contrase\xF1a"), Login_jsx("input", {
+  }, "Contrase\xF1a"), __jsx("input", {
     type: "password",
     className: Login_module_default.a.input + ' ' + `form-control`,
     id: "password",
     name: "password",
     value: formLoginValues.password,
     onChange: handleChangeLogin
-  }), Login_jsx("br", null), Login_jsx("input", {
+  }), __jsx("br", null), __jsx("input", {
     type: "submit",
     className: "boton bg-yellow mb-1",
     value: "Ingresar"
-  }), Login_jsx("a", {
+  }), __jsx("a", {
     href: "/",
     className: Login_module_default.a.forgot__pass + ' ' + `text-center d-block`
-  }, "Olvid\xE9 mi constrase\xF1a")), Login_jsx("section", {
+  }, "Olvid\xE9 mi constrase\xF1a")), __jsx("section", {
     className: Login_module_default.a.registerInLogin + ' ' + `text-center`
-  }, Login_jsx("span", {
+  }, __jsx("span", {
     className: "text-muted"
-  }, "\xBFNo tenes cuenta?", Login_jsx("span", {
+  }, "\xBFNo tenes cuenta?", __jsx("span", {
     className: Login_module_default.a.registerLink,
     onClick: habilitarRegister
-  }, " Registrate")), Login_jsx("br", null), Login_jsx(external_react_google_login_["GoogleLogin"], {
+  }, " Registrate")), __jsx("br", null), __jsx(external_react_google_login_["GoogleLogin"], {
     className: "mt-2",
     clientId: config["b" /* GOOGLE_CLIENT_ID */],
     buttonText: "Iniciar sesi\xF3n con Google",
@@ -624,7 +428,7 @@ const mapStateToProps = reducers => {
   return reducers.usuarioReducer;
 };
 
-/* harmony default export */ var components_Login = (Object(external_react_redux_["connect"])(mapStateToProps, usuarioActions_namespaceObject)(Login));
+/* harmony default export */ var components_Login = (Object(external_react_redux_["connect"])(mapStateToProps, usuarioActions)(Login));
 // EXTERNAL MODULE: external "react-places-autocomplete"
 var external_react_places_autocomplete_ = __webpack_require__("KOAY");
 var external_react_places_autocomplete_default = /*#__PURE__*/__webpack_require__.n(external_react_places_autocomplete_);
@@ -722,7 +526,7 @@ const Register = props => {
     className: Login_module_default.a.login__container
   }, Register_jsx("h6", {
     className: Login_module_default.a.title__login + ' ' + `text-center`
-  }, "Registrate"), props.error ? Register_jsx(components_Error, {
+  }, "Registrate"), props.error ? Register_jsx(Error["a" /* default */], {
     message: props.error
   }) : null, props.logueado ? Register_jsx("div", {
     className: "alert alert-success text-center"
@@ -836,7 +640,7 @@ const Register_mapStateToProps = reducers => {
   return reducers.usuarioReducer;
 };
 
-/* harmony default export */ var Login_Register = (Object(external_react_redux_["connect"])(Register_mapStateToProps, usuarioActions_namespaceObject)(Register));
+/* harmony default export */ var Login_Register = (Object(external_react_redux_["connect"])(Register_mapStateToProps, usuarioActions)(Register));
 // EXTERNAL MODULE: ./src/components/Carrito/index.js
 var Carrito = __webpack_require__("qC+Y");
 
@@ -1129,7 +933,7 @@ const Navbar_mapStateToProps = reducers => {
   return reducers.usuarioReducer;
 };
 
-/* harmony default export */ var components_Navbar = (Object(external_react_redux_["connect"])(Navbar_mapStateToProps, usuarioActions_namespaceObject)(Navbar));
+/* harmony default export */ var components_Navbar = (Object(external_react_redux_["connect"])(Navbar_mapStateToProps, usuarioActions)(Navbar));
 // EXTERNAL MODULE: external "nprogress"
 var external_nprogress_ = __webpack_require__("GvLQ");
 var external_nprogress_default = /*#__PURE__*/__webpack_require__.n(external_nprogress_);
@@ -1441,6 +1245,9 @@ const subcategoriasReducer = (state = subcategoriasReducer_INITIAL_STATE, action
 };
 
 /* harmony default export */ var reducers_subcategoriasReducer = (subcategoriasReducer);
+// EXTERNAL MODULE: ./store/types/usuarioTypes.js
+var usuarioTypes = __webpack_require__("i5yP");
+
 // CONCATENATED MODULE: ./store/reducers/usuarioReducer.js
 function usuarioReducer_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -1458,14 +1265,14 @@ const usuarioReducer_INITIAL_STATE = {
 
 const usuarioReducer = (state = usuarioReducer_INITIAL_STATE, action) => {
   switch (action.type) {
-    case VERIFICAR_SESION:
+    case usuarioTypes["f" /* VERIFICAR_SESION */]:
       return usuarioReducer_objectSpread(usuarioReducer_objectSpread({}, state), {}, {
         logueado: action.payload.logueado,
         usuario: action.payload.data,
         loading: false
       });
 
-    case LOGIN:
+    case usuarioTypes["c" /* LOGIN */]:
       return usuarioReducer_objectSpread(usuarioReducer_objectSpread({}, state), {}, {
         logueado: true,
         loading: false,
@@ -1473,23 +1280,29 @@ const usuarioReducer = (state = usuarioReducer_INITIAL_STATE, action) => {
         usuario: JSON.parse(action.payload)
       });
 
-    case LOGOUT:
+    case usuarioTypes["d" /* LOGOUT */]:
       return usuarioReducer_objectSpread(usuarioReducer_objectSpread({}, state), {}, {
         usuario: null,
         logueado: false,
         loading: false
       });
 
-    case LOADING:
+    case usuarioTypes["b" /* LOADING */]:
       return usuarioReducer_objectSpread(usuarioReducer_objectSpread({}, state), {}, {
         loading: true
       });
 
-    case ERROR:
+    case usuarioTypes["a" /* ERROR */]:
       return usuarioReducer_objectSpread(usuarioReducer_objectSpread({}, state), {}, {
-        logueado: false,
         loading: false,
         error: action.payload
+      });
+
+    case usuarioTypes["e" /* UPDATE_USER */]:
+      return usuarioReducer_objectSpread(usuarioReducer_objectSpread({}, state), {}, {
+        loading: false,
+        error: null,
+        usuario: action.payload
       });
 
     default:
@@ -1843,6 +1656,284 @@ const TRAER_TODAS = 'marca_traer_todas';
 const LOADING = 'marca_loading';
 const ERROR = 'marca_error';
 
+
+/***/ }),
+
+/***/ "HdXA":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "login", function() { return login; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "logout", function() { return logout; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "verificarSesion", function() { return verificarSesion; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "register", function() { return register; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "singInWithGoogle", function() { return singInWithGoogle; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "actualizarFoto", function() { return actualizarFoto; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "actualizarUsuario", function() { return actualizarUsuario; });
+/* harmony import */ var _config_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("rOcY");
+/* harmony import */ var _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("i5yP");
+
+
+const login = data => async dispatch => {
+  dispatch({
+    type: _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__[/* LOADING */ "b"]
+  });
+
+  try {
+    if (data.email.trim() === '' || data.password.trim() === '') {
+      return dispatch({
+        type: _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__[/* ERROR */ "a"],
+        payload: 'Es necesario completar todos los campos'
+      });
+    }
+
+    let headers = new Headers();
+    headers.append("Content-Type", "application/json");
+    return fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/login`, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers
+    }).then(res => res.json()).then(response => {
+      if (response.ok) {
+        let objUsuario = {
+          nombre: response.usuario.nombre,
+          email: response.usuario.email,
+          foto: response.usuario.foto,
+          token: response.token,
+          address: response.usuario.ubicacion,
+          idUsuario: response.usuario.idUsuario,
+          lat: response.usuario.lat,
+          lon: response.usuario.lon,
+          telefono: response.usuario.telefono
+        };
+        localStorage.setItem('oliverpetshop_usuario', JSON.stringify(objUsuario));
+        dispatch({
+          type: _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__[/* LOGIN */ "c"],
+          payload: localStorage.getItem('oliverpetshop_usuario')
+        });
+      } else {
+        return dispatch({
+          type: _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__[/* ERROR */ "a"],
+          payload: response.info
+        });
+      }
+    });
+  } catch (error) {
+    console.log(error);
+    return dispatch({
+      type: _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__[/* ERROR */ "a"],
+      payload: error
+    });
+  }
+};
+const logout = () => async dispatch => {
+  dispatch({
+    type: _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__[/* LOADING */ "b"]
+  });
+
+  try {
+    localStorage.removeItem('oliverpetshop_usuario');
+    return dispatch({
+      type: _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__[/* LOGOUT */ "d"]
+    });
+  } catch (error) {
+    dispatch({
+      type: _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__[/* ERROR */ "a"],
+      payload: error
+    });
+  }
+};
+const verificarSesion = () => async dispatch => {
+  try {
+    let dataUsuario = JSON.parse(localStorage.getItem('oliverpetshop_usuario'));
+
+    if (dataUsuario) {
+      return dispatch({
+        type: _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__[/* VERIFICAR_SESION */ "f"],
+        payload: {
+          data: dataUsuario,
+          logueado: true
+        }
+      });
+    }
+
+    return dispatch({
+      type: _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__[/* VERIFICAR_SESION */ "f"],
+      payload: {
+        data: null,
+        logueado: false
+      }
+    });
+  } catch (error) {
+    dispatch({
+      type: _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__[/* ERROR */ "a"],
+      payload: error
+    });
+  }
+};
+const register = data => dispatch => {
+  dispatch({
+    type: _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__[/* LOADING */ "b"]
+  });
+
+  try {
+    let headers = new Headers();
+    headers.append("Content-Type", "application/json");
+    return fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}register`, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers
+    }).then(res => res.json()).then(response => {
+      if (response.ok) {
+        let objUsuario = {
+          nombre: response.usuario.nombre,
+          email: response.usuario.email,
+          foto: response.usuario.foto,
+          token: response.token,
+          address: response.usuario.address,
+          idUsuario: response.usuario.idUsuario
+        };
+        localStorage.setItem('oliverpetshop_usuario', JSON.stringify(objUsuario));
+        dispatch({
+          type: _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__[/* LOGIN */ "c"],
+          payload: localStorage.getItem('oliverpetshop_usuario')
+        });
+      } else {
+        dispatch({
+          type: _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__[/* ERROR */ "a"],
+          payload: response.info
+        });
+      }
+    });
+  } catch (error) {
+    dispatch({
+      type: _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__[/* ERROR */ "a"],
+      payload: error
+    });
+  }
+};
+const singInWithGoogle = tokenId => async dispatch => {
+  dispatch({
+    type: _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__[/* LOADING */ "b"]
+  });
+
+  try {
+    let headers = new Headers();
+    headers.append("Content-Type", "application/json");
+    return fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}google/tokensignin`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        token: tokenId
+      })
+    }).then(res => res.json()).then(response => {
+      if (!response.ok) {
+        return dispatch({
+          type: _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__[/* ERROR */ "a"],
+          payload: response.info
+        });
+      }
+
+      ;
+      let objUsuario = {
+        nombre: response.usuario.nombre,
+        email: response.usuario.email,
+        foto: response.usuario.foto,
+        token: response.token,
+        address: response.usuario.address,
+        idUsuario: response.usuario.idUsuario,
+        lat: response.usuario.lat,
+        lon: response.usuario.lon,
+        telefono: response.usuario.telefono
+      };
+      localStorage.setItem('oliverpetshop_usuario', JSON.stringify(objUsuario));
+      dispatch({
+        type: _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__[/* LOGIN */ "c"],
+        payload: localStorage.getItem('oliverpetshop_usuario')
+      });
+    });
+  } catch (error) {
+    dispatch({
+      type: _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__[/* ERROR */ "a"],
+      payload: error
+    });
+  }
+};
+const actualizarFoto = (data, id) => async dispatch => {
+  dispatch({
+    type: _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__[/* LOADING */ "b"]
+  });
+
+  try {
+    let headers = new Headers();
+    let token = JSON.parse(localStorage.getItem('oliverpetshop_usuario')).token;
+    headers.append("token", token);
+    const request = await fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}actualizarFotoUsuarioDesdeWeb/${id}`, {
+      method: 'PUT',
+      headers,
+      body: data
+    });
+    const dataRequest = await request.json();
+
+    if (dataRequest.ok) {
+      localStorage.setItem('oliverpetshop_usuario', JSON.stringify(dataRequest.user));
+      dispatch({
+        type: _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__[/* UPDATE_USER */ "e"],
+        payload: dataRequest.user
+      });
+    }
+  } catch (error) {
+    dispatch({
+      type: _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__[/* ERROR */ "a"],
+      payload: error
+    });
+  }
+};
+const actualizarUsuario = (data, id) => async dispatch => {
+  dispatch({
+    type: _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__[/* LOADING */ "b"]
+  });
+
+  try {
+    let headers = new Headers();
+    let token = JSON.parse(localStorage.getItem('oliverpetshop_usuario')).token;
+    if (!token) return dispatch({
+      type: _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__[/* ERROR */ "a"],
+      payload: 'Token incorrecto'
+    });
+    headers.append('token', token);
+    headers.append("Content-Type", "application/json");
+    const request = await fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}actualizarUsuarioDesdeWeb/${id}`, {
+      method: 'PUT',
+      headers,
+      body: JSON.stringify(data)
+    });
+    if (request.status != 200) return dispatch({
+      type: _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__[/* ERROR */ "a"],
+      payload: 'Ocurrio un error, ¡intentelo más tarde!'
+    });
+    const dataRequest = await request.json();
+
+    if (dataRequest.ok) {
+      localStorage.setItem('oliverpetshop_usuario', JSON.stringify(dataRequest.user));
+      return dispatch({
+        type: _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__[/* UPDATE_USER */ "e"],
+        payload: dataRequest.user
+      });
+    }
+
+    return dispatch({
+      type: _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__[/* ERROR */ "a"],
+      payload: dataRequest.info
+    });
+  } catch (error) {
+    dispatch({
+      type: _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__[/* ERROR */ "a"],
+      payload: error.message
+    });
+  }
+};
 
 /***/ }),
 
@@ -3654,6 +3745,26 @@ function parseRelativeUrl(url, base) {
 
 /***/ }),
 
+/***/ "i5yP":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return VERIFICAR_SESION; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return LOGIN; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return LOGOUT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return LOADING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ERROR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return UPDATE_USER; });
+const VERIFICAR_SESION = 'usuario_verificarsesion';
+const LOGIN = 'usuario_login';
+const LOGOUT = 'usuario_logout';
+const LOADING = 'usuario_loading';
+const ERROR = 'usuario_error';
+const UPDATE_USER = 'usuario_cambiarfoto';
+
+
+/***/ }),
+
 /***/ "kqUl":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -4048,11 +4159,7 @@ const Carrito = props => {
   };
 
   const finalizarCompra = () => {
-    if (document.getElementsByTagName('body')[0].style.overflowY !== 'scroll') {
-      document.getElementsByTagName('body')[0].style.overflowY = 'auto';
-    }
-
-    next_router__WEBPACK_IMPORTED_MODULE_0___default.a.push('/checkout');
+    window.location.assign('/checkout');
   }; //console.log(props);
 
 
@@ -4120,12 +4227,40 @@ module.exports = require("redux");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return PUBLIC_URL; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return URL_CLOUD_STORAGE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return GOOGLE_CLIENT_ID; });
-const API = 'https://api.oliverpetshop.com.ar/'; //const PUBLIC_URL = 'http://localhost:3000';
+const API = 'https://api.oliverpetshop.com.ar/';
+const PUBLIC_URL = 'http://localhost:3000'; //const PUBLIC_URL = 'https://developers.oliverpetshop.com.ar';
 
-const PUBLIC_URL = 'https://developers.oliverpetshop.com.ar';
 const URL_CLOUD_STORAGE = 'https://storage.googleapis.com/web-oliver';
 const GOOGLE_CLIENT_ID = '85508910542-jfaoom4l84q0a9cdmeg382vi9hl986j1.apps.googleusercontent.com';
 
+/*https://www.mercadolibre.com.ar/gz/checkout/buy
+?mode=page
+&parent_url=https%3A%2F%2Farticulo.mercadolibre.com.ar%2FMLA-701482873-set-x-4-colchonetas-cama-inflable-pileta-piscina-oferta-mar-_JM
+&item_id=MLA701482873
+&context=vip
+&shipping_option_id=3630547635
+&quantity=1*/
+
+/***/ }),
+
+/***/ "t0wy":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("cDcd");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
+
+
+const Error = ({
+  message
+}) => {
+  return __jsx("div", {
+    className: "alert alert-warning text-center"
+  }, message);
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (Error);
 
 /***/ }),
 
