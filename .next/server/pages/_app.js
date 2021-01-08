@@ -1260,12 +1260,13 @@ const usuarioReducer_INITIAL_STATE = {
   usuario: null,
   logueado: false,
   loading: false,
-  error: null
+  error: null,
+  actionSuccess: null
 };
 
 const usuarioReducer = (state = usuarioReducer_INITIAL_STATE, action) => {
   switch (action.type) {
-    case usuarioTypes["f" /* VERIFICAR_SESION */]:
+    case usuarioTypes["g" /* VERIFICAR_SESION */]:
       return usuarioReducer_objectSpread(usuarioReducer_objectSpread({}, state), {}, {
         logueado: action.payload.logueado,
         usuario: action.payload.data,
@@ -1298,11 +1299,18 @@ const usuarioReducer = (state = usuarioReducer_INITIAL_STATE, action) => {
         error: action.payload
       });
 
-    case usuarioTypes["e" /* UPDATE_USER */]:
+    case usuarioTypes["f" /* UPDATE_USER */]:
       return usuarioReducer_objectSpread(usuarioReducer_objectSpread({}, state), {}, {
         loading: false,
         error: null,
         usuario: action.payload
+      });
+
+    case usuarioTypes["e" /* UPDATE_PASSWORD */]:
+      return usuarioReducer_objectSpread(usuarioReducer_objectSpread({}, state), {}, {
+        loading: false,
+        error: null,
+        actionSuccess: 'Se ha cambiado la contraseña de manera correcta, será redirigido automaticamente a nuestra web y deberá iniciar sesión con su nueva contraseña.'
       });
 
     default:
@@ -1671,6 +1679,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "singInWithGoogle", function() { return singInWithGoogle; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "actualizarFoto", function() { return actualizarFoto; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "actualizarUsuario", function() { return actualizarUsuario; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "actualizarAddress", function() { return actualizarAddress; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sendEmailForResetPassword", function() { return sendEmailForResetPassword; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updatePassword", function() { return updatePassword; });
 /* harmony import */ var _config_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("rOcY");
 /* harmony import */ var _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("i5yP");
 
@@ -1744,13 +1755,32 @@ const logout = () => async dispatch => {
     });
   }
 };
-const verificarSesion = () => async dispatch => {
+const verificarSesion = (token = null) => async dispatch => {
   try {
     let dataUsuario = JSON.parse(localStorage.getItem('oliverpetshop_usuario'));
 
     if (dataUsuario) {
+      // request para verificar que el token corresponda a una sesion activa
+      let headers = new Headers();
+      let tokenSend = token ? token : dataUsuario.token;
+      headers.append('token', tokenSend);
+      const request = await fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}verify-sesion`, {
+        method: 'GET',
+        headers
+      });
+
+      if (request.status != 200) {
+        return dispatch({
+          type: _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__[/* VERIFICAR_SESION */ "g"],
+          payload: {
+            data: null,
+            logueado: false
+          }
+        });
+      }
+
       return dispatch({
-        type: _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__[/* VERIFICAR_SESION */ "f"],
+        type: _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__[/* VERIFICAR_SESION */ "g"],
         payload: {
           data: dataUsuario,
           logueado: true
@@ -1759,7 +1789,7 @@ const verificarSesion = () => async dispatch => {
     }
 
     return dispatch({
-      type: _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__[/* VERIFICAR_SESION */ "f"],
+      type: _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__[/* VERIFICAR_SESION */ "g"],
       payload: {
         data: null,
         logueado: false
@@ -1879,7 +1909,7 @@ const actualizarFoto = (data, id) => async dispatch => {
     if (dataRequest.ok) {
       localStorage.setItem('oliverpetshop_usuario', JSON.stringify(dataRequest.user));
       dispatch({
-        type: _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__[/* UPDATE_USER */ "e"],
+        type: _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__[/* UPDATE_USER */ "f"],
         payload: dataRequest.user
       });
     }
@@ -1918,7 +1948,7 @@ const actualizarUsuario = (data, id) => async dispatch => {
     if (dataRequest.ok) {
       localStorage.setItem('oliverpetshop_usuario', JSON.stringify(dataRequest.user));
       return dispatch({
-        type: _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__[/* UPDATE_USER */ "e"],
+        type: _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__[/* UPDATE_USER */ "f"],
         payload: dataRequest.user
       });
     }
@@ -1931,6 +1961,137 @@ const actualizarUsuario = (data, id) => async dispatch => {
     dispatch({
       type: _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__[/* ERROR */ "a"],
       payload: error.message
+    });
+  }
+};
+const actualizarAddress = (data, id) => async dispatch => {
+  dispatch({
+    type: _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__[/* LOADING */ "b"]
+  });
+
+  try {
+    let headers = new Headers();
+    let token = JSON.parse(localStorage.getItem('oliverpetshop_usuario')).token;
+    if (!token) return dispatch({
+      type: _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__[/* ERROR */ "a"],
+      payload: 'Token incorrecto'
+    });
+    headers.append('token', token);
+    headers.append("Content-Type", "application/json");
+    const request = await fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}actualizarDireccion/${id}`, {
+      method: 'PUT',
+      headers,
+      body: JSON.stringify(data)
+    });
+    if (request.status != 200) return dispatch({
+      type: _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__[/* ERROR */ "a"],
+      payload: 'Ocurrio un error, ¡intentelo más tarde!'
+    });
+    const dataRequest = await request.json();
+
+    if (dataRequest.ok) {
+      localStorage.setItem('oliverpetshop_usuario', JSON.stringify(dataRequest.usuario));
+      return dispatch({
+        type: _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__[/* UPDATE_USER */ "f"],
+        payload: dataRequest.usuario
+      });
+    }
+
+    return dispatch({
+      type: _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__[/* ERROR */ "a"],
+      payload: dataRequest.info
+    });
+  } catch (error) {
+    dispatch({
+      type: _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__[/* ERROR */ "a"],
+      payload: error.message
+    });
+  }
+};
+const sendEmailForResetPassword = idUsuario => async dispatch => {
+  dispatch({
+    type: _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__[/* LOADING */ "b"]
+  });
+
+  try {
+    let headers = new Headers();
+    let token = JSON.parse(localStorage.getItem('oliverpetshop_usuario')).token;
+    if (!token) return dispatch({
+      type: _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__[/* ERROR */ "a"],
+      payload: 'Token incorrecto'
+    });
+    headers.append('token', token);
+    headers.append("Content-Type", "application/json");
+    const request = await fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}resetPassword`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        idUsuario
+      })
+    });
+    if (request.status != 200) return dispatch({
+      type: _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__[/* ERROR */ "a"],
+      payload: 'Ocurrio un error, ¡intentelo más tarde!'
+    });
+    const dataRequest = await request.json();
+
+    if (dataRequest.ok) {
+      return console.log(dataRequest);
+    }
+
+    return dispatch({
+      type: _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__[/* ERROR */ "a"],
+      payload: dataRequest.info
+    });
+  } catch (error) {
+    dispatch({
+      type: _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__[/* ERROR */ "a"],
+      payload: dataRequest.info
+    });
+  }
+};
+const updatePassword = (data, token) => async dispatch => {
+  dispatch({
+    type: _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__[/* LOADING */ "b"]
+  });
+
+  try {
+    if (data.confirmNewPassword === '' || data.newPassword === '') {
+      return dispatch({
+        type: _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__[/* ERROR */ "a"],
+        payload: 'Los dos campos son obligarios.'
+      });
+    }
+
+    if (data.confirmNewPassword != data.newPassword) {
+      return dispatch({
+        type: _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__[/* ERROR */ "a"],
+        payload: 'Las contraseñas no coinciden.'
+      });
+    }
+
+    let headers = new Headers();
+    headers.append('refresh-token', token);
+    headers.append("Content-Type", "application/json");
+    const request = await fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}new-password`, {
+      method: 'PUT',
+      headers,
+      body: JSON.stringify(data)
+    });
+    if (request.status != 200) return dispatch({
+      type: _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__[/* ERROR */ "a"],
+      payload: 'Ups, algo ha salido mal...'
+    });
+    dispatch({
+      type: _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__[/* UPDATE_PASSWORD */ "e"]
+    });
+    return setTimeout(() => {
+      window.location.assign(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* PUBLIC_URL */ "c"]}`);
+    }, 5000);
+  } catch (error) {
+    return dispatch({
+      type: _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__[/* ERROR */ "a"],
+      payload: error
     });
   }
 };
@@ -3749,18 +3910,20 @@ function parseRelativeUrl(url, base) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return VERIFICAR_SESION; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return VERIFICAR_SESION; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return LOGIN; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return LOGOUT; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return LOADING; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ERROR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return UPDATE_USER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return UPDATE_USER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return UPDATE_PASSWORD; });
 const VERIFICAR_SESION = 'usuario_verificarsesion';
 const LOGIN = 'usuario_login';
 const LOGOUT = 'usuario_logout';
 const LOADING = 'usuario_loading';
 const ERROR = 'usuario_error';
 const UPDATE_USER = 'usuario_cambiarfoto';
+const UPDATE_PASSWORD = 'usuario_cambiarpassword';
 
 
 /***/ }),
@@ -3952,7 +4115,7 @@ const traerProductos = () => async dispatch => {
   });
 
   try {
-    const productos = JSON.parse(localStorage.getItem('carrito'));
+    const productos = await JSON.parse(localStorage.getItem('carrito'));
     let subtotal = 0;
     productos.forEach(prd => {
       subtotal += parseInt(prd.precioUnidad * prd.cantidad);
@@ -3961,12 +4124,12 @@ const traerProductos = () => async dispatch => {
       productos,
       subtotal
     };
-    dispatch({
+    return dispatch({
       type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* TRAER_PRODUCTOS */ "e"],
       payload: payloadData
     });
   } catch (error) {
-    dispatch({
+    return dispatch({
       type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ERROR */ "c"],
       payload: error
     });
@@ -4175,7 +4338,7 @@ const Carrito = props => {
     className: _Carrito_module_css__WEBPACK_IMPORTED_MODULE_4___default.a.section__carrito__total + ' ' + `d-flex justify-content-between`
   }, __jsx("p", null, "Subtotal"), __jsx("span", {
     className: _Carrito_module_css__WEBPACK_IMPORTED_MODULE_4___default.a.subtotal__carrito
-  }, "$", totalCarrito)), __jsx("button", {
+  }, "$", totalCarrito)), props.productos.length == 0 ? null : __jsx("button", {
     className: "boton bg-yellow",
     onClick: finalizarCompra,
     type: "button"

@@ -88,7 +88,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -773,18 +773,18 @@ function assign(target, ...searchParamsList) {
 
 /***/ }),
 
-/***/ 4:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__("30mp");
-
-
-/***/ }),
-
 /***/ "4Q3z":
 /***/ (function(module, exports) {
 
 module.exports = require("next/router");
+
+/***/ }),
+
+/***/ 5:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__("30mp");
+
 
 /***/ }),
 
@@ -3285,7 +3285,7 @@ const traerProductos = () => async dispatch => {
   });
 
   try {
-    const productos = JSON.parse(localStorage.getItem('carrito'));
+    const productos = await JSON.parse(localStorage.getItem('carrito'));
     let subtotal = 0;
     productos.forEach(prd => {
       subtotal += parseInt(prd.precioUnidad * prd.cantidad);
@@ -3294,12 +3294,12 @@ const traerProductos = () => async dispatch => {
       productos,
       subtotal
     };
-    dispatch({
+    return dispatch({
       type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* TRAER_PRODUCTOS */ "e"],
       payload: payloadData
     });
   } catch (error) {
-    dispatch({
+    return dispatch({
       type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ERROR */ "c"],
       payload: error
     });
@@ -3540,7 +3540,7 @@ const Carrito = props => {
     className: _Carrito_module_css__WEBPACK_IMPORTED_MODULE_4___default.a.section__carrito__total + ' ' + `d-flex justify-content-between`
   }, __jsx("p", null, "Subtotal"), __jsx("span", {
     className: _Carrito_module_css__WEBPACK_IMPORTED_MODULE_4___default.a.subtotal__carrito
-  }, "$", totalCarrito)), __jsx("button", {
+  }, "$", totalCarrito)), props.productos.length == 0 ? null : __jsx("button", {
     className: "boton bg-yellow",
     onClick: finalizarCompra,
     type: "button"
