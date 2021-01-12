@@ -405,7 +405,10 @@ const Login = props => {
     className: "boton bg-yellow mb-1",
     value: "Ingresar"
   }), __jsx("a", {
-    href: "/",
+    onClick: props.showResetPassword,
+    style: {
+      cursor: 'pointer'
+    },
     className: Login_module_default.a.forgot__pass + ' ' + `text-center d-block`
   }, "Olvid\xE9 mi constrase\xF1a")), __jsx("section", {
     className: Login_module_default.a.registerInLogin + ' ' + `text-center`
@@ -660,8 +663,12 @@ var external_reactstrap_ = __webpack_require__("oL/c");
 var Filtro_module = __webpack_require__("PsAh");
 var Filtro_module_default = /*#__PURE__*/__webpack_require__.n(Filtro_module);
 
+// EXTERNAL MODULE: ./src/components/formModificarPw/index.js
+var formModificarPw = __webpack_require__("6Jgp");
+
 // CONCATENATED MODULE: ./src/components/Navbar/index.js
 var Navbar_jsx = external_react_default.a.createElement;
+
 
 
 
@@ -700,6 +707,10 @@ const Navbar = props => {
     1: setRegister
   } = Object(external_react_["useState"])(false);
   const {
+    0: resetPassword,
+    1: setResetPassword
+  } = Object(external_react_["useState"])(false);
+  const {
     0: modalIsOpen,
     1: setModalIsOpen
   } = Object(external_react_["useState"])(false);
@@ -720,6 +731,13 @@ const Navbar = props => {
     login ? setLogin(false) : false;
     carrito ? setCarrito(false) : null;
     setRegister(true);
+  };
+
+  const showResetPassword = () => {
+    login ? setLogin(false) : null;
+    carrito ? setCarrito(false) : null;
+    register ? setRegister(false) : null;
+    setResetPassword(true);
   };
 
   const closeModal = () => setModalIsOpen(false); //-------------------------------------------------//
@@ -759,12 +777,16 @@ const Navbar = props => {
 
   const renderContenidoModal = () => {
     if (login) return Navbar_jsx(components_Login, {
-      showRegister: showRegister
+      showRegister: showRegister,
+      showResetPassword: showResetPassword
     });
     if (register) return Navbar_jsx(Login_Register, {
       showLogin: showModalLogin
     });
     if (carrito) return Navbar_jsx(Carrito["a" /* default */], null);
+    if (resetPassword) return Navbar_jsx(formModificarPw["a" /* default */], {
+      withEmail: true
+    });
   };
 
   const cerrarSesion = async () => {
@@ -1622,6 +1644,133 @@ function formatUrl(urlObj) {
   search = search.replace('#', '%23');
   return `${protocol}${host}${pathname}${search}${hash}`;
 }
+
+/***/ }),
+
+/***/ "6Jgp":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var styled_jsx_style__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("HJQg");
+/* harmony import */ var styled_jsx_style__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(styled_jsx_style__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("cDcd");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("h74D");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _Loader_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("XOuL");
+/* harmony import */ var _config_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("rOcY");
+
+
+var __jsx = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement;
+
+
+
+
+
+const FormModificarPw = props => {
+  const {
+    0: loading,
+    1: setLoading
+  } = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(false);
+  const {
+    0: error,
+    1: setError
+  } = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(null);
+  const {
+    0: actionSuccess,
+    1: setActionSuccess
+  } = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(null);
+  const {
+    0: email,
+    1: setEmail
+  } = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])('');
+
+  const sendEmail = async () => {
+    let headers = new Headers();
+    let dataToSend;
+
+    if (props.usuarioReducer.logueado) {
+      const {
+        idUsuario,
+        token
+      } = props.usuarioReducer.usuario;
+      if (!token) return setError('Ups.. ha ocurrido un error.');
+      headers.append('token', token);
+      dataToSend = {
+        idUsuario
+      };
+    } else {
+      if (email == '') return setError('Ups.. ha ocurrido un error.');
+      dataToSend = {
+        email
+      };
+    }
+
+    setLoading(true);
+    headers.append("Content-Type", "application/json");
+    console.log(dataToSend);
+    const request = await fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_4__[/* API */ "a"]}resetPassword`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(dataToSend)
+    });
+
+    if (request.status != 200) {
+      setLoading(false);
+      return setError('Ups.. ha ocurrido un error.');
+    }
+
+    const dataRequest = await request.json();
+    setLoading(false);
+
+    if (dataRequest.ok) {
+      return setActionSuccess(dataRequest.info);
+    }
+
+    return setError('Ups.. ha ocurrido un error.');
+  };
+
+  const handleChangeEmail = event => {
+    setEmail(event.target.value);
+  };
+
+  return __jsx("div", {
+    className: "jsx-204570501" + " " + "containerResetPass"
+  }, __jsx("div", {
+    className: "jsx-204570501" + " " + "text-center"
+  }, error ? __jsx("div", {
+    className: "jsx-204570501" + " " + "alert alert-danger text-center"
+  }, error) : null), __jsx("div", {
+    className: "jsx-204570501" + " " + `alert alert-${actionSuccess ? `info` : `warning`} text-center`
+  }, actionSuccess ? __jsx("b", {
+    className: "jsx-204570501"
+  }, actionSuccess) : `Estaremos enviando un email con los pasos para poder realizar el proceso de modificación de contraseña`), __jsx("div", {
+    className: "jsx-204570501" + " " + "col-12 text-center"
+  }, loading ? __jsx(_Loader_index__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"], null) : null, props.withEmail ? __jsx("input", {
+    type: "email",
+    value: email,
+    onChange: handleChangeEmail,
+    required: true,
+    placeholder: "Ingrese su email",
+    className: "jsx-204570501" + " " + "form-control mb-3"
+  }) : null, !actionSuccess && !loading ? __jsx("button", {
+    onClick: sendEmail,
+    type: "button",
+    className: "jsx-204570501" + " " + "boton bg-yellow"
+  }, "Enviar email") : null), __jsx(styled_jsx_style__WEBPACK_IMPORTED_MODULE_0___default.a, {
+    id: "204570501"
+  }, [".containerResetPass.jsx-204570501{font-family:'Quicksand',sans-serif!important;}"]));
+};
+
+const mapStateToProps = ({
+  usuarioReducer
+}) => {
+  return {
+    usuarioReducer
+  };
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapStateToProps, null)(FormModificarPw));
 
 /***/ }),
 
