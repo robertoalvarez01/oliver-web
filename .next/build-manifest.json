@@ -5,8 +5,8 @@
   "devFiles": [],
   "ampDevFiles": [],
   "lowPriorityFiles": [
-    "static/xtUduXZJhnFs_H1EY_rOH/_buildManifest.js",
-    "static/xtUduXZJhnFs_H1EY_rOH/_ssgManifest.js"
+    "static/rjEMM5NhLL-kgai2FTha3/_buildManifest.js",
+    "static/rjEMM5NhLL-kgai2FTha3/_ssgManifest.js"
   ],
   "pages": {
     "/": [
@@ -35,7 +35,7 @@
       "static/chunks/6474770108dea70999cb5d7d2b511a613cc40604.806f0f00e31c6a1f7f0c.js",
       "static/chunks/327fd97c54ae3fbee586cd40ec38b380a41b9cca.105e4309684e096534ba.js",
       "static/chunks/db394a49aa660ed89941cb9c406567728b47b8a6.0c854714c3f160974201.js",
-      "static/chunks/5a41bd606db840295f6a32bec854d6c6fd5440aa.c68e078f097612813bb3.js",
+      "static/chunks/5a41bd606db840295f6a32bec854d6c6fd5440aa.13c36f01a0cdee05f0aa.js",
       "static/chunks/8e0bc868f1375f06c81247b0bfa9ad0b5b5a19f0.0a0b4c6dbd5a924d19d2.js",
       "static/css/f55e7589a6953450ecbd.css",
       "static/chunks/pages/_app-b275190240d2829911ef.js"
@@ -55,7 +55,7 @@
       "static/chunks/commons.7906ba1de4b1ea9cd9c5.js",
       "static/chunks/6474770108dea70999cb5d7d2b511a613cc40604.806f0f00e31c6a1f7f0c.js",
       "static/chunks/327fd97c54ae3fbee586cd40ec38b380a41b9cca.105e4309684e096534ba.js",
-      "static/chunks/5a41bd606db840295f6a32bec854d6c6fd5440aa.c68e078f097612813bb3.js",
+      "static/chunks/5a41bd606db840295f6a32bec854d6c6fd5440aa.13c36f01a0cdee05f0aa.js",
       "static/chunks/8e0bc868f1375f06c81247b0bfa9ad0b5b5a19f0.0a0b4c6dbd5a924d19d2.js",
       "static/css/5c1a22c2f6d9d69183b7.css",
       "static/chunks/pages/checkout-91fa6a5516c3652285c9.js"
@@ -66,7 +66,7 @@
       "static/chunks/framework.1d36bc031662b4dc4c28.js",
       "static/chunks/commons.7906ba1de4b1ea9cd9c5.js",
       "static/chunks/6474770108dea70999cb5d7d2b511a613cc40604.806f0f00e31c6a1f7f0c.js",
-      "static/chunks/5a41bd606db840295f6a32bec854d6c6fd5440aa.c68e078f097612813bb3.js",
+      "static/chunks/5a41bd606db840295f6a32bec854d6c6fd5440aa.13c36f01a0cdee05f0aa.js",
       "static/chunks/pages/new-password/[token]-e32c0304a5c2585f1626.js"
     ],
     "/perfil": [
@@ -77,7 +77,7 @@
       "static/chunks/commons.7906ba1de4b1ea9cd9c5.js",
       "static/chunks/6474770108dea70999cb5d7d2b511a613cc40604.806f0f00e31c6a1f7f0c.js",
       "static/chunks/327fd97c54ae3fbee586cd40ec38b380a41b9cca.105e4309684e096534ba.js",
-      "static/chunks/5a41bd606db840295f6a32bec854d6c6fd5440aa.c68e078f097612813bb3.js",
+      "static/chunks/5a41bd606db840295f6a32bec854d6c6fd5440aa.13c36f01a0cdee05f0aa.js",
       "static/chunks/8e0bc868f1375f06c81247b0bfa9ad0b5b5a19f0.0a0b4c6dbd5a924d19d2.js",
       "static/chunks/1251d0e22158c0b036a2114b35fbf0a8943caaed.4a175a6a80a398e74301.js",
       "static/css/5dc167152a3c07934955.css",
