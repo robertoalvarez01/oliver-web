@@ -790,10 +790,10 @@ const traerTodos = ({
   });
 
   try {
-    let url = `${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}producto?desde=${desde}&limite=${limiteDesktop}`;
+    let url = `${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/producto?desde=${desde}&limite=${limiteDesktop}`;
 
     if (Object(_helpers_index__WEBPACK_IMPORTED_MODULE_1__[/* isMobile */ "b"])()) {
-      url = `${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}producto?desde=${desde}&limite=${limiteMobile}`;
+      url = `${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/producto?desde=${desde}&limite=${limiteMobile}`;
     }
 
     return fetch(url).then(res => res.json()).then(data => {
@@ -815,10 +815,10 @@ const traerMas = (rangoProducto, prevProductos) => async dispatch => {
   });
 
   try {
-    let url = `${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}producto?desde=${rangoProducto.desde}&limite=${rangoProducto.limiteDesktop}`;
+    let url = `${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/producto?desde=${rangoProducto.desde}&limite=${rangoProducto.limiteDesktop}`;
 
     if (Object(_helpers_index__WEBPACK_IMPORTED_MODULE_1__[/* isMobile */ "b"])()) {
-      url = `${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}producto?desde=${rangoProducto.desde}&limite=${rangoProducto.limiteMobile}`;
+      url = `${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/producto?desde=${rangoProducto.desde}&limite=${rangoProducto.limiteMobile}`;
     }
 
     return fetch(url).then(res => res.json()).then(data => {
@@ -841,7 +841,7 @@ const traerPorId = id => async dispatch => {
   });
 
   try {
-    return fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}producto/${id}`).then(res => res.json()).then(data => {
+    return fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/producto/${id}`).then(res => res.json()).then(data => {
       dispatch({
         type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* TRAER_UNO */ "i"],
         payload: data
@@ -905,7 +905,7 @@ const filtrarProductos = url => async dispatch => {
 
   try {
     let urlFiltro = url.includes('buscar?busqueda') ? `productos/${url}` : `productos/filtro/${url}`;
-    return fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}${urlFiltro}`).then(res => res.json()).then(data => {
+    return fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/${urlFiltro}`).then(res => res.json()).then(data => {
       dispatch({
         type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* FILTRANDO */ "b"],
         payload: data.data
@@ -1369,7 +1369,7 @@ const traerTodas = () => async dispatch => {
   });
 
   try {
-    return fetch(`${config["a" /* API */]}subcategoria`).then(res => res.json()).then(data => {
+    return fetch(`${config["a" /* API */]}/subcategoria`).then(res => res.json()).then(data => {
       const subcategorias = data.data;
       dispatch({
         type: subcategoriasTypes["c" /* TRAER_TODAS */],
@@ -3758,7 +3758,7 @@ module.exports = {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return PUBLIC_URL; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return URL_CLOUD_STORAGE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return GOOGLE_CLIENT_ID; });
-const API = 'https://api.oliverpetshop.com.ar/'; //const PUBLIC_URL = 'http://localhost:3000';
+const API = 'https://api.oliverpetshop.com.ar'; //const PUBLIC_URL = 'http://localhost:3000';
 
 const PUBLIC_URL = 'https://developers.oliverpetshop.com.ar';
 const URL_CLOUD_STORAGE = 'https://storage.googleapis.com/web-oliver';
@@ -3790,7 +3790,7 @@ const traerTodas = () => async dispatch => {
   });
 
   try {
-    return fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}categorias`).then(res => res.json()).then(data => {
+    return fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/categorias`).then(res => res.json()).then(data => {
       const categorias = data.data;
       dispatch({
         type: _types_categoriasTypes__WEBPACK_IMPORTED_MODULE_1__[/* TRAER_TODAS */ "c"],

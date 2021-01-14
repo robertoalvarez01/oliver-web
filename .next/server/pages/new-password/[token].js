@@ -205,7 +205,7 @@ const verificarSesion = (token = null) => async dispatch => {
       let headers = new Headers();
       let tokenSend = token ? token : dataUsuario.token;
       headers.append('token', tokenSend);
-      const request = await fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}verify-sesion`, {
+      const request = await fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/verify-sesion`, {
         method: 'GET',
         headers
       });
@@ -251,7 +251,7 @@ const register = data => dispatch => {
   try {
     let headers = new Headers();
     headers.append("Content-Type", "application/json");
-    return fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}register`, {
+    return fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/register`, {
       method: 'POST',
       body: JSON.stringify(data),
       headers
@@ -292,7 +292,7 @@ const singInWithGoogle = tokenId => async dispatch => {
   try {
     let headers = new Headers();
     headers.append("Content-Type", "application/json");
-    return fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}google/tokensignin`, {
+    return fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/google/tokensignin`, {
       method: 'POST',
       headers,
       body: JSON.stringify({
@@ -340,7 +340,7 @@ const actualizarFoto = (data, id) => async dispatch => {
     let headers = new Headers();
     let token = JSON.parse(localStorage.getItem('oliverpetshop_usuario')).token;
     headers.append("token", token);
-    const request = await fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}actualizarFotoUsuarioDesdeWeb/${id}`, {
+    const request = await fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/actualizarFotoUsuarioDesdeWeb/${id}`, {
       method: 'PUT',
       headers,
       body: data
@@ -375,7 +375,7 @@ const actualizarUsuario = (data, id) => async dispatch => {
     });
     headers.append('token', token);
     headers.append("Content-Type", "application/json");
-    const request = await fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}actualizarUsuarioDesdeWeb/${id}`, {
+    const request = await fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/actualizarUsuarioDesdeWeb/${id}`, {
       method: 'PUT',
       headers,
       body: JSON.stringify(data)
@@ -419,7 +419,7 @@ const actualizarAddress = (data, id) => async dispatch => {
     });
     headers.append('token', token);
     headers.append("Content-Type", "application/json");
-    const request = await fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}actualizarDireccion/${id}`, {
+    const request = await fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/actualizarDireccion/${id}`, {
       method: 'PUT',
       headers,
       body: JSON.stringify(data)
@@ -463,7 +463,7 @@ const sendEmailForResetPassword = idUsuario => async dispatch => {
     });
     headers.append('token', token);
     headers.append("Content-Type", "application/json");
-    const request = await fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}resetPassword`, {
+    const request = await fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/resetPassword`, {
       method: 'POST',
       headers,
       body: JSON.stringify({
@@ -514,7 +514,7 @@ const updatePassword = (data, token) => async dispatch => {
     let headers = new Headers();
     headers.append('refresh-token', token);
     headers.append("Content-Type", "application/json");
-    const request = await fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}new-password`, {
+    const request = await fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/new-password`, {
       method: 'PUT',
       headers,
       body: JSON.stringify(data)
@@ -649,7 +649,7 @@ const Header = ({
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return PUBLIC_URL; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return URL_CLOUD_STORAGE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return GOOGLE_CLIENT_ID; });
-const API = 'https://api.oliverpetshop.com.ar/'; //const PUBLIC_URL = 'http://localhost:3000';
+const API = 'https://api.oliverpetshop.com.ar'; //const PUBLIC_URL = 'http://localhost:3000';
 
 const PUBLIC_URL = 'https://developers.oliverpetshop.com.ar';
 const URL_CLOUD_STORAGE = 'https://storage.googleapis.com/web-oliver';
