@@ -3494,7 +3494,7 @@ const traerTodas = () => async dispatch => {
   });
 
   try {
-    return fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}marca`).then(res => res.json()).then(data => {
+    return fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/marca`).then(res => res.json()).then(data => {
       const marcas = data.data;
       dispatch({
         type: _types_marcasTypes__WEBPACK_IMPORTED_MODULE_1__[/* TRAER_TODAS */ "c"],
