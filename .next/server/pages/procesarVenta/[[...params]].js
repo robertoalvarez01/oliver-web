@@ -238,7 +238,7 @@ const ProcesarVenta = props => {
   const {
     0: error,
     1: setError
-  } = Object(external_react_["useState"])(false);
+  } = Object(external_react_["useState"])(true);
   const {
     0: ventaRegistrada,
     1: setVentaRegistrada
@@ -284,7 +284,8 @@ const ProcesarVenta = props => {
         total,
         idUsuario,
         productos,
-        fecha
+        fecha,
+        operacion_id: props.collection_id
       }
     };
     return registrarVenta(dataToRequest);
@@ -316,7 +317,6 @@ const ProcesarVenta = props => {
     }
   };
 
-  console.log(props);
   const router = Object(router_["useRouter"])();
   return __jsx(external_react_default.a.Fragment, null, __jsx(Head["a" /* default */], {
     title: "Finalizacion de compra",
@@ -338,32 +338,10 @@ ProcesarVenta.getInitialProps = async ({
   query
 }) => {
   const {
-    collection_id,
-    collection_status,
-    external_reference,
-    merchant,
-    account_id,
-    merchant_order_id,
-    payment_id,
-    payment_type,
-    preference_id,
-    processing_mode,
-    site_id,
-    status
+    collection_id
   } = query;
   return {
-    collection_id,
-    collection_status,
-    external_reference,
-    merchant,
-    account_id,
-    merchant_order_id,
-    payment_id,
-    payment_type,
-    preference_id,
-    processing_mode,
-    site_id,
-    status
+    collection_id
   };
 };
 
