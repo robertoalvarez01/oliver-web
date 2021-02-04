@@ -1134,6 +1134,8 @@ function carritoReducer_defineProperty(obj, key, value) { if (key in obj) { Obje
 
 const carritoReducer_INITIAL_STATE = {
   productos: [],
+  porcentaje_descuento: 0,
+  descuento: 0,
   subtotal: 0,
   total: 0,
   loading: false,
@@ -1341,7 +1343,51 @@ const usuarioReducer = (state = usuarioReducer_INITIAL_STATE, action) => {
 };
 
 /* harmony default export */ var reducers_usuarioReducer = (usuarioReducer);
+// EXTERNAL MODULE: ./store/types/enviosTypes.js
+var enviosTypes = __webpack_require__("pzYh");
+
+// CONCATENATED MODULE: ./store/reducers/enviosReducer.js
+function enviosReducer_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function enviosReducer_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { enviosReducer_ownKeys(Object(source), true).forEach(function (key) { enviosReducer_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { enviosReducer_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function enviosReducer_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+const enviosReducer_INITIAL_STATE = {
+  data: null,
+  loading: false,
+  error: null
+};
+
+const enviosReducer = (state = enviosReducer_INITIAL_STATE, action) => {
+  switch (action.type) {
+    case enviosTypes["b" /* GUARDAR */]:
+      return {
+        data: action.payload,
+        loading: false,
+        error: null
+      };
+
+    case enviosTypes["c" /* LOADING */]:
+      return enviosReducer_objectSpread(enviosReducer_objectSpread({}, state), {}, {
+        loading: true
+      });
+
+    case enviosTypes["a" /* ERROR */]:
+      return enviosReducer_objectSpread(enviosReducer_objectSpread({}, state), {}, {
+        loading: false,
+        error: action.payload
+      });
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ var reducers_enviosReducer = (enviosReducer);
 // CONCATENATED MODULE: ./store/reducers/index.js
+
 
 
 
@@ -1355,7 +1401,8 @@ const usuarioReducer = (state = usuarioReducer_INITIAL_STATE, action) => {
   carritoReducer: reducers_carritoReducer,
   categoriasReducer: reducers_categoriasReducer,
   subcategoriaReducer: reducers_subcategoriasReducer,
-  usuarioReducer: reducers_usuarioReducer
+  usuarioReducer: reducers_usuarioReducer,
+  enviosReducer: reducers_enviosReducer
 }));
 // CONCATENATED MODULE: ./store/index.js
 
@@ -4405,6 +4452,20 @@ module.exports = {
 	"subtotal__carrito": "Carrito_subtotal__carrito__YltHt",
 	"carrito__productos": "Carrito_carrito__productos__oEy3y"
 };
+
+
+/***/ }),
+
+/***/ "pzYh":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return LOADING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ERROR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return GUARDAR; });
+const LOADING = 'envios_loading';
+const ERROR = 'envios_error';
+const GUARDAR = 'envios_guardar';
 
 
 /***/ }),

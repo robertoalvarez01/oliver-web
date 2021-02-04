@@ -88,7 +88,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -392,14 +392,6 @@ module.exports = require("next/router");
 
 /***/ }),
 
-/***/ 6:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__("YRs9");
-
-
-/***/ }),
-
 /***/ "6D7l":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -541,6 +533,14 @@ function formatUrl(urlObj) {
 const TRAER_TODAS = 'categorias_traer_todas';
 const LOADING = 'categorias_loading';
 const ERROR = 'categorias_error';
+
+
+/***/ }),
+
+/***/ 7:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__("YRs9");
 
 
 /***/ }),

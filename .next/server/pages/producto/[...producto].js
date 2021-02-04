@@ -88,7 +88,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 5);
+/******/ 	return __webpack_require__(__webpack_require__.s = 6);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -385,7 +385,8 @@ const ProductoSingle = props => {
   Object(external_react_["useEffect"])(() => {
     const {
       marca,
-      producto
+      producto,
+      idProducto
     } = props.producto;
 
     if (props.subProductos.length > 0) {
@@ -397,9 +398,9 @@ const ProductoSingle = props => {
         idSubProducto,
         subProducto
       } = props.subProductos[0];
-      guardarProductoEnState(foto, peso, precioUnidad, producto, tamaño, idSubProducto, marca, subProducto);
+      guardarProductoEnState(foto, peso, precioUnidad, producto, tamaño, idSubProducto, marca, subProducto, idProducto);
     } else {
-      guardarProductoEnState(`${config["d" /* URL_CLOUD_STORAGE */]}/sin-imagen.png`, null, null, producto, null, null, marca, null);
+      guardarProductoEnState(`${config["d" /* URL_CLOUD_STORAGE */]}/sin-imagen.png`, null, null, producto, null, null, marca, null, idProducto);
     }
   }, [props.producto]);
   const imagenes = []; //al vector de imagenes, le sumo las imagenes de los productos relacionados al mismo padre
@@ -470,7 +471,7 @@ const ProductoSingle = props => {
 
   const closeModalCarrito = () => setModalIsOpen(false);
 
-  const guardarProductoEnState = (foto, peso, precioUnidad, producto, tamaño, idSubProducto, marca, subProducto) => {
+  const guardarProductoEnState = (foto, peso, precioUnidad, producto, tamaño, idSubProducto, marca, subProducto, idProducto) => {
     setProductoData({
       producto,
       foto,
@@ -480,7 +481,8 @@ const ProductoSingle = props => {
       tamaño,
       idSubProducto,
       marca,
-      subProducto
+      subProducto,
+      idProducto
     });
   };
 
@@ -780,7 +782,7 @@ module.exports = require("next/router");
 
 /***/ }),
 
-/***/ 5:
+/***/ 6:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__("30mp");
