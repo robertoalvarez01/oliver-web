@@ -5,8 +5,8 @@
   "devFiles": [],
   "ampDevFiles": [],
   "lowPriorityFiles": [
-    "static/tc1onWouKqssFh5k5qvmR/_buildManifest.js",
-    "static/tc1onWouKqssFh5k5qvmR/_ssgManifest.js"
+    "static/J3AaxulHjzr953GiKWmsv/_buildManifest.js",
+    "static/J3AaxulHjzr953GiKWmsv/_ssgManifest.js"
   ],
   "pages": {
     "/": [
@@ -90,7 +90,7 @@
       "static/chunks/commons.7906ba1de4b1ea9cd9c5.js",
       "static/chunks/7a8902093ca176f8691f4ebfade87c781dd5aef5.6ad82c34ec044ec3b004.js",
       "static/chunks/2f11bfb4a5c5246bc62049961309965419588d12.fd7cf00f3ff8bbce500e.js",
-      "static/chunks/pages/procesarVenta/[[...params]]-cb0a9e918ac1eb575502.js"
+      "static/chunks/pages/procesarVenta/[[...params]]-ffac98b57c2ef796ce8e.js"
     ],
     "/producto/[...producto]": [
       "static/chunks/main-d1d2633ed68cbd619b39.js",

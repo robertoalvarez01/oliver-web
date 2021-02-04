@@ -238,7 +238,7 @@ const ProcesarVenta = props => {
   const {
     0: error,
     1: setError
-  } = Object(external_react_["useState"])(true);
+  } = Object(external_react_["useState"])(false);
   const {
     0: ventaRegistrada,
     1: setVentaRegistrada
