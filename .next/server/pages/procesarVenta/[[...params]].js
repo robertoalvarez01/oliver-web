@@ -93,13 +93,6 @@ module.exports =
 /************************************************************************/
 /******/ ({
 
-/***/ "4Q3z":
-/***/ (function(module, exports) {
-
-module.exports = require("next/router");
-
-/***/ }),
-
 /***/ 5:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -173,9 +166,6 @@ var Head = __webpack_require__("k2JI");
 // EXTERNAL MODULE: ./src/components/Loader/index.js
 var Loader = __webpack_require__("XOuL");
 
-// EXTERNAL MODULE: external "next/router"
-var router_ = __webpack_require__("4Q3z");
-
 // EXTERNAL MODULE: external "react-redux"
 var external_react_redux_ = __webpack_require__("h74D");
 
@@ -226,7 +216,6 @@ var __jsx = external_react_default.a.createElement;
 
 
 
-
 const {
   guardar: enviosGuardar
 } = enviosActions_namespaceObject;
@@ -244,51 +233,54 @@ const ProcesarVenta = props => {
     1: setVentaRegistrada
   } = Object(external_react_["useState"])(false);
   Object(external_react_["useEffect"])(() => {
+    procesarInfo();
+  }, [props.usuarioReducer]);
+
+  const procesarInfo = async () => {
     const dataEnvio = JSON.parse(localStorage.getItem('dataEnvio'));
     props.enviosGuardar(dataEnvio);
     props.carritoTraerProductos();
 
     if (props.usuarioReducer.logueado && props.carritoReducer.productos.length > 0 && props.enviosReducer.data) {
-      procesarInfo();
-    }
-  }, [props.usuarioReducer]);
-
-  const procesarInfo = async () => {
-    const {
-      idUsuario
-    } = props.usuarioReducer.usuario;
-    const {
-      subtotal,
-      porcentaje_descuento,
-      descuento,
-      total,
-      productos
-    } = props.carritoReducer;
-    const {
-      zona,
-      tipo
-    } = props.enviosReducer.data;
-    let f = new Date();
-    let mes = f.getMonth() < 10 ? `0${f.getMonth() + 1}` : `${f.getMonth()}`;
-    let dia = f.getDay() < 10 ? `0${f.getDay()}` : `${f.getDay()}`;
-    let fecha = `${f.getFullYear()}-${mes}-${dia}`;
-    let dataToRequest = {
-      envio: {
-        idZona: zona,
-        tipo
-      },
-      venta: {
+      const {
+        idUsuario
+      } = props.usuarioReducer.usuario;
+      const {
         subtotal,
         porcentaje_descuento,
         descuento,
         total,
-        idUsuario,
         productos,
-        fecha,
-        operacion_id: props.collection_id
-      }
-    };
-    return registrarVenta(dataToRequest);
+        idMedioPago
+      } = props.carritoReducer;
+      const {
+        zona,
+        tipo
+      } = props.enviosReducer.data;
+      let f = new Date();
+      let mes = f.getMonth() < 10 ? `0${f.getMonth() + 1}` : `${f.getMonth()}`;
+      let dia = f.getDate() < 10 ? `0${f.getDate()}` : `${f.getDate()}`;
+      let fecha = `${f.getFullYear()}-${mes}-${dia}`;
+      let dataToRequest = {
+        envio: {
+          idZona: zona,
+          tipo: tipo
+        },
+        venta: {
+          subtotal,
+          porcentaje_descuento,
+          descuento,
+          total,
+          idUsuario,
+          productos,
+          fecha,
+          operacion_id: props.collection_id || null,
+          idMedioPago
+        }
+      }; //console.log(dataToRequest);
+
+      return registrarVenta(dataToRequest);
+    }
   };
 
   const registrarVenta = async data => {
@@ -296,7 +288,8 @@ const ProcesarVenta = props => {
       const headers = new Headers();
       headers.append('token', props.usuarioReducer.usuario.token);
       headers.append("Content-Type", "application/json");
-      const reqVenta = await fetch(`${config["a" /* API */]}/registrarVenta`, {
+      let url = !data.venta.operacion_id ? `${config["a" /* API */]}/registrarVenta?mercadoPago=false` : `${config["a" /* API */]}/registrarVenta?mercadoPago=true`;
+      const reqVenta = await fetch(url, {
         headers,
         method: 'POST',
         body: JSON.stringify(data)
@@ -317,7 +310,6 @@ const ProcesarVenta = props => {
     }
   };
 
-  const router = Object(router_["useRouter"])();
   return __jsx(external_react_default.a.Fragment, null, __jsx(Head["a" /* default */], {
     title: "Finalizacion de compra",
     metadesc: ""
@@ -417,16 +409,18 @@ const Header = ({
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return TRAER_PRODUCTOS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return TRAER_PRODUCTOS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AGREGAR_PRODUCTO; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return ELIMINAR_PRODUCTO; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return LOADING; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return ERROR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return ELIMINAR_PRODUCTO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return LOADING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return ERROR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return CAMBIAR_MEDIO_DE_PAGO; });
 const TRAER_PRODUCTOS = 'carrito_traer_todos_carrito';
 const AGREGAR_PRODUCTO = 'carrito_agregar_producto';
 const ELIMINAR_PRODUCTO = 'carrito_eliminar_producto';
 const LOADING = 'carrito_loading';
 const ERROR = 'carrito_error';
+const CAMBIAR_MEDIO_DE_PAGO = 'carrito_cambiar_medio_de_pago';
 
 
 /***/ }),
@@ -439,12 +433,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "traerProductos", function() { return traerProductos; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "agregarProducto", function() { return agregarProducto; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "eliminarProducto", function() { return eliminarProducto; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cambiarMedioDePago", function() { return cambiarMedioDePago; });
 /* harmony import */ var _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("kqUl");
 //import {API} from '../config/index';
 
 const traerProductos = () => async dispatch => {
   dispatch({
-    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* LOADING */ "d"]
+    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* LOADING */ "e"]
   });
 
   try {
@@ -458,19 +453,19 @@ const traerProductos = () => async dispatch => {
       subtotal
     };
     return dispatch({
-      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* TRAER_PRODUCTOS */ "e"],
+      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* TRAER_PRODUCTOS */ "f"],
       payload: payloadData
     });
   } catch (error) {
     return dispatch({
-      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ERROR */ "c"],
+      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ERROR */ "d"],
       payload: error
     });
   }
 };
 const agregarProducto = producto => async (dispatch, getState) => {
   dispatch({
-    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* LOADING */ "d"]
+    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* LOADING */ "e"]
   });
 
   try {
@@ -515,14 +510,14 @@ const agregarProducto = producto => async (dispatch, getState) => {
     }, 1500);
   } catch (error) {
     dispatch({
-      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ERROR */ "c"],
+      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ERROR */ "d"],
       payload: error
     });
   }
 };
 const eliminarProducto = idSubProducto => async (dispatch, getState) => {
   dispatch({
-    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* LOADING */ "d"]
+    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* LOADING */ "e"]
   });
 
   try {
@@ -544,15 +539,21 @@ const eliminarProducto = idSubProducto => async (dispatch, getState) => {
       subtotal
     };
     dispatch({
-      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ELIMINAR_PRODUCTO */ "b"],
+      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ELIMINAR_PRODUCTO */ "c"],
       payload: payloadData
     });
   } catch (error) {
     dispatch({
-      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ERROR */ "c"],
+      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ERROR */ "d"],
       payload: error
     });
   }
+};
+const cambiarMedioDePago = idMedioDePago => dispatch => {
+  return dispatch({
+    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* CAMBIAR_MEDIO_DE_PAGO */ "b"],
+    payload: idMedioDePago
+  });
 };
 
 /***/ }),

@@ -1139,12 +1139,13 @@ const carritoReducer_INITIAL_STATE = {
   subtotal: 0,
   total: 0,
   loading: false,
-  error: null
+  error: null,
+  idMedioPago: '1'
 };
 
 const carritoReducer = (state = carritoReducer_INITIAL_STATE, action) => {
   switch (action.type) {
-    case carritoTypes["e" /* TRAER_PRODUCTOS */]:
+    case carritoTypes["f" /* TRAER_PRODUCTOS */]:
       return carritoReducer_objectSpread(carritoReducer_objectSpread({}, state), {}, {
         productos: action.payload.productos,
         loading: false,
@@ -1160,7 +1161,7 @@ const carritoReducer = (state = carritoReducer_INITIAL_STATE, action) => {
         subtotal: action.payload.subtotal
       });
 
-    case carritoTypes["b" /* ELIMINAR_PRODUCTO */]:
+    case carritoTypes["c" /* ELIMINAR_PRODUCTO */]:
       return carritoReducer_objectSpread(carritoReducer_objectSpread({}, state), {}, {
         productos: action.payload.newProductos,
         loading: false,
@@ -1168,12 +1169,17 @@ const carritoReducer = (state = carritoReducer_INITIAL_STATE, action) => {
         subtotal: action.payload.subtotal
       });
 
-    case carritoTypes["d" /* LOADING */]:
+    case carritoTypes["b" /* CAMBIAR_MEDIO_DE_PAGO */]:
+      return carritoReducer_objectSpread(carritoReducer_objectSpread({}, state), {}, {
+        idMedioPago: action.payload
+      });
+
+    case carritoTypes["e" /* LOADING */]:
       return carritoReducer_objectSpread(carritoReducer_objectSpread({}, state), {}, {
         loading: true
       });
 
-    case carritoTypes["c" /* ERROR */]:
+    case carritoTypes["d" /* ERROR */]:
       return carritoReducer_objectSpread(carritoReducer_objectSpread({}, state), {}, {
         error: action.payload,
         loading: false
@@ -1386,7 +1392,50 @@ const enviosReducer = (state = enviosReducer_INITIAL_STATE, action) => {
 };
 
 /* harmony default export */ var reducers_enviosReducer = (enviosReducer);
+// EXTERNAL MODULE: ./store/types/mediosDePagoTypes.js
+var mediosDePagoTypes = __webpack_require__("9tJO");
+
+// CONCATENATED MODULE: ./store/reducers/mediosDePagoReducer.js
+function mediosDePagoReducer_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function mediosDePagoReducer_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { mediosDePagoReducer_ownKeys(Object(source), true).forEach(function (key) { mediosDePagoReducer_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { mediosDePagoReducer_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function mediosDePagoReducer_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+const mediosDePagoReducer_INITIAL_STATE = {
+  mediosDePago: [],
+  loading: false,
+  error: null
+};
+
+const mediosDePagoReducer = (state = mediosDePagoReducer_INITIAL_STATE, action) => {
+  switch (action.type) {
+    case mediosDePagoTypes["c" /* TRAER_TODOS */]:
+      return mediosDePagoReducer_objectSpread(mediosDePagoReducer_objectSpread({}, state), {}, {
+        mediosDePago: action.payload,
+        loading: false
+      });
+
+    case mediosDePagoTypes["b" /* LOADING */]:
+      return mediosDePagoReducer_objectSpread(mediosDePagoReducer_objectSpread({}, state), {}, {
+        loading: true
+      });
+
+    case mediosDePagoTypes["a" /* ERROR */]:
+      return mediosDePagoReducer_objectSpread(mediosDePagoReducer_objectSpread({}, state), {}, {
+        error: action.payload,
+        loading: false
+      });
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ var reducers_mediosDePagoReducer = (mediosDePagoReducer);
 // CONCATENATED MODULE: ./store/reducers/index.js
+
 
 
 
@@ -1402,7 +1451,8 @@ const enviosReducer = (state = enviosReducer_INITIAL_STATE, action) => {
   categoriasReducer: reducers_categoriasReducer,
   subcategoriaReducer: reducers_subcategoriasReducer,
   usuarioReducer: reducers_usuarioReducer,
-  enviosReducer: reducers_enviosReducer
+  enviosReducer: reducers_enviosReducer,
+  mediosDePagoReducer: reducers_mediosDePagoReducer
 }));
 // CONCATENATED MODULE: ./store/index.js
 
@@ -1831,6 +1881,20 @@ const mapStateToProps = ({
 const TRAER_TODAS = 'categorias_traer_todas';
 const LOADING = 'categorias_loading';
 const ERROR = 'categorias_error';
+
+
+/***/ }),
+
+/***/ "9tJO":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return TRAER_TODOS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return LOADING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ERROR; });
+const TRAER_TODOS = 'medios_traer_todos';
+const LOADING = 'medios_loading';
+const ERROR = 'medios_error';
 
 
 /***/ }),
@@ -4128,16 +4192,18 @@ const UPDATE_PASSWORD = 'usuario_cambiarpassword';
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return TRAER_PRODUCTOS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return TRAER_PRODUCTOS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AGREGAR_PRODUCTO; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return ELIMINAR_PRODUCTO; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return LOADING; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return ERROR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return ELIMINAR_PRODUCTO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return LOADING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return ERROR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return CAMBIAR_MEDIO_DE_PAGO; });
 const TRAER_PRODUCTOS = 'carrito_traer_todos_carrito';
 const AGREGAR_PRODUCTO = 'carrito_agregar_producto';
 const ELIMINAR_PRODUCTO = 'carrito_eliminar_producto';
 const LOADING = 'carrito_loading';
 const ERROR = 'carrito_error';
+const CAMBIAR_MEDIO_DE_PAGO = 'carrito_cambiar_medio_de_pago';
 
 
 /***/ }),
@@ -4302,12 +4368,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "traerProductos", function() { return traerProductos; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "agregarProducto", function() { return agregarProducto; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "eliminarProducto", function() { return eliminarProducto; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cambiarMedioDePago", function() { return cambiarMedioDePago; });
 /* harmony import */ var _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("kqUl");
 //import {API} from '../config/index';
 
 const traerProductos = () => async dispatch => {
   dispatch({
-    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* LOADING */ "d"]
+    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* LOADING */ "e"]
   });
 
   try {
@@ -4321,19 +4388,19 @@ const traerProductos = () => async dispatch => {
       subtotal
     };
     return dispatch({
-      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* TRAER_PRODUCTOS */ "e"],
+      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* TRAER_PRODUCTOS */ "f"],
       payload: payloadData
     });
   } catch (error) {
     return dispatch({
-      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ERROR */ "c"],
+      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ERROR */ "d"],
       payload: error
     });
   }
 };
 const agregarProducto = producto => async (dispatch, getState) => {
   dispatch({
-    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* LOADING */ "d"]
+    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* LOADING */ "e"]
   });
 
   try {
@@ -4378,14 +4445,14 @@ const agregarProducto = producto => async (dispatch, getState) => {
     }, 1500);
   } catch (error) {
     dispatch({
-      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ERROR */ "c"],
+      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ERROR */ "d"],
       payload: error
     });
   }
 };
 const eliminarProducto = idSubProducto => async (dispatch, getState) => {
   dispatch({
-    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* LOADING */ "d"]
+    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* LOADING */ "e"]
   });
 
   try {
@@ -4407,15 +4474,21 @@ const eliminarProducto = idSubProducto => async (dispatch, getState) => {
       subtotal
     };
     dispatch({
-      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ELIMINAR_PRODUCTO */ "b"],
+      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ELIMINAR_PRODUCTO */ "c"],
       payload: payloadData
     });
   } catch (error) {
     dispatch({
-      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ERROR */ "c"],
+      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ERROR */ "d"],
       payload: error
     });
   }
+};
+const cambiarMedioDePago = idMedioDePago => dispatch => {
+  return dispatch({
+    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* CAMBIAR_MEDIO_DE_PAGO */ "b"],
+    payload: idMedioDePago
+  });
 };
 
 /***/ }),
@@ -4532,7 +4605,7 @@ const Carrito = props => {
   };
 
   const finalizarCompra = () => {
-    window.location.assign('/checkout');
+    next_router__WEBPACK_IMPORTED_MODULE_0___default.a.push('/checkout');
   }; //console.log(props);
 
 

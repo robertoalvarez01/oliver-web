@@ -319,30 +319,30 @@ const SliderFotosProducto = props => {
   };
 
   return __jsx("div", {
-    className: "jsx-2289326465" + " " + "row slider__fotos"
+    className: "jsx-2867116768" + " " + "row slider__fotos"
   }, __jsx("div", {
-    className: "jsx-2289326465" + " " + "col-12 col-md-4 text-center col__imagenes-chicas pt-5"
+    className: "jsx-2867116768" + " " + "col-12 col-md-4 text-center col__imagenes-chicas pt-5"
   }, props.imagenes.map((img, key) => key == 0 ? __jsx("img", {
     key: key,
     src: img,
     onClick: () => setImagenActive(img, key),
     alt: "prd",
-    className: "jsx-2289326465" + " " + "img_small active"
+    className: "jsx-2867116768" + " " + "img_small active"
   }) : __jsx("img", {
     key: key,
     src: img,
     onClick: () => setImagenActive(img, key, `${props.subProductos[key].peso}`, props.subProductos[key].precioUnidad, `${props.subProductos[key].tamaño}`, props.subProductos[key].idSubProducto, `${props.subProductos[key].subProducto}`),
     alt: "prd",
-    className: "jsx-2289326465" + " " + "img_small"
+    className: "jsx-2867116768" + " " + "img_small"
   }))), __jsx("div", {
-    className: "jsx-2289326465" + " " + "col-12 col-md-8 col__imagen-grande"
+    className: "jsx-2867116768" + " " + "col-12 col-md-8 col__imagen-grande"
   }, __jsx("img", {
     src: props.imagenes[0],
     alt: "prd",
-    className: "jsx-2289326465" + " " + "img-fluid img__box-grande"
+    className: "jsx-2867116768" + " " + "img-fluid img__box-grande"
   })), __jsx(style_default.a, {
-    id: "2289326465"
-  }, [".slider__fotos.jsx-2289326465 .col__imagenes-chicas.jsx-2289326465{height:429px;}", ".slider__fotos.jsx-2289326465 .col__imagenes-chicas.jsx-2289326465 img.jsx-2289326465{height:120px;width:90px !important;cursor:pointer;}", ".slider__fotos.jsx-2289326465 .col__imagenes-chicas.jsx-2289326465 img.jsx-2289326465:hover{-webkit-filter:brightness(70%);filter:brightness(70%);-webkit-transition:all .5s ease;transition:all .5s ease;}", ".slider__fotos.jsx-2289326465 .col__imagenes-chicas.jsx-2289326465 img.active.jsx-2289326465{border:2px solid #FFB347;}", "@media(max-width:768px){.slider__fotos.jsx-2289326465{-webkit-flex-direction:column-reverse;-ms-flex-direction:column-reverse;flex-direction:column-reverse;}.slider__fotos.jsx-2289326465 .col__imagen-grande.jsx-2289326465{text-align:center;}.slider__fotos.jsx-2289326465 .col__imagen-grande.jsx-2289326465 img.jsx-2289326465{height:345px;}}"]));
+    id: "2867116768"
+  }, [".slider__fotos.jsx-2867116768 .col__imagenes-chicas.jsx-2867116768{height:429px;overflow-y:auto;}", ".slider__fotos.jsx-2867116768 .col__imagenes-chicas.jsx-2867116768::-webkit-scrollbar{width:5px;height:3px;}", ".slider__fotos.jsx-2867116768 .col__imagenes-chicas.jsx-2867116768::-webkit-scrollbar-thumb{background:#FFB347;border-radius:3px;}", ".slider__fotos.jsx-2867116768 .col__imagenes-chicas.jsx-2867116768::-webkit-scrollbar-thumb.jsx-2867116768:hover{background:#b3b3b3;box-shadow:0 0 2px 1px rgba(0,0,0,0.2);}", ".slider__fotos.jsx-2867116768 .col__imagenes-chicas.jsx-2867116768 img.jsx-2867116768{height:120px;width:90px !important;cursor:pointer;}", ".slider__fotos.jsx-2867116768 .col__imagenes-chicas.jsx-2867116768 img.jsx-2867116768:hover{-webkit-filter:brightness(70%);filter:brightness(70%);-webkit-transition:all .5s ease;transition:all .5s ease;}", ".slider__fotos.jsx-2867116768 .col__imagenes-chicas.jsx-2867116768 img.active.jsx-2867116768{border:2px solid #FFB347;}", "@media(max-width:768px){.slider__fotos.jsx-2867116768{-webkit-flex-direction:column-reverse;-ms-flex-direction:column-reverse;flex-direction:column-reverse;}.slider__fotos.jsx-2867116768 .col__imagen-grande.jsx-2867116768{text-align:center;}.slider__fotos.jsx-2867116768 .col__imagen-grande.jsx-2867116768 img.jsx-2867116768{height:345px;}}"]));
 };
 
 /* harmony default export */ var sliderFotos = (SliderFotosProducto);
@@ -3081,16 +3081,18 @@ const Header = ({
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return TRAER_PRODUCTOS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return TRAER_PRODUCTOS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AGREGAR_PRODUCTO; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return ELIMINAR_PRODUCTO; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return LOADING; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return ERROR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return ELIMINAR_PRODUCTO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return LOADING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return ERROR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return CAMBIAR_MEDIO_DE_PAGO; });
 const TRAER_PRODUCTOS = 'carrito_traer_todos_carrito';
 const AGREGAR_PRODUCTO = 'carrito_agregar_producto';
 const ELIMINAR_PRODUCTO = 'carrito_eliminar_producto';
 const LOADING = 'carrito_loading';
 const ERROR = 'carrito_error';
+const CAMBIAR_MEDIO_DE_PAGO = 'carrito_cambiar_medio_de_pago';
 
 
 /***/ }),
@@ -3278,12 +3280,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "traerProductos", function() { return traerProductos; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "agregarProducto", function() { return agregarProducto; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "eliminarProducto", function() { return eliminarProducto; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cambiarMedioDePago", function() { return cambiarMedioDePago; });
 /* harmony import */ var _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("kqUl");
 //import {API} from '../config/index';
 
 const traerProductos = () => async dispatch => {
   dispatch({
-    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* LOADING */ "d"]
+    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* LOADING */ "e"]
   });
 
   try {
@@ -3297,19 +3300,19 @@ const traerProductos = () => async dispatch => {
       subtotal
     };
     return dispatch({
-      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* TRAER_PRODUCTOS */ "e"],
+      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* TRAER_PRODUCTOS */ "f"],
       payload: payloadData
     });
   } catch (error) {
     return dispatch({
-      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ERROR */ "c"],
+      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ERROR */ "d"],
       payload: error
     });
   }
 };
 const agregarProducto = producto => async (dispatch, getState) => {
   dispatch({
-    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* LOADING */ "d"]
+    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* LOADING */ "e"]
   });
 
   try {
@@ -3354,14 +3357,14 @@ const agregarProducto = producto => async (dispatch, getState) => {
     }, 1500);
   } catch (error) {
     dispatch({
-      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ERROR */ "c"],
+      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ERROR */ "d"],
       payload: error
     });
   }
 };
 const eliminarProducto = idSubProducto => async (dispatch, getState) => {
   dispatch({
-    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* LOADING */ "d"]
+    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* LOADING */ "e"]
   });
 
   try {
@@ -3383,15 +3386,21 @@ const eliminarProducto = idSubProducto => async (dispatch, getState) => {
       subtotal
     };
     dispatch({
-      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ELIMINAR_PRODUCTO */ "b"],
+      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ELIMINAR_PRODUCTO */ "c"],
       payload: payloadData
     });
   } catch (error) {
     dispatch({
-      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ERROR */ "c"],
+      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ERROR */ "d"],
       payload: error
     });
   }
+};
+const cambiarMedioDePago = idMedioDePago => dispatch => {
+  return dispatch({
+    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* CAMBIAR_MEDIO_DE_PAGO */ "b"],
+    payload: idMedioDePago
+  });
 };
 
 /***/ }),
@@ -3526,7 +3535,7 @@ const Carrito = props => {
   };
 
   const finalizarCompra = () => {
-    window.location.assign('/checkout');
+    next_router__WEBPACK_IMPORTED_MODULE_0___default.a.push('/checkout');
   }; //console.log(props);
 
 
