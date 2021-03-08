@@ -653,6 +653,10 @@ var _producto_jsx = external_react_default.a.createElement;
 
 const Producto = props => {
   Object(external_react_["useEffect"])(() => {
+    if (document.getElementsByTagName('body')[0]) {
+      document.getElementsByTagName('body')[0].style.overflowY = 'scroll';
+    }
+
     getData();
   }, []);
 

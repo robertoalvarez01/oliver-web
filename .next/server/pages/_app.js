@@ -894,7 +894,7 @@ const Navbar = props => {
   }), Navbar_jsx("span", {
     className: Navbar_module_default.a.label__item__menu
   }, "Inicio")))), Navbar_jsx(link_default.a, {
-    href: "/",
+    href: "/productos",
     onClick: toggleMenu
   }, Navbar_jsx("a", null, Navbar_jsx("li", {
     className: Navbar_module_default.a.item__menu__collapsed

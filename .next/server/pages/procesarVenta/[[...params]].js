@@ -101,6 +101,13 @@ module.exports = __webpack_require__("aQxn");
 
 /***/ }),
 
+/***/ "CBiN":
+/***/ (function(module, exports) {
+
+module.exports = require("sweetalert2");
+
+/***/ }),
+
 /***/ "HJQg":
 /***/ (function(module, exports) {
 
@@ -216,6 +223,9 @@ var __jsx = external_react_default.a.createElement;
 
 
 
+
+const Swal = __webpack_require__("CBiN");
+
 const {
   guardar: enviosGuardar
 } = enviosActions_namespaceObject;
@@ -298,10 +308,7 @@ const ProcesarVenta = props => {
       if (reqVenta.status == 200) {
         localStorage.removeItem('dataEnvio');
         localStorage.removeItem('carrito');
-        setVentaRegistrada('Felicidades, Tu venta se registró con éxito. En breve nos comunicaremos con usted para informarle el estado de su compra.');
-        setTimeout(() => {
-          window.location.assign('/');
-        }, 5000);
+        Swal.fire('Listo', 'Felicidades, tu compra se registró con éxito. En breve nos comunicaremos con usted para informarle el estado de su compra vía email.', 'success').then(() => window.location.assign('/'));
       } else {
         setError(true);
       }
@@ -315,7 +322,7 @@ const ProcesarVenta = props => {
     metadesc: ""
   }), __jsx("div", {
     className: "jsx-2063553454" + " " + "wrapper"
-  }, !props.usuarioReducer.logueado || props.enviosReducer.error || props.carritoReducer.error || error ? __jsx(Error["a" /* default */], {
+  }, props.enviosReducer.error || props.carritoReducer.error || error ? __jsx(Error["a" /* default */], {
     message: "Ha ocurrido un error, intentalo mas tarde"
   }) : __jsx(external_react_default.a.Fragment, null, ventaRegistrada ? __jsx("div", {
     className: "jsx-2063553454" + " " + "alert alert-success"
