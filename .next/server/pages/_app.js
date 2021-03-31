@@ -939,9 +939,11 @@ const Navbar = props => {
   }, Navbar_jsx("div", {
     className: Navbar_module_default.a.redes__collapsed
   }, Navbar_jsx(react_fontawesome_["FontAwesomeIcon"], {
+    onClick: () => window.location.assign('https://www.facebook.com/Pet-shop-Oliver-1783777958556350'),
     icon: free_brands_svg_icons_["faFacebook"],
     className: Navbar_module_default.a.iconoRed
   }), Navbar_jsx(react_fontawesome_["FontAwesomeIcon"], {
+    onClick: () => window.location.assign('https://www.instagram.com/petshopoliver/'),
     icon: free_brands_svg_icons_["faInstagram"],
     className: Navbar_module_default.a.iconoRed
   })), Navbar_jsx("span", {
