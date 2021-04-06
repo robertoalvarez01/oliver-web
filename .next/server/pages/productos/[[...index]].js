@@ -88,7 +88,7 @@ module.exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 7);
+/******/ 	return __webpack_require__(__webpack_require__.s = 8);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -537,7 +537,7 @@ const ERROR = 'categorias_error';
 
 /***/ }),
 
-/***/ 7:
+/***/ 8:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__("YRs9");
@@ -618,7 +618,7 @@ const CardProducto = ({
   }, prd.marca), __jsx("h6", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.nombre__producto + ' ' + `text-muted`
   }, procesarNombre(prd.producto)), prd.peso != null ? __jsx("span", {
-    className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.cantidad
+    className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.cantidad + ` d-none`
   }, prd.peso, " KG") : null, __jsx("h3", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.precio + ' ' + `text-black`
   }, "$", prd.precioUnidad)), __jsx("span", {
@@ -640,7 +640,7 @@ const CardProducto = ({
   }, prd.marca), __jsx("h6", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.nombre__producto + ' ' + `text-muted`
   }, procesarNombre(prd.producto)), __jsx("span", {
-    className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.cantidad
+    className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.cantidad + ` d-none`
   }, prd.peso, " KG"), __jsx("h3", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.precio + ' ' + `text-black`
   }, "$", prd.precioUnidad)), __jsx("span", {

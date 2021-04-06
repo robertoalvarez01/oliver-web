@@ -4,6 +4,7 @@
   "/": "pages/index.html",
   "/new-password/[token]": "pages/new-password/[token].js",
   "/perfil": "pages/perfil.html",
+  "/politica": "pages/politica.html",
   "/procesarVenta/[[...params]]": "pages/procesarVenta/[[...params]].js",
   "/producto/[...producto]": "pages/producto/[...producto].js",
   "/productos/[[...index]]": "pages/productos/[[...index]].js",

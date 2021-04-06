@@ -253,6 +253,20 @@ module.exports = {
 
 /***/ }),
 
+/***/ "0pVs":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return TRAER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return LOADING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ERROR; });
+const TRAER = 'politica_traer';
+const LOADING = 'politica_loading';
+const ERROR = 'politica_error';
+
+
+/***/ }),
+
 /***/ "1TCz":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1436,7 +1450,93 @@ const mediosDePagoReducer = (state = mediosDePagoReducer_INITIAL_STATE, action) 
 };
 
 /* harmony default export */ var reducers_mediosDePagoReducer = (mediosDePagoReducer);
+// EXTERNAL MODULE: ./store/types/bannerTypes.js
+var bannerTypes = __webpack_require__("kwCm");
+
+// CONCATENATED MODULE: ./store/reducers/bannerReducer.js
+function bannerReducer_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function bannerReducer_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { bannerReducer_ownKeys(Object(source), true).forEach(function (key) { bannerReducer_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { bannerReducer_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function bannerReducer_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+const bannerReducer_INITIAL_STATE = {
+  data: [],
+  loading: false,
+  error: null
+};
+
+const bannerReducer = (state = bannerReducer_INITIAL_STATE, action) => {
+  switch (action.type) {
+    case bannerTypes["c" /* TRAER_TODAS */]:
+      return bannerReducer_objectSpread(bannerReducer_objectSpread({}, state), {}, {
+        data: action.payload
+      });
+
+    case bannerTypes["b" /* LOADING */]:
+      return bannerReducer_objectSpread(bannerReducer_objectSpread({}, state), {}, {
+        loading: true
+      });
+
+    case bannerTypes["a" /* ERROR */]:
+      return bannerReducer_objectSpread(bannerReducer_objectSpread({}, state), {}, {
+        error: action.payload,
+        loading: false
+      });
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ var reducers_bannerReducer = (bannerReducer);
+// EXTERNAL MODULE: ./store/types/politicaTypes.js
+var politicaTypes = __webpack_require__("0pVs");
+
+// CONCATENATED MODULE: ./store/reducers/politicaReducer.js
+function politicaReducer_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function politicaReducer_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { politicaReducer_ownKeys(Object(source), true).forEach(function (key) { politicaReducer_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { politicaReducer_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function politicaReducer_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+const politicaReducer_INITIAL_STATE = {
+  politica: '',
+  terminos: '',
+  loading: false,
+  error: null
+};
+
+const politicaReducer = (state = politicaReducer_INITIAL_STATE, action) => {
+  switch (action.type) {
+    case politicaTypes["c" /* TRAER */]:
+      return politicaReducer_objectSpread(politicaReducer_objectSpread({}, state), {}, {
+        politica: action.payload.politica,
+        terminos: action.payload.terminos
+      });
+
+    case politicaTypes["b" /* LOADING */]:
+      return politicaReducer_objectSpread(politicaReducer_objectSpread({}, state), {}, {
+        loading: true
+      });
+
+    case politicaTypes["a" /* ERROR */]:
+      return politicaReducer_objectSpread(politicaReducer_objectSpread({}, state), {}, {
+        error: action.payload,
+        loading: false
+      });
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ var reducers_politicaReducer = (politicaReducer);
 // CONCATENATED MODULE: ./store/reducers/index.js
+
+
 
 
 
@@ -1454,7 +1554,9 @@ const mediosDePagoReducer = (state = mediosDePagoReducer_INITIAL_STATE, action) 
   subcategoriaReducer: reducers_subcategoriasReducer,
   usuarioReducer: reducers_usuarioReducer,
   enviosReducer: reducers_enviosReducer,
-  mediosDePagoReducer: reducers_mediosDePagoReducer
+  mediosDePagoReducer: reducers_mediosDePagoReducer,
+  bannerReducer: reducers_bannerReducer,
+  politicaReducer: reducers_politicaReducer
 }));
 // CONCATENATED MODULE: ./store/index.js
 
@@ -4206,6 +4308,20 @@ const ELIMINAR_PRODUCTO = 'carrito_eliminar_producto';
 const LOADING = 'carrito_loading';
 const ERROR = 'carrito_error';
 const CAMBIAR_MEDIO_DE_PAGO = 'carrito_cambiar_medio_de_pago';
+
+
+/***/ }),
+
+/***/ "kwCm":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return TRAER_TODAS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return LOADING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ERROR; });
+const TRAER_TODAS = 'banner_traer_todas';
+const LOADING = 'banner_loading';
+const ERROR = 'banner_error';
 
 
 /***/ }),
