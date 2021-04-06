@@ -5,8 +5,8 @@
   "devFiles": [],
   "ampDevFiles": [],
   "lowPriorityFiles": [
-    "static/4dW8swg6uWHZoul072aBN/_buildManifest.js",
-    "static/4dW8swg6uWHZoul072aBN/_ssgManifest.js"
+    "static/l4Sp86Y6gSvngeivwNAei/_buildManifest.js",
+    "static/l4Sp86Y6gSvngeivwNAei/_ssgManifest.js"
   ],
   "pages": {
     "/": [
@@ -21,7 +21,7 @@
       "static/chunks/db394a49aa660ed89941cb9c406567728b47b8a6.0c854714c3f160974201.js",
       "static/chunks/7e99a89f52cc75b12435d29e517511aaa0e57b8e.93b35c68e786943a2f29.js",
       "static/css/a30ab35210632829bf8f.css",
-      "static/chunks/pages/index-0e8bceb943b3d6851f99.js"
+      "static/chunks/pages/index-e8ae899849702e35f827.js"
     ],
     "/_app": [
       "static/chunks/main-ae010153d3b79f4bdabb.js",
@@ -93,7 +93,7 @@
       "static/chunks/f0183155f19d7b0c76bfea80783c03affd9c3f05.bc694b40b2df33e9f2fa.js",
       "static/chunks/9546d27ab55291508d3021c944f872d56db90128.322c2427c23e4c2ddd60.js",
       "static/css/d610909087451827b054.css",
-      "static/chunks/pages/politica-2cf50ad437b1d481086b.js"
+      "static/chunks/pages/politica-b82f760d91bb9972865e.js"
     ],
     "/procesarVenta/[[...params]]": [
       "static/chunks/main-ae010153d3b79f4bdabb.js",
