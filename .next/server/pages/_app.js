@@ -890,9 +890,10 @@ const Navbar = props => {
     src: `${config["d" /* URL_CLOUD_STORAGE */]}/static/Perro.png`,
     className: Navbar_module_default.a.logo,
     alt: "Oliver pet shop"
-  }), Navbar_jsx("i", {
+  }), Navbar_jsx(react_fontawesome_["FontAwesomeIcon"], {
     onClick: toggleMenu,
-    className: Navbar_module_default.a.close_btn_menu + ' ' + `fas fa-times`
+    className: Navbar_module_default.a.close_btn_menu,
+    icon: free_solid_svg_icons_["faTimes"]
   })), Navbar_jsx("div", {
     className: Navbar_module_default.a.main__collapsed
   }, Navbar_jsx("ul", {
@@ -943,12 +944,7 @@ const Navbar = props => {
     className: Navbar_module_default.a.icon__itemMenu__collapsed
   }), Navbar_jsx("span", {
     className: Navbar_module_default.a.label__item__menu
-  }, "Ingres\xE1 ahora / Registrate")), Navbar_jsx("li", {
-    className: Navbar_module_default.a.item__menu__collapsed + ' ' + Navbar_module_default.a.__withButton
-  }, Navbar_jsx("a", {
-    href: "/",
-    className: "boton bg-yellow"
-  }, "Ofertas")))), Navbar_jsx("section", {
+  }, "Ingres\xE1 ahora / Registrate")))), Navbar_jsx("section", {
     className: Navbar_module_default.a.collapsed_info + ' ' + `text-center`
   }, Navbar_jsx("div", {
     className: Navbar_module_default.a.redes__collapsed
@@ -960,9 +956,11 @@ const Navbar = props => {
     onClick: () => window.location.assign('https://www.instagram.com/petshopoliver/'),
     icon: free_brands_svg_icons_["faInstagram"],
     className: Navbar_module_default.a.iconoRed
-  })), Navbar_jsx("span", {
+  })), Navbar_jsx(link_default.a, {
+    href: `${config["c" /* PUBLIC_URL */]}/politica`
+  }, Navbar_jsx("span", {
     className: "text-muted"
-  }, "\xA9Terminos y Condiciones")))), !modalIsOpen ? null : Navbar_jsx(Modal["a" /* default */], {
+  }, "\xA9Terminos y Condiciones"))))), !modalIsOpen ? null : Navbar_jsx(Modal["a" /* default */], {
     closeModal: closeModal
   }, renderContenidoModal()));
 };
@@ -1071,64 +1069,214 @@ function productosReducer_defineProperty(obj, key, value) { if (key in obj) { Ob
 const productosReducer_INITIAL_STATE = {
   productos: [],
   producto: null,
-  promociones: [],
   loading: false,
   loading_mas: false,
-  error: null
+  error: null,
+  ofertas: [],
+  filtrando: false,
+  paginacion: {
+    limiteMobile: 10,
+    limiteDesktop: 20,
+    desde: 0
+  },
+  filtros: {
+    categoria: null,
+    subcategoria: null,
+    marca: null,
+    search: '',
+    orden: null
+  }
 };
 
 const subproductosReducer = (state = productosReducer_INITIAL_STATE, action) => {
   switch (action.type) {
-    case productosTypes["h" /* TRAER_TODOS */]:
+    case productosTypes["u" /* TRAER_TODOS */]:
       return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
         productos: action.payload,
         loading: false
       });
 
-    case productosTypes["f" /* TRAER_MAS */]:
+    case productosTypes["r" /* TRAER_MAS */]:
       return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
         productos: action.payload,
         loading_mas: false
       });
 
-    case productosTypes["i" /* TRAER_UNO */]:
+    case productosTypes["v" /* TRAER_UNO */]:
       return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
         producto: action.payload,
         loading: false
       });
 
-    case productosTypes["g" /* TRAER_PROMOCIONES */]:
+    case productosTypes["t" /* TRAER_PROMOCIONES */]:
       return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
         promociones: action.payload,
         loading: false
       });
 
-    case productosTypes["e" /* ORDENAR_PRODUCTOS */]:
+    case productosTypes["o" /* ORDENAR_PRODUCTOS */]:
       return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
         productos: action.payload,
         loading: false
       });
 
-    case productosTypes["b" /* FILTRANDO */]:
+    case productosTypes["l" /* FILTRANDO */]:
       return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
         productos: action.payload,
         loading: false
       });
 
-    case productosTypes["c" /* LOADING */]:
+    case productosTypes["m" /* LOADING */]:
       return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
         loading: true
       });
 
-    case productosTypes["d" /* LOADING_MAS */]:
+    case productosTypes["n" /* LOADING_MAS */]:
       return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
         loading_mas: true
       });
 
-    case productosTypes["a" /* ERROR */]:
+    case productosTypes["k" /* ERROR */]:
       return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
         loading: false,
         error: action.payload
+      });
+
+    case productosTypes["s" /* TRAER_OFERTAS */]:
+      return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
+        ofertas: action.payload,
+        loading: false,
+        error: null
+      });
+
+    case productosTypes["q" /* PRODUCTOS_RESTABLECER_FILTROS */]:
+      return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
+        filtrando: false,
+        filtros: {
+          categoria: null,
+          subcategoria: null,
+          marca: null,
+          search: '',
+          orden: null
+        },
+        paginacion: productosReducer_objectSpread(productosReducer_objectSpread({}, state.paginacion), {}, {
+          desde: 0
+        })
+      });
+
+    case productosTypes["b" /* APLICAR_FILTRO_CATEGORIA */]:
+      return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
+        filtrando: true,
+        filtros: productosReducer_objectSpread(productosReducer_objectSpread({}, state.filtros), {}, {
+          categoria: action.payload
+        }),
+        paginacion: productosReducer_objectSpread(productosReducer_objectSpread({}, state.paginacion), {}, {
+          desde: 0
+        })
+      });
+
+    case productosTypes["e" /* APLICAR_FILTRO_SUBCATEGORIA */]:
+      return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
+        filtrando: true,
+        filtros: productosReducer_objectSpread(productosReducer_objectSpread({}, state.filtros), {}, {
+          subcategoria: action.payload
+        }),
+        paginacion: productosReducer_objectSpread(productosReducer_objectSpread({}, state.paginacion), {}, {
+          desde: 0
+        })
+      });
+
+    case productosTypes["c" /* APLICAR_FILTRO_MARCA */]:
+      return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
+        filtrando: true,
+        filtros: productosReducer_objectSpread(productosReducer_objectSpread({}, state.filtros), {}, {
+          marca: action.payload
+        }),
+        paginacion: productosReducer_objectSpread(productosReducer_objectSpread({}, state.paginacion), {}, {
+          desde: 0
+        })
+      });
+
+    case productosTypes["a" /* APLICAR_FILTRO_BUSCADOR */]:
+      return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
+        filtrando: true,
+        filtros: productosReducer_objectSpread(productosReducer_objectSpread({}, state.filtros), {}, {
+          search: action.payload
+        }),
+        paginacion: productosReducer_objectSpread(productosReducer_objectSpread({}, state.paginacion), {}, {
+          desde: 0
+        })
+      });
+
+    case productosTypes["d" /* APLICAR_FILTRO_ORDEN */]:
+      return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
+        filtros: productosReducer_objectSpread(productosReducer_objectSpread({}, state.filtros), {}, {
+          orden: action.payload
+        }),
+        paginacion: productosReducer_objectSpread(productosReducer_objectSpread({}, state.paginacion), {}, {
+          desde: 0
+        })
+      });
+
+    case productosTypes["g" /* ELIMINAR_FILTRO_CATEGORIA */]:
+      return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
+        filtrando: true,
+        filtros: productosReducer_objectSpread(productosReducer_objectSpread({}, state.filtros), {}, {
+          categoria: null
+        }),
+        paginacion: productosReducer_objectSpread(productosReducer_objectSpread({}, state.paginacion), {}, {
+          desde: 0
+        })
+      });
+
+    case productosTypes["j" /* ELIMINAR_FILTRO_SUBCATEGORIA */]:
+      return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
+        filtrando: true,
+        filtros: productosReducer_objectSpread(productosReducer_objectSpread({}, state.filtros), {}, {
+          subcategoria: null
+        }),
+        paginacion: productosReducer_objectSpread(productosReducer_objectSpread({}, state.paginacion), {}, {
+          desde: 0
+        })
+      });
+
+    case productosTypes["h" /* ELIMINAR_FILTRO_MARCA */]:
+      return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
+        filtrando: true,
+        filtros: productosReducer_objectSpread(productosReducer_objectSpread({}, state.filtros), {}, {
+          marca: null
+        }),
+        paginacion: productosReducer_objectSpread(productosReducer_objectSpread({}, state.paginacion), {}, {
+          desde: 0
+        })
+      });
+
+    case productosTypes["f" /* ELIMINAR_FILTRO_BUSCADOR */]:
+      return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
+        filtrando: true,
+        filtros: productosReducer_objectSpread(productosReducer_objectSpread({}, state.filtros), {}, {
+          buscador: null
+        }),
+        paginacion: productosReducer_objectSpread(productosReducer_objectSpread({}, state.paginacion), {}, {
+          desde: 0
+        })
+      });
+
+    case productosTypes["i" /* ELIMINAR_FILTRO_ORDEN */]:
+      return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
+        filtros: productosReducer_objectSpread(productosReducer_objectSpread({}, state.filtros), {}, {
+          orden: null
+        }),
+        paginacion: productosReducer_objectSpread(productosReducer_objectSpread({}, state.paginacion), {}, {
+          desde: 0
+        })
+      });
+
+    case productosTypes["p" /* PRODUCTOS_PAGINACION */]:
+      return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
+        paginacion: productosReducer_objectSpread(productosReducer_objectSpread({}, state.paginacion), {}, {
+          desde: action.payload
+        })
       });
 
     default:
@@ -1151,6 +1299,7 @@ function carritoReducer_defineProperty(obj, key, value) { if (key in obj) { Obje
 const carritoReducer_INITIAL_STATE = {
   productos: [],
   porcentaje_descuento: 0,
+  costoEnvio: 0,
   descuento: 0,
   subtotal: 0,
   total: 0,
@@ -1161,12 +1310,13 @@ const carritoReducer_INITIAL_STATE = {
 
 const carritoReducer = (state = carritoReducer_INITIAL_STATE, action) => {
   switch (action.type) {
-    case carritoTypes["f" /* TRAER_PRODUCTOS */]:
+    case carritoTypes["g" /* TRAER_PRODUCTOS */]:
       return carritoReducer_objectSpread(carritoReducer_objectSpread({}, state), {}, {
         productos: action.payload.productos,
         loading: false,
         error: null,
-        subtotal: action.payload.subtotal
+        subtotal: action.payload.subtotal,
+        total: action.payload.subtotal + state.costoEnvio
       });
 
     case carritoTypes["a" /* AGREGAR_PRODUCTO */]:
@@ -1174,31 +1324,39 @@ const carritoReducer = (state = carritoReducer_INITIAL_STATE, action) => {
         productos: action.payload.listProductosUpgrade,
         loading: false,
         error: null,
-        subtotal: action.payload.subtotal
+        subtotal: action.payload.subtotal,
+        total: action.payload.subtotal + state.costoEnvio
       });
 
-    case carritoTypes["c" /* ELIMINAR_PRODUCTO */]:
+    case carritoTypes["d" /* ELIMINAR_PRODUCTO */]:
       return carritoReducer_objectSpread(carritoReducer_objectSpread({}, state), {}, {
         productos: action.payload.newProductos,
         loading: false,
         error: null,
-        subtotal: action.payload.subtotal
+        subtotal: action.payload.subtotal,
+        total: action.payload.subtotal + state.costoEnvio
       });
 
-    case carritoTypes["b" /* CAMBIAR_MEDIO_DE_PAGO */]:
+    case carritoTypes["c" /* CAMBIAR_MEDIO_DE_PAGO */]:
       return carritoReducer_objectSpread(carritoReducer_objectSpread({}, state), {}, {
         idMedioPago: action.payload
       });
 
-    case carritoTypes["e" /* LOADING */]:
+    case carritoTypes["f" /* LOADING */]:
       return carritoReducer_objectSpread(carritoReducer_objectSpread({}, state), {}, {
         loading: true
       });
 
-    case carritoTypes["d" /* ERROR */]:
+    case carritoTypes["e" /* ERROR */]:
       return carritoReducer_objectSpread(carritoReducer_objectSpread({}, state), {}, {
         error: action.payload,
         loading: false
+      });
+
+    case carritoTypes["b" /* CAMBIAR_COSTO_ENVIO */]:
+      return carritoReducer_objectSpread(carritoReducer_objectSpread({}, state), {}, {
+        costoEnvio: action.payload,
+        total: state.subtotal + action.payload
       });
 
     default:
@@ -2487,15 +2645,28 @@ module.exports = require("react-places-autocomplete");
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return TRAER_TODOS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return TRAER_UNO; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return LOADING; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ERROR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return TRAER_PROMOCIONES; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return ORDENAR_PRODUCTOS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return FILTRANDO; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return LOADING_MAS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return TRAER_MAS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "u", function() { return TRAER_TODOS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "v", function() { return TRAER_UNO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return LOADING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return ERROR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "t", function() { return TRAER_PROMOCIONES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return ORDENAR_PRODUCTOS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return FILTRANDO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return LOADING_MAS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return TRAER_MAS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return TRAER_OFERTAS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return APLICAR_FILTRO_BUSCADOR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return APLICAR_FILTRO_SUBCATEGORIA; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return APLICAR_FILTRO_ORDEN; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return APLICAR_FILTRO_MARCA; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return APLICAR_FILTRO_CATEGORIA; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return ELIMINAR_FILTRO_BUSCADOR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return ELIMINAR_FILTRO_SUBCATEGORIA; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return ELIMINAR_FILTRO_ORDEN; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return ELIMINAR_FILTRO_MARCA; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return ELIMINAR_FILTRO_CATEGORIA; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return PRODUCTOS_RESTABLECER_FILTROS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return PRODUCTOS_PAGINACION; });
 const TRAER_TODOS = 'producto_traer_todos';
 const LOADING = 'producto_loading';
 const ERROR = 'producto_error';
@@ -2505,6 +2676,19 @@ const FILTRANDO = 'producto_filtrando';
 const TRAER_UNO = 'producto_traeruno';
 const LOADING_MAS = 'producto_loading_mas';
 const TRAER_MAS = 'producto_traer_mas';
+const TRAER_OFERTAS = 'producto_traer_ofertas';
+const APLICAR_FILTRO_CATEGORIA = 'producto_filtro_categoria';
+const APLICAR_FILTRO_SUBCATEGORIA = 'producto_filtro_subcategoria';
+const APLICAR_FILTRO_MARCA = 'producto_filtro_marca';
+const APLICAR_FILTRO_BUSCADOR = 'producto_filtro_buscador';
+const APLICAR_FILTRO_ORDEN = 'producto_filtro_orden';
+const ELIMINAR_FILTRO_CATEGORIA = 'producto_eliminar_filtro_categoria';
+const ELIMINAR_FILTRO_SUBCATEGORIA = 'producto_eliminar_filtro_subcategoria';
+const ELIMINAR_FILTRO_MARCA = 'producto_eliminar_filtro_marca';
+const ELIMINAR_FILTRO_BUSCADOR = 'producto_eliminar_filtro_buscador';
+const ELIMINAR_FILTRO_ORDEN = 'producto_eliminar_filtro_orden';
+const PRODUCTOS_RESTABLECER_FILTROS = 'productos_restablecer_filtros';
+const PRODUCTOS_PAGINACION = 'productos_paginacion';
 
 
 /***/ }),
@@ -2591,6 +2775,7 @@ module.exports = {
 	"btn_close_filtro": "Filtro_btn_close_filtro__37rTH",
 	"rotar": "Filtro_rotar__2UEYw",
 	"lista": "Filtro_lista__3_b9b",
+	"listaMarca": "Filtro_listaMarca__2ZCr3",
 	"item_filtro": "Filtro_item_filtro__3xqSt",
 	"active": "Filtro_active__32lB0",
 	"sinBorderBottom": "Filtro_sinBorderBottom__cF6G2",
@@ -4296,18 +4481,20 @@ const UPDATE_PASSWORD = 'usuario_cambiarpassword';
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return TRAER_PRODUCTOS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return TRAER_PRODUCTOS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AGREGAR_PRODUCTO; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return ELIMINAR_PRODUCTO; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return LOADING; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return ERROR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return CAMBIAR_MEDIO_DE_PAGO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return ELIMINAR_PRODUCTO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return LOADING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return ERROR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return CAMBIAR_MEDIO_DE_PAGO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return CAMBIAR_COSTO_ENVIO; });
 const TRAER_PRODUCTOS = 'carrito_traer_todos_carrito';
 const AGREGAR_PRODUCTO = 'carrito_agregar_producto';
 const ELIMINAR_PRODUCTO = 'carrito_eliminar_producto';
 const LOADING = 'carrito_loading';
 const ERROR = 'carrito_error';
 const CAMBIAR_MEDIO_DE_PAGO = 'carrito_cambiar_medio_de_pago';
+const CAMBIAR_COSTO_ENVIO = 'carrito_costo_envio';
 
 
 /***/ }),
@@ -4487,12 +4674,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "agregarProducto", function() { return agregarProducto; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "eliminarProducto", function() { return eliminarProducto; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cambiarMedioDePago", function() { return cambiarMedioDePago; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setCostoEnvio", function() { return setCostoEnvio; });
 /* harmony import */ var _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("kqUl");
 //import {API} from '../config/index';
 
 const traerProductos = () => async dispatch => {
   dispatch({
-    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* LOADING */ "e"]
+    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* LOADING */ "f"]
   });
 
   try {
@@ -4506,19 +4694,19 @@ const traerProductos = () => async dispatch => {
       subtotal
     };
     return dispatch({
-      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* TRAER_PRODUCTOS */ "f"],
+      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* TRAER_PRODUCTOS */ "g"],
       payload: payloadData
     });
   } catch (error) {
     return dispatch({
-      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ERROR */ "d"],
+      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ERROR */ "e"],
       payload: error
     });
   }
 };
 const agregarProducto = producto => async (dispatch, getState) => {
   dispatch({
-    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* LOADING */ "e"]
+    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* LOADING */ "f"]
   });
 
   try {
@@ -4563,14 +4751,14 @@ const agregarProducto = producto => async (dispatch, getState) => {
     }, 1500);
   } catch (error) {
     dispatch({
-      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ERROR */ "d"],
+      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ERROR */ "e"],
       payload: error
     });
   }
 };
 const eliminarProducto = idSubProducto => async (dispatch, getState) => {
   dispatch({
-    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* LOADING */ "e"]
+    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* LOADING */ "f"]
   });
 
   try {
@@ -4592,20 +4780,26 @@ const eliminarProducto = idSubProducto => async (dispatch, getState) => {
       subtotal
     };
     dispatch({
-      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ELIMINAR_PRODUCTO */ "c"],
+      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ELIMINAR_PRODUCTO */ "d"],
       payload: payloadData
     });
   } catch (error) {
     dispatch({
-      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ERROR */ "d"],
+      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ERROR */ "e"],
       payload: error
     });
   }
 };
 const cambiarMedioDePago = idMedioDePago => dispatch => {
   return dispatch({
-    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* CAMBIAR_MEDIO_DE_PAGO */ "b"],
+    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* CAMBIAR_MEDIO_DE_PAGO */ "c"],
     payload: idMedioDePago
+  });
+};
+const setCostoEnvio = costo => dispatch => {
+  return dispatch({
+    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* CAMBIAR_COSTO_ENVIO */ "b"],
+    payload: costo
   });
 };
 
@@ -4737,7 +4931,7 @@ const Carrito = props => {
     className: _Carrito_module_css__WEBPACK_IMPORTED_MODULE_4___default.a.footer__carrito
   }, __jsx("section", {
     className: _Carrito_module_css__WEBPACK_IMPORTED_MODULE_4___default.a.section__carrito__total + ' ' + `d-flex justify-content-between`
-  }, __jsx("p", null, "Subtotal"), __jsx("span", {
+  }, __jsx("p", null, "Total"), __jsx("span", {
     className: _Carrito_module_css__WEBPACK_IMPORTED_MODULE_4___default.a.subtotal__carrito
   }, "$", totalCarrito)), props.productos.length == 0 ? null : __jsx("button", {
     className: "boton bg-yellow",

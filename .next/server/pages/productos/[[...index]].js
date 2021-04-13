@@ -621,9 +621,9 @@ const CardProducto = ({
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.cantidad + ` d-none`
   }, prd.peso, " KG") : null, __jsx("h3", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.precio + ' ' + `text-black`
-  }, "$", prd.precioUnidad)), __jsx("span", {
+  }, "$", prd.precioFinal)), prd.descuento ? __jsx("span", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.label__descuento + ' ' + `bg-red`
-  }, "15% Off")))) : __jsx("a", {
+  }, prd.descuento, "% Off") : null))) : __jsx("a", {
     href: `${_config_index__WEBPACK_IMPORTED_MODULE_4__[/* PUBLIC_URL */ "c"]}/producto/${Object(_helpers_index__WEBPACK_IMPORTED_MODULE_3__[/* slug */ "c"])(prd.producto)}/${prd.idProducto}`
   }, __jsx("div", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.container__producto + ' ' + `my-3`
@@ -643,7 +643,7 @@ const CardProducto = ({
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.cantidad + ` d-none`
   }, prd.peso, " KG"), __jsx("h3", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.precio + ' ' + `text-black`
-  }, "$", prd.precioUnidad)), __jsx("span", {
+  }, "$", prd.precioFinal)), __jsx("span", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.label__descuento + ' ' + `bg-red`
   }, "15% Off")));
 };
@@ -677,15 +677,28 @@ const ERROR = 'marca_error';
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return TRAER_TODOS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return TRAER_UNO; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return LOADING; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ERROR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return TRAER_PROMOCIONES; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return ORDENAR_PRODUCTOS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return FILTRANDO; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return LOADING_MAS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return TRAER_MAS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "u", function() { return TRAER_TODOS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "v", function() { return TRAER_UNO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return LOADING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return ERROR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "t", function() { return TRAER_PROMOCIONES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return ORDENAR_PRODUCTOS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return FILTRANDO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return LOADING_MAS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return TRAER_MAS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return TRAER_OFERTAS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return APLICAR_FILTRO_BUSCADOR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return APLICAR_FILTRO_SUBCATEGORIA; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return APLICAR_FILTRO_ORDEN; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return APLICAR_FILTRO_MARCA; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return APLICAR_FILTRO_CATEGORIA; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return ELIMINAR_FILTRO_BUSCADOR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return ELIMINAR_FILTRO_SUBCATEGORIA; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return ELIMINAR_FILTRO_ORDEN; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return ELIMINAR_FILTRO_MARCA; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return ELIMINAR_FILTRO_CATEGORIA; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return PRODUCTOS_RESTABLECER_FILTROS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return PRODUCTOS_PAGINACION; });
 const TRAER_TODOS = 'producto_traer_todos';
 const LOADING = 'producto_loading';
 const ERROR = 'producto_error';
@@ -695,6 +708,19 @@ const FILTRANDO = 'producto_filtrando';
 const TRAER_UNO = 'producto_traeruno';
 const LOADING_MAS = 'producto_loading_mas';
 const TRAER_MAS = 'producto_traer_mas';
+const TRAER_OFERTAS = 'producto_traer_ofertas';
+const APLICAR_FILTRO_CATEGORIA = 'producto_filtro_categoria';
+const APLICAR_FILTRO_SUBCATEGORIA = 'producto_filtro_subcategoria';
+const APLICAR_FILTRO_MARCA = 'producto_filtro_marca';
+const APLICAR_FILTRO_BUSCADOR = 'producto_filtro_buscador';
+const APLICAR_FILTRO_ORDEN = 'producto_filtro_orden';
+const ELIMINAR_FILTRO_CATEGORIA = 'producto_eliminar_filtro_categoria';
+const ELIMINAR_FILTRO_SUBCATEGORIA = 'producto_eliminar_filtro_subcategoria';
+const ELIMINAR_FILTRO_MARCA = 'producto_eliminar_filtro_marca';
+const ELIMINAR_FILTRO_BUSCADOR = 'producto_eliminar_filtro_buscador';
+const ELIMINAR_FILTRO_ORDEN = 'producto_eliminar_filtro_orden';
+const PRODUCTOS_RESTABLECER_FILTROS = 'productos_restablecer_filtros';
+const PRODUCTOS_PAGINACION = 'productos_paginacion';
 
 
 /***/ }),
@@ -723,6 +749,7 @@ module.exports = {
 	"btn_close_filtro": "Filtro_btn_close_filtro__37rTH",
 	"rotar": "Filtro_rotar__2UEYw",
 	"lista": "Filtro_lista__3_b9b",
+	"listaMarca": "Filtro_listaMarca__2ZCr3",
 	"item_filtro": "Filtro_item_filtro__3xqSt",
 	"active": "Filtro_active__32lB0",
 	"sinBorderBottom": "Filtro_sinBorderBottom__cF6G2",
@@ -768,155 +795,325 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "traerTodos", function() { return traerTodos; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "traerProductos", function() { return traerProductos; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "traerMas", function() { return traerMas; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "traerPorId", function() { return traerPorId; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "traerPromociones", function() { return traerPromociones; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ordenarProductos", function() { return ordenarProductos; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "filtrarProductos", function() { return filtrarProductos; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "aplicarFiltro", function() { return aplicarFiltro; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "quitarFiltro", function() { return quitarFiltro; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "restablecerFiltros", function() { return restablecerFiltros; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updatePaginacion", function() { return updatePaginacion; });
 /* harmony import */ var _config_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("rOcY");
 /* harmony import */ var _helpers_index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("pRT7");
 /* harmony import */ var _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("LwYX");
 
 
 
-const traerTodos = ({
-  desde,
-  limiteDesktop,
-  limiteMobile
-}) => async dispatch => {
+const traerProductos = () => async (dispatch, getState) => {
   dispatch({
-    type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* LOADING */ "c"]
+    type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* LOADING */ "m"]
   });
 
   try {
-    let url = `${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/producto?desde=${desde}&limite=${limiteDesktop}`;
+    //obtengo el estado actualizado de los filtros
+    const {
+      filtrando,
+      filtros: {
+        categoria,
+        subcategoria,
+        marca,
+        search,
+        orden
+      },
+      paginacion: {
+        desde,
+        limiteMobile,
+        limiteDesktop
+      }
+    } = getState().productosReducer;
+    let url = `${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}`;
 
-    if (Object(_helpers_index__WEBPACK_IMPORTED_MODULE_1__[/* isMobile */ "b"])()) {
-      url = `${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/producto?desde=${desde}&limite=${limiteMobile}`;
-    }
+    if (!filtrando) {
+      url += `/producto?desde=${desde}&limite=${Object(_helpers_index__WEBPACK_IMPORTED_MODULE_1__[/* isMobile */ "b"])() ? limiteMobile : limiteDesktop}`;
+    } else {
+      if (search.trim() !== "") {
+        url += `/buscar?busqueda=${search}`;
+      } else {
+        url += `/productos/filtro/filtrar?desde=${desde}&limite=${Object(_helpers_index__WEBPACK_IMPORTED_MODULE_1__[/* isMobile */ "b"])() ? limiteMobile : limiteDesktop}&`;
+
+        if (categoria) {
+          url += `categoria=${categoria}&`;
+        }
+
+        if (subcategoria) {
+          url += `subcategoria=${subcategoria}&`;
+        }
+
+        if (marca) {
+          url += `marca=${marca}`;
+        }
+      }
+    } // console.log(url);
+
 
     return fetch(url).then(res => res.json()).then(data => {
       dispatch({
-        type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* TRAER_TODOS */ "h"],
+        type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* TRAER_TODOS */ "u"],
         payload: data.data
       });
     });
   } catch (error) {
     dispatch({
-      type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* ERROR */ "a"],
+      type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* ERROR */ "k"],
       payload: error
     });
   }
 };
-const traerMas = (rangoProducto, prevProductos) => async dispatch => {
+const traerMas = () => async (dispatch, getState) => {
   dispatch({
-    type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* LOADING_MAS */ "d"]
+    type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* LOADING_MAS */ "n"]
   });
 
   try {
-    let url = `${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/producto?desde=${rangoProducto.desde}&limite=${rangoProducto.limiteDesktop}`;
+    //obtengo el estado actualizado de los filtros
+    const {
+      productos,
+      filtrando,
+      filtros: {
+        categoria,
+        subcategoria,
+        marca,
+        search,
+        orden
+      },
+      paginacion: {
+        desde,
+        limiteMobile,
+        limiteDesktop
+      }
+    } = getState().productosReducer;
+    let url = `${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}`;
 
-    if (Object(_helpers_index__WEBPACK_IMPORTED_MODULE_1__[/* isMobile */ "b"])()) {
-      url = `${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/producto?desde=${rangoProducto.desde}&limite=${rangoProducto.limiteMobile}`;
+    if (!filtrando) {
+      url += `/producto?desde=${desde}&limite=${Object(_helpers_index__WEBPACK_IMPORTED_MODULE_1__[/* isMobile */ "b"])() ? limiteMobile : limiteDesktop}`;
+    } else {
+      if (search.trim() !== "") {
+        url += `/buscar?busqueda=${search}`;
+      } else {
+        url += `/productos/filtro/filtrar?desde=${desde}&limite=${Object(_helpers_index__WEBPACK_IMPORTED_MODULE_1__[/* isMobile */ "b"])() ? limiteMobile : limiteDesktop}&`;
+
+        if (categoria) {
+          url += `categoria=${categoria}&`;
+        }
+
+        if (subcategoria) {
+          url += `subcategoria=${subcategoria}&`;
+        }
+
+        if (marca) {
+          url += `marca=${marca}`;
+        }
+      }
     }
 
     return fetch(url).then(res => res.json()).then(data => {
-      let updateproductos = [...prevProductos, ...data.data];
+      let updateproductos = [...productos, ...data.data];
       dispatch({
-        type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* TRAER_MAS */ "f"],
+        type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* TRAER_MAS */ "r"],
         payload: updateproductos
       });
     });
   } catch (error) {
     dispatch({
-      type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* ERROR */ "a"],
+      type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* ERROR */ "k"],
       payload: error
     });
   }
 };
 const traerPorId = id => async dispatch => {
   dispatch({
-    type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* LOADING */ "c"]
+    type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* LOADING */ "m"]
   });
 
   try {
     return fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/producto/${id}`).then(res => res.json()).then(data => {
       dispatch({
-        type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* TRAER_UNO */ "i"],
+        type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* TRAER_UNO */ "v"],
         payload: data
       });
     });
   } catch (error) {
     dispatch({
-      type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* ERROR */ "a"],
+      type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* ERROR */ "k"],
       payload: error
     });
   }
 };
 const traerPromociones = () => async dispatch => {
   dispatch({
-    type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* LOADING */ "c"]
+    type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* LOADING */ "m"]
   });
 
   try {
-    let url = `${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/producto?desde=1&limite=8`;
+    let url = `${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/subproductos/ofertas?desde=0&limite=9`;
 
     if (Object(_helpers_index__WEBPACK_IMPORTED_MODULE_1__[/* isMobile */ "b"])()) {
-      url = `${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/producto?desde=1&limite=4`;
+      url = `${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/subproductos/ofertas?desde=0&limite=6`;
     }
 
     return fetch(url).then(res => res.json()).then(data => {
       dispatch({
-        type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* TRAER_PROMOCIONES */ "g"],
+        type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* TRAER_OFERTAS */ "s"],
         payload: data.data
       });
     });
   } catch (error) {
     dispatch({
-      type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* ERROR */ "a"],
-      payload: error
+      type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* ERROR */ "k"],
+      payload: error.message
     });
   }
 };
 const ordenarProductos = productosOrdenados => async dispatch => {
   dispatch({
-    type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* LOADING */ "c"]
+    type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* LOADING */ "m"]
   });
 
   try {
     dispatch({
-      type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* ORDENAR_PRODUCTOS */ "e"],
+      type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* ORDENAR_PRODUCTOS */ "o"],
       payload: productosOrdenados
     });
   } catch (error) {
     dispatch({
-      type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* ERROR */ "a"],
+      type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* ERROR */ "k"],
       payload: error
     });
   }
 };
-const filtrarProductos = url => async dispatch => {
-  //console.log('filtrando');
-  //console.log(url);
-  dispatch({
-    type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* LOADING */ "c"]
-  });
-
-  try {
-    let urlFiltro = url.includes('buscar?busqueda') ? `productos/${url}` : `productos/filtro/${url}`;
-    return fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/${urlFiltro}`).then(res => res.json()).then(data => {
+const aplicarFiltro = (tipo, valor) => dispatch => {
+  switch (tipo) {
+    case 'categoria':
       dispatch({
-        type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* FILTRANDO */ "b"],
-        payload: data.data
+        type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* APLICAR_FILTRO_CATEGORIA */ "b"],
+        payload: valor
       });
-    });
-  } catch (error) {
-    dispatch({
-      type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* ERROR */ "a"],
-      payload: error
-    });
+      break;
+
+    case 'subcategoria':
+      dispatch({
+        type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* APLICAR_FILTRO_SUBCATEGORIA */ "e"],
+        payload: valor
+      });
+      break;
+
+    case 'marca':
+      dispatch({
+        type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* APLICAR_FILTRO_MARCA */ "c"],
+        payload: valor
+      });
+      break;
+
+    case 'search':
+      dispatch({
+        type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* APLICAR_FILTRO_BUSCADOR */ "a"],
+        payload: valor
+      });
+      break;
+
+    case 'orden':
+      dispatch({
+        type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* APLICAR_FILTRO_ORDEN */ "d"],
+        payload: valor
+      });
+      break;
+
+    default:
+      break;
   }
+};
+const quitarFiltro = tipo => (dispatch, getState) => {
+  const {
+    filtros: {
+      categoria,
+      subcategoria,
+      marca,
+      search,
+      orden
+    }
+  } = getState().productosReducer;
+
+  switch (tipo) {
+    case 'categoria':
+      if (!subcategoria && !marca) {
+        dispatch({
+          type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* PRODUCTOS_RESTABLECER_FILTROS */ "q"]
+        });
+      } else {
+        dispatch({
+          type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* ELIMINAR_FILTRO_CATEGORIA */ "g"]
+        });
+      }
+
+      break;
+
+    case 'subcategoria':
+      if (!categoria && !marca) {
+        dispatch({
+          type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* PRODUCTOS_RESTABLECER_FILTROS */ "q"]
+        });
+      } else {
+        dispatch({
+          type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* ELIMINAR_FILTRO_SUBCATEGORIA */ "j"]
+        });
+      }
+
+      break;
+
+    case 'marca':
+      if (!categoria && !subcategoria) {
+        dispatch({
+          type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* PRODUCTOS_RESTABLECER_FILTROS */ "q"]
+        });
+      } else {
+        dispatch({
+          type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* ELIMINAR_FILTRO_MARCA */ "h"]
+        });
+      }
+
+      break;
+
+    case 'buscador':
+      dispatch({
+        type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* ELIMINAR_FILTRO_BUSCADOR */ "f"]
+      });
+      break;
+
+    case 'orden':
+      dispatch({
+        type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* ELIMINAR_FILTRO_ORDEN */ "i"]
+      });
+      break;
+
+    default:
+      break;
+  }
+};
+const restablecerFiltros = () => dispatch => {
+  dispatch({
+    type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* PRODUCTOS_RESTABLECER_FILTROS */ "q"]
+  });
+};
+const updatePaginacion = () => (dispatch, getState) => {
+  const {
+    paginacion
+  } = getState().productosReducer;
+  let desdeUpdated = Object(_helpers_index__WEBPACK_IMPORTED_MODULE_1__[/* isMobile */ "b"])() ? paginacion.desde + paginacion.limiteMobile : paginacion.desde + paginacion.limiteDesktop;
+  dispatch({
+    type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* PRODUCTOS_PAGINACION */ "p"],
+    payload: desdeUpdated
+  });
 };
 
 /***/ }),
@@ -934,18 +1131,33 @@ module.exports = _interopRequireDefault;
 
 /***/ }),
 
-/***/ "WjWM":
-/***/ (function(module, exports) {
+/***/ "WkNE":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-// Exports
-module.exports = {
-	"modalMarca": "Marca_modalMarca__1SX9K",
-	"col_modal_marca": "Marca_col_modal_marca__2YurW",
-	"imgMarca": "Marca_imgMarca__3yst9",
-	"marca_modal": "Marca_marca_modal__3BApp",
-	"achicarTamaño": "Marca_achicarTama_o__1Ns7E"
+"use strict";
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("cDcd");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("rOcY");
+var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
+
+
+
+const BotonWhatsapp = () => {
+  const handleClick = () => {
+    window.location.assign(`https://api.whatsapp.com/send?phone=+542304347008&text=Consulta desde pagina web`);
+  };
+
+  return __jsx("div", {
+    className: "btn-wpp",
+    onClick: handleClick
+  }, __jsx("img", {
+    src: `${_config__WEBPACK_IMPORTED_MODULE_1__[/* URL_CLOUD_STORAGE */ "d"]}/assets/wpp.png`,
+    className: "img-fluid",
+    alt: "WhatsApp de Oliver PetShop"
+  }));
 };
 
+/* harmony default export */ __webpack_exports__["a"] = (BotonWhatsapp);
 
 /***/ }),
 
@@ -1076,13 +1288,6 @@ var Navbar_module_default = /*#__PURE__*/__webpack_require__.n(Navbar_module);
 
 var __jsx = external_react_default.a.createElement;
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-
 
 
 
@@ -1096,17 +1301,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 const Productos = props => {
   const {
+    filtros,
+    paginacion,
+    filtrando
+  } = props;
+  const {
     0: filtro,
     1: setFiltro
   } = Object(external_react_["useState"])('');
-  const {
-    0: rangoProducto,
-    1: setRangoProducto
-  } = Object(external_react_["useState"])({
-    desde: 1,
-    limiteDesktop: 20,
-    limiteMobile: 10
-  });
   Object(external_react_["useEffect"])(() => {
     if (props.location !== '/productos') {
       if (props.query.search) {
@@ -1114,15 +1316,40 @@ const Productos = props => {
       } else {
         mostrarSolapaFiltro(props.query.index[0]);
       }
-    } else {
-      getProductos();
     }
   }, []);
   Object(external_react_["useEffect"])(() => {
-    if (rangoProducto.desde > 1) {
-      props.traerMas(rangoProducto, props.productos);
+    if (paginacion.desde > 0) {
+      props.traerMas();
     }
-  }, [rangoProducto]);
+  }, [paginacion]);
+  Object(external_react_["useEffect"])(() => {
+    if (props.location !== '/productos') {
+      //si se filtra directamente por categoria,marca,etc desde otra pagina.. esperar a que se aplique el filtro para no hacer dos peticiones.
+      if (filtrando) {
+        getProductos();
+      } else {
+        //request para cuando se restablecen los filtros en pagina 'productos/royal-canin' por ejemplo.
+        if (props.productos.length > 0) {
+          getProductos();
+        }
+      }
+    } else {
+      getProductos();
+    }
+  }, [filtros]);
+
+  const getProductos = async () => {
+    try {
+      await props.traerProductos();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const cargarMas = () => {
+    props.updatePaginacion();
+  };
 
   const showFiltrosMobile = () => {
     if (document.getElementsByClassName(Navbar_module_default.a.menu__collapsed)[0].classList.contains(Navbar_module_default.a.showCollapsed)) {
@@ -1130,14 +1357,6 @@ const Productos = props => {
     }
 
     document.getElementsByClassName('Filtro_filtros__contanier__3knXf')[0].classList.add(Filtro_module_default.a.show_filtros);
-  };
-
-  const getProductos = async () => {
-    try {
-      await props.traerTodos(rangoProducto);
-    } catch (error) {
-      console.log(error);
-    }
   };
 
   const mostrarSolapaFiltro = filtro => {
@@ -1167,18 +1386,6 @@ const Productos = props => {
   if (props.location == '/productos' && filtro != '') {
     setFiltro('');
   }
-
-  const cargarMas = () => {
-    if (Object(helpers["b" /* isMobile */])()) {
-      setRangoProducto(_objectSpread(_objectSpread({}, rangoProducto), {}, {
-        desde: rangoProducto.desde + rangoProducto.limiteMobile - 1
-      }));
-    } else {
-      setRangoProducto(_objectSpread(_objectSpread({}, rangoProducto), {}, {
-        desde: rangoProducto.desde + rangoProducto.limiteDesktop - 1
-      }));
-    }
-  };
 
   const handleScrollFeedProductos = event => {
     let feedProductos = document.querySelector('.feedProductos');
@@ -1277,79 +1484,8 @@ const mapStateToProps = reducers => {
 };
 
 /* harmony default export */ var components_Productos = (Object(external_react_redux_["connect"])(mapStateToProps, productosActions)(Productos));
-// EXTERNAL MODULE: ./src/components/Modal/index.js
-var Modal = __webpack_require__("/Q2I");
-
-// EXTERNAL MODULE: ./src/components/ModalMarca/Marca.module.css
-var Marca_module = __webpack_require__("WjWM");
-var Marca_module_default = /*#__PURE__*/__webpack_require__.n(Marca_module);
-
 // EXTERNAL MODULE: ./store/actions/marcasActions.js
 var marcasActions = __webpack_require__("kVRI");
-
-// CONCATENATED MODULE: ./src/components/ModalMarca/index.js
-var ModalMarca_jsx = external_react_default.a.createElement;
-
-
-
-
-
-
-const ModalMarca = props => {
-  Object(external_react_["useEffect"])(() => {
-    getData();
-  }, []);
-  console.log(props);
-
-  const getData = () => {
-    if (props.marcas && props.marcas.length == 0) {
-      props.traerTodas();
-    }
-  };
-
-  const activarFiltro = marca => {
-    props.closeModal();
-    props.activarFiltro('marca', marca);
-  };
-
-  return ModalMarca_jsx(external_react_default.a.Fragment, null, props.loading ? ModalMarca_jsx("div", {
-    className: "col-12 text-center"
-  }, ModalMarca_jsx(Loader["a" /* default */], null)) : ModalMarca_jsx(external_react_default.a.Fragment, null, ModalMarca_jsx("h4", {
-    className: "text-center"
-  }, "Nuestras marcas"), ModalMarca_jsx("div", {
-    className: `row` + ' ' + Marca_module_default.a.modalMarca,
-    style: {
-      padding: '0px 10px'
-    }
-  }, props.marcas.map(marca => ModalMarca_jsx("div", {
-    key: marca.idMarca,
-    className: "col-12 col-md-6 text-center px-4 mb-4",
-    onClick: () => activarFiltro(marca.idMarca)
-  }, ModalMarca_jsx("div", {
-    className: Marca_module_default.a.col_modal_marca + ' ' + `row alig-items-center`
-  }, ModalMarca_jsx("div", {
-    className: "col-6"
-  }, ModalMarca_jsx("img", {
-    src: marca.imagen,
-    alt: "marca",
-    className: Marca_module_default.a.imgMarca + ' ' + `img-fluid`
-  })), ModalMarca_jsx("div", {
-    className: "col-6 d-flex align-items-center justify-content-center"
-  }, marca.marca.length > 12 ? ModalMarca_jsx("p", {
-    className: Marca_module_default.a.achicarTamaño + ' ' + Marca_module_default.a.marca_modal
-  }, marca.marca) : ModalMarca_jsx("p", {
-    className: Marca_module_default.a.marca_modal
-  }, marca.marca))))))));
-};
-
-const ModalMarca_mapStateToProps = reducers => {
-  return reducers.marcasReducer;
-};
-
-/* harmony default export */ var components_ModalMarca = (Object(external_react_redux_["connect"])(ModalMarca_mapStateToProps, marcasActions)(ModalMarca));
-// EXTERNAL MODULE: external "next/router"
-var router_ = __webpack_require__("4Q3z");
-var router_default = /*#__PURE__*/__webpack_require__.n(router_);
 
 // EXTERNAL MODULE: ./store/actions/categoriasAction.js
 var categoriasAction = __webpack_require__("rfcl");
@@ -1391,16 +1527,6 @@ const traerTodas = () => async dispatch => {
 // CONCATENATED MODULE: ./src/components/Filtro/index.js
 var Filtro_jsx = external_react_default.a.createElement;
 
-function Filtro_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function Filtro_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { Filtro_ownKeys(Object(source), true).forEach(function (key) { Filtro_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { Filtro_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function Filtro_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-
-
-
-
 
 
 
@@ -1414,8 +1540,9 @@ const {
   traerTodas: marcasTraerTodas
 } = marcasActions;
 const {
-  filtrarProductos: productosFiltrarProductos,
-  traerTodos: productosTraerTodos
+  aplicarFiltro,
+  quitarFiltro,
+  restablecerFiltros
 } = productosActions;
 const {
   traerTodas: categoriasTraerTodas
@@ -1425,29 +1552,7 @@ const {
 } = subcategoriasAction_namespaceObject;
 
 const Filtro = props => {
-  //state for the filters
-  const {
-    0: estadoFiltro,
-    1: setEstadoFiltro
-  } = Object(external_react_["useState"])({
-    filtrando: false,
-    categoria: '',
-    subcategoria: '',
-    marca: '',
-    buscador: ''
-  }); //manejo de Modal marcas
-
-  const {
-    0: modalIsOpen,
-    1: setModalIsOpen
-  } = Object(external_react_["useState"])(false);
-
-  const onCloseModal = () => {
-    document.getElementsByTagName('body')[0].style.overflowY = 'scroll';
-    setModalIsOpen(false);
-  }; //loop de efecto para ejecutar solo una vez cuando el componente se monte en el caso de que se este filtrando directo desde la url
-
-
+  //loop de efecto para ejecutar solo una vez cuando el componente se monte en el caso de que se este filtrando directo desde la url
   Object(external_react_["useEffect"])(() => {
     getData();
   }, []);
@@ -1472,12 +1577,7 @@ const Filtro = props => {
     } catch (error) {
       console.log(error);
     }
-  }; //loop de efecto para hacer render cada vez que se agrega o elimina un filtro
-
-
-  Object(external_react_["useEffect"])(() => {
-    switchItemActive();
-  }, [estadoFiltro]);
+  };
 
   const activarFiltroPorUrl = () => {
     if (props.query.search) {
@@ -1487,239 +1587,16 @@ const Filtro = props => {
     }
   };
 
-  const activarFiltro = (tipoFiltro, key) => {
-    switch (tipoFiltro) {
-      case 'categoria':
-        setEstadoFiltro(Filtro_objectSpread(Filtro_objectSpread({}, estadoFiltro), {}, {
-          categoria: key,
-          buscador: '',
-          filtrando: true
-        }));
-        break;
-
-      case 'subcategoria':
-        setEstadoFiltro(Filtro_objectSpread(Filtro_objectSpread({}, estadoFiltro), {}, {
-          subcategoria: key,
-          buscador: '',
-          filtrando: true
-        }));
-        break;
-
-      case 'marca':
-        setEstadoFiltro(Filtro_objectSpread(Filtro_objectSpread({}, estadoFiltro), {}, {
-          marca: key,
-          buscador: '',
-          filtrando: true
-        }));
-        break;
-
-      case 'search':
-        setEstadoFiltro(Filtro_objectSpread(Filtro_objectSpread({}, estadoFiltro), {}, {
-          buscador: key,
-          filtrando: true
-        }));
-        break;
-
-      default:
-        break;
-    }
-  };
-
-  const switchItemActive = () => {
-    // console.log(estadoFiltro);
-    for (let index = 0; index < document.getElementsByClassName(Filtro_module_default.a.item_filtro).length; index++) {
-      const element = document.getElementsByClassName(Filtro_module_default.a.item_filtro)[index];
-      element.classList.remove(Filtro_module_default.a.active);
-      document.getElementsByClassName(Filtro_module_default.a.icon_close_filtro)[index].classList.add('d-none');
-    }
-
-    ;
-    if (!estadoFiltro.filtrando) return; //si no hay nada en buscador, puedo setear un active en algun elemento de la lista
-
-    if (estadoFiltro.buscador.trim() === '') {
-      //recorro el state para obtener las claves y agregar active el elemento correspondiente
-      for (const key in estadoFiltro) {
-        if (estadoFiltro[key] && estadoFiltro[key] !== '' && estadoFiltro[key] !== true) {
-          //console.log(estadoFiltro[key]);
-          if (document.getElementsByName(`${key}-${estadoFiltro[key]}`)[0]) {
-            //pregunto si existe el elemento con el name del filtro para agregarle el active, si no existe lo creo. (si no existe es porque viene desde modal de marcas)
-            console.log('!!!');
-            document.getElementsByName(`${key}-${estadoFiltro[key]}`)[0].classList.add(Filtro_module_default.a.active);
-            document.getElementById(`close-${key}-${estadoFiltro[key]}`).classList.remove('d-none');
-          } else {
-            if (estadoFiltro.marca !== '') {
-              //creo los elementos del item
-              let newItemMarca = document.createElement('li');
-              let divItemMarca = document.createElement('div');
-              let spanItemMarca = document.createElement('span');
-              let iconClose = document.createElement('svg');
-              let marcaName = props.marcasReducer.marcas.filter(res => res.idMarca == estadoFiltro.marca)[0].marca; //asigno las clases, atributos y eventos necesarios.
-
-              divItemMarca.className = `${Filtro_module_default.a.item_filtro} ${Filtro_module_default.a.active}`;
-              divItemMarca.setAttribute('name', `marca-${estadoFiltro.marca}`);
-              divItemMarca.addEventListener('click', () => activarFiltro('marca', estadoFiltro.marca));
-              spanItemMarca.className = 'text-muted';
-              spanItemMarca.innerHTML = marcaName;
-              iconClose.innerHTML = `
-                                <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times" role="img" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 352 512" class="svg-inline--fa fa-times fa-w-11 Filtro_icon_close_filtro__1xlv5" id="close-marca-${estadoFiltro.marca}">
-                                    <path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path>
-                                </svg>
-                            `;
-              iconClose.addEventListener('click', () => limpiarFiltro('marca')); //voy ubicando los elementos dentro de cada padre
-
-              divItemMarca.appendChild(spanItemMarca);
-              newItemMarca.appendChild(divItemMarca);
-              newItemMarca.appendChild(iconClose); //Obtengo el primer item de la lista y lo elimino, para tener siempre la misma cantidad de marcas en la lista.
-
-              if (document.querySelector(`#listaMarca`)) {
-                let firstItemMarca = document.querySelector(`#listaMarca`).children[0];
-                let listaMarcas = document.querySelector(`#listaMarca`);
-                listaMarcas.removeChild(firstItemMarca); //ahora agrego el item creado a la lista
-
-                listaMarcas.appendChild(newItemMarca);
-              }
-
-              ;
-            }
-          }
-        }
-      }
-    } //la primera vez que se carga el componente, filtrando es false, por eso pregunto para que no se ejecuta la funcion de ir a filtrar apenas se monte el componente. Sino que se ejecute cuando de verdad se quiera filtrar.
-
-
-    if (estadoFiltro.filtrando) {
-      let urlFiltro = armarUrlFiltro(); //armo la url que mando a la api para traer los resultados de lo filtrado.
-
-      props.productosFiltrarProductos(urlFiltro);
-    }
-
-    ;
+  const activarFiltro = (tipoFiltro, key, fromModal = false) => {
+    props.aplicarFiltro(tipoFiltro, key);
   };
 
   const limpiarFiltro = tipo => {
-    switch (tipo) {
-      case 'categoria':
-        if (estadoFiltro.subcategoria === '' && estadoFiltro.marca === '') {
-          setEstadoFiltro(Filtro_objectSpread(Filtro_objectSpread({}, estadoFiltro), {}, {
-            categoria: '',
-            filtrando: false
-          }));
-          props.productosTraerTodos({
-            desde: 1,
-            limiteDesktop: 20,
-            limiteMobile: 10
-          });
-
-          if (props.location != 'productos') {
-            router_default.a.push('/productos');
-          }
-        } else {
-          setEstadoFiltro(Filtro_objectSpread(Filtro_objectSpread({}, estadoFiltro), {}, {
-            categoria: ''
-          }));
-        }
-
-        break;
-
-      case 'subcategoria':
-        if (estadoFiltro.categoria === '' && estadoFiltro.marca === '') {
-          setEstadoFiltro(Filtro_objectSpread(Filtro_objectSpread({}, estadoFiltro), {}, {
-            subcategoria: '',
-            filtrando: false
-          }));
-          props.productosTraerTodos({
-            desde: 1,
-            limiteDesktop: 20,
-            limiteMobile: 10
-          });
-
-          if (props.location != 'productos') {
-            router_default.a.push('/productos');
-          }
-        } else {
-          setEstadoFiltro(Filtro_objectSpread(Filtro_objectSpread({}, estadoFiltro), {}, {
-            subcategoria: ''
-          }));
-        }
-
-        break;
-
-      case 'marca':
-        if (estadoFiltro.categoria === '' && estadoFiltro.subcategoria == '') {
-          setEstadoFiltro(Filtro_objectSpread(Filtro_objectSpread({}, estadoFiltro), {}, {
-            marca: '',
-            filtrando: false
-          }));
-          props.productosTraerTodos({
-            desde: 1,
-            limiteDesktop: 20,
-            limiteMobile: 10
-          });
-
-          if (props.location != 'productos') {
-            router_default.a.push('/productos');
-          }
-        } else {
-          setEstadoFiltro(Filtro_objectSpread(Filtro_objectSpread({}, estadoFiltro), {}, {
-            marca: ''
-          }));
-        }
-
-        break;
-
-      default:
-        setEstadoFiltro({
-          filtrando: false,
-          categoria: '',
-          subcategoria: '',
-          marca: '',
-          buscador: ''
-        });
-        props.productosTraerTodos({
-          desde: 1,
-          limiteDesktop: 20,
-          limiteMobile: 10
-        });
-
-        if (props.location != 'productos') {
-          router_default.a.push('/productos');
-        }
-
-        break;
-    }
+    props.quitarFiltro(tipo);
   };
 
   const closeFiltrosMobile = () => {
     document.getElementsByClassName(Filtro_module_default.a.filtros__contanier)[0].classList.remove(Filtro_module_default.a.show_filtros);
-  };
-
-  const armarUrlFiltro = () => {
-    let url = ''; //si buscador viene true, es porque viene desde el buscador del menu o modal de buscador(mobile).
-
-    if (estadoFiltro.buscador !== '') return url += `buscar?busqueda=${estadoFiltro.buscador}`;
-    url += 'filtrar';
-
-    if (estadoFiltro.categoria && estadoFiltro.categoria !== '') {
-      url += `?categoria=${estadoFiltro.categoria}`;
-    }
-
-    if (estadoFiltro.subcategoria && estadoFiltro.subcategoria !== '') {
-      if (estadoFiltro.categoria !== '') {
-        url += `&subcategoria=${estadoFiltro.subcategoria}`;
-      } else {
-        url += `?subcategoria=${estadoFiltro.subcategoria}`;
-      }
-    }
-
-    if (estadoFiltro.marca && estadoFiltro.marca !== '') {
-      if (estadoFiltro.categoria == '' && estadoFiltro.subcategoria == '') {
-        url += `?marca=${estadoFiltro.marca}`;
-      } else {
-        url += `&marca=${estadoFiltro.marca}`;
-      }
-    }
-
-    return url;
   };
 
   const showFiltros = () => {
@@ -1728,6 +1605,10 @@ const Filtro = props => {
     document.getElementById('iconFiltroContainer').classList.toggle(Filtro_module_default.a.rotar);
   };
 
+  const {
+    filtrando,
+    filtros
+  } = props.productosReducer;
   return Filtro_jsx("div", {
     className: Filtro_module_default.a.filtros__contanier
   }, Filtro_jsx("button", {
@@ -1736,9 +1617,9 @@ const Filtro = props => {
   }, Filtro_jsx(react_fontawesome_["FontAwesomeIcon"], {
     id: "iconFiltroContainer",
     icon: free_solid_svg_icons_["faChevronRight"]
-  })), Filtro_jsx("div", null, props.categoriasReducer.categorias.length == 0 || props.subcategoriaReducer.subcategorias.length == 0 || props.marcasReducer.marcas.length == 0 ? Filtro_jsx(Loader["a" /* default */], null) : Filtro_jsx(external_react_default.a.Fragment, null, estadoFiltro.filtrando ? Filtro_jsx("button", {
+  })), Filtro_jsx("div", null, props.categoriasReducer.categorias.length == 0 || props.subcategoriaReducer.subcategorias.length == 0 || props.marcasReducer.marcas.length == 0 ? Filtro_jsx(Loader["a" /* default */], null) : Filtro_jsx(external_react_default.a.Fragment, null, filtrando ? Filtro_jsx("button", {
     className: "boton bg-yellow mb-3",
-    onClick: limpiarFiltro
+    onClick: props.restablecerFiltros
   }, Filtro_jsx(react_fontawesome_["FontAwesomeIcon"], {
     icon: free_solid_svg_icons_["faBroom"]
   }), " Limpiar Filtros") : null, Filtro_jsx(react_fontawesome_["FontAwesomeIcon"], {
@@ -1752,16 +1633,14 @@ const Filtro = props => {
   }, props.categoriasReducer.categorias.map(cat => Filtro_jsx("li", {
     key: cat.idCategoria
   }, Filtro_jsx("div", {
-    className: Filtro_module_default.a.item_filtro,
-    name: `categoria-${cat.idCategoria}`,
+    className: Filtro_module_default.a.item_filtro + ` ${filtros.categoria == cat.idCategoria ? Filtro_module_default.a.active : ''}`,
     onClick: () => activarFiltro('categoria', `${cat.idCategoria}`)
   }, Filtro_jsx("span", {
     className: "text-muted"
   }, cat.categoria)), Filtro_jsx(react_fontawesome_["FontAwesomeIcon"], {
     icon: free_solid_svg_icons_["faTimes"],
-    className: Filtro_module_default.a.icon_close_filtro + ' ' + `d-none`,
-    onClick: () => limpiarFiltro('categoria'),
-    id: `close-categoria-${cat.idCategoria}`
+    className: Filtro_module_default.a.icon_close_filtro + ` ${filtros.categoria == cat.idCategoria ? '' : 'd-none'}`,
+    onClick: () => limpiarFiltro('categoria')
   })))), Filtro_jsx("h4", {
     className: Filtro_module_default.a.titulo_filtros
   }, "Alimentos"), Filtro_jsx("ul", {
@@ -1769,43 +1648,31 @@ const Filtro = props => {
   }, props.subcategoriaReducer.subcategorias.map(sc => Filtro_jsx("li", {
     key: sc.idSubCategoria
   }, Filtro_jsx("div", {
-    className: Filtro_module_default.a.item_filtro,
-    name: `subcategoria-${sc.idSubCategoria}`,
+    className: Filtro_module_default.a.item_filtro + ` ${filtros.subcategoria == sc.idSubCategoria ? Filtro_module_default.a.active : ''}`,
     onClick: () => activarFiltro('subcategoria', `${sc.idSubCategoria}`)
   }, Filtro_jsx("span", {
     className: "text-muted"
   }, sc.subcategoria)), Filtro_jsx(react_fontawesome_["FontAwesomeIcon"], {
     icon: free_solid_svg_icons_["faTimes"],
-    className: Filtro_module_default.a.icon_close_filtro + ' ' + `d-none`,
-    onClick: () => limpiarFiltro('subcategoria'),
-    id: `close-${`subcategoria-${sc.idSubCategoria}`}`
+    className: Filtro_module_default.a.icon_close_filtro + ` ${filtros.subcategoria == sc.idSubCategoria ? '' : 'd-none'}`,
+    onClick: () => limpiarFiltro('subcategoria')
   })))), Filtro_jsx("h4", {
     className: Filtro_module_default.a.titulo_filtros
   }, "Marca"), Filtro_jsx("ul", {
     id: "listaMarca",
-    className: Filtro_module_default.a.sinBorderBottom + ' ' + Filtro_module_default.a.lista
-  }, props.marcasReducer.marcas.map((marca, key) => key > 3 ? false : Filtro_jsx("li", {
+    className: Filtro_module_default.a.sinBorderBottom + ' ' + Filtro_module_default.a.lista + ` ${Filtro_module_default.a.listaMarca}`
+  }, props.marcasReducer.marcas.map((marca, key) => Filtro_jsx("li", {
     key: marca.idMarca
   }, Filtro_jsx("div", {
-    className: Filtro_module_default.a.item_filtro,
-    name: `marca-${marca.idMarca}`,
+    className: Filtro_module_default.a.item_filtro + ` ${filtros.marca == marca.idMarca ? Filtro_module_default.a.active : ''}`,
     onClick: () => activarFiltro('marca', `${marca.idMarca}`)
   }, Filtro_jsx("span", {
     className: "text-muted"
   }, marca.marca)), Filtro_jsx(react_fontawesome_["FontAwesomeIcon"], {
     icon: free_solid_svg_icons_["faTimes"],
-    className: Filtro_module_default.a.icon_close_filtro + ' ' + `d-none`,
-    onClick: () => limpiarFiltro('marca'),
-    id: `close-marca-${marca.idMarca}`
-  })))), Filtro_jsx("button", {
-    onClick: () => setModalIsOpen(true),
-    className: "boton bg-gris"
-  }, "Ver todas"))), !modalIsOpen ? null : Filtro_jsx(Modal["a" /* default */], {
-    closeModal: onCloseModal
-  }, Filtro_jsx(components_ModalMarca, {
-    closeModal: onCloseModal,
-    activarFiltro: activarFiltro
-  })));
+    className: Filtro_module_default.a.icon_close_filtro + ` ${filtros.marca == marca.idMarca ? '' : 'd-none'}`,
+    onClick: () => limpiarFiltro('marca')
+  })))))));
 };
 
 const Filtro_mapStateToProps = ({
@@ -1824,14 +1691,21 @@ const Filtro_mapStateToProps = ({
 
 const mapDispatchToProps = {
   marcasTraerTodas,
-  productosFiltrarProductos,
-  productosTraerTodos,
   categoriasTraerTodas,
-  subcategoriaTraerTodas
+  subcategoriaTraerTodas,
+  aplicarFiltro,
+  quitarFiltro,
+  restablecerFiltros
 };
 /* harmony default export */ var components_Filtro = (Object(external_react_redux_["connect"])(Filtro_mapStateToProps, mapDispatchToProps)(Filtro));
 // EXTERNAL MODULE: ./src/components/Buscador/index.js
 var Buscador = __webpack_require__("t6HM");
+
+// EXTERNAL MODULE: external "next/router"
+var router_ = __webpack_require__("4Q3z");
+
+// EXTERNAL MODULE: ./src/components/BotonWhatsApp/index.js
+var BotonWhatsApp = __webpack_require__("WkNE");
 
 // CONCATENATED MODULE: ./pages/productos/[[...index]].js
 
@@ -1840,6 +1714,7 @@ var _index_jsx = external_react_default.a.createElement;
 
 
  //import BotonScrollTop from '../src/components/botonScrollToTop';
+
 
 
 
@@ -1875,7 +1750,7 @@ const ProductosPage = props => {
   }, _index_jsx(components_Productos, {
     location: asPath,
     query: query
-  }))), _index_jsx(Buscador["a" /* default */], null)));
+  }))), _index_jsx(Buscador["a" /* default */], null)), _index_jsx(BotonWhatsApp["a" /* default */], null));
 };
 
 ProductosPage.getInitialProps = async ({

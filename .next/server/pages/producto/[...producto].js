@@ -393,14 +393,15 @@ const ProductoSingle = props => {
       const {
         foto,
         peso,
-        precioUnidad,
+        precioFinal,
         tamaño,
         idSubProducto,
-        subProducto
+        subProducto,
+        stock
       } = props.subProductos[0];
-      guardarProductoEnState(foto, peso, precioUnidad, producto, tamaño, idSubProducto, marca, subProducto, idProducto);
+      guardarProductoEnState(foto, peso, precioFinal, producto, tamaño, idSubProducto, marca, subProducto, idProducto, stock);
     } else {
-      guardarProductoEnState(`${config["d" /* URL_CLOUD_STORAGE */]}/sin-imagen.png`, null, null, producto, null, null, marca, null, idProducto);
+      guardarProductoEnState(`${config["d" /* URL_CLOUD_STORAGE */]}/sin-imagen.png`, null, null, producto, null, null, marca, null, idProducto, null);
     }
   }, [props.producto]);
   const imagenes = []; //al vector de imagenes, le sumo las imagenes de los productos relacionados al mismo padre
@@ -434,7 +435,7 @@ const ProductoSingle = props => {
     }));
   };
 
-  const changePeso = (index, peso, precio, tamaño, idSubProducto, subProducto) => {
+  const changePeso = (index, peso, precio, tamaño, idSubProducto, subProducto, stock) => {
     let cajaPeso = document.getElementsByClassName(ProductoSingle_module_default.a.caja_cantidadKg);
 
     for (let index = 0; index < cajaPeso.length; index++) {
@@ -443,12 +444,13 @@ const ProductoSingle = props => {
 
     cajaPeso[index].classList.add(ProductoSingle_module_default.a.active);
 
-    if (!peso || !precio || !tamaño || !idSubProducto || !subProducto) {
+    if (!peso || !precio || !tamaño || !idSubProducto || !subProducto || !stock) {
       return setProductoData(_objectSpread(_objectSpread({}, productoData), {}, {
         peso: props.subProductos[0].peso,
-        precio: props.subProductos[0].precioUnidad,
+        precio: props.subProductos[0].precioFinal,
         idSubProducto: props.subProductos[0].idSubProducto,
-        subProducto: props.subProductos[0].subProducto
+        subProducto: props.subProductos[0].subProducto,
+        stock: props.subProductos[0].stock
       }));
     }
 
@@ -458,7 +460,8 @@ const ProductoSingle = props => {
       precio,
       tamaño,
       idSubProducto,
-      subProducto
+      subProducto,
+      stock
     }));
   };
 
@@ -471,18 +474,19 @@ const ProductoSingle = props => {
 
   const closeModalCarrito = () => setModalIsOpen(false);
 
-  const guardarProductoEnState = (foto, peso, precioUnidad, producto, tamaño, idSubProducto, marca, subProducto, idProducto) => {
+  const guardarProductoEnState = (foto, peso, precio, producto, tamaño, idSubProducto, marca, subProducto, idProducto, stock) => {
     setProductoData({
       producto,
       foto,
       peso,
       cantidad: 1,
-      precioUnidad,
       tamaño,
       idSubProducto,
       marca,
       subProducto,
-      idProducto
+      idProducto,
+      stock,
+      precio
     });
   };
 
@@ -504,7 +508,7 @@ const ProductoSingle = props => {
     className: ProductoSingle_module_default.a.indicador__precio
   }, ProductoSingle_jsx("p", null, "Precio"), ProductoSingle_jsx("span", {
     className: ProductoSingle_module_default.a.valor__precio
-  }, "$", productoData.precioUnidad)), ProductoSingle_jsx("div", {
+  }, "$", productoData.precio)), ProductoSingle_jsx("div", {
     className: ProductoSingle_module_default.a.indicador__cantidad
   }, ProductoSingle_jsx("p", {
     className: ProductoSingle_module_default.a.titulo__indicadorCantidad + ' ' + `text-center`
@@ -513,20 +517,20 @@ const ProductoSingle = props => {
   }, props.subProductos.map((mp, key) => key == 0 ? ProductoSingle_jsx("div", {
     key: key,
     className: ProductoSingle_module_default.a.caja_cantidadKg + ' ' + ProductoSingle_module_default.a.active,
-    onClick: () => changePeso(key, `${mp.peso}`, mp.precioUnidad, `${mp.tamaño}`, mp.idSubProducto, `${mp.subProducto}`)
+    onClick: () => changePeso(key, `${mp.peso}`, mp.precioFinal, `${mp.tamaño}`, mp.idSubProducto, `${mp.subProducto}`, mp.stock)
   }, ProductoSingle_jsx("p", {
     className: ProductoSingle_module_default.a.kilos
   }, mp.peso, " Kgs"), ProductoSingle_jsx("span", {
     className: ProductoSingle_module_default.a.precioDelKg
-  }, "$", productoData.precioUnidad)) : ProductoSingle_jsx("div", {
+  }, "$", mp.precioFinal)) : ProductoSingle_jsx("div", {
     key: key,
     className: ProductoSingle_module_default.a.caja_cantidadKg,
-    onClick: () => changePeso(key, `${mp.peso}`, mp.precioUnidad, `${mp.tamaño}`, mp.idSubProducto, `${mp.subProducto}`)
+    onClick: () => changePeso(key, `${mp.peso}`, mp.precioFinal, `${mp.tamaño}`, mp.idSubProducto, `${mp.subProducto}`, mp.stock)
   }, ProductoSingle_jsx("p", {
     className: ProductoSingle_module_default.a.kilos
   }, mp.peso, " Kgs"), ProductoSingle_jsx("span", {
     className: ProductoSingle_module_default.a.precioDelKg
-  }, "$", mp.precioUnidad)))), ProductoSingle_jsx("div", {
+  }, "$", mp.precioFinal)))), ProductoSingle_jsx("div", {
     className: "input-group mt-2"
   }, ProductoSingle_jsx("div", {
     className: "input-group-prepend",
@@ -546,9 +550,12 @@ const ProductoSingle = props => {
   }, "+"))))), props.loading ? ProductoSingle_jsx("div", {
     className: "text-center"
   }, ProductoSingle_jsx(Loader["a" /* default */], null)) : ProductoSingle_jsx("button", {
+    disabled: productoData.stock > 0 ? false : true,
     className: "boton bg-yellow",
     onClick: agregarCarrito
-  }, "Comprar")), !modalIsOpen ? null : ProductoSingle_jsx(Modal["a" /* default */], {
+  }, "Comprar"), productoData.stock > 0 ? null : ProductoSingle_jsx("div", {
+    className: "alert alert-danger my-2 text-center"
+  }, "Producto sin stock")), !modalIsOpen ? null : ProductoSingle_jsx(Modal["a" /* default */], {
     closeModal: closeModalCarrito
   }, ProductoSingle_jsx(Carrito["a" /* default */], null)));
 };
@@ -638,9 +645,13 @@ var Promociones = __webpack_require__("hCbx");
 // EXTERNAL MODULE: external "next/router"
 var router_ = __webpack_require__("4Q3z");
 
+// EXTERNAL MODULE: ./src/components/BotonWhatsApp/index.js
+var BotonWhatsApp = __webpack_require__("WkNE");
+
 // CONCATENATED MODULE: ./pages/producto/[...producto].js
 
 var _producto_jsx = external_react_default.a.createElement;
+
 
 
 
@@ -661,6 +672,8 @@ const Producto = props => {
   }, []);
 
   const getData = async () => {
+    props.restablecerFiltros();
+
     try {
       await props.traerPorId(props.idProducto);
     } catch (error) {
@@ -698,7 +711,7 @@ const Producto = props => {
       descripcion_basica: descripcion_basica
     })), _producto_jsx("div", {
       className: "container"
-    }, _producto_jsx(Promociones["a" /* default */], null)));
+    }, _producto_jsx(Promociones["a" /* default */], null)), _producto_jsx(BotonWhatsApp["a" /* default */], null));
   };
 
   return render();
@@ -1001,9 +1014,9 @@ const CardProducto = ({
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.cantidad + ` d-none`
   }, prd.peso, " KG") : null, __jsx("h3", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.precio + ' ' + `text-black`
-  }, "$", prd.precioUnidad)), __jsx("span", {
+  }, "$", prd.precioFinal)), prd.descuento ? __jsx("span", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.label__descuento + ' ' + `bg-red`
-  }, "15% Off")))) : __jsx("a", {
+  }, prd.descuento, "% Off") : null))) : __jsx("a", {
     href: `${_config_index__WEBPACK_IMPORTED_MODULE_4__[/* PUBLIC_URL */ "c"]}/producto/${Object(_helpers_index__WEBPACK_IMPORTED_MODULE_3__[/* slug */ "c"])(prd.producto)}/${prd.idProducto}`
   }, __jsx("div", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.container__producto + ' ' + `my-3`
@@ -1023,7 +1036,7 @@ const CardProducto = ({
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.cantidad + ` d-none`
   }, prd.peso, " KG"), __jsx("h3", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.precio + ' ' + `text-black`
-  }, "$", prd.precioUnidad)), __jsx("span", {
+  }, "$", prd.precioFinal)), __jsx("span", {
     className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.label__descuento + ' ' + `bg-red`
   }, "15% Off")));
 };
@@ -1050,15 +1063,28 @@ module.exports = require("classnames");
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return TRAER_TODOS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return TRAER_UNO; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return LOADING; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ERROR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return TRAER_PROMOCIONES; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return ORDENAR_PRODUCTOS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return FILTRANDO; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return LOADING_MAS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return TRAER_MAS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "u", function() { return TRAER_TODOS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "v", function() { return TRAER_UNO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return LOADING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return ERROR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "t", function() { return TRAER_PROMOCIONES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return ORDENAR_PRODUCTOS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return FILTRANDO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return LOADING_MAS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return TRAER_MAS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return TRAER_OFERTAS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return APLICAR_FILTRO_BUSCADOR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return APLICAR_FILTRO_SUBCATEGORIA; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return APLICAR_FILTRO_ORDEN; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return APLICAR_FILTRO_MARCA; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return APLICAR_FILTRO_CATEGORIA; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return ELIMINAR_FILTRO_BUSCADOR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return ELIMINAR_FILTRO_SUBCATEGORIA; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return ELIMINAR_FILTRO_ORDEN; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return ELIMINAR_FILTRO_MARCA; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return ELIMINAR_FILTRO_CATEGORIA; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return PRODUCTOS_RESTABLECER_FILTROS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return PRODUCTOS_PAGINACION; });
 const TRAER_TODOS = 'producto_traer_todos';
 const LOADING = 'producto_loading';
 const ERROR = 'producto_error';
@@ -1068,6 +1094,19 @@ const FILTRANDO = 'producto_filtrando';
 const TRAER_UNO = 'producto_traeruno';
 const LOADING_MAS = 'producto_loading_mas';
 const TRAER_MAS = 'producto_traer_mas';
+const TRAER_OFERTAS = 'producto_traer_ofertas';
+const APLICAR_FILTRO_CATEGORIA = 'producto_filtro_categoria';
+const APLICAR_FILTRO_SUBCATEGORIA = 'producto_filtro_subcategoria';
+const APLICAR_FILTRO_MARCA = 'producto_filtro_marca';
+const APLICAR_FILTRO_BUSCADOR = 'producto_filtro_buscador';
+const APLICAR_FILTRO_ORDEN = 'producto_filtro_orden';
+const ELIMINAR_FILTRO_CATEGORIA = 'producto_eliminar_filtro_categoria';
+const ELIMINAR_FILTRO_SUBCATEGORIA = 'producto_eliminar_filtro_subcategoria';
+const ELIMINAR_FILTRO_MARCA = 'producto_eliminar_filtro_marca';
+const ELIMINAR_FILTRO_BUSCADOR = 'producto_eliminar_filtro_buscador';
+const ELIMINAR_FILTRO_ORDEN = 'producto_eliminar_filtro_orden';
+const PRODUCTOS_RESTABLECER_FILTROS = 'productos_restablecer_filtros';
+const PRODUCTOS_PAGINACION = 'productos_paginacion';
 
 
 /***/ }),
@@ -1176,155 +1215,325 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "traerTodos", function() { return traerTodos; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "traerProductos", function() { return traerProductos; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "traerMas", function() { return traerMas; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "traerPorId", function() { return traerPorId; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "traerPromociones", function() { return traerPromociones; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ordenarProductos", function() { return ordenarProductos; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "filtrarProductos", function() { return filtrarProductos; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "aplicarFiltro", function() { return aplicarFiltro; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "quitarFiltro", function() { return quitarFiltro; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "restablecerFiltros", function() { return restablecerFiltros; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updatePaginacion", function() { return updatePaginacion; });
 /* harmony import */ var _config_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("rOcY");
 /* harmony import */ var _helpers_index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("pRT7");
 /* harmony import */ var _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("LwYX");
 
 
 
-const traerTodos = ({
-  desde,
-  limiteDesktop,
-  limiteMobile
-}) => async dispatch => {
+const traerProductos = () => async (dispatch, getState) => {
   dispatch({
-    type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* LOADING */ "c"]
+    type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* LOADING */ "m"]
   });
 
   try {
-    let url = `${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/producto?desde=${desde}&limite=${limiteDesktop}`;
+    //obtengo el estado actualizado de los filtros
+    const {
+      filtrando,
+      filtros: {
+        categoria,
+        subcategoria,
+        marca,
+        search,
+        orden
+      },
+      paginacion: {
+        desde,
+        limiteMobile,
+        limiteDesktop
+      }
+    } = getState().productosReducer;
+    let url = `${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}`;
 
-    if (Object(_helpers_index__WEBPACK_IMPORTED_MODULE_1__[/* isMobile */ "b"])()) {
-      url = `${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/producto?desde=${desde}&limite=${limiteMobile}`;
-    }
+    if (!filtrando) {
+      url += `/producto?desde=${desde}&limite=${Object(_helpers_index__WEBPACK_IMPORTED_MODULE_1__[/* isMobile */ "b"])() ? limiteMobile : limiteDesktop}`;
+    } else {
+      if (search.trim() !== "") {
+        url += `/buscar?busqueda=${search}`;
+      } else {
+        url += `/productos/filtro/filtrar?desde=${desde}&limite=${Object(_helpers_index__WEBPACK_IMPORTED_MODULE_1__[/* isMobile */ "b"])() ? limiteMobile : limiteDesktop}&`;
+
+        if (categoria) {
+          url += `categoria=${categoria}&`;
+        }
+
+        if (subcategoria) {
+          url += `subcategoria=${subcategoria}&`;
+        }
+
+        if (marca) {
+          url += `marca=${marca}`;
+        }
+      }
+    } // console.log(url);
+
 
     return fetch(url).then(res => res.json()).then(data => {
       dispatch({
-        type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* TRAER_TODOS */ "h"],
+        type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* TRAER_TODOS */ "u"],
         payload: data.data
       });
     });
   } catch (error) {
     dispatch({
-      type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* ERROR */ "a"],
+      type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* ERROR */ "k"],
       payload: error
     });
   }
 };
-const traerMas = (rangoProducto, prevProductos) => async dispatch => {
+const traerMas = () => async (dispatch, getState) => {
   dispatch({
-    type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* LOADING_MAS */ "d"]
+    type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* LOADING_MAS */ "n"]
   });
 
   try {
-    let url = `${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/producto?desde=${rangoProducto.desde}&limite=${rangoProducto.limiteDesktop}`;
+    //obtengo el estado actualizado de los filtros
+    const {
+      productos,
+      filtrando,
+      filtros: {
+        categoria,
+        subcategoria,
+        marca,
+        search,
+        orden
+      },
+      paginacion: {
+        desde,
+        limiteMobile,
+        limiteDesktop
+      }
+    } = getState().productosReducer;
+    let url = `${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}`;
 
-    if (Object(_helpers_index__WEBPACK_IMPORTED_MODULE_1__[/* isMobile */ "b"])()) {
-      url = `${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/producto?desde=${rangoProducto.desde}&limite=${rangoProducto.limiteMobile}`;
+    if (!filtrando) {
+      url += `/producto?desde=${desde}&limite=${Object(_helpers_index__WEBPACK_IMPORTED_MODULE_1__[/* isMobile */ "b"])() ? limiteMobile : limiteDesktop}`;
+    } else {
+      if (search.trim() !== "") {
+        url += `/buscar?busqueda=${search}`;
+      } else {
+        url += `/productos/filtro/filtrar?desde=${desde}&limite=${Object(_helpers_index__WEBPACK_IMPORTED_MODULE_1__[/* isMobile */ "b"])() ? limiteMobile : limiteDesktop}&`;
+
+        if (categoria) {
+          url += `categoria=${categoria}&`;
+        }
+
+        if (subcategoria) {
+          url += `subcategoria=${subcategoria}&`;
+        }
+
+        if (marca) {
+          url += `marca=${marca}`;
+        }
+      }
     }
 
     return fetch(url).then(res => res.json()).then(data => {
-      let updateproductos = [...prevProductos, ...data.data];
+      let updateproductos = [...productos, ...data.data];
       dispatch({
-        type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* TRAER_MAS */ "f"],
+        type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* TRAER_MAS */ "r"],
         payload: updateproductos
       });
     });
   } catch (error) {
     dispatch({
-      type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* ERROR */ "a"],
+      type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* ERROR */ "k"],
       payload: error
     });
   }
 };
 const traerPorId = id => async dispatch => {
   dispatch({
-    type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* LOADING */ "c"]
+    type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* LOADING */ "m"]
   });
 
   try {
     return fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/producto/${id}`).then(res => res.json()).then(data => {
       dispatch({
-        type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* TRAER_UNO */ "i"],
+        type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* TRAER_UNO */ "v"],
         payload: data
       });
     });
   } catch (error) {
     dispatch({
-      type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* ERROR */ "a"],
+      type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* ERROR */ "k"],
       payload: error
     });
   }
 };
 const traerPromociones = () => async dispatch => {
   dispatch({
-    type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* LOADING */ "c"]
+    type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* LOADING */ "m"]
   });
 
   try {
-    let url = `${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/producto?desde=1&limite=8`;
+    let url = `${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/subproductos/ofertas?desde=0&limite=9`;
 
     if (Object(_helpers_index__WEBPACK_IMPORTED_MODULE_1__[/* isMobile */ "b"])()) {
-      url = `${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/producto?desde=1&limite=4`;
+      url = `${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/subproductos/ofertas?desde=0&limite=6`;
     }
 
     return fetch(url).then(res => res.json()).then(data => {
       dispatch({
-        type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* TRAER_PROMOCIONES */ "g"],
+        type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* TRAER_OFERTAS */ "s"],
         payload: data.data
       });
     });
   } catch (error) {
     dispatch({
-      type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* ERROR */ "a"],
-      payload: error
+      type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* ERROR */ "k"],
+      payload: error.message
     });
   }
 };
 const ordenarProductos = productosOrdenados => async dispatch => {
   dispatch({
-    type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* LOADING */ "c"]
+    type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* LOADING */ "m"]
   });
 
   try {
     dispatch({
-      type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* ORDENAR_PRODUCTOS */ "e"],
+      type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* ORDENAR_PRODUCTOS */ "o"],
       payload: productosOrdenados
     });
   } catch (error) {
     dispatch({
-      type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* ERROR */ "a"],
+      type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* ERROR */ "k"],
       payload: error
     });
   }
 };
-const filtrarProductos = url => async dispatch => {
-  //console.log('filtrando');
-  //console.log(url);
-  dispatch({
-    type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* LOADING */ "c"]
-  });
-
-  try {
-    let urlFiltro = url.includes('buscar?busqueda') ? `productos/${url}` : `productos/filtro/${url}`;
-    return fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/${urlFiltro}`).then(res => res.json()).then(data => {
+const aplicarFiltro = (tipo, valor) => dispatch => {
+  switch (tipo) {
+    case 'categoria':
       dispatch({
-        type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* FILTRANDO */ "b"],
-        payload: data.data
+        type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* APLICAR_FILTRO_CATEGORIA */ "b"],
+        payload: valor
       });
-    });
-  } catch (error) {
-    dispatch({
-      type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* ERROR */ "a"],
-      payload: error
-    });
+      break;
+
+    case 'subcategoria':
+      dispatch({
+        type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* APLICAR_FILTRO_SUBCATEGORIA */ "e"],
+        payload: valor
+      });
+      break;
+
+    case 'marca':
+      dispatch({
+        type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* APLICAR_FILTRO_MARCA */ "c"],
+        payload: valor
+      });
+      break;
+
+    case 'search':
+      dispatch({
+        type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* APLICAR_FILTRO_BUSCADOR */ "a"],
+        payload: valor
+      });
+      break;
+
+    case 'orden':
+      dispatch({
+        type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* APLICAR_FILTRO_ORDEN */ "d"],
+        payload: valor
+      });
+      break;
+
+    default:
+      break;
   }
+};
+const quitarFiltro = tipo => (dispatch, getState) => {
+  const {
+    filtros: {
+      categoria,
+      subcategoria,
+      marca,
+      search,
+      orden
+    }
+  } = getState().productosReducer;
+
+  switch (tipo) {
+    case 'categoria':
+      if (!subcategoria && !marca) {
+        dispatch({
+          type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* PRODUCTOS_RESTABLECER_FILTROS */ "q"]
+        });
+      } else {
+        dispatch({
+          type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* ELIMINAR_FILTRO_CATEGORIA */ "g"]
+        });
+      }
+
+      break;
+
+    case 'subcategoria':
+      if (!categoria && !marca) {
+        dispatch({
+          type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* PRODUCTOS_RESTABLECER_FILTROS */ "q"]
+        });
+      } else {
+        dispatch({
+          type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* ELIMINAR_FILTRO_SUBCATEGORIA */ "j"]
+        });
+      }
+
+      break;
+
+    case 'marca':
+      if (!categoria && !subcategoria) {
+        dispatch({
+          type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* PRODUCTOS_RESTABLECER_FILTROS */ "q"]
+        });
+      } else {
+        dispatch({
+          type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* ELIMINAR_FILTRO_MARCA */ "h"]
+        });
+      }
+
+      break;
+
+    case 'buscador':
+      dispatch({
+        type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* ELIMINAR_FILTRO_BUSCADOR */ "f"]
+      });
+      break;
+
+    case 'orden':
+      dispatch({
+        type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* ELIMINAR_FILTRO_ORDEN */ "i"]
+      });
+      break;
+
+    default:
+      break;
+  }
+};
+const restablecerFiltros = () => dispatch => {
+  dispatch({
+    type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* PRODUCTOS_RESTABLECER_FILTROS */ "q"]
+  });
+};
+const updatePaginacion = () => (dispatch, getState) => {
+  const {
+    paginacion
+  } = getState().productosReducer;
+  let desdeUpdated = Object(_helpers_index__WEBPACK_IMPORTED_MODULE_1__[/* isMobile */ "b"])() ? paginacion.desde + paginacion.limiteMobile : paginacion.desde + paginacion.limiteDesktop;
+  dispatch({
+    type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* PRODUCTOS_PAGINACION */ "p"],
+    payload: desdeUpdated
+  });
 };
 
 /***/ }),
@@ -1339,6 +1548,36 @@ function _interopRequireDefault(obj) {
 }
 
 module.exports = _interopRequireDefault;
+
+/***/ }),
+
+/***/ "WkNE":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("cDcd");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("rOcY");
+var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
+
+
+
+const BotonWhatsapp = () => {
+  const handleClick = () => {
+    window.location.assign(`https://api.whatsapp.com/send?phone=+542304347008&text=Consulta desde pagina web`);
+  };
+
+  return __jsx("div", {
+    className: "btn-wpp",
+    onClick: handleClick
+  }, __jsx("img", {
+    src: `${_config__WEBPACK_IMPORTED_MODULE_1__[/* URL_CLOUD_STORAGE */ "d"]}/assets/wpp.png`,
+    className: "img-fluid",
+    alt: "WhatsApp de Oliver PetShop"
+  }));
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (BotonWhatsapp);
 
 /***/ }),
 
@@ -2971,7 +3210,7 @@ const Promociones = props => {
   }, []);
 
   const getPromociones = () => {
-    if (props.promociones.length === 0) {
+    if (props.ofertas.length === 0) {
       props.traerPromociones();
     }
   };
@@ -2982,8 +3221,8 @@ const Promociones = props => {
     className: "text-black"
   }, "Nuestras Promociones"), __jsx("div", {
     className: "row"
-  }, props.loading ? __jsx(_Loader_index__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"], null) : props.promociones.map(prd => __jsx("div", {
-    key: prd.idProducto,
+  }, props.loading ? __jsx(_Loader_index__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"], null) : props.ofertas.map(prd => __jsx("div", {
+    key: prd.idSubProducto,
     className: "col-6 col-md-4 col-xl-3"
   }, __jsx(_CardProducto_index__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"], {
     imagen: prd.foto,
@@ -3085,18 +3324,20 @@ const Header = ({
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return TRAER_PRODUCTOS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return TRAER_PRODUCTOS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AGREGAR_PRODUCTO; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return ELIMINAR_PRODUCTO; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return LOADING; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return ERROR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return CAMBIAR_MEDIO_DE_PAGO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return ELIMINAR_PRODUCTO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return LOADING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return ERROR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return CAMBIAR_MEDIO_DE_PAGO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return CAMBIAR_COSTO_ENVIO; });
 const TRAER_PRODUCTOS = 'carrito_traer_todos_carrito';
 const AGREGAR_PRODUCTO = 'carrito_agregar_producto';
 const ELIMINAR_PRODUCTO = 'carrito_eliminar_producto';
 const LOADING = 'carrito_loading';
 const ERROR = 'carrito_error';
 const CAMBIAR_MEDIO_DE_PAGO = 'carrito_cambiar_medio_de_pago';
+const CAMBIAR_COSTO_ENVIO = 'carrito_costo_envio';
 
 
 /***/ }),
@@ -3285,12 +3526,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "agregarProducto", function() { return agregarProducto; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "eliminarProducto", function() { return eliminarProducto; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cambiarMedioDePago", function() { return cambiarMedioDePago; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setCostoEnvio", function() { return setCostoEnvio; });
 /* harmony import */ var _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("kqUl");
 //import {API} from '../config/index';
 
 const traerProductos = () => async dispatch => {
   dispatch({
-    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* LOADING */ "e"]
+    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* LOADING */ "f"]
   });
 
   try {
@@ -3304,19 +3546,19 @@ const traerProductos = () => async dispatch => {
       subtotal
     };
     return dispatch({
-      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* TRAER_PRODUCTOS */ "f"],
+      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* TRAER_PRODUCTOS */ "g"],
       payload: payloadData
     });
   } catch (error) {
     return dispatch({
-      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ERROR */ "d"],
+      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ERROR */ "e"],
       payload: error
     });
   }
 };
 const agregarProducto = producto => async (dispatch, getState) => {
   dispatch({
-    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* LOADING */ "e"]
+    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* LOADING */ "f"]
   });
 
   try {
@@ -3361,14 +3603,14 @@ const agregarProducto = producto => async (dispatch, getState) => {
     }, 1500);
   } catch (error) {
     dispatch({
-      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ERROR */ "d"],
+      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ERROR */ "e"],
       payload: error
     });
   }
 };
 const eliminarProducto = idSubProducto => async (dispatch, getState) => {
   dispatch({
-    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* LOADING */ "e"]
+    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* LOADING */ "f"]
   });
 
   try {
@@ -3390,20 +3632,26 @@ const eliminarProducto = idSubProducto => async (dispatch, getState) => {
       subtotal
     };
     dispatch({
-      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ELIMINAR_PRODUCTO */ "c"],
+      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ELIMINAR_PRODUCTO */ "d"],
       payload: payloadData
     });
   } catch (error) {
     dispatch({
-      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ERROR */ "d"],
+      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ERROR */ "e"],
       payload: error
     });
   }
 };
 const cambiarMedioDePago = idMedioDePago => dispatch => {
   return dispatch({
-    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* CAMBIAR_MEDIO_DE_PAGO */ "b"],
+    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* CAMBIAR_MEDIO_DE_PAGO */ "c"],
     payload: idMedioDePago
+  });
+};
+const setCostoEnvio = costo => dispatch => {
+  return dispatch({
+    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* CAMBIAR_COSTO_ENVIO */ "b"],
+    payload: costo
   });
 };
 
@@ -3553,7 +3801,7 @@ const Carrito = props => {
     className: _Carrito_module_css__WEBPACK_IMPORTED_MODULE_4___default.a.footer__carrito
   }, __jsx("section", {
     className: _Carrito_module_css__WEBPACK_IMPORTED_MODULE_4___default.a.section__carrito__total + ' ' + `d-flex justify-content-between`
-  }, __jsx("p", null, "Subtotal"), __jsx("span", {
+  }, __jsx("p", null, "Total"), __jsx("span", {
     className: _Carrito_module_css__WEBPACK_IMPORTED_MODULE_4___default.a.subtotal__carrito
   }, "$", totalCarrito)), props.productos.length == 0 ? null : __jsx("button", {
     className: "boton bg-yellow",
