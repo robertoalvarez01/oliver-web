@@ -1074,6 +1074,7 @@ const productosReducer_INITIAL_STATE = {
   error: null,
   ofertas: [],
   filtrando: false,
+  sinResultados: false,
   paginacion: {
     limiteMobile: 10,
     limiteDesktop: 20,
@@ -1090,25 +1091,25 @@ const productosReducer_INITIAL_STATE = {
 
 const subproductosReducer = (state = productosReducer_INITIAL_STATE, action) => {
   switch (action.type) {
-    case productosTypes["u" /* TRAER_TODOS */]:
+    case productosTypes["v" /* TRAER_TODOS */]:
       return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
         productos: action.payload,
         loading: false
       });
 
-    case productosTypes["r" /* TRAER_MAS */]:
+    case productosTypes["s" /* TRAER_MAS */]:
       return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
         productos: action.payload,
         loading_mas: false
       });
 
-    case productosTypes["v" /* TRAER_UNO */]:
+    case productosTypes["w" /* TRAER_UNO */]:
       return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
         producto: action.payload,
         loading: false
       });
 
-    case productosTypes["t" /* TRAER_PROMOCIONES */]:
+    case productosTypes["u" /* TRAER_PROMOCIONES */]:
       return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
         promociones: action.payload,
         loading: false
@@ -1142,16 +1143,25 @@ const subproductosReducer = (state = productosReducer_INITIAL_STATE, action) => 
         error: action.payload
       });
 
-    case productosTypes["s" /* TRAER_OFERTAS */]:
+    case productosTypes["t" /* TRAER_OFERTAS */]:
       return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
         ofertas: action.payload,
         loading: false,
         error: null
       });
 
+    case productosTypes["r" /* PRODUCTOS_SIN_RESULTADO */]:
+      return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
+        loading: false,
+        error: null,
+        sinResultados: true,
+        loading_mas: false
+      });
+
     case productosTypes["q" /* PRODUCTOS_RESTABLECER_FILTROS */]:
       return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
         filtrando: false,
+        sinResultados: false,
         filtros: {
           categoria: null,
           subcategoria: null,
@@ -1167,6 +1177,7 @@ const subproductosReducer = (state = productosReducer_INITIAL_STATE, action) => 
     case productosTypes["b" /* APLICAR_FILTRO_CATEGORIA */]:
       return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
         filtrando: true,
+        sinResultados: false,
         filtros: productosReducer_objectSpread(productosReducer_objectSpread({}, state.filtros), {}, {
           categoria: action.payload
         }),
@@ -1178,6 +1189,7 @@ const subproductosReducer = (state = productosReducer_INITIAL_STATE, action) => 
     case productosTypes["e" /* APLICAR_FILTRO_SUBCATEGORIA */]:
       return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
         filtrando: true,
+        sinResultados: false,
         filtros: productosReducer_objectSpread(productosReducer_objectSpread({}, state.filtros), {}, {
           subcategoria: action.payload
         }),
@@ -1189,6 +1201,7 @@ const subproductosReducer = (state = productosReducer_INITIAL_STATE, action) => 
     case productosTypes["c" /* APLICAR_FILTRO_MARCA */]:
       return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
         filtrando: true,
+        sinResultados: false,
         filtros: productosReducer_objectSpread(productosReducer_objectSpread({}, state.filtros), {}, {
           marca: action.payload
         }),
@@ -1200,6 +1213,7 @@ const subproductosReducer = (state = productosReducer_INITIAL_STATE, action) => 
     case productosTypes["a" /* APLICAR_FILTRO_BUSCADOR */]:
       return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
         filtrando: true,
+        sinResultados: false,
         filtros: productosReducer_objectSpread(productosReducer_objectSpread({}, state.filtros), {}, {
           search: action.payload
         }),
@@ -2645,16 +2659,16 @@ module.exports = require("react-places-autocomplete");
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "u", function() { return TRAER_TODOS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "v", function() { return TRAER_UNO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "v", function() { return TRAER_TODOS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "w", function() { return TRAER_UNO; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return LOADING; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return ERROR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "t", function() { return TRAER_PROMOCIONES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "u", function() { return TRAER_PROMOCIONES; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return ORDENAR_PRODUCTOS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return FILTRANDO; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return LOADING_MAS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return TRAER_MAS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return TRAER_OFERTAS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return TRAER_MAS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "t", function() { return TRAER_OFERTAS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return APLICAR_FILTRO_BUSCADOR; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return APLICAR_FILTRO_SUBCATEGORIA; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return APLICAR_FILTRO_ORDEN; });
@@ -2667,6 +2681,7 @@ module.exports = require("react-places-autocomplete");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return ELIMINAR_FILTRO_CATEGORIA; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return PRODUCTOS_RESTABLECER_FILTROS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return PRODUCTOS_PAGINACION; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return PRODUCTOS_SIN_RESULTADO; });
 const TRAER_TODOS = 'producto_traer_todos';
 const LOADING = 'producto_loading';
 const ERROR = 'producto_error';
@@ -2689,6 +2704,7 @@ const ELIMINAR_FILTRO_BUSCADOR = 'producto_eliminar_filtro_buscador';
 const ELIMINAR_FILTRO_ORDEN = 'producto_eliminar_filtro_orden';
 const PRODUCTOS_RESTABLECER_FILTROS = 'productos_restablecer_filtros';
 const PRODUCTOS_PAGINACION = 'productos_paginacion';
+const PRODUCTOS_SIN_RESULTADO = 'productos_sin_resultado';
 
 
 /***/ }),

@@ -545,21 +545,71 @@ module.exports = __webpack_require__("YRs9");
 
 /***/ }),
 
+/***/ "CBiN":
+/***/ (function(module, exports) {
+
+module.exports = require("sweetalert2");
+
+/***/ }),
+
 /***/ "CI6Y":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("cDcd");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("QUvA");
-/* harmony import */ var _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("YFqc");
-/* harmony import */ var next_link__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(next_link__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _helpers_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("pRT7");
-/* harmony import */ var _config_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("rOcY");
-/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("4Q3z");
-/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_5__);
-var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
+
+// EXTERNAL MODULE: external "react"
+var external_react_ = __webpack_require__("cDcd");
+var external_react_default = /*#__PURE__*/__webpack_require__.n(external_react_);
+
+// EXTERNAL MODULE: ./src/components/CardProducto/CardProducto.module.css
+var CardProducto_module = __webpack_require__("QUvA");
+var CardProducto_module_default = /*#__PURE__*/__webpack_require__.n(CardProducto_module);
+
+// EXTERNAL MODULE: ./node_modules/next/link.js
+var next_link = __webpack_require__("YFqc");
+var link_default = /*#__PURE__*/__webpack_require__.n(next_link);
+
+// EXTERNAL MODULE: ./helpers/index.js
+var helpers = __webpack_require__("pRT7");
+
+// EXTERNAL MODULE: ./config/index.js
+var config = __webpack_require__("rOcY");
+
+// EXTERNAL MODULE: external "next/router"
+var router_ = __webpack_require__("4Q3z");
+var router_default = /*#__PURE__*/__webpack_require__.n(router_);
+
+// EXTERNAL MODULE: external "styled-jsx/style"
+var style_ = __webpack_require__("HJQg");
+var style_default = /*#__PURE__*/__webpack_require__.n(style_);
+
+// CONCATENATED MODULE: ./src/components/Loader/ImagenLoader.js
+
+var __jsx = external_react_default.a.createElement;
+
+
+const ImagenLoader = () => {
+  return __jsx("div", {
+    className: "jsx-3911565700" + " " + "text-center"
+  }, __jsx("div", {
+    className: "jsx-3911565700" + " " + "lds-ellipsis"
+  }, __jsx("div", {
+    className: "jsx-3911565700"
+  }), __jsx("div", {
+    className: "jsx-3911565700"
+  }), __jsx("div", {
+    className: "jsx-3911565700"
+  }), __jsx("div", {
+    className: "jsx-3911565700"
+  })), __jsx(style_default.a, {
+    id: "3911565700"
+  }, [".lds-ellipsis.jsx-3911565700{display:inline-block;position:relative;width:80px;height:80px;}", ".lds-ellipsis.jsx-3911565700 div.jsx-3911565700{position:absolute;top:33px;width:13px;height:13px;border-radius:50%;background:#FFB347;-webkit-animation-timing-function:cubic-bezier(0,1,1,0);animation-timing-function:cubic-bezier(0,1,1,0);}", ".lds-ellipsis.jsx-3911565700 div.jsx-3911565700:nth-child(1){left:8px;-webkit-animation:lds-ellipsis1-jsx-3911565700 0.6s infinite;animation:lds-ellipsis1-jsx-3911565700 0.6s infinite;}", ".lds-ellipsis.jsx-3911565700 div.jsx-3911565700:nth-child(2){left:8px;-webkit-animation:lds-ellipsis2-jsx-3911565700 0.6s infinite;animation:lds-ellipsis2-jsx-3911565700 0.6s infinite;}", ".lds-ellipsis.jsx-3911565700 div.jsx-3911565700:nth-child(3){left:32px;-webkit-animation:lds-ellipsis2-jsx-3911565700 0.6s infinite;animation:lds-ellipsis2-jsx-3911565700 0.6s infinite;}", ".lds-ellipsis.jsx-3911565700 div.jsx-3911565700:nth-child(4){left:56px;-webkit-animation:lds-ellipsis3-jsx-3911565700 0.6s infinite;animation:lds-ellipsis3-jsx-3911565700 0.6s infinite;}", "@-webkit-keyframes lds-ellipsis1-jsx-3911565700{0%{-webkit-transform:scale(0);-ms-transform:scale(0);transform:scale(0);}100%{-webkit-transform:scale(1);-ms-transform:scale(1);transform:scale(1);}}", "@keyframes lds-ellipsis1-jsx-3911565700{0%{-webkit-transform:scale(0);-ms-transform:scale(0);transform:scale(0);}100%{-webkit-transform:scale(1);-ms-transform:scale(1);transform:scale(1);}}", "@-webkit-keyframes lds-ellipsis3-jsx-3911565700{0%{-webkit-transform:scale(1);-ms-transform:scale(1);transform:scale(1);}100%{-webkit-transform:scale(0);-ms-transform:scale(0);transform:scale(0);}}", "@keyframes lds-ellipsis3-jsx-3911565700{0%{-webkit-transform:scale(1);-ms-transform:scale(1);transform:scale(1);}100%{-webkit-transform:scale(0);-ms-transform:scale(0);transform:scale(0);}}", "@-webkit-keyframes lds-ellipsis2-jsx-3911565700{0%{-webkit-transform:translate(0,0);-ms-transform:translate(0,0);transform:translate(0,0);}100%{-webkit-transform:translate(24px,0);-ms-transform:translate(24px,0);transform:translate(24px,0);}}", "@keyframes lds-ellipsis2-jsx-3911565700{0%{-webkit-transform:translate(0,0);-ms-transform:translate(0,0);transform:translate(0,0);}100%{-webkit-transform:translate(24px,0);-ms-transform:translate(24px,0);transform:translate(24px,0);}}"]));
+};
+
+/* harmony default export */ var Loader_ImagenLoader = (ImagenLoader);
+// CONCATENATED MODULE: ./src/components/CardProducto/index.js
+var CardProducto_jsx = external_react_default.a.createElement;
+
 
 
 
@@ -574,11 +624,15 @@ const CardProducto = ({
   const {
     0: isProductoDetalle,
     1: setIsProductoDetalle
-  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false);
-  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+  } = Object(external_react_["useState"])(false);
+  const {
+    0: loadingImagen,
+    1: setLoadingImagen
+  } = Object(external_react_["useState"])(true);
+  Object(external_react_["useEffect"])(() => {
     const {
       router
-    } = next_router__WEBPACK_IMPORTED_MODULE_5___default.a;
+    } = router_default.a;
 
     if (router.route == '/producto/[...producto]') {
       setIsProductoDetalle(true);
@@ -588,7 +642,7 @@ const CardProducto = ({
   const procesarNombre = nombre => {
     let nombreProcesado = nombre;
 
-    if (Object(_helpers_index__WEBPACK_IMPORTED_MODULE_3__[/* isMobile */ "b"])()) {
+    if (Object(helpers["b" /* isMobile */])()) {
       if (nombreProcesado.length > 25) {
         nombreProcesado = nombre.substring(0, 22) + '...';
       }
@@ -601,54 +655,62 @@ const CardProducto = ({
     return nombreProcesado;
   };
 
-  return !isProductoDetalle ? __jsx(next_link__WEBPACK_IMPORTED_MODULE_2___default.a, {
-    href: `${_config_index__WEBPACK_IMPORTED_MODULE_4__[/* PUBLIC_URL */ "c"]}/producto/${Object(_helpers_index__WEBPACK_IMPORTED_MODULE_3__[/* slug */ "c"])(prd.producto)}/${prd.idProducto}`
-  }, __jsx("a", null, __jsx("div", {
-    className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.container__producto + ' ' + `my-3`
-  }, __jsx("section", {
-    className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.header__card
-  }, __jsx("img", {
+  const handleLoad = e => {
+    let imagen = e.target;
+    setLoadingImagen(false);
+    imagen.classList.remove('d-none');
+  };
+
+  return !isProductoDetalle ? CardProducto_jsx(link_default.a, {
+    href: `${config["c" /* PUBLIC_URL */]}/producto/${Object(helpers["c" /* slug */])(prd.producto)}/${prd.idProducto}`
+  }, CardProducto_jsx("a", null, CardProducto_jsx("div", {
+    className: CardProducto_module_default.a.container__producto + ' ' + `my-3`
+  }, CardProducto_jsx("section", {
+    className: CardProducto_module_default.a.header__card
+  }, CardProducto_jsx("img", {
     src: imagen,
     alt: "prd",
-    className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.img
-  })), __jsx("section", {
-    className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.body__card
-  }, __jsx("span", {
+    className: CardProducto_module_default.a.img + ' d-none',
+    onLoad: handleLoad
+  }), loadingImagen ? CardProducto_jsx(Loader_ImagenLoader, null) : null), CardProducto_jsx("section", {
+    className: CardProducto_module_default.a.body__card
+  }, CardProducto_jsx("span", {
     className: "d-block text-muted"
-  }, prd.marca), __jsx("h6", {
-    className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.nombre__producto + ' ' + `text-muted`
-  }, procesarNombre(prd.producto)), prd.peso != null ? __jsx("span", {
-    className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.cantidad + ` d-none`
-  }, prd.peso, " KG") : null, __jsx("h3", {
-    className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.precio + ' ' + `text-black`
-  }, "$", prd.precioFinal)), prd.descuento ? __jsx("span", {
-    className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.label__descuento + ' ' + `bg-red`
-  }, prd.descuento, "% Off") : null))) : __jsx("a", {
-    href: `${_config_index__WEBPACK_IMPORTED_MODULE_4__[/* PUBLIC_URL */ "c"]}/producto/${Object(_helpers_index__WEBPACK_IMPORTED_MODULE_3__[/* slug */ "c"])(prd.producto)}/${prd.idProducto}`
-  }, __jsx("div", {
-    className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.container__producto + ' ' + `my-3`
-  }, __jsx("section", {
-    className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.header__card
-  }, __jsx("img", {
+  }, prd.marca), CardProducto_jsx("h6", {
+    className: CardProducto_module_default.a.nombre__producto + ' ' + `text-muted`
+  }, procesarNombre(prd.producto)), prd.peso != null ? CardProducto_jsx("span", {
+    className: CardProducto_module_default.a.cantidad + ` d-none`
+  }, prd.peso, " KG") : null, CardProducto_jsx("h3", {
+    className: CardProducto_module_default.a.precio + ' ' + `text-black`
+  }, "$", prd.precioFinal)), prd.descuento ? CardProducto_jsx("span", {
+    className: CardProducto_module_default.a.label__descuento + ' ' + `bg-red`
+  }, prd.descuento, "% Off") : null))) : CardProducto_jsx("a", {
+    href: `${config["c" /* PUBLIC_URL */]}/producto/${Object(helpers["c" /* slug */])(prd.producto)}/${prd.idProducto}`
+  }, CardProducto_jsx("div", {
+    className: CardProducto_module_default.a.container__producto + ' ' + `my-3`
+  }, CardProducto_jsx("section", {
+    className: CardProducto_module_default.a.header__card
+  }, CardProducto_jsx("img", {
     src: imagen,
     alt: "prd",
-    className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.img
-  })), __jsx("section", {
-    className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.body__card
-  }, __jsx("span", {
-    className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.label__marca + ' ' + `d-block text-muted`
-  }, prd.marca), __jsx("h6", {
-    className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.nombre__producto + ' ' + `text-muted`
-  }, procesarNombre(prd.producto)), __jsx("span", {
-    className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.cantidad + ` d-none`
-  }, prd.peso, " KG"), __jsx("h3", {
-    className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.precio + ' ' + `text-black`
-  }, "$", prd.precioFinal)), __jsx("span", {
-    className: _CardProducto_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.label__descuento + ' ' + `bg-red`
+    className: CardProducto_module_default.a.img + ' d-none',
+    onLoad: handleLoad
+  }), loadingImagen ? CardProducto_jsx(Loader_ImagenLoader, null) : null), CardProducto_jsx("section", {
+    className: CardProducto_module_default.a.body__card
+  }, CardProducto_jsx("span", {
+    className: CardProducto_module_default.a.label__marca + ' ' + `d-block text-muted`
+  }, prd.marca), CardProducto_jsx("h6", {
+    className: CardProducto_module_default.a.nombre__producto + ' ' + `text-muted`
+  }, procesarNombre(prd.producto)), CardProducto_jsx("span", {
+    className: CardProducto_module_default.a.cantidad + ` d-none`
+  }, prd.peso, " KG"), CardProducto_jsx("h3", {
+    className: CardProducto_module_default.a.precio + ' ' + `text-black`
+  }, "$", prd.precioFinal)), CardProducto_jsx("span", {
+    className: CardProducto_module_default.a.label__descuento + ' ' + `bg-red`
   }, "15% Off")));
 };
 
-/* harmony default export */ __webpack_exports__["a"] = (CardProducto);
+/* harmony default export */ var components_CardProducto = __webpack_exports__["a"] = (CardProducto);
 
 /***/ }),
 
@@ -677,16 +739,16 @@ const ERROR = 'marca_error';
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "u", function() { return TRAER_TODOS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "v", function() { return TRAER_UNO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "v", function() { return TRAER_TODOS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "w", function() { return TRAER_UNO; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return LOADING; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return ERROR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "t", function() { return TRAER_PROMOCIONES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "u", function() { return TRAER_PROMOCIONES; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return ORDENAR_PRODUCTOS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return FILTRANDO; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return LOADING_MAS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return TRAER_MAS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return TRAER_OFERTAS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return TRAER_MAS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "t", function() { return TRAER_OFERTAS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return APLICAR_FILTRO_BUSCADOR; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return APLICAR_FILTRO_SUBCATEGORIA; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return APLICAR_FILTRO_ORDEN; });
@@ -699,6 +761,7 @@ const ERROR = 'marca_error';
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return ELIMINAR_FILTRO_CATEGORIA; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return PRODUCTOS_RESTABLECER_FILTROS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return PRODUCTOS_PAGINACION; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return PRODUCTOS_SIN_RESULTADO; });
 const TRAER_TODOS = 'producto_traer_todos';
 const LOADING = 'producto_loading';
 const ERROR = 'producto_error';
@@ -721,6 +784,7 @@ const ELIMINAR_FILTRO_BUSCADOR = 'producto_eliminar_filtro_buscador';
 const ELIMINAR_FILTRO_ORDEN = 'producto_eliminar_filtro_orden';
 const PRODUCTOS_RESTABLECER_FILTROS = 'productos_restablecer_filtros';
 const PRODUCTOS_PAGINACION = 'productos_paginacion';
+const PRODUCTOS_SIN_RESULTADO = 'productos_sin_resultado';
 
 
 /***/ }),
@@ -838,7 +902,7 @@ const traerProductos = () => async (dispatch, getState) => {
       url += `/producto?desde=${desde}&limite=${Object(_helpers_index__WEBPACK_IMPORTED_MODULE_1__[/* isMobile */ "b"])() ? limiteMobile : limiteDesktop}`;
     } else {
       if (search.trim() !== "") {
-        url += `/buscar?busqueda=${search}`;
+        url += `/productos/buscar?busqueda=${search}&desde=${desde}&limite=${Object(_helpers_index__WEBPACK_IMPORTED_MODULE_1__[/* isMobile */ "b"])() ? limiteMobile : limiteDesktop}`;
       } else {
         url += `/productos/filtro/filtrar?desde=${desde}&limite=${Object(_helpers_index__WEBPACK_IMPORTED_MODULE_1__[/* isMobile */ "b"])() ? limiteMobile : limiteDesktop}&`;
 
@@ -859,7 +923,7 @@ const traerProductos = () => async (dispatch, getState) => {
 
     return fetch(url).then(res => res.json()).then(data => {
       dispatch({
-        type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* TRAER_TODOS */ "u"],
+        type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* TRAER_TODOS */ "v"],
         payload: data.data
       });
     });
@@ -918,9 +982,16 @@ const traerMas = () => async (dispatch, getState) => {
     }
 
     return fetch(url).then(res => res.json()).then(data => {
+      if (data.data.length === 0) {
+        dispatch({
+          type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* PRODUCTOS_SIN_RESULTADO */ "r"]
+        });
+        return;
+      }
+
       let updateproductos = [...productos, ...data.data];
       dispatch({
-        type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* TRAER_MAS */ "r"],
+        type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* TRAER_MAS */ "s"],
         payload: updateproductos
       });
     });
@@ -939,7 +1010,7 @@ const traerPorId = id => async dispatch => {
   try {
     return fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/producto/${id}`).then(res => res.json()).then(data => {
       dispatch({
-        type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* TRAER_UNO */ "v"],
+        type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* TRAER_UNO */ "w"],
         payload: data
       });
     });
@@ -964,7 +1035,7 @@ const traerPromociones = () => async dispatch => {
 
     return fetch(url).then(res => res.json()).then(data => {
       dispatch({
-        type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* TRAER_OFERTAS */ "s"],
+        type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* TRAER_OFERTAS */ "t"],
         payload: data.data
       });
     });
@@ -1251,7 +1322,7 @@ var Head = __webpack_require__("k2JI");
 var style_ = __webpack_require__("HJQg");
 var style_default = /*#__PURE__*/__webpack_require__.n(style_);
 
-// EXTERNAL MODULE: ./src/components/CardProducto/index.js
+// EXTERNAL MODULE: ./src/components/CardProducto/index.js + 1 modules
 var CardProducto = __webpack_require__("CI6Y");
 
 // EXTERNAL MODULE: external "react-redux"
@@ -1299,6 +1370,8 @@ var __jsx = external_react_default.a.createElement;
 
 
 
+const Swal = __webpack_require__("CBiN");
+
 const Productos = props => {
   const {
     filtros,
@@ -1308,7 +1381,8 @@ const Productos = props => {
   const {
     0: filtro,
     1: setFiltro
-  } = Object(external_react_["useState"])('');
+  } = Object(external_react_["useState"])(''); //loop para mostrar filtro en pantalla
+
   Object(external_react_["useEffect"])(() => {
     if (props.location !== '/productos') {
       if (props.query.search) {
@@ -1317,24 +1391,19 @@ const Productos = props => {
         mostrarSolapaFiltro(props.query.index[0]);
       }
     }
-  }, []);
+  }, []); //loop para paginacion
+
   Object(external_react_["useEffect"])(() => {
     if (paginacion.desde > 0) {
       props.traerMas();
     }
   }, [paginacion]);
   Object(external_react_["useEffect"])(() => {
-    if (props.location !== '/productos') {
-      //si se filtra directamente por categoria,marca,etc desde otra pagina.. esperar a que se aplique el filtro para no hacer dos peticiones.
-      if (filtrando) {
-        getProductos();
-      } else {
-        //request para cuando se restablecen los filtros en pagina 'productos/royal-canin' por ejemplo.
-        if (props.productos.length > 0) {
-          getProductos();
-        }
-      }
-    } else {
+    // veo si se esta filtrando para no hacer request innecesarios
+    if (props.location !== '/productos' && filtrando) {
+      getProductos();
+      return;
+    } else if (props.location === '/productos') {
       getProductos();
     }
   }, [filtros]);
@@ -1387,96 +1456,62 @@ const Productos = props => {
     setFiltro('');
   }
 
-  const handleScrollFeedProductos = event => {
-    let feedProductos = document.querySelector('.feedProductos');
-    let botonCargarMas = document.querySelector('.btn-vermas');
-    let alturaTotalFeed = feedProductos.scrollHeight;
-    let alturaActual = feedProductos.scrollTop;
-    let porcentajeSuficiente = alturaTotalFeed * 80 / 100;
-
-    if (Object(helpers["b" /* isMobile */])()) {
-      porcentajeSuficiente = alturaTotalFeed * 70 / 100;
-    } else {
-      if (alturaTotalFeed == 2060) {
-        porcentajeSuficiente = alturaTotalFeed * 65 / 100;
-      }
-
-      ;
-    }
-
-    if (botonCargarMas) {
-      if (alturaActual >= porcentajeSuficiente) {
-        return botonCargarMas.classList.remove('d-none');
-      } else {
-        return botonCargarMas.classList.add('d-none');
-      }
-    }
-  };
-
-  const renderBotonCargarMas = () => {
-    let minimoPosteos = 20;
-
-    if (Object(helpers["b" /* isMobile */])()) {
-      minimoPosteos = 10;
-    }
-
-    if (props.productos && props.productos.length >= minimoPosteos) {
-      return __jsx("button", {
-        className: "boton bg-yellow btn-vermas d-none",
-        onClick: cargarMas
-      }, props.loading_mas ? 'Obteniendo productos...' : 'Cargar más');
-    }
-  };
-
   return __jsx(external_react_default.a.Fragment, null, props.loading || !props.productos ? __jsx("div", {
-    className: "jsx-2778668712" + " " + "col-12 text-center"
-  }, __jsx(Loader["a" /* default */], null)) : __jsx(external_react_default.a.Fragment, null, filtro !== '' ? __jsx("span", {
+    className: "jsx-3898475978" + " " + "col-12 text-center"
+  }, __jsx(Loader["a" /* default */], null)) : __jsx(external_react_default.a.Fragment, null, filtro !== '' && props.filtrando ? __jsx("span", {
     id: "label__filtro-busqueda",
-    className: "jsx-2778668712" + " " + (Productos_module_default.a.label__filtro_busqueda || "")
+    className: "jsx-3898475978" + " " + (Productos_module_default.a.label__filtro_busqueda || "")
   }, __jsx(react_fontawesome_["FontAwesomeIcon"], {
     icon: free_solid_svg_icons_["faSearch"]
   }), __jsx("span", {
-    className: "jsx-2778668712" + " " + (Productos_module_default.a.item_filtro_busqueda || "")
+    className: "jsx-3898475978" + " " + (Productos_module_default.a.item_filtro_busqueda || "")
   }, __jsx("span", {
     id: "valor-busqueda",
-    className: "jsx-2778668712" + " " + "text-mutedd"
+    className: "jsx-3898475978" + " " + "text-mutedd"
   }, filtro))) : null, __jsx("div", {
     style: {
       padding: '0px 15px'
     },
-    className: "jsx-2778668712" + " " + "row justify-content-between my-2 align-items-center"
+    className: "jsx-3898475978" + " " + "row justify-content-between my-2 align-items-center"
   }, __jsx("span", {
-    className: "jsx-2778668712" + " " + "text-muted"
+    className: "jsx-3898475978" + " " + "text-muted"
   }, __jsx("b", {
-    className: "jsx-2778668712" + " " + "txt-yellow"
+    className: "jsx-3898475978" + " " + "txt-yellow"
   }, props.productos.length), " productos encontrados"), __jsx("div", {
-    className: "jsx-2778668712" + " " + (Productos_module_default.a.ordenarProductos + ' ' + `d-flex align-items-center` || false)
+    className: "jsx-3898475978" + " " + (Productos_module_default.a.ordenarProductos + ' ' + `d-flex align-items-center` || false)
   }, __jsx("span", {
-    className: "jsx-2778668712" + " " + "txt-yellow text-bold mr-2"
+    className: "jsx-3898475978" + " " + "txt-yellow text-bold mr-2"
   }, "Ordenar por: "), __jsx("select", {
     onChange: handleChangeOrdenProductos,
-    className: "jsx-2778668712" + " " + (Productos_module_default.a.select_ordenar || "")
+    className: "jsx-3898475978" + " " + (Productos_module_default.a.select_ordenar || "")
   }, __jsx("option", {
     value: "desc",
-    className: "jsx-2778668712"
+    className: "jsx-3898475978"
   }, "Mayor precio"), __jsx("option", {
     value: "asc",
-    className: "jsx-2778668712"
+    className: "jsx-3898475978"
   }, "Menor precio"))), __jsx("button", {
     onClick: showFiltrosMobile,
-    className: "jsx-2778668712" + " " + (`boton bg-yellow mt-3 d-none` + ' ' + Productos_module_default.a.boton_filtrar_mobile || false)
+    className: "jsx-3898475978" + " " + (`boton bg-yellow mt-3 d-none` + ' ' + Productos_module_default.a.boton_filtrar_mobile || false)
   }, "Filtrar")), __jsx("div", {
-    onScroll: handleScrollFeedProductos,
-    className: "jsx-2778668712" + " " + "row feedProductos"
+    className: "jsx-3898475978" + " " + "row feedProductos"
   }, !props.productos ? null : props.productos.map(prd => __jsx("div", {
     key: prd.idProducto,
-    className: "jsx-2778668712" + " " + "col-6 col-md-3"
+    className: "jsx-3898475978" + " " + "col-6 col-md-3"
   }, __jsx(CardProducto["a" /* default */], {
     imagen: prd.foto,
     prd: prd
-  })))), renderBotonCargarMas()), __jsx(style_default.a, {
-    id: "2778668712"
-  }, [".feedProductos.jsx-2778668712{height:75vh;overflow-y:scroll;}", ".btn-vermas.jsx-2778668712{position:relative;top:12px;}", ".feedProductos.jsx-2778668712::-webkit-scrollbar{width:8px;height:5px;}", ".feedProductos.jsx-2778668712::-webkit-scrollbar-thumb{background:#FFB347;border-radius:4px;}", ".feedProductos.jsx-2778668712::-webkit-scrollbar-thumb.jsx-2778668712:hover{background:#b3b3b3;box-shadow:0 0 2px 1px rgba(0,0,0,0.2);}", "@media(max-width:768px){.feedProductos.jsx-2778668712{height:65vh;overflow-y:scroll;}.feedProductos.jsx-2778668712::-webkit-scrollbar{width:8px;height:10px;}}"]));
+  }))), props.sinResultados ? __jsx("div", {
+    style: {
+      height: '50px'
+    },
+    className: "jsx-3898475978" + " " + "alert alert-warning text-center w-100"
+  }, "No se encontraron m\xE1s resultados") : __jsx("button", {
+    onClick: cargarMas,
+    className: "jsx-3898475978" + " " + "boton bg-yellow btn-vermas"
+  }, props.loading_mas ? 'Obteniendo productos...' : 'Cargar más'))), __jsx(style_default.a, {
+    id: "3898475978"
+  }, [".feedProductos.jsx-3898475978{height:75vh;overflow-y:scroll;}", ".btn-vermas.jsx-3898475978{position:relative;height:40px;}", ".feedProductos.jsx-3898475978::-webkit-scrollbar{width:8px;height:5px;}", ".feedProductos.jsx-3898475978::-webkit-scrollbar-thumb{background:#FFB347;border-radius:4px;}", ".feedProductos.jsx-3898475978::-webkit-scrollbar-thumb.jsx-3898475978:hover{background:#b3b3b3;box-shadow:0 0 2px 1px rgba(0,0,0,0.2);}", "@media(max-width:768px){.feedProductos.jsx-3898475978{height:68vh;overflow-y:scroll;}.feedProductos.jsx-3898475978::-webkit-scrollbar{width:8px;height:10px;}}"]));
 };
 
 const mapStateToProps = reducers => {
@@ -1605,6 +1640,10 @@ const Filtro = props => {
     document.getElementById('iconFiltroContainer').classList.toggle(Filtro_module_default.a.rotar);
   };
 
+  const handleRestablecer = () => {
+    props.restablecerFiltros();
+  };
+
   const {
     filtrando,
     filtros
@@ -1619,7 +1658,7 @@ const Filtro = props => {
     icon: free_solid_svg_icons_["faChevronRight"]
   })), Filtro_jsx("div", null, props.categoriasReducer.categorias.length == 0 || props.subcategoriaReducer.subcategorias.length == 0 || props.marcasReducer.marcas.length == 0 ? Filtro_jsx(Loader["a" /* default */], null) : Filtro_jsx(external_react_default.a.Fragment, null, filtrando ? Filtro_jsx("button", {
     className: "boton bg-yellow mb-3",
-    onClick: props.restablecerFiltros
+    onClick: handleRestablecer
   }, Filtro_jsx(react_fontawesome_["FontAwesomeIcon"], {
     icon: free_solid_svg_icons_["faBroom"]
   }), " Limpiar Filtros") : null, Filtro_jsx(react_fontawesome_["FontAwesomeIcon"], {
