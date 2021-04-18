@@ -1376,7 +1376,7 @@ const traerMas = () => async (dispatch, getState) => {
       url += `/producto?desde=${desde}&limite=${Object(_helpers_index__WEBPACK_IMPORTED_MODULE_1__[/* isMobile */ "b"])() ? limiteMobile : limiteDesktop}`;
     } else {
       if (search.trim() !== "") {
-        url += `/buscar?busqueda=${search}`;
+        url += `/productos/buscar?busqueda=${search}&desde=${desde}&limite=${Object(_helpers_index__WEBPACK_IMPORTED_MODULE_1__[/* isMobile */ "b"])() ? limiteMobile : limiteDesktop}`;
       } else {
         url += `/productos/filtro/filtrar?desde=${desde}&limite=${Object(_helpers_index__WEBPACK_IMPORTED_MODULE_1__[/* isMobile */ "b"])() ? limiteMobile : limiteDesktop}&`;
 
