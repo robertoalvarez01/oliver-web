@@ -1390,6 +1390,8 @@ const Productos = props => {
       } else {
         mostrarSolapaFiltro(props.query.index[0]);
       }
+    } else {
+      getProductos();
     }
   }, []); //loop para paginacion
 
@@ -1400,11 +1402,9 @@ const Productos = props => {
   }, [paginacion]);
   Object(external_react_["useEffect"])(() => {
     // veo si se esta filtrando para no hacer request innecesarios
-    if (props.location !== '/productos' && filtrando) {
+    if (filtrando) {
       getProductos();
       return;
-    } else if (props.location === '/productos') {
-      getProductos();
     }
   }, [filtros]);
 
@@ -1456,6 +1456,20 @@ const Productos = props => {
     setFiltro('');
   }
 
+  const renderBotonCargarMas = () => {
+    if (Object(helpers["b" /* isMobile */])()) {
+      return __jsx("button", {
+        className: `boton bg-yellow btn-vermas ${props.productos.length < paginacion.limiteMobile ? 'd-none' : ''}`,
+        onClick: cargarMas
+      }, props.loading_mas ? 'Obteniendo productos...' : 'Cargar más');
+    }
+
+    return __jsx("button", {
+      className: `boton bg-yellow btn-vermas ${props.productos.length < paginacion.limiteDesktop ? 'd-none' : ''}`,
+      onClick: cargarMas
+    }, props.loading_mas ? 'Obteniendo productos...' : 'Cargar más');
+  };
+
   return __jsx(external_react_default.a.Fragment, null, props.loading || !props.productos ? __jsx("div", {
     className: "jsx-3898475978" + " " + "col-12 text-center"
   }, __jsx(Loader["a" /* default */], null)) : __jsx(external_react_default.a.Fragment, null, filtro !== '' && props.filtrando ? __jsx("span", {
@@ -1506,10 +1520,7 @@ const Productos = props => {
       height: '50px'
     },
     className: "jsx-3898475978" + " " + "alert alert-warning text-center w-100"
-  }, "No se encontraron m\xE1s resultados") : __jsx("button", {
-    onClick: cargarMas,
-    className: "jsx-3898475978" + " " + "boton bg-yellow btn-vermas"
-  }, props.loading_mas ? 'Obteniendo productos...' : 'Cargar más'))), __jsx(style_default.a, {
+  }, "No se encontraron m\xE1s resultados") : renderBotonCargarMas())), __jsx(style_default.a, {
     id: "3898475978"
   }, [".feedProductos.jsx-3898475978{height:75vh;overflow-y:scroll;}", ".btn-vermas.jsx-3898475978{position:relative;height:40px;}", ".feedProductos.jsx-3898475978::-webkit-scrollbar{width:8px;height:5px;}", ".feedProductos.jsx-3898475978::-webkit-scrollbar-thumb{background:#FFB347;border-radius:4px;}", ".feedProductos.jsx-3898475978::-webkit-scrollbar-thumb.jsx-3898475978:hover{background:#b3b3b3;box-shadow:0 0 2px 1px rgba(0,0,0,0.2);}", "@media(max-width:768px){.feedProductos.jsx-3898475978{height:68vh;overflow-y:scroll;}.feedProductos.jsx-3898475978::-webkit-scrollbar{width:8px;height:10px;}}"]));
 };
@@ -1577,7 +1588,8 @@ const {
 const {
   aplicarFiltro,
   quitarFiltro,
-  restablecerFiltros
+  restablecerFiltros,
+  traerProductos
 } = productosActions;
 const {
   traerTodas: categoriasTraerTodas
@@ -1642,6 +1654,7 @@ const Filtro = props => {
 
   const handleRestablecer = () => {
     props.restablecerFiltros();
+    props.traerProductos();
   };
 
   const {
@@ -1734,7 +1747,8 @@ const mapDispatchToProps = {
   subcategoriaTraerTodas,
   aplicarFiltro,
   quitarFiltro,
-  restablecerFiltros
+  restablecerFiltros,
+  traerProductos
 };
 /* harmony default export */ var components_Filtro = (Object(external_react_redux_["connect"])(Filtro_mapStateToProps, mapDispatchToProps)(Filtro));
 // EXTERNAL MODULE: ./src/components/Buscador/index.js

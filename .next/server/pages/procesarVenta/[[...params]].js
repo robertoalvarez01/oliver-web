@@ -456,7 +456,7 @@ const traerProductos = () => async dispatch => {
     const productos = await JSON.parse(localStorage.getItem('carrito'));
     let subtotal = 0;
     productos.forEach(prd => {
-      subtotal += parseInt(prd.precioUnidad * prd.cantidad);
+      subtotal += parseInt(prd.precio * prd.cantidad);
     });
     let payloadData = {
       productos,
@@ -542,7 +542,7 @@ const eliminarProducto = idSubProducto => async (dispatch, getState) => {
     const prds = JSON.parse(localStorage.getItem('carrito'));
     let subtotal = 0;
     prds.forEach(prd => {
-      subtotal += parseInt(prd.precioUnidad * prd.cantidad);
+      subtotal += parseInt(prd.precio * prd.cantidad);
     });
     let payloadData = {
       newProductos,
