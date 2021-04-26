@@ -1029,7 +1029,7 @@ const CardProducto = ({
     let nombreProcesado = nombre;
 
     if (Object(helpers["b" /* isMobile */])()) {
-      if (nombreProcesado.length > 25) {
+      if (nombreProcesado.length > 20) {
         nombreProcesado = nombre.substring(0, 22) + '...';
       }
     } else {
@@ -1249,11 +1249,11 @@ module.exports = {
 	"header__card": "CardProducto_header__card__2snWG",
 	"img": "CardProducto_img__2JjZn",
 	"body__card": "CardProducto_body__card__2yHOq",
+	"precio": "CardProducto_precio__3WgOa",
 	"cantidad": "CardProducto_cantidad__M84Dc",
 	"label__descuento": "CardProducto_label__descuento__1fclU",
 	"nombre__producto": "CardProducto_nombre__producto__3yzZP",
-	"btn_comprar": "CardProducto_btn_comprar__3B3do",
-	"precio": "CardProducto_precio__3WgOa"
+	"btn_comprar": "CardProducto_btn_comprar__3B3do"
 };
 
 
@@ -3905,9 +3905,8 @@ module.exports = {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return PUBLIC_URL; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return URL_CLOUD_STORAGE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return GOOGLE_CLIENT_ID; });
-const API = 'https://api.oliverpetshop.com.ar'; //const PUBLIC_URL = 'http://localhost:3000';
-
-const PUBLIC_URL = 'https://developers.oliverpetshop.com.ar';
+const API = 'https://api.oliverpetshop.com.ar';
+const PUBLIC_URL = "https://developers.oliverpetshop.com.ar";
 const URL_CLOUD_STORAGE = 'https://storage.googleapis.com/web-oliver';
 const GOOGLE_CLIENT_ID = '85508910542-jfaoom4l84q0a9cdmeg382vi9hl986j1.apps.googleusercontent.com';
 
