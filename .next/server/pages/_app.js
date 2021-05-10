@@ -93,6 +93,20 @@ module.exports =
 /************************************************************************/
 /******/ ({
 
+/***/ "/GLu":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return CAMBIAR_MEDIO_DE_PAGO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ACTUALIZAR_DATOS_ENVIO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return TRAER_INFO; });
+const CAMBIAR_MEDIO_DE_PAGO = 'ventas_cambiar_medio_de_pago';
+const ACTUALIZAR_DATOS_ENVIO = 'ventas_actualizar_envio';
+const TRAER_INFO = 'ventas_traer_info_venta';
+
+
+/***/ }),
+
 /***/ "/Q2I":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -181,6 +195,13 @@ module.exports = __webpack_require__("1TCz");
 
 /***/ }),
 
+/***/ "06NB":
+/***/ (function(module, exports) {
+
+module.exports = require("slugify");
+
+/***/ }),
+
 /***/ "0Bsm":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -235,6 +256,7 @@ module.exports = {
 	"wrapper__navbar": "Navbar_wrapper__navbar__14EZG",
 	"lupa_buscador": "Navbar_lupa_buscador__3_vvJ",
 	"input-group-text": "Navbar_input-group-text__2_pHE",
+	"search_mobile": "Navbar_search_mobile__1klW1",
 	"buscador": "Navbar_buscador__3L3ob",
 	"header__collapsed_nav": "Navbar_header__collapsed_nav__3rPMs",
 	"close_btn_menu": "Navbar_close_btn_menu__3jnG0",
@@ -680,8 +702,58 @@ var Filtro_module_default = /*#__PURE__*/__webpack_require__.n(Filtro_module);
 // EXTERNAL MODULE: ./src/components/formModificarPw/index.js
 var formModificarPw = __webpack_require__("6Jgp");
 
+// CONCATENATED MODULE: ./src/components/Buscador/form.js
+
+var form_jsx = external_react_default.a.createElement;
+
+
+
+const FormBuscadorMobile = () => {
+  const {
+    0: buscador,
+    1: setBuscador
+  } = Object(external_react_["useState"])('');
+  const location = Object(router_["useRouter"])();
+
+  const handleChangeBuscador = event => setBuscador(event.target.value);
+
+  const handleSubmit = event => {
+    event.preventDefault();
+    if (buscador.trim() == '') return false;
+    document.getElementsByTagName('body')[0].style.overflowY = 'scroll';
+
+    if (location.pathname == '/') {
+      return router_default.a.push(`/productos?search=${buscador}`);
+    }
+
+    return window.location.assign(`/productos?search=${buscador}`);
+  };
+
+  return form_jsx(external_react_default.a.Fragment, null, form_jsx("form", {
+    onSubmit: handleSubmit,
+    className: "jsx-194702073" + " " + "form-group mt-4"
+  }, form_jsx("input", {
+    type: "text",
+    placeholder: "\xBFQu\xE9 andas buscando?",
+    onChange: handleChangeBuscador,
+    required: true,
+    className: "jsx-194702073" + " " + "form-control"
+  }), form_jsx("button", {
+    type: "submit",
+    className: "jsx-194702073" + " " + "boton bg-yellow mt-3"
+  }, "Buscar")), form_jsx(style_default.a, {
+    id: "194702073"
+  }, [".boton__float__search.jsx-194702073{position:fixed;top:85%;right:4%;display:block;padding:7px;width:40px;height:40px;text-align:center;border-radius:20px;border:1px solid #FFB347;box-shadow:0px 2px 1px -1px rgba(228,224,224,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);display:none;}", "@media(max-width:768px){.boton__float__search.jsx-194702073{display:block;}}"]));
+};
+
+/* harmony default export */ var Buscador_form = (FormBuscadorMobile);
+// EXTERNAL MODULE: ./helpers/index.js
+var helpers = __webpack_require__("pRT7");
+
 // CONCATENATED MODULE: ./src/components/Navbar/index.js
 var Navbar_jsx = external_react_default.a.createElement;
+
+
 
 
 
@@ -723,6 +795,10 @@ const Navbar = props => {
   const {
     0: resetPassword,
     1: setResetPassword
+  } = Object(external_react_["useState"])(false);
+  const {
+    0: mostrarBuscadorMobile,
+    1: setMostrarBuscadorMobile
   } = Object(external_react_["useState"])(false);
   const {
     0: modalIsOpen,
@@ -801,6 +877,7 @@ const Navbar = props => {
     if (resetPassword) return Navbar_jsx(formModificarPw["a" /* default */], {
       withEmail: true
     });
+    if (mostrarBuscadorMobile) return Navbar_jsx(Buscador_form, null);
   };
 
   const cerrarSesion = async () => {
@@ -812,6 +889,21 @@ const Navbar = props => {
 
   const toggle = () => setOpen(!dropdownOpen);
 
+  const showModalBuscador = () => {
+    document.getElementsByTagName('body')[0].style.overflowY = 'hidden';
+    login ? setLogin(false) : null;
+    register ? setRegister(false) : null; //si el menu esta abierto, lo cierro.
+
+    setCarrito(false);
+    setMostrarBuscadorMobile(true);
+    setModalIsOpen(true);
+  };
+
+  const navegar = (path, e = null) => {
+    router_default.a.push(path);
+    path == '/' && Object(helpers["b" /* isMobile */])() && e && e.path ? null : toggleMenu();
+  };
+
   return Navbar_jsx(external_react_default.a.Fragment, null, Navbar_jsx("div", {
     className: Navbar_module_default.a.navbar + ' ' + `sticky-top`
   }, Navbar_jsx("div", {
@@ -820,13 +912,18 @@ const Navbar = props => {
     className: "row ml-0 w-100"
   }, Navbar_jsx("div", {
     className: Navbar_module_default.a.container__logo
-  }, Navbar_jsx(link_default.a, {
-    href: "/"
-  }, Navbar_jsx("a", null, Navbar_jsx("img", {
+  }, Navbar_jsx("img", {
     src: `${config["d" /* URL_CLOUD_STORAGE */]}/static/Perro.png`,
     className: Navbar_module_default.a.logo + ' ' + `img-fluid`,
-    alt: "Oliver pet shop"
-  })))), Navbar_jsx("span", {
+    alt: "Oliver pet shop",
+    onClick: () => navegar('/', event)
+  })), Navbar_jsx("span", {
+    className: Navbar_module_default.a.search_mobile,
+    onClick: showModalBuscador
+  }, Navbar_jsx(react_fontawesome_["FontAwesomeIcon"], {
+    icon: free_solid_svg_icons_["faSearch"],
+    className: Navbar_module_default.a.txt__item_menu
+  })), Navbar_jsx("span", {
     className: Navbar_module_default.a.boton__menu + ' ' + Navbar_module_default.a.btn_carrito + ' ' + Navbar_module_default.a.carrito_mobile,
     onClick: showModalCarrito
   }, Navbar_jsx(react_fontawesome_["FontAwesomeIcon"], {
@@ -898,37 +995,31 @@ const Navbar = props => {
     className: Navbar_module_default.a.main__collapsed
   }, Navbar_jsx("ul", {
     className: Navbar_module_default.a.list__menu__collapsed
-  }, Navbar_jsx(link_default.a, {
-    href: "/",
-    onClick: toggleMenu
-  }, Navbar_jsx("a", null, Navbar_jsx("li", {
-    className: Navbar_module_default.a.item__menu__collapsed
+  }, Navbar_jsx("li", {
+    className: Navbar_module_default.a.item__menu__collapsed,
+    onClick: () => navegar('/')
   }, Navbar_jsx(react_fontawesome_["FontAwesomeIcon"], {
     icon: free_solid_svg_icons_["faHome"],
     className: Navbar_module_default.a.icon__itemMenu__collapsed
   }), Navbar_jsx("span", {
     className: Navbar_module_default.a.label__item__menu
-  }, "Inicio")))), Navbar_jsx(link_default.a, {
-    href: "/productos",
-    onClick: toggleMenu
-  }, Navbar_jsx("a", null, Navbar_jsx("li", {
-    className: Navbar_module_default.a.item__menu__collapsed
+  }, "Inicio")), Navbar_jsx("li", {
+    className: Navbar_module_default.a.item__menu__collapsed,
+    onClick: () => navegar('/productos')
   }, Navbar_jsx(react_fontawesome_["FontAwesomeIcon"], {
     icon: free_solid_svg_icons_["faPiggyBank"],
     className: Navbar_module_default.a.icon__itemMenu__collapsed
   }), Navbar_jsx("span", {
     className: Navbar_module_default.a.label__item__menu
-  }, "Productos")))), props.logueado && props.usuario ? Navbar_jsx(external_react_default.a.Fragment, null, Navbar_jsx(link_default.a, {
-    href: `${config["c" /* PUBLIC_URL */]}/perfil`,
-    onClick: toggleMenu
-  }, Navbar_jsx("a", null, Navbar_jsx("li", {
-    className: Navbar_module_default.a.item__menu__collapsed
+  }, "Productos")), props.logueado && props.usuario ? Navbar_jsx(external_react_default.a.Fragment, null, Navbar_jsx("li", {
+    className: Navbar_module_default.a.item__menu__collapsed,
+    onClick: () => navegar('/perfil')
   }, Navbar_jsx(react_fontawesome_["FontAwesomeIcon"], {
     icon: free_solid_svg_icons_["faUser"],
     className: Navbar_module_default.a.icon__itemMenu__collapsed
   }), Navbar_jsx("span", {
     className: Navbar_module_default.a.label__item__menu
-  }, "Mi perfil")))), Navbar_jsx("li", {
+  }, "Mi perfil")), Navbar_jsx("li", {
     className: Navbar_module_default.a.item__menu__collapsed,
     onClick: cerrarSesion
   }, Navbar_jsx(react_fontawesome_["FontAwesomeIcon"], {
@@ -1312,65 +1403,50 @@ function carritoReducer_defineProperty(obj, key, value) { if (key in obj) { Obje
 
 const carritoReducer_INITIAL_STATE = {
   productos: [],
-  porcentaje_descuento: 0,
-  costoEnvio: 0,
-  descuento: 0,
-  subtotal: 0,
+  cantidad: 0,
   total: 0,
   loading: false,
-  error: null,
-  idMedioPago: '1'
+  error: null
 };
 
 const carritoReducer = (state = carritoReducer_INITIAL_STATE, action) => {
   switch (action.type) {
-    case carritoTypes["g" /* TRAER_PRODUCTOS */]:
+    case carritoTypes["e" /* TRAER_PRODUCTOS */]:
       return carritoReducer_objectSpread(carritoReducer_objectSpread({}, state), {}, {
         productos: action.payload.productos,
+        cantidad: action.payload.cantidad,
+        total: action.payload.total,
         loading: false,
-        error: null,
-        subtotal: action.payload.subtotal,
-        total: action.payload.subtotal + state.costoEnvio
+        error: null
       });
 
     case carritoTypes["a" /* AGREGAR_PRODUCTO */]:
       return carritoReducer_objectSpread(carritoReducer_objectSpread({}, state), {}, {
         productos: action.payload.listProductosUpgrade,
+        cantidad: action.payload.cantidad,
+        total: action.payload.total,
         loading: false,
-        error: null,
-        subtotal: action.payload.subtotal,
-        total: action.payload.subtotal + state.costoEnvio
+        error: null
       });
 
-    case carritoTypes["d" /* ELIMINAR_PRODUCTO */]:
+    case carritoTypes["b" /* ELIMINAR_PRODUCTO */]:
       return carritoReducer_objectSpread(carritoReducer_objectSpread({}, state), {}, {
         productos: action.payload.newProductos,
+        cantidad: action.payload.cantidad,
+        total: action.payload.total,
         loading: false,
-        error: null,
-        subtotal: action.payload.subtotal,
-        total: action.payload.subtotal + state.costoEnvio
+        error: null
       });
 
-    case carritoTypes["c" /* CAMBIAR_MEDIO_DE_PAGO */]:
-      return carritoReducer_objectSpread(carritoReducer_objectSpread({}, state), {}, {
-        idMedioPago: action.payload
-      });
-
-    case carritoTypes["f" /* LOADING */]:
+    case carritoTypes["d" /* LOADING */]:
       return carritoReducer_objectSpread(carritoReducer_objectSpread({}, state), {}, {
         loading: true
       });
 
-    case carritoTypes["e" /* ERROR */]:
+    case carritoTypes["c" /* ERROR */]:
       return carritoReducer_objectSpread(carritoReducer_objectSpread({}, state), {}, {
         error: action.payload,
         loading: false
-      });
-
-    case carritoTypes["b" /* CAMBIAR_COSTO_ENVIO */]:
-      return carritoReducer_objectSpread(carritoReducer_objectSpread({}, state), {}, {
-        costoEnvio: action.payload,
-        total: state.subtotal + action.payload
       });
 
     default:
@@ -1549,7 +1625,11 @@ function enviosReducer_defineProperty(obj, key, value) { if (key in obj) { Objec
 
 
 const enviosReducer_INITIAL_STATE = {
-  data: null,
+  tipos: {
+    normal: true,
+    express: false,
+    local: false
+  },
   loading: false,
   error: null
 };
@@ -1557,11 +1637,43 @@ const enviosReducer_INITIAL_STATE = {
 const enviosReducer = (state = enviosReducer_INITIAL_STATE, action) => {
   switch (action.type) {
     case enviosTypes["b" /* GUARDAR */]:
-      return {
-        data: action.payload,
-        loading: false,
-        error: null
-      };
+      switch (action.payload) {
+        case 'normal':
+          return {
+            tipos: {
+              normal: true,
+              express: false,
+              local: false
+            },
+            loading: false,
+            error: null
+          };
+
+        case 'express':
+          return {
+            tipos: {
+              normal: false,
+              express: true,
+              local: false
+            },
+            loading: false,
+            error: null
+          };
+
+        case 'local':
+          return {
+            tipos: {
+              normal: false,
+              express: false,
+              local: true
+            },
+            loading: false,
+            error: null
+          };
+
+        default:
+          break;
+      }
 
     case enviosTypes["c" /* LOADING */]:
       return enviosReducer_objectSpread(enviosReducer_objectSpread({}, state), {}, {
@@ -1706,7 +1818,121 @@ const politicaReducer = (state = politicaReducer_INITIAL_STATE, action) => {
 };
 
 /* harmony default export */ var reducers_politicaReducer = (politicaReducer);
+// EXTERNAL MODULE: ./store/types/zonasTypes.js
+var zonasTypes = __webpack_require__("L/dm");
+
+// CONCATENATED MODULE: ./store/reducers/zonasReducer.js
+function zonasReducer_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function zonasReducer_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { zonasReducer_ownKeys(Object(source), true).forEach(function (key) { zonasReducer_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { zonasReducer_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function zonasReducer_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+const zonasReducer_INITIAL_STATE = {
+  zonas: [],
+  zona: null,
+  loading: false,
+  error: null
+};
+
+const zonasReducer = (state = zonasReducer_INITIAL_STATE, action) => {
+  switch (action.type) {
+    case zonasTypes["e" /* TRAER_ZONAS */]:
+      return zonasReducer_objectSpread(zonasReducer_objectSpread({}, state), {}, {
+        zonas: action.payload,
+        loading: false,
+        error: null,
+        zona: null
+      });
+
+    case zonasTypes["d" /* SELECCIONAR */]:
+      return zonasReducer_objectSpread(zonasReducer_objectSpread({}, state), {}, {
+        zona: action.payload,
+        loading: false,
+        error: null
+      });
+
+    case zonasTypes["b" /* LIMPIAR_ACTIVO */]:
+      return zonasReducer_objectSpread(zonasReducer_objectSpread({}, state), {}, {
+        zona: null
+      });
+
+    case zonasTypes["c" /* LOADING */]:
+      return zonasReducer_objectSpread(zonasReducer_objectSpread({}, state), {}, {
+        loading: true
+      });
+
+    case zonasTypes["a" /* ERROR */]:
+      return zonasReducer_objectSpread(zonasReducer_objectSpread({}, state), {}, {
+        loading: false,
+        error: action.payload,
+        zona: null
+      });
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ var reducers_zonasReducer = (zonasReducer);
+// EXTERNAL MODULE: ./store/types/ventasTypes.js
+var ventasTypes = __webpack_require__("/GLu");
+
+// CONCATENATED MODULE: ./store/reducers/ventaReducer.js
+function ventaReducer_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function ventaReducer_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ventaReducer_ownKeys(Object(source), true).forEach(function (key) { ventaReducer_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ventaReducer_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function ventaReducer_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+const INTITAL_STATE = {
+  idMedioPago: 1,
+  totalEnvio: 0,
+  idZona: null,
+  tipoEnvio: null,
+  productos: [],
+  cantidad: 0,
+  subtotal: 0,
+  porcentaje_descuento: 0,
+  descuento: 0,
+  total: 0
+};
+
+const ventaReducer = (state = INTITAL_STATE, action) => {
+  switch (action.type) {
+    case ventasTypes["c" /* TRAER_INFO */]:
+      return ventaReducer_objectSpread(ventaReducer_objectSpread({}, state), {}, {
+        productos: action.payload.productos,
+        cantidad: action.payload.cantidad,
+        subtotal: action.payload.subTotal,
+        total: action.payload.subTotal + state.totalEnvio
+      });
+
+    case ventasTypes["b" /* CAMBIAR_MEDIO_DE_PAGO */]:
+      return ventaReducer_objectSpread(ventaReducer_objectSpread({}, state), {}, {
+        idMedioPago: action.payload
+      });
+
+    case ventasTypes["a" /* ACTUALIZAR_DATOS_ENVIO */]:
+      return ventaReducer_objectSpread(ventaReducer_objectSpread({}, state), {}, {
+        totalEnvio: action.payload.total,
+        idZona: action.payload.zona,
+        tipoEnvio: action.payload.tipo,
+        idMedioPago: action.payload.idMedioPago,
+        total: state.subtotal + action.payload.total
+      });
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ var reducers_ventaReducer = (ventaReducer);
 // CONCATENATED MODULE: ./store/reducers/index.js
+
+
 
 
 
@@ -1728,7 +1954,9 @@ const politicaReducer = (state = politicaReducer_INITIAL_STATE, action) => {
   enviosReducer: reducers_enviosReducer,
   mediosDePagoReducer: reducers_mediosDePagoReducer,
   bannerReducer: reducers_bannerReducer,
-  politicaReducer: reducers_politicaReducer
+  politicaReducer: reducers_politicaReducer,
+  zonasReducer: reducers_zonasReducer,
+  ventaReducer: reducers_ventaReducer
 }));
 // CONCATENATED MODULE: ./store/index.js
 
@@ -2652,6 +2880,24 @@ module.exports = require("@fortawesome/free-brands-svg-icons");
 /***/ (function(module, exports) {
 
 module.exports = require("react-places-autocomplete");
+
+/***/ }),
+
+/***/ "L/dm":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return TRAER_ZONAS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return SELECCIONAR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return LOADING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ERROR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return LIMPIAR_ACTIVO; });
+const TRAER_ZONAS = 'TRAER_ZONAS';
+const SELECCIONAR = 'SELECCIONAR_ZONA';
+const LOADING = 'ZONA_LOADING';
+const ERROR = 'ZONA_ERROR';
+const LIMPIAR_ACTIVO = 'ZONA_LIMPIAR_ACTIVO';
+
 
 /***/ }),
 
@@ -4497,20 +4743,16 @@ const UPDATE_PASSWORD = 'usuario_cambiarpassword';
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return TRAER_PRODUCTOS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return TRAER_PRODUCTOS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AGREGAR_PRODUCTO; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return ELIMINAR_PRODUCTO; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return LOADING; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return ERROR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return CAMBIAR_MEDIO_DE_PAGO; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return CAMBIAR_COSTO_ENVIO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return ELIMINAR_PRODUCTO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return LOADING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return ERROR; });
 const TRAER_PRODUCTOS = 'carrito_traer_todos_carrito';
 const AGREGAR_PRODUCTO = 'carrito_agregar_producto';
 const ELIMINAR_PRODUCTO = 'carrito_eliminar_producto';
 const LOADING = 'carrito_loading';
 const ERROR = 'carrito_error';
-const CAMBIAR_MEDIO_DE_PAGO = 'carrito_cambiar_medio_de_pago';
-const CAMBIAR_COSTO_ENVIO = 'carrito_costo_envio';
 
 
 /***/ }),
@@ -4689,40 +4931,40 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "traerProductos", function() { return traerProductos; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "agregarProducto", function() { return agregarProducto; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "eliminarProducto", function() { return eliminarProducto; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cambiarMedioDePago", function() { return cambiarMedioDePago; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setCostoEnvio", function() { return setCostoEnvio; });
 /* harmony import */ var _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("kqUl");
 //import {API} from '../config/index';
 
 const traerProductos = () => async dispatch => {
   dispatch({
-    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* LOADING */ "f"]
+    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* LOADING */ "d"]
   });
 
   try {
     const productos = await JSON.parse(localStorage.getItem('carrito'));
-    let subtotal = 0;
+    let total = 0;
     productos.forEach(prd => {
-      subtotal += parseInt(prd.precio * prd.cantidad);
+      total += parseFloat(prd.precio * prd.cantidad);
     });
+    let cantidad = productos.length;
     let payloadData = {
       productos,
-      subtotal
+      total,
+      cantidad
     };
     return dispatch({
-      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* TRAER_PRODUCTOS */ "g"],
+      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* TRAER_PRODUCTOS */ "e"],
       payload: payloadData
     });
   } catch (error) {
     return dispatch({
-      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ERROR */ "e"],
+      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ERROR */ "c"],
       payload: error
     });
   }
 };
 const agregarProducto = producto => async (dispatch, getState) => {
   dispatch({
-    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* LOADING */ "f"]
+    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* LOADING */ "d"]
   });
 
   try {
@@ -4751,13 +4993,15 @@ const agregarProducto = producto => async (dispatch, getState) => {
     localStorage.setItem('carrito', JSON.stringify(listProductosUpgrade)); //calculo el subtotal
 
     const prds = JSON.parse(localStorage.getItem('carrito'));
-    let subtotal = 0;
+    let total = 0;
     prds.forEach(prd => {
-      subtotal += parseInt(prd.precioUnidad * prd.cantidad);
+      total += parseFloat(prd.precio * prd.cantidad);
     });
+    let cantidad = listProductosUpgrade.length;
     let payloadData = {
       listProductosUpgrade,
-      subtotal
+      total,
+      cantidad
     };
     setTimeout(() => {
       dispatch({
@@ -4767,14 +5011,14 @@ const agregarProducto = producto => async (dispatch, getState) => {
     }, 1500);
   } catch (error) {
     dispatch({
-      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ERROR */ "e"],
+      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ERROR */ "c"],
       payload: error
     });
   }
 };
 const eliminarProducto = idSubProducto => async (dispatch, getState) => {
   dispatch({
-    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* LOADING */ "f"]
+    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* LOADING */ "d"]
   });
 
   try {
@@ -4787,36 +5031,25 @@ const eliminarProducto = idSubProducto => async (dispatch, getState) => {
     localStorage.setItem('carrito', JSON.stringify(newProductos)); //calculo el subtotal
 
     const prds = JSON.parse(localStorage.getItem('carrito'));
-    let subtotal = 0;
+    let total = 0;
     prds.forEach(prd => {
-      subtotal += parseInt(prd.precio * prd.cantidad);
+      total += parseFloat(prd.precio * prd.cantidad);
     });
     let payloadData = {
       newProductos,
-      subtotal
+      total,
+      cantidad: prds.length
     };
     dispatch({
-      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ELIMINAR_PRODUCTO */ "d"],
+      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ELIMINAR_PRODUCTO */ "b"],
       payload: payloadData
     });
   } catch (error) {
     dispatch({
-      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ERROR */ "e"],
+      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ERROR */ "c"],
       payload: error
     });
   }
-};
-const cambiarMedioDePago = idMedioDePago => dispatch => {
-  return dispatch({
-    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* CAMBIAR_MEDIO_DE_PAGO */ "c"],
-    payload: idMedioDePago
-  });
-};
-const setCostoEnvio = costo => dispatch => {
-  return dispatch({
-    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* CAMBIAR_COSTO_ENVIO */ "b"],
-    payload: costo
-  });
 };
 
 /***/ }),
@@ -4839,6 +5072,59 @@ const ERROR = 'subcategorias_error';
 /***/ (function(module, exports) {
 
 module.exports = require("reactstrap");
+
+/***/ }),
+
+/***/ "pRT7":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return slug; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return isMobile; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ObtenerDia; });
+/* harmony import */ var slugify__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("06NB");
+/* harmony import */ var slugify__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(slugify__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function slug(name) {
+  return slugify__WEBPACK_IMPORTED_MODULE_0___default()(name, {
+    lower: true
+  }).replace(/[^\w\-]+/g, '');
+}
+
+function isMobile() {
+  if (false) {}
+}
+
+function ObtenerDia(numberDay) {
+  switch (numberDay) {
+    case 1:
+      return 'Lunes';
+
+    case 2:
+      return 'Martes';
+
+    case 3:
+      return 'Miercoles';
+
+    case 4:
+      return 'Jueves';
+
+    case 5:
+      return 'Viernes';
+
+    case 6:
+      return 'Sabado';
+
+    case 7:
+      return 'Domingo';
+
+    default:
+      break;
+  }
+}
+
+
 
 /***/ }),
 
@@ -4904,14 +5190,12 @@ const Carrito = props => {
   Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(() => {
     props.traerProductos();
   }, []);
-  let totalCarrito = 0;
 
   const showProductos = () => {
     if (!props.productos || props.productos.length === 0) return __jsx("div", {
       className: "alert alert-warning"
     }, "Ningun producto en el carrito"); //calculo el subtotal para mostrarlo abajo de todo en el modal
 
-    totalCarrito = calcularTotal(props.productos);
     return props.productos.map((prd, key) => __jsx(_ProductoCarrito__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"], {
       key: key,
       idSubProducto: prd.idSubProducto,
@@ -4922,14 +5206,6 @@ const Carrito = props => {
       cantidad: prd.cantidad,
       eliminarProducto: props.eliminarProducto
     }));
-  };
-
-  const calcularTotal = prds => {
-    let total = 0;
-    prds.forEach(prd => {
-      total += parseInt(prd.precio * prd.cantidad);
-    });
-    return total;
   };
 
   const finalizarCompra = () => {
@@ -4949,7 +5225,7 @@ const Carrito = props => {
     className: _Carrito_module_css__WEBPACK_IMPORTED_MODULE_4___default.a.section__carrito__total + ' ' + `d-flex justify-content-between`
   }, __jsx("p", null, "Total"), __jsx("span", {
     className: _Carrito_module_css__WEBPACK_IMPORTED_MODULE_4___default.a.subtotal__carrito
-  }, "$", totalCarrito)), props.productos.length == 0 ? null : __jsx("button", {
+  }, "$", props.total)), props.productos.length == 0 ? null : __jsx("button", {
     className: "boton bg-yellow",
     onClick: finalizarCompra,
     type: "button"

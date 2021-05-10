@@ -1091,9 +1091,9 @@ const CardProducto = ({
     className: CardProducto_module_default.a.cantidad + ` d-none`
   }, prd.peso, " KG"), CardProducto_jsx("h3", {
     className: CardProducto_module_default.a.precio + ' ' + `text-black`
-  }, "$", prd.precioFinal)), CardProducto_jsx("span", {
+  }, "$", prd.precioFinal)), prd.descuento ? CardProducto_jsx("span", {
     className: CardProducto_module_default.a.label__descuento + ' ' + `bg-red`
-  }, "15% Off")));
+  }, prd.descuento, "% Off") : null));
 };
 
 /* harmony default export */ var components_CardProducto = __webpack_exports__["a"] = (CardProducto);
@@ -3388,20 +3388,16 @@ const Header = ({
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return TRAER_PRODUCTOS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return TRAER_PRODUCTOS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AGREGAR_PRODUCTO; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return ELIMINAR_PRODUCTO; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return LOADING; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return ERROR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return CAMBIAR_MEDIO_DE_PAGO; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return CAMBIAR_COSTO_ENVIO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return ELIMINAR_PRODUCTO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return LOADING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return ERROR; });
 const TRAER_PRODUCTOS = 'carrito_traer_todos_carrito';
 const AGREGAR_PRODUCTO = 'carrito_agregar_producto';
 const ELIMINAR_PRODUCTO = 'carrito_eliminar_producto';
 const LOADING = 'carrito_loading';
 const ERROR = 'carrito_error';
-const CAMBIAR_MEDIO_DE_PAGO = 'carrito_cambiar_medio_de_pago';
-const CAMBIAR_COSTO_ENVIO = 'carrito_costo_envio';
 
 
 /***/ }),
@@ -3589,40 +3585,40 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "traerProductos", function() { return traerProductos; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "agregarProducto", function() { return agregarProducto; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "eliminarProducto", function() { return eliminarProducto; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cambiarMedioDePago", function() { return cambiarMedioDePago; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setCostoEnvio", function() { return setCostoEnvio; });
 /* harmony import */ var _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("kqUl");
 //import {API} from '../config/index';
 
 const traerProductos = () => async dispatch => {
   dispatch({
-    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* LOADING */ "f"]
+    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* LOADING */ "d"]
   });
 
   try {
     const productos = await JSON.parse(localStorage.getItem('carrito'));
-    let subtotal = 0;
+    let total = 0;
     productos.forEach(prd => {
-      subtotal += parseInt(prd.precio * prd.cantidad);
+      total += parseFloat(prd.precio * prd.cantidad);
     });
+    let cantidad = productos.length;
     let payloadData = {
       productos,
-      subtotal
+      total,
+      cantidad
     };
     return dispatch({
-      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* TRAER_PRODUCTOS */ "g"],
+      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* TRAER_PRODUCTOS */ "e"],
       payload: payloadData
     });
   } catch (error) {
     return dispatch({
-      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ERROR */ "e"],
+      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ERROR */ "c"],
       payload: error
     });
   }
 };
 const agregarProducto = producto => async (dispatch, getState) => {
   dispatch({
-    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* LOADING */ "f"]
+    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* LOADING */ "d"]
   });
 
   try {
@@ -3651,13 +3647,15 @@ const agregarProducto = producto => async (dispatch, getState) => {
     localStorage.setItem('carrito', JSON.stringify(listProductosUpgrade)); //calculo el subtotal
 
     const prds = JSON.parse(localStorage.getItem('carrito'));
-    let subtotal = 0;
+    let total = 0;
     prds.forEach(prd => {
-      subtotal += parseInt(prd.precioUnidad * prd.cantidad);
+      total += parseFloat(prd.precio * prd.cantidad);
     });
+    let cantidad = listProductosUpgrade.length;
     let payloadData = {
       listProductosUpgrade,
-      subtotal
+      total,
+      cantidad
     };
     setTimeout(() => {
       dispatch({
@@ -3667,14 +3665,14 @@ const agregarProducto = producto => async (dispatch, getState) => {
     }, 1500);
   } catch (error) {
     dispatch({
-      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ERROR */ "e"],
+      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ERROR */ "c"],
       payload: error
     });
   }
 };
 const eliminarProducto = idSubProducto => async (dispatch, getState) => {
   dispatch({
-    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* LOADING */ "f"]
+    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* LOADING */ "d"]
   });
 
   try {
@@ -3687,36 +3685,25 @@ const eliminarProducto = idSubProducto => async (dispatch, getState) => {
     localStorage.setItem('carrito', JSON.stringify(newProductos)); //calculo el subtotal
 
     const prds = JSON.parse(localStorage.getItem('carrito'));
-    let subtotal = 0;
+    let total = 0;
     prds.forEach(prd => {
-      subtotal += parseInt(prd.precio * prd.cantidad);
+      total += parseFloat(prd.precio * prd.cantidad);
     });
     let payloadData = {
       newProductos,
-      subtotal
+      total,
+      cantidad: prds.length
     };
     dispatch({
-      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ELIMINAR_PRODUCTO */ "d"],
+      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ELIMINAR_PRODUCTO */ "b"],
       payload: payloadData
     });
   } catch (error) {
     dispatch({
-      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ERROR */ "e"],
+      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ERROR */ "c"],
       payload: error
     });
   }
-};
-const cambiarMedioDePago = idMedioDePago => dispatch => {
-  return dispatch({
-    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* CAMBIAR_MEDIO_DE_PAGO */ "c"],
-    payload: idMedioDePago
-  });
-};
-const setCostoEnvio = costo => dispatch => {
-  return dispatch({
-    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* CAMBIAR_COSTO_ENVIO */ "b"],
-    payload: costo
-  });
 };
 
 /***/ }),
@@ -3822,14 +3809,12 @@ const Carrito = props => {
   Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(() => {
     props.traerProductos();
   }, []);
-  let totalCarrito = 0;
 
   const showProductos = () => {
     if (!props.productos || props.productos.length === 0) return __jsx("div", {
       className: "alert alert-warning"
     }, "Ningun producto en el carrito"); //calculo el subtotal para mostrarlo abajo de todo en el modal
 
-    totalCarrito = calcularTotal(props.productos);
     return props.productos.map((prd, key) => __jsx(_ProductoCarrito__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"], {
       key: key,
       idSubProducto: prd.idSubProducto,
@@ -3840,14 +3825,6 @@ const Carrito = props => {
       cantidad: prd.cantidad,
       eliminarProducto: props.eliminarProducto
     }));
-  };
-
-  const calcularTotal = prds => {
-    let total = 0;
-    prds.forEach(prd => {
-      total += parseInt(prd.precio * prd.cantidad);
-    });
-    return total;
   };
 
   const finalizarCompra = () => {
@@ -3867,7 +3844,7 @@ const Carrito = props => {
     className: _Carrito_module_css__WEBPACK_IMPORTED_MODULE_4___default.a.section__carrito__total + ' ' + `d-flex justify-content-between`
   }, __jsx("p", null, "Total"), __jsx("span", {
     className: _Carrito_module_css__WEBPACK_IMPORTED_MODULE_4___default.a.subtotal__carrito
-  }, "$", totalCarrito)), props.productos.length == 0 ? null : __jsx("button", {
+  }, "$", props.total)), props.productos.length == 0 ? null : __jsx("button", {
     className: "boton bg-yellow",
     onClick: finalizarCompra,
     type: "button"

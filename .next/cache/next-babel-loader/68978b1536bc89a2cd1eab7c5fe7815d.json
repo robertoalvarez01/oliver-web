@@ -1,0 +1,1 @@
+{"ast":null,"code":"const TRAER_ZONAS = 'TRAER_ZONAS';\nconst SELECCIONAR = 'SELECCIONAR_ZONA';\nconst LOADING = 'ZONA_LOADING';\nconst ERROR = 'ZONA_ERROR';\nconst LIMPIAR_ACTIVO = 'ZONA_LIMPIAR_ACTIVO';\nexport { TRAER_ZONAS, SELECCIONAR, LOADING, ERROR, LIMPIAR_ACTIVO };","map":null,"metadata":{},"sourceType":"module"}

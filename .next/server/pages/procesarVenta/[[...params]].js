@@ -93,6 +93,20 @@ module.exports =
 /************************************************************************/
 /******/ ({
 
+/***/ "/GLu":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return CAMBIAR_MEDIO_DE_PAGO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ACTUALIZAR_DATOS_ENVIO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return TRAER_INFO; });
+const CAMBIAR_MEDIO_DE_PAGO = 'ventas_cambiar_medio_de_pago';
+const ACTUALIZAR_DATOS_ENVIO = 'ventas_actualizar_envio';
+const TRAER_INFO = 'ventas_traer_info_venta';
+
+
+/***/ }),
+
 /***/ 6:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -112,6 +126,122 @@ module.exports = require("sweetalert2");
 /***/ (function(module, exports) {
 
 module.exports = require("styled-jsx/style");
+
+/***/ }),
+
+/***/ "IbKK":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "guardar", function() { return guardar; });
+/* harmony import */ var _types_enviosTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("pzYh");
+
+const guardar = data => async dispatch => {
+  dispatch({
+    type: _types_enviosTypes__WEBPACK_IMPORTED_MODULE_0__[/* LOADING */ "c"]
+  });
+
+  try {
+    if (!data) return dispatch({
+      type: _types_enviosTypes__WEBPACK_IMPORTED_MODULE_0__[/* ERROR */ "a"],
+      payload: 'Sin datos de envío'
+    });
+    dispatch({
+      type: _types_enviosTypes__WEBPACK_IMPORTED_MODULE_0__[/* GUARDAR */ "b"],
+      payload: `${data}`.toLowerCase()
+    });
+  } catch (error) {
+    dispatch({
+      type: _types_enviosTypes__WEBPACK_IMPORTED_MODULE_0__[/* ERROR */ "a"],
+      payload: error.message
+    });
+  }
+};
+
+/***/ }),
+
+/***/ "L/dm":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return TRAER_ZONAS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return SELECCIONAR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return LOADING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ERROR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return LIMPIAR_ACTIVO; });
+const TRAER_ZONAS = 'TRAER_ZONAS';
+const SELECCIONAR = 'SELECCIONAR_ZONA';
+const LOADING = 'ZONA_LOADING';
+const ERROR = 'ZONA_ERROR';
+const LIMPIAR_ACTIVO = 'ZONA_LIMPIAR_ACTIVO';
+
+
+/***/ }),
+
+/***/ "VMmF":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "traerTodas", function() { return traerTodas; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "seleccionar", function() { return seleccionar; });
+/* harmony import */ var _config_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("rOcY");
+/* harmony import */ var _types_zonasTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("L/dm");
+
+
+const traerTodas = () => async dispatch => {
+  dispatch({
+    type: _types_zonasTypes__WEBPACK_IMPORTED_MODULE_1__[/* LOADING */ "c"]
+  });
+
+  try {
+    const dataUser = JSON.parse(localStorage.getItem('oliverpetshop_usuario'));
+    let myHeaders = new Headers();
+    myHeaders.append("token", dataUser.token);
+    const zonasApi = await fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/zonas`, {
+      headers: myHeaders
+    });
+    const dataZonas = await zonasApi.json();
+    dispatch({
+      type: _types_zonasTypes__WEBPACK_IMPORTED_MODULE_1__[/* TRAER_ZONAS */ "e"],
+      payload: dataZonas.data
+    });
+  } catch (error) {
+    dispatch({
+      type: _types_zonasTypes__WEBPACK_IMPORTED_MODULE_1__[/* ERROR */ "a"],
+      payload: error
+    });
+  }
+};
+const seleccionar = id => (dispatch, getState) => {
+  if (!id) {
+    console.log('aca');
+    dispatch({
+      type: _types_zonasTypes__WEBPACK_IMPORTED_MODULE_1__[/* LIMPIAR_ACTIVO */ "b"]
+    });
+    return;
+  }
+
+  const {
+    zonas
+  } = getState().zonasReducer;
+  let zona = zonas.filter(z => z.idZona == id);
+
+  if (!zona.length) {
+    dispatch({
+      type: _types_zonasTypes__WEBPACK_IMPORTED_MODULE_1__[/* ERROR */ "a"],
+      payload: 'No se encontro la zona'
+    });
+    return;
+  }
+
+  zona = zona[0];
+  dispatch({
+    type: _types_zonasTypes__WEBPACK_IMPORTED_MODULE_1__[/* SELECCIONAR */ "d"],
+    payload: zona
+  });
+};
 
 /***/ }),
 
@@ -151,70 +281,26 @@ const Loader = props => {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
-
-// NAMESPACE OBJECT: ./store/actions/enviosActions.js
-var enviosActions_namespaceObject = {};
-__webpack_require__.r(enviosActions_namespaceObject);
-__webpack_require__.d(enviosActions_namespaceObject, "guardar", function() { return guardar; });
-
-// EXTERNAL MODULE: external "styled-jsx/style"
-var style_ = __webpack_require__("HJQg");
-var style_default = /*#__PURE__*/__webpack_require__.n(style_);
-
-// EXTERNAL MODULE: external "react"
-var external_react_ = __webpack_require__("cDcd");
-var external_react_default = /*#__PURE__*/__webpack_require__.n(external_react_);
-
-// EXTERNAL MODULE: ./src/components/Head.js
-var Head = __webpack_require__("k2JI");
-
-// EXTERNAL MODULE: ./src/components/Loader/index.js
-var Loader = __webpack_require__("XOuL");
-
-// EXTERNAL MODULE: external "react-redux"
-var external_react_redux_ = __webpack_require__("h74D");
-
-// EXTERNAL MODULE: ./store/actions/carritoActions.js
-var carritoActions = __webpack_require__("nhAV");
-
-// EXTERNAL MODULE: ./store/types/enviosTypes.js
-var enviosTypes = __webpack_require__("pzYh");
-
-// CONCATENATED MODULE: ./store/actions/enviosActions.js
-
-const guardar = data => async dispatch => {
-  dispatch({
-    type: enviosTypes["c" /* LOADING */]
-  });
-
-  try {
-    if (!data) return dispatch({
-      type: enviosTypes["a" /* ERROR */],
-      payload: 'Sin datos de envío'
-    });
-    dispatch({
-      type: enviosTypes["b" /* GUARDAR */],
-      payload: data
-    });
-  } catch (error) {
-    dispatch({
-      type: enviosTypes["a" /* ERROR */],
-      payload: error.message
-    });
-  }
-};
-// EXTERNAL MODULE: ./config/index.js
-var config = __webpack_require__("rOcY");
-
-// EXTERNAL MODULE: ./src/components/Error.js
-var Error = __webpack_require__("t0wy");
-
-// CONCATENATED MODULE: ./pages/procesarVenta/[[...params]].js
+/* harmony import */ var styled_jsx_style__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("HJQg");
+/* harmony import */ var styled_jsx_style__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(styled_jsx_style__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("cDcd");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _src_components_Head__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("k2JI");
+/* harmony import */ var _src_components_Loader__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("XOuL");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("h74D");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _store_actions_carritoActions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("nhAV");
+/* harmony import */ var _store_actions_enviosActions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("IbKK");
+/* harmony import */ var _store_actions_zonasActions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("VMmF");
+/* harmony import */ var _store_actions_ventasActions__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("mz+u");
+/* harmony import */ var _config_index__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("rOcY");
+/* harmony import */ var _src_components_Error__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("t0wy");
 
 
-var __jsx = external_react_default.a.createElement;
+var __jsx = react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement;
+
+
 
 
 
@@ -227,78 +313,110 @@ var __jsx = external_react_default.a.createElement;
 const Swal = __webpack_require__("CBiN");
 
 const {
-  guardar: enviosGuardar
-} = enviosActions_namespaceObject;
-const {
   traerProductos: carritoTraerProductos
-} = carritoActions;
+} = _store_actions_carritoActions__WEBPACK_IMPORTED_MODULE_5__;
+const {
+  guardar: enviosGuardar
+} = _store_actions_enviosActions__WEBPACK_IMPORTED_MODULE_6__;
+const {
+  seleccionar: zonasGuardar,
+  traerTodas: traerZonas
+} = _store_actions_zonasActions__WEBPACK_IMPORTED_MODULE_7__;
+const {
+  init: inicializarStoreVenta,
+  setCostoEnvio: setDataEnvioEnVenta
+} = _store_actions_ventasActions__WEBPACK_IMPORTED_MODULE_8__;
 
 const ProcesarVenta = props => {
   const {
     0: error,
     1: setError
-  } = Object(external_react_["useState"])(false);
+  } = Object(react__WEBPACK_IMPORTED_MODULE_1__["useState"])(false);
   const {
-    0: ventaRegistrada,
-    1: setVentaRegistrada
-  } = Object(external_react_["useState"])(false);
-  Object(external_react_["useEffect"])(() => {
-    procesarInfo();
-  }, [props.usuarioReducer]);
+    carritoReducer,
+    ventaReducer,
+    carritoTraerProductos,
+    enviosGuardar,
+    zonasGuardar,
+    inicializarStoreVenta,
+    setDataEnvioEnVenta,
+    traerZonas
+  } = props;
+  const {
+    usuario,
+    logueado
+  } = props.usuarioReducer;
+  const {
+    zonas,
+    zona
+  } = props.zonasReducer;
+  const {
+    idMedioPago,
+    tipoEnvio,
+    productos,
+    cantidad,
+    subtotal,
+    porcentaje_descuento,
+    descuento,
+    total
+  } = props.ventaReducer;
+  Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(() => {
+    traerZonas();
+  }, []);
+  Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(() => {
+    if (logueado && zonas.length > 0) {
+      const dataEnvio = JSON.parse(localStorage.getItem('dataEnvio'));
+      enviosGuardar(dataEnvio.tipo);
+      zonasGuardar(dataEnvio.zona);
+      carritoTraerProductos();
+    }
+  }, [logueado, zonas]);
+  Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(() => {
+    if (carritoReducer.productos.length > 0) {
+      inicializarStoreVenta();
+      setDataEnvioEnVenta();
+    }
+  }, [carritoReducer.productos]);
+  Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(() => {
+    if (!tipoEnvio || !productos.length || cantidad == 0 || total == 0) {
+      console.log('no se puede completar la operacion');
+      return;
+    }
 
-  const procesarInfo = async () => {
-    const dataEnvio = JSON.parse(localStorage.getItem('dataEnvio'));
-    props.enviosGuardar(dataEnvio);
-    props.carritoTraerProductos();
-
-    if (props.usuarioReducer.logueado && props.carritoReducer.productos.length > 0 && props.enviosReducer.data) {
-      const {
-        idUsuario
-      } = props.usuarioReducer.usuario;
-      const {
+    const {
+      idUsuario
+    } = usuario;
+    let f = new Date();
+    let mes = f.getMonth() < 10 ? `0${f.getMonth() + 1}` : `${f.getMonth()}`;
+    let dia = f.getDate() < 10 ? `0${f.getDate()}` : `${f.getDate()}`;
+    let fecha = `${f.getFullYear()}-${mes}-${dia}`;
+    let dataToRequest = {
+      envio: {
+        idZona: zona.idZona,
+        tipo: tipoEnvio
+      },
+      venta: {
         subtotal,
         porcentaje_descuento,
         descuento,
         total,
+        idUsuario,
         productos,
+        fecha,
+        operacion_id: props.collection_id || null,
         idMedioPago
-      } = props.carritoReducer;
-      const {
-        zona,
-        tipo
-      } = props.enviosReducer.data;
-      let f = new Date();
-      let mes = f.getMonth() < 10 ? `0${f.getMonth() + 1}` : `${f.getMonth()}`;
-      let dia = f.getDate() < 10 ? `0${f.getDate()}` : `${f.getDate()}`;
-      let fecha = `${f.getFullYear()}-${mes}-${dia}`;
-      let dataToRequest = {
-        envio: {
-          idZona: zona,
-          tipo: tipo
-        },
-        venta: {
-          subtotal,
-          porcentaje_descuento,
-          descuento,
-          total,
-          idUsuario,
-          productos,
-          fecha,
-          operacion_id: props.collection_id || null,
-          idMedioPago
-        }
-      }; //console.log(dataToRequest);
+      }
+    }; //console.log(dataToRequest);
 
-      return registrarVenta(dataToRequest);
-    }
-  };
+    registrarVenta(dataToRequest);
+  }, [ventaReducer]);
 
   const registrarVenta = async data => {
     try {
       const headers = new Headers();
-      headers.append('token', props.usuarioReducer.usuario.token);
+      headers.append('token', usuario.token);
       headers.append("Content-Type", "application/json");
-      let url = !data.venta.operacion_id ? `${config["a" /* API */]}/registrarVenta?mercadoPago=false` : `${config["a" /* API */]}/registrarVenta?mercadoPago=true`;
+      let url = !data.venta.operacion_id ? `${_config_index__WEBPACK_IMPORTED_MODULE_9__[/* API */ "a"]}/registrarVenta?mercadoPago=false` : `${_config_index__WEBPACK_IMPORTED_MODULE_9__[/* API */ "a"]}/registrarVenta?mercadoPago=true`;
       const reqVenta = await fetch(url, {
         headers,
         method: 'POST',
@@ -317,18 +435,16 @@ const ProcesarVenta = props => {
     }
   };
 
-  return __jsx(external_react_default.a.Fragment, null, __jsx(Head["a" /* default */], {
+  return error ? __jsx(_src_components_Error__WEBPACK_IMPORTED_MODULE_10__[/* default */ "a"], {
+    message: "Ha ocurrido un error, intentalo mas tarde"
+  }) : __jsx(react__WEBPACK_IMPORTED_MODULE_1___default.a.Fragment, null, __jsx(_src_components_Head__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"], {
     title: "Finalizacion de compra",
     metadesc: ""
   }), __jsx("div", {
     className: "jsx-2063553454" + " " + "wrapper"
-  }, props.enviosReducer.error || props.carritoReducer.error || error ? __jsx(Error["a" /* default */], {
-    message: "Ha ocurrido un error, intentalo mas tarde"
-  }) : __jsx(external_react_default.a.Fragment, null, ventaRegistrada ? __jsx("div", {
-    className: "jsx-2063553454" + " " + "alert alert-success"
-  }, ventaRegistrada) : __jsx(external_react_default.a.Fragment, null, __jsx(Loader["a" /* default */], null), __jsx("p", {
+  }, __jsx(_src_components_Loader__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"], null), __jsx("p", {
     className: "jsx-2063553454"
-  }, "Su compra esta siento procesada, aguarde unos segundos...")))), __jsx(style_default.a, {
+  }, "Su compra esta siento procesada, aguarde unos segundos...")), __jsx(styled_jsx_style__WEBPACK_IMPORTED_MODULE_0___default.a, {
     id: "2063553454"
   }, [".wrapper.jsx-2063553454{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;height:90vh;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;}"]));
 };
@@ -347,20 +463,28 @@ ProcesarVenta.getInitialProps = async ({
 const mapStateToProps = ({
   carritoReducer,
   enviosReducer,
-  usuarioReducer
+  usuarioReducer,
+  zonasReducer,
+  ventaReducer
 }) => {
   return {
     carritoReducer,
     enviosReducer,
-    usuarioReducer
+    usuarioReducer,
+    zonasReducer,
+    ventaReducer
   };
 };
 
 const mapDispatchToProps = {
   enviosGuardar,
-  carritoTraerProductos
+  carritoTraerProductos,
+  zonasGuardar,
+  setDataEnvioEnVenta,
+  inicializarStoreVenta,
+  traerZonas
 };
-/* harmony default export */ var _params_ = __webpack_exports__["default"] = (Object(external_react_redux_["connect"])(mapStateToProps, mapDispatchToProps)(ProcesarVenta));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_4__["connect"])(mapStateToProps, mapDispatchToProps)(ProcesarVenta));
 
 /***/ }),
 
@@ -416,21 +540,80 @@ const Header = ({
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return TRAER_PRODUCTOS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return TRAER_PRODUCTOS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AGREGAR_PRODUCTO; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return ELIMINAR_PRODUCTO; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return LOADING; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return ERROR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return CAMBIAR_MEDIO_DE_PAGO; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return CAMBIAR_COSTO_ENVIO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return ELIMINAR_PRODUCTO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return LOADING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return ERROR; });
 const TRAER_PRODUCTOS = 'carrito_traer_todos_carrito';
 const AGREGAR_PRODUCTO = 'carrito_agregar_producto';
 const ELIMINAR_PRODUCTO = 'carrito_eliminar_producto';
 const LOADING = 'carrito_loading';
 const ERROR = 'carrito_error';
-const CAMBIAR_MEDIO_DE_PAGO = 'carrito_cambiar_medio_de_pago';
-const CAMBIAR_COSTO_ENVIO = 'carrito_costo_envio';
 
+
+/***/ }),
+
+/***/ "mz+u":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "init", function() { return init; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cambiarMedioDePago", function() { return cambiarMedioDePago; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setCostoEnvio", function() { return setCostoEnvio; });
+/* harmony import */ var _types_ventasTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("/GLu");
+
+const init = () => (dispatch, getState) => {
+  const {
+    productos,
+    cantidad,
+    total
+  } = getState().carritoReducer;
+  const data = {
+    productos,
+    cantidad,
+    subTotal: total
+  };
+  dispatch({
+    type: _types_ventasTypes__WEBPACK_IMPORTED_MODULE_0__[/* TRAER_INFO */ "c"],
+    payload: data
+  });
+};
+const cambiarMedioDePago = idMedioDePago => dispatch => {
+  return dispatch({
+    type: _types_ventasTypes__WEBPACK_IMPORTED_MODULE_0__[/* CAMBIAR_MEDIO_DE_PAGO */ "b"],
+    payload: idMedioDePago
+  });
+};
+const setCostoEnvio = () => (dispatch, getState) => {
+  const {
+    zona
+  } = getState().zonasReducer;
+  const {
+    tipos
+  } = getState().enviosReducer;
+  let dataZona = {};
+
+  if (tipos.normal) {
+    dataZona.total = zona ? zona.precio : 0;
+    dataZona.tipo = 'Domicilio';
+  } else if (tipos.express) {
+    dataZona.total = zona ? zona.precio_express : 0;
+    dataZona.tipo = 'Express';
+    dataZona.idMedioPago = '1';
+  } else {
+    dataZona.total = 0;
+    dataZona.tipo = 'Local';
+  }
+
+  dataZona.zona = zona ? zona.idZona : null;
+  dataZona.idMedioPago = '1';
+  return dispatch({
+    type: _types_ventasTypes__WEBPACK_IMPORTED_MODULE_0__[/* ACTUALIZAR_DATOS_ENVIO */ "a"],
+    payload: dataZona
+  });
+};
 
 /***/ }),
 
@@ -442,40 +625,40 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "traerProductos", function() { return traerProductos; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "agregarProducto", function() { return agregarProducto; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "eliminarProducto", function() { return eliminarProducto; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cambiarMedioDePago", function() { return cambiarMedioDePago; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setCostoEnvio", function() { return setCostoEnvio; });
 /* harmony import */ var _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("kqUl");
 //import {API} from '../config/index';
 
 const traerProductos = () => async dispatch => {
   dispatch({
-    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* LOADING */ "f"]
+    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* LOADING */ "d"]
   });
 
   try {
     const productos = await JSON.parse(localStorage.getItem('carrito'));
-    let subtotal = 0;
+    let total = 0;
     productos.forEach(prd => {
-      subtotal += parseInt(prd.precio * prd.cantidad);
+      total += parseFloat(prd.precio * prd.cantidad);
     });
+    let cantidad = productos.length;
     let payloadData = {
       productos,
-      subtotal
+      total,
+      cantidad
     };
     return dispatch({
-      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* TRAER_PRODUCTOS */ "g"],
+      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* TRAER_PRODUCTOS */ "e"],
       payload: payloadData
     });
   } catch (error) {
     return dispatch({
-      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ERROR */ "e"],
+      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ERROR */ "c"],
       payload: error
     });
   }
 };
 const agregarProducto = producto => async (dispatch, getState) => {
   dispatch({
-    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* LOADING */ "f"]
+    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* LOADING */ "d"]
   });
 
   try {
@@ -504,13 +687,15 @@ const agregarProducto = producto => async (dispatch, getState) => {
     localStorage.setItem('carrito', JSON.stringify(listProductosUpgrade)); //calculo el subtotal
 
     const prds = JSON.parse(localStorage.getItem('carrito'));
-    let subtotal = 0;
+    let total = 0;
     prds.forEach(prd => {
-      subtotal += parseInt(prd.precioUnidad * prd.cantidad);
+      total += parseFloat(prd.precio * prd.cantidad);
     });
+    let cantidad = listProductosUpgrade.length;
     let payloadData = {
       listProductosUpgrade,
-      subtotal
+      total,
+      cantidad
     };
     setTimeout(() => {
       dispatch({
@@ -520,14 +705,14 @@ const agregarProducto = producto => async (dispatch, getState) => {
     }, 1500);
   } catch (error) {
     dispatch({
-      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ERROR */ "e"],
+      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ERROR */ "c"],
       payload: error
     });
   }
 };
 const eliminarProducto = idSubProducto => async (dispatch, getState) => {
   dispatch({
-    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* LOADING */ "f"]
+    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* LOADING */ "d"]
   });
 
   try {
@@ -540,36 +725,25 @@ const eliminarProducto = idSubProducto => async (dispatch, getState) => {
     localStorage.setItem('carrito', JSON.stringify(newProductos)); //calculo el subtotal
 
     const prds = JSON.parse(localStorage.getItem('carrito'));
-    let subtotal = 0;
+    let total = 0;
     prds.forEach(prd => {
-      subtotal += parseInt(prd.precio * prd.cantidad);
+      total += parseFloat(prd.precio * prd.cantidad);
     });
     let payloadData = {
       newProductos,
-      subtotal
+      total,
+      cantidad: prds.length
     };
     dispatch({
-      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ELIMINAR_PRODUCTO */ "d"],
+      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ELIMINAR_PRODUCTO */ "b"],
       payload: payloadData
     });
   } catch (error) {
     dispatch({
-      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ERROR */ "e"],
+      type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* ERROR */ "c"],
       payload: error
     });
   }
-};
-const cambiarMedioDePago = idMedioDePago => dispatch => {
-  return dispatch({
-    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* CAMBIAR_MEDIO_DE_PAGO */ "c"],
-    payload: idMedioDePago
-  });
-};
-const setCostoEnvio = costo => dispatch => {
-  return dispatch({
-    type: _types_carritoTypes__WEBPACK_IMPORTED_MODULE_0__[/* CAMBIAR_COSTO_ENVIO */ "b"],
-    payload: costo
-  });
 };
 
 /***/ }),
