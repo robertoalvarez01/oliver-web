@@ -154,16 +154,16 @@ const Modal = props => {
   }, __jsx("div", {
     className: _Modal_module_css__WEBPACK_IMPORTED_MODULE_2___default.a.modal_dialog,
     id: "body__modal_buscador"
-  }, __jsx("div", {
-    className: _Modal_module_css__WEBPACK_IMPORTED_MODULE_2___default.a.modal_content
-  }, props.children, __jsx(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_4__["FontAwesomeIcon"], {
+  }, __jsx(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_4__["FontAwesomeIcon"], {
     icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_3__["faTimes"],
     onClick: closeModal,
     className: _Modal_module_css__WEBPACK_IMPORTED_MODULE_2___default.a.close_modal,
     style: {
       cursor: 'pointer'
     }
-  })))), document.getElementById('modals'));
+  }), __jsx("div", {
+    className: _Modal_module_css__WEBPACK_IMPORTED_MODULE_2___default.a.modal_content
+  }, props.children))), document.getElementById('modals'));
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (Modal);
@@ -913,7 +913,7 @@ const Navbar = props => {
   }, Navbar_jsx("div", {
     className: Navbar_module_default.a.container__logo
   }, Navbar_jsx("img", {
-    src: `${config["d" /* URL_CLOUD_STORAGE */]}/static/Perro.png`,
+    src: `${config["e" /* URL_CLOUD_STORAGE */]}/static/Perro.png`,
     className: Navbar_module_default.a.logo + ' ' + `img-fluid`,
     alt: "Oliver pet shop",
     onClick: () => navegar('/', event)
@@ -960,7 +960,7 @@ const Navbar = props => {
     src: props.usuario.foto != 'null' ? props.usuario.foto : `https://storage.googleapis.com/web-oliver/user-default.png`,
     className: Navbar_module_default.a.imgProfile
   })), Navbar_jsx(external_reactstrap_["DropdownMenu"], null, Navbar_jsx(link_default.a, {
-    href: `${config["c" /* PUBLIC_URL */]}/perfil`
+    href: `${config["d" /* PUBLIC_URL */]}/perfil`
   }, Navbar_jsx("a", null, Navbar_jsx(external_reactstrap_["DropdownItem"], null, "Mi perfil"))), Navbar_jsx(external_reactstrap_["DropdownItem"], {
     divider: true
   }), Navbar_jsx(external_reactstrap_["DropdownItem"], {
@@ -984,7 +984,7 @@ const Navbar = props => {
   }, Navbar_jsx("section", {
     className: Navbar_module_default.a.header__collapsed_nav
   }, Navbar_jsx("img", {
-    src: `${config["d" /* URL_CLOUD_STORAGE */]}/static/Perro.png`,
+    src: `${config["e" /* URL_CLOUD_STORAGE */]}/static/Perro.png`,
     className: Navbar_module_default.a.logo,
     alt: "Oliver pet shop"
   }), Navbar_jsx(react_fontawesome_["FontAwesomeIcon"], {
@@ -1048,7 +1048,7 @@ const Navbar = props => {
     icon: free_brands_svg_icons_["faInstagram"],
     className: Navbar_module_default.a.iconoRed
   })), Navbar_jsx(link_default.a, {
-    href: `${config["c" /* PUBLIC_URL */]}/politica`
+    href: `${config["d" /* PUBLIC_URL */]}/politica`
   }, Navbar_jsx("span", {
     className: "text-muted"
   }, "\xA9Terminos y Condiciones"))))), !modalIsOpen ? null : Navbar_jsx(Modal["a" /* default */], {
@@ -2850,7 +2850,7 @@ const updatePassword = (data, token) => async dispatch => {
       type: _types_usuarioTypes__WEBPACK_IMPORTED_MODULE_1__[/* UPDATE_PASSWORD */ "e"]
     });
     return setTimeout(() => {
-      window.location.assign(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* PUBLIC_URL */ "c"]}`);
+      window.location.assign(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* PUBLIC_URL */ "d"]}`);
     }, 5000);
   } catch (error) {
     return dispatch({
@@ -5274,11 +5274,13 @@ module.exports = require("redux");
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return API; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return PUBLIC_URL; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return URL_CLOUD_STORAGE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return PUBLIC_URL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return URL_CLOUD_STORAGE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return GOOGLE_CLIENT_ID; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return MP_AC_TOKEN; });
 const API = 'https://api.oliverpetshop.com.ar';
 const PUBLIC_URL = "https://developers.oliverpetshop.com.ar";
+const MP_AC_TOKEN = "TEST-1f5f55a0-b128-49c4-9217-110a8d9fba43";
 const URL_CLOUD_STORAGE = 'https://storage.googleapis.com/web-oliver';
 const GOOGLE_CLIENT_ID = '85508910542-jfaoom4l84q0a9cdmeg382vi9hl986j1.apps.googleusercontent.com';
 

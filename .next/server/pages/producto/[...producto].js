@@ -140,16 +140,16 @@ const Modal = props => {
   }, __jsx("div", {
     className: _Modal_module_css__WEBPACK_IMPORTED_MODULE_2___default.a.modal_dialog,
     id: "body__modal_buscador"
-  }, __jsx("div", {
-    className: _Modal_module_css__WEBPACK_IMPORTED_MODULE_2___default.a.modal_content
-  }, props.children, __jsx(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_4__["FontAwesomeIcon"], {
+  }, __jsx(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_4__["FontAwesomeIcon"], {
     icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_3__["faTimes"],
     onClick: closeModal,
     className: _Modal_module_css__WEBPACK_IMPORTED_MODULE_2___default.a.close_modal,
     style: {
       cursor: 'pointer'
     }
-  })))), document.getElementById('modals'));
+  }), __jsx("div", {
+    className: _Modal_module_css__WEBPACK_IMPORTED_MODULE_2___default.a.modal_content
+  }, props.children))), document.getElementById('modals'));
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (Modal);
@@ -401,7 +401,7 @@ const ProductoSingle = props => {
       } = props.subProductos[0];
       guardarProductoEnState(foto, peso, precioFinal, producto, tamaño, idSubProducto, marca, subProducto, idProducto, stock);
     } else {
-      guardarProductoEnState(`${config["d" /* URL_CLOUD_STORAGE */]}/sin-imagen.png`, null, null, producto, null, null, marca, null, idProducto, null);
+      guardarProductoEnState(`${config["e" /* URL_CLOUD_STORAGE */]}/sin-imagen.png`, null, null, producto, null, null, marca, null, idProducto, null);
     }
   }, [props.producto]);
   const imagenes = []; //al vector de imagenes, le sumo las imagenes de los productos relacionados al mismo padre
@@ -1048,7 +1048,7 @@ const CardProducto = ({
   };
 
   return !isProductoDetalle ? CardProducto_jsx(link_default.a, {
-    href: `${config["c" /* PUBLIC_URL */]}/producto/${Object(helpers["c" /* slug */])(prd.producto)}/${prd.idProducto}`
+    href: `${config["d" /* PUBLIC_URL */]}/producto/${Object(helpers["c" /* slug */])(prd.producto)}/${prd.idProducto}`
   }, CardProducto_jsx("a", null, CardProducto_jsx("div", {
     className: CardProducto_module_default.a.container__producto + ' ' + `my-3`
   }, CardProducto_jsx("section", {
@@ -1071,7 +1071,7 @@ const CardProducto = ({
   }, "$", prd.precioFinal)), prd.descuento ? CardProducto_jsx("span", {
     className: CardProducto_module_default.a.label__descuento + ' ' + `bg-red`
   }, prd.descuento, "% Off") : null))) : CardProducto_jsx("a", {
-    href: `${config["c" /* PUBLIC_URL */]}/producto/${Object(helpers["c" /* slug */])(prd.producto)}/${prd.idProducto}`
+    href: `${config["d" /* PUBLIC_URL */]}/producto/${Object(helpers["c" /* slug */])(prd.producto)}/${prd.idProducto}`
   }, CardProducto_jsx("div", {
     className: CardProducto_module_default.a.container__producto + ' ' + `my-3`
   }, CardProducto_jsx("section", {
@@ -1635,7 +1635,7 @@ const BotonWhatsapp = () => {
     className: "btn-wpp",
     onClick: handleClick
   }, __jsx("img", {
-    src: `${_config__WEBPACK_IMPORTED_MODULE_1__[/* URL_CLOUD_STORAGE */ "d"]}/assets/wpp.png`,
+    src: `${_config__WEBPACK_IMPORTED_MODULE_1__[/* URL_CLOUD_STORAGE */ "e"]}/assets/wpp.png`,
     className: "img-fluid",
     alt: "WhatsApp de Oliver PetShop"
   }));
@@ -3373,11 +3373,13 @@ const Header = ({
     content: "#df8f0e"
   }), __jsx("link", {
     rel: "icon",
-    href: `${_config_index__WEBPACK_IMPORTED_MODULE_2__[/* URL_CLOUD_STORAGE */ "d"]}/static/Perro.png`
+    href: `${_config_index__WEBPACK_IMPORTED_MODULE_2__[/* URL_CLOUD_STORAGE */ "e"]}/static/Perro.png`
   }), metadesc ? __jsx("meta", {
     name: "description",
     content: metadesc
-  }) : null);
+  }) : null, __jsx("script", {
+    src: "https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js"
+  }));
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (Header);
@@ -3879,11 +3881,13 @@ module.exports = {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return API; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return PUBLIC_URL; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return URL_CLOUD_STORAGE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return PUBLIC_URL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return URL_CLOUD_STORAGE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return GOOGLE_CLIENT_ID; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return MP_AC_TOKEN; });
 const API = 'https://api.oliverpetshop.com.ar';
 const PUBLIC_URL = "https://developers.oliverpetshop.com.ar";
+const MP_AC_TOKEN = "TEST-1f5f55a0-b128-49c4-9217-110a8d9fba43";
 const URL_CLOUD_STORAGE = 'https://storage.googleapis.com/web-oliver';
 const GOOGLE_CLIENT_ID = '85508910542-jfaoom4l84q0a9cdmeg382vi9hl986j1.apps.googleusercontent.com';
 
