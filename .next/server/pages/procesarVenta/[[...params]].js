@@ -340,7 +340,10 @@ const ProcesarVenta = props => {
     zonasGuardar,
     inicializarStoreVenta,
     setDataEnvioEnVenta,
-    traerZonas
+    traerZonas,
+    payment_id,
+    status,
+    collection_id
   } = props;
   const {
     usuario,
@@ -361,7 +364,11 @@ const ProcesarVenta = props => {
     total
   } = props.ventaReducer;
   Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(() => {
-    traerZonas();
+    if (status == 'approved') {
+      return traerZonas();
+    }
+
+    setError(true);
   }, []);
   Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(() => {
     if (logueado && zonas.length > 0) {
@@ -386,10 +393,6 @@ const ProcesarVenta = props => {
     const {
       idUsuario
     } = usuario;
-    let f = new Date();
-    let mes = f.getMonth() < 10 ? `0${f.getMonth() + 1}` : `${f.getMonth()}`;
-    let dia = f.getDate() < 10 ? `0${f.getDate()}` : `${f.getDate()}`;
-    let fecha = `${f.getFullYear()}-${mes}-${dia}`;
     let dataToRequest = {
       envio: {
         idZona: zona.idZona,
@@ -400,11 +403,11 @@ const ProcesarVenta = props => {
         porcentaje_descuento,
         descuento,
         total,
-        idUsuario,
         productos,
-        fecha,
-        operacion_id: props.collection_id || null,
-        idMedioPago
+        collection_id,
+        payment_id,
+        idMedioPago,
+        idUsuario
       }
     }; //console.log(dataToRequest);
 
@@ -416,7 +419,7 @@ const ProcesarVenta = props => {
       const headers = new Headers();
       headers.append('token', usuario.token);
       headers.append("Content-Type", "application/json");
-      let url = !data.venta.operacion_id ? `${_config_index__WEBPACK_IMPORTED_MODULE_9__[/* API */ "a"]}/registrarVenta?mercadoPago=false` : `${_config_index__WEBPACK_IMPORTED_MODULE_9__[/* API */ "a"]}/registrarVenta?mercadoPago=true`;
+      let url = `${_config_index__WEBPACK_IMPORTED_MODULE_9__[/* API */ "a"]}/ventas/registrarVenta`;
       const reqVenta = await fetch(url, {
         headers,
         method: 'POST',
@@ -453,10 +456,14 @@ ProcesarVenta.getInitialProps = async ({
   query
 }) => {
   const {
-    collection_id
+    collection_id,
+    payment_id,
+    status
   } = query;
   return {
-    collection_id
+    collection_id,
+    payment_id,
+    status
   };
 };
 
@@ -773,9 +780,11 @@ const GUARDAR = 'envios_guardar';
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return URL_CLOUD_STORAGE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return GOOGLE_CLIENT_ID; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return MP_AC_TOKEN; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return URL_PROCESAR_VENTA; });
 const API = 'https://api.oliverpetshop.com.ar';
 const PUBLIC_URL = "https://developers.oliverpetshop.com.ar";
-const MP_AC_TOKEN = "TEST-1f5f55a0-b128-49c4-9217-110a8d9fba43";
+const URL_PROCESAR_VENTA = "http://localhost:3000/procesarVenta";
+const MP_AC_TOKEN = "APP_USR-2687910292298842-062215-dedefffbf200c367904e03c489d2cbdc-779530591";
 const URL_CLOUD_STORAGE = 'https://storage.googleapis.com/web-oliver';
 const GOOGLE_CLIENT_ID = '85508910542-jfaoom4l84q0a9cdmeg382vi9hl986j1.apps.googleusercontent.com';
 

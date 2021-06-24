@@ -3885,9 +3885,11 @@ module.exports = {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return URL_CLOUD_STORAGE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return GOOGLE_CLIENT_ID; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return MP_AC_TOKEN; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return URL_PROCESAR_VENTA; });
 const API = 'https://api.oliverpetshop.com.ar';
 const PUBLIC_URL = "https://developers.oliverpetshop.com.ar";
-const MP_AC_TOKEN = "TEST-1f5f55a0-b128-49c4-9217-110a8d9fba43";
+const URL_PROCESAR_VENTA = "http://localhost:3000/procesarVenta";
+const MP_AC_TOKEN = "APP_USR-2687910292298842-062215-dedefffbf200c367904e03c489d2cbdc-779530591";
 const URL_CLOUD_STORAGE = 'https://storage.googleapis.com/web-oliver';
 const GOOGLE_CLIENT_ID = '85508910542-jfaoom4l84q0a9cdmeg382vi9hl986j1.apps.googleusercontent.com';
 

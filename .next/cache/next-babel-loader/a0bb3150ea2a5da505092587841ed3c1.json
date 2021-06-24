@@ -1,0 +1,1 @@
+{"ast":null,"code":"const TRAER = 'politica_traer';\nconst LOADING = 'politica_loading';\nconst ERROR = 'politica_error';\nexport { TRAER, LOADING, ERROR };","map":null,"metadata":{},"sourceType":"module"}
