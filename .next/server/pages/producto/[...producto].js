@@ -401,7 +401,7 @@ const ProductoSingle = props => {
       } = props.subProductos[0];
       guardarProductoEnState(foto, peso, precioFinal, producto, tamaño, idSubProducto, marca, subProducto, idProducto, stock);
     } else {
-      guardarProductoEnState(`${config["e" /* URL_CLOUD_STORAGE */]}/sin-imagen.png`, null, null, producto, null, null, marca, null, idProducto, null);
+      guardarProductoEnState(`${config["f" /* URL_CLOUD_STORAGE */]}/sin-imagen.png`, null, null, producto, null, null, marca, null, idProducto, null);
     }
   }, [props.producto]);
   const imagenes = []; //al vector de imagenes, le sumo las imagenes de los productos relacionados al mismo padre
@@ -1048,7 +1048,7 @@ const CardProducto = ({
   };
 
   return !isProductoDetalle ? CardProducto_jsx(link_default.a, {
-    href: `${config["d" /* PUBLIC_URL */]}/producto/${Object(helpers["c" /* slug */])(prd.producto)}/${prd.idProducto}`
+    href: `${config["e" /* PUBLIC_URL */]}/producto/${Object(helpers["c" /* slug */])(prd.producto)}/${prd.idProducto}`
   }, CardProducto_jsx("a", null, CardProducto_jsx("div", {
     className: CardProducto_module_default.a.container__producto + ' ' + `my-3`
   }, CardProducto_jsx("section", {
@@ -1071,7 +1071,7 @@ const CardProducto = ({
   }, "$", prd.precioFinal)), prd.descuento ? CardProducto_jsx("span", {
     className: CardProducto_module_default.a.label__descuento + ' ' + `bg-red`
   }, prd.descuento, "% Off") : null))) : CardProducto_jsx("a", {
-    href: `${config["d" /* PUBLIC_URL */]}/producto/${Object(helpers["c" /* slug */])(prd.producto)}/${prd.idProducto}`
+    href: `${config["e" /* PUBLIC_URL */]}/producto/${Object(helpers["c" /* slug */])(prd.producto)}/${prd.idProducto}`
   }, CardProducto_jsx("div", {
     className: CardProducto_module_default.a.container__producto + ' ' + `my-3`
   }, CardProducto_jsx("section", {
@@ -1193,15 +1193,18 @@ const ProductoCarrito = props => {
     peso,
     total,
     idSubProducto,
-    cantidad
+    cantidad,
+    fecha,
+    totalExplicito,
+    eliminarProducto
   } = props;
   return __jsx("div", {
     className: _ProductoCarrito_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.card__productoCarrito + ' ' + `col-12`
-  }, __jsx(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeIcon"], {
+  }, eliminarProducto ? __jsx(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_3__["FontAwesomeIcon"], {
     icon: _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_2__["faTrash"],
     className: _ProductoCarrito_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.delete_producto_carrito,
     onClick: () => props.eliminarProducto(idSubProducto)
-  }), __jsx("div", {
+  }) : null, __jsx("div", {
     className: _ProductoCarrito_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.img__producto__wrapper
   }, __jsx("img", {
     src: foto,
@@ -1213,13 +1216,13 @@ const ProductoCarrito = props => {
     className: _ProductoCarrito_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.carrito__nombre__producto + ' ' + `d-block`
   }, producto), __jsx("span", {
     className: _ProductoCarrito_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.carrito__cantidad__producto + ' ' + `d-block`
-  }, "x ", peso, "Kg"), __jsx("span", {
+  }, fecha ? fecha : `x ${peso}Kg`), __jsx("span", {
     className: "text-muted"
   }, __jsx("b", null, cantidad), " ", cantidad > 1 ? 'unidades' : 'unidad')), __jsx("div", {
     className: _ProductoCarrito_module_css__WEBPACK_IMPORTED_MODULE_1___default.a.total__producto__carrito
   }, __jsx("span", {
     className: "text-black"
-  }, "$", total * cantidad)));
+  }, "$", totalExplicito ? totalExplicito : total * cantidad)));
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (ProductoCarrito);
@@ -1635,7 +1638,7 @@ const BotonWhatsapp = () => {
     className: "btn-wpp",
     onClick: handleClick
   }, __jsx("img", {
-    src: `${_config__WEBPACK_IMPORTED_MODULE_1__[/* URL_CLOUD_STORAGE */ "e"]}/assets/wpp.png`,
+    src: `${_config__WEBPACK_IMPORTED_MODULE_1__[/* URL_CLOUD_STORAGE */ "f"]}/assets/wpp.png`,
     className: "img-fluid",
     alt: "WhatsApp de Oliver PetShop"
   }));
@@ -3373,7 +3376,7 @@ const Header = ({
     content: "#df8f0e"
   }), __jsx("link", {
     rel: "icon",
-    href: `${_config_index__WEBPACK_IMPORTED_MODULE_2__[/* URL_CLOUD_STORAGE */ "e"]}/static/Perro.png`
+    href: `${_config_index__WEBPACK_IMPORTED_MODULE_2__[/* URL_CLOUD_STORAGE */ "f"]}/static/Perro.png`
   }), metadesc ? __jsx("meta", {
     name: "description",
     content: metadesc
@@ -3881,25 +3884,20 @@ module.exports = {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return API; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return PUBLIC_URL; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return URL_CLOUD_STORAGE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return GOOGLE_CLIENT_ID; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return MP_AC_TOKEN; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return URL_PROCESAR_VENTA; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return PUBLIC_URL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return URL_CLOUD_STORAGE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return GOOGLE_CLIENT_ID; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return MP_AC_TOKEN; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return URL_PROCESAR_VENTA; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return FOTO_DEFAULT; });
 const API = 'https://api.oliverpetshop.com.ar';
 const PUBLIC_URL = "https://developers.oliverpetshop.com.ar";
-const URL_PROCESAR_VENTA = "https://developers.oliverpetshop.com.ar/procesarVenta";
+const URL_PROCESAR_VENTA = "http://localhost:3000/procesarVenta";
 const MP_AC_TOKEN = "TEST-3132396576920746-020118-c75647e085784e05058d12358ef9e782-528050104";
 const URL_CLOUD_STORAGE = 'https://storage.googleapis.com/web-oliver';
 const GOOGLE_CLIENT_ID = '85508910542-jfaoom4l84q0a9cdmeg382vi9hl986j1.apps.googleusercontent.com';
+const FOTO_DEFAULT = '';
 
-/*https://www.mercadolibre.com.ar/gz/checkout/buy
-?mode=page
-&parent_url=https%3A%2F%2Farticulo.mercadolibre.com.ar%2FMLA-701482873-set-x-4-colchonetas-cama-inflable-pileta-piscina-oferta-mar-_JM
-&item_id=MLA701482873
-&context=vip
-&shipping_option_id=3630547635
-&quantity=1*/
 
 /***/ }),
 

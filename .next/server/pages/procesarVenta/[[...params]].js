@@ -341,8 +341,8 @@ const ProcesarVenta = props => {
     inicializarStoreVenta,
     setDataEnvioEnVenta,
     traerZonas,
-    payment_id,
     status,
+    payment_id,
     collection_id
   } = props;
   const {
@@ -364,8 +364,9 @@ const ProcesarVenta = props => {
     total
   } = props.ventaReducer;
   Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(() => {
-    if (status == 'approved') {
-      return traerZonas();
+    if (status == "approved") {
+      traerZonas();
+      return;
     }
 
     setError(true);
@@ -456,14 +457,14 @@ ProcesarVenta.getInitialProps = async ({
   query
 }) => {
   const {
-    collection_id,
     payment_id,
-    status
+    status,
+    collection_id
   } = query;
   return {
     collection_id,
-    payment_id,
-    status
+    status,
+    payment_id
   };
 };
 
@@ -532,7 +533,7 @@ const Header = ({
     content: "#df8f0e"
   }), __jsx("link", {
     rel: "icon",
-    href: `${_config_index__WEBPACK_IMPORTED_MODULE_2__[/* URL_CLOUD_STORAGE */ "e"]}/static/Perro.png`
+    href: `${_config_index__WEBPACK_IMPORTED_MODULE_2__[/* URL_CLOUD_STORAGE */ "f"]}/static/Perro.png`
   }), metadesc ? __jsx("meta", {
     name: "description",
     content: metadesc
@@ -776,25 +777,20 @@ const GUARDAR = 'envios_guardar';
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return API; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return PUBLIC_URL; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return URL_CLOUD_STORAGE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return GOOGLE_CLIENT_ID; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return MP_AC_TOKEN; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return URL_PROCESAR_VENTA; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return PUBLIC_URL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return URL_CLOUD_STORAGE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return GOOGLE_CLIENT_ID; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return MP_AC_TOKEN; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return URL_PROCESAR_VENTA; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return FOTO_DEFAULT; });
 const API = 'https://api.oliverpetshop.com.ar';
 const PUBLIC_URL = "https://developers.oliverpetshop.com.ar";
-const URL_PROCESAR_VENTA = "https://developers.oliverpetshop.com.ar/procesarVenta";
+const URL_PROCESAR_VENTA = "http://localhost:3000/procesarVenta";
 const MP_AC_TOKEN = "TEST-3132396576920746-020118-c75647e085784e05058d12358ef9e782-528050104";
 const URL_CLOUD_STORAGE = 'https://storage.googleapis.com/web-oliver';
 const GOOGLE_CLIENT_ID = '85508910542-jfaoom4l84q0a9cdmeg382vi9hl986j1.apps.googleusercontent.com';
+const FOTO_DEFAULT = '';
 
-/*https://www.mercadolibre.com.ar/gz/checkout/buy
-?mode=page
-&parent_url=https%3A%2F%2Farticulo.mercadolibre.com.ar%2FMLA-701482873-set-x-4-colchonetas-cama-inflable-pileta-piscina-oferta-mar-_JM
-&item_id=MLA701482873
-&context=vip
-&shipping_option_id=3630547635
-&quantity=1*/
 
 /***/ }),
 
