@@ -143,7 +143,7 @@ const login = data => async dispatch => {
 
     let headers = new Headers();
     headers.append("Content-Type", "application/json");
-    return fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/login`, {
+    return fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/auth/login`, {
       method: 'POST',
       body: JSON.stringify(data),
       headers
@@ -206,7 +206,7 @@ const verificarSesion = (token = null) => async dispatch => {
       let headers = new Headers();
       let tokenSend = token ? token : dataUsuario.token;
       headers.append('token', tokenSend);
-      const request = await fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/verify-sesion`, {
+      const request = await fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/auth/verify-sesion`, {
         method: 'GET',
         headers
       });
@@ -252,7 +252,7 @@ const register = data => dispatch => {
   try {
     let headers = new Headers();
     headers.append("Content-Type", "application/json");
-    return fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/register`, {
+    return fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/auth/register`, {
       method: 'POST',
       body: JSON.stringify(data),
       headers
@@ -293,7 +293,7 @@ const singInWithGoogle = tokenId => async dispatch => {
   try {
     let headers = new Headers();
     headers.append("Content-Type", "application/json");
-    return fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/google/tokensignin`, {
+    return fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/auth/google`, {
       method: 'POST',
       headers,
       body: JSON.stringify({
@@ -341,7 +341,7 @@ const actualizarFoto = (data, id) => async dispatch => {
     let headers = new Headers();
     let token = JSON.parse(localStorage.getItem('oliverpetshop_usuario')).token;
     headers.append("token", token);
-    const request = await fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/actualizarFotoUsuarioDesdeWeb/${id}`, {
+    const request = await fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/usuario/actualizarFotoUsuarioDesdeWeb/${id}`, {
       method: 'PUT',
       headers,
       body: data
@@ -376,7 +376,7 @@ const actualizarUsuario = (data, id) => async dispatch => {
     });
     headers.append('token', token);
     headers.append("Content-Type", "application/json");
-    const request = await fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/actualizarUsuarioDesdeWeb/${id}`, {
+    const request = await fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/usuario/actualizarUsuarioDesdeWeb/${id}`, {
       method: 'PUT',
       headers,
       body: JSON.stringify(data)
@@ -420,7 +420,7 @@ const actualizarAddress = (data, id) => async dispatch => {
     });
     headers.append('token', token);
     headers.append("Content-Type", "application/json");
-    const request = await fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/actualizarDireccion/${id}`, {
+    const request = await fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/usuario/actualizarDireccion/${id}`, {
       method: 'PUT',
       headers,
       body: JSON.stringify(data)
@@ -464,7 +464,7 @@ const sendEmailForResetPassword = idUsuario => async dispatch => {
     });
     headers.append('token', token);
     headers.append("Content-Type", "application/json");
-    const request = await fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/resetPassword`, {
+    const request = await fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/usuario/reset-password`, {
       method: 'POST',
       headers,
       body: JSON.stringify({
@@ -515,7 +515,7 @@ const updatePassword = (data, token) => async dispatch => {
     let headers = new Headers();
     headers.append('refresh-token', token);
     headers.append("Content-Type", "application/json");
-    const request = await fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/new-password`, {
+    const request = await fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/usuario/new-password`, {
       method: 'PUT',
       headers,
       body: JSON.stringify(data)

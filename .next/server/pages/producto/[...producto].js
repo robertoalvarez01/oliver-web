@@ -1312,15 +1312,13 @@ const traerProductos = () => async (dispatch, getState) => {
         limiteDesktop
       }
     } = getState().productosReducer;
-    let url = `${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}`;
+    let url = `${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/productos`;
 
-    if (!filtrando) {
-      url += `/producto?desde=${desde}&limite=${Object(_helpers_index__WEBPACK_IMPORTED_MODULE_1__[/* isMobile */ "b"])() ? limiteMobile : limiteDesktop}`;
-    } else {
+    if (filtrando) {
       if (search.trim() !== "") {
-        url += `/productos/buscar?busqueda=${search}&desde=${desde}&limite=${Object(_helpers_index__WEBPACK_IMPORTED_MODULE_1__[/* isMobile */ "b"])() ? limiteMobile : limiteDesktop}`;
+        url += `/buscar?busqueda=${search}&`;
       } else {
-        url += `/productos/filtro/filtrar?desde=${desde}&limite=${Object(_helpers_index__WEBPACK_IMPORTED_MODULE_1__[/* isMobile */ "b"])() ? limiteMobile : limiteDesktop}&`;
+        url += `/filtro/filtrar?`;
 
         if (categoria) {
           url += `categoria=${categoria}&`;
@@ -1331,12 +1329,15 @@ const traerProductos = () => async (dispatch, getState) => {
         }
 
         if (marca) {
-          url += `marca=${marca}`;
+          url += `marca=${marca}&`;
         }
       }
-    } // console.log(url);
+    } else {
+      url += '?';
+    }
 
-
+    url += `desde=${desde}&limite=${Object(_helpers_index__WEBPACK_IMPORTED_MODULE_1__[/* isMobile */ "b"])() ? limiteMobile : limiteDesktop}`;
+    console.log(url);
     return fetch(url).then(res => res.json()).then(data => {
       dispatch({
         type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* TRAER_TODOS */ "v"],
@@ -1373,15 +1374,13 @@ const traerMas = () => async (dispatch, getState) => {
         limiteDesktop
       }
     } = getState().productosReducer;
-    let url = `${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}`;
+    let url = `${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/productos`;
 
-    if (!filtrando) {
-      url += `/producto?desde=${desde}&limite=${Object(_helpers_index__WEBPACK_IMPORTED_MODULE_1__[/* isMobile */ "b"])() ? limiteMobile : limiteDesktop}`;
-    } else {
+    if (filtrando) {
       if (search.trim() !== "") {
-        url += `/productos/buscar?busqueda=${search}&desde=${desde}&limite=${Object(_helpers_index__WEBPACK_IMPORTED_MODULE_1__[/* isMobile */ "b"])() ? limiteMobile : limiteDesktop}`;
+        url += `/buscar?busqueda=${search}&`;
       } else {
-        url += `/productos/filtro/filtrar?desde=${desde}&limite=${Object(_helpers_index__WEBPACK_IMPORTED_MODULE_1__[/* isMobile */ "b"])() ? limiteMobile : limiteDesktop}&`;
+        url += `/filtro/filtrar?`;
 
         if (categoria) {
           url += `categoria=${categoria}&`;
@@ -1392,11 +1391,15 @@ const traerMas = () => async (dispatch, getState) => {
         }
 
         if (marca) {
-          url += `marca=${marca}`;
+          url += `marca=${marca}&`;
         }
       }
+    } else {
+      url += '?';
     }
 
+    url += `desde=${desde}&limite=${Object(_helpers_index__WEBPACK_IMPORTED_MODULE_1__[/* isMobile */ "b"])() ? limiteMobile : limiteDesktop}`;
+    console.log(url);
     return fetch(url).then(res => res.json()).then(data => {
       if (data.data.length === 0) {
         dispatch({
@@ -1424,7 +1427,7 @@ const traerPorId = id => async dispatch => {
   });
 
   try {
-    return fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/producto/${id}`).then(res => res.json()).then(data => {
+    return fetch(`${_config_index__WEBPACK_IMPORTED_MODULE_0__[/* API */ "a"]}/productos/${id}`).then(res => res.json()).then(data => {
       dispatch({
         type: _types_productosTypes__WEBPACK_IMPORTED_MODULE_2__[/* TRAER_UNO */ "w"],
         payload: data
