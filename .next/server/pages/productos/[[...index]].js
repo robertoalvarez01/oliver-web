@@ -1450,7 +1450,7 @@ const Productos = props => {
     className: "jsx-167325002" + " " + (`boton bg-yellow mt-3 d-none` + ' ' + Productos_module_default.a.boton_filtrar_mobile || false)
   }, "Filtrar")), __jsx("div", {
     className: "jsx-167325002" + " " + "row feedProductos"
-  }, !props.productos ? null : props.productos.map(prd => __jsx("div", {
+  }, !props.productos ? null : props.productos.map(prd => prd.precioFinal === 0 ? null : __jsx("div", {
     key: prd.idProducto,
     className: "jsx-167325002" + " " + "col-6 col-md-3"
   }, __jsx(CardProducto["a" /* default */], {
