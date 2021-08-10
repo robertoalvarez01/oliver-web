@@ -1412,47 +1412,47 @@ const Productos = props => {
   };
 
   return __jsx(external_react_default.a.Fragment, null, props.loading || !props.productos ? __jsx("div", {
-    className: "jsx-3898475978" + " " + "col-12 text-center"
+    className: "jsx-167325002" + " " + "col-12 text-center"
   }, __jsx(Loader["a" /* default */], null)) : __jsx(external_react_default.a.Fragment, null, filtro !== '' && props.filtrando ? __jsx("span", {
     id: "label__filtro-busqueda",
-    className: "jsx-3898475978" + " " + (Productos_module_default.a.label__filtro_busqueda || "")
+    className: "jsx-167325002" + " " + (Productos_module_default.a.label__filtro_busqueda || "")
   }, __jsx(react_fontawesome_["FontAwesomeIcon"], {
     icon: free_solid_svg_icons_["faSearch"]
   }), __jsx("span", {
-    className: "jsx-3898475978" + " " + (Productos_module_default.a.item_filtro_busqueda || "")
+    className: "jsx-167325002" + " " + (Productos_module_default.a.item_filtro_busqueda || "")
   }, __jsx("span", {
     id: "valor-busqueda",
-    className: "jsx-3898475978" + " " + "text-mutedd"
+    className: "jsx-167325002" + " " + "text-mutedd"
   }, filtro))) : null, __jsx("div", {
     style: {
       padding: '0px 15px'
     },
-    className: "jsx-3898475978" + " " + "row justify-content-between my-2 align-items-center"
+    className: "jsx-167325002" + " " + "row justify-content-between my-2 align-items-center"
   }, __jsx("span", {
-    className: "jsx-3898475978" + " " + "text-muted"
+    className: "jsx-167325002" + " " + "text-muted"
   }, __jsx("b", {
-    className: "jsx-3898475978" + " " + "txt-yellow"
+    className: "jsx-167325002" + " " + "txt-yellow"
   }, props.productos.length), " productos encontrados"), __jsx("div", {
-    className: "jsx-3898475978" + " " + (Productos_module_default.a.ordenarProductos + ' ' + `d-flex align-items-center` || false)
+    className: "jsx-167325002" + " " + (Productos_module_default.a.ordenarProductos + ' ' + `d-flex align-items-center` || false)
   }, __jsx("span", {
-    className: "jsx-3898475978" + " " + "txt-yellow text-bold mr-2"
+    className: "jsx-167325002" + " " + "txt-yellow text-bold mr-2"
   }, "Ordenar por: "), __jsx("select", {
     onChange: handleChangeOrdenProductos,
-    className: "jsx-3898475978" + " " + (Productos_module_default.a.select_ordenar || "")
+    className: "jsx-167325002" + " " + (Productos_module_default.a.select_ordenar || "")
   }, __jsx("option", {
     value: "desc",
-    className: "jsx-3898475978"
+    className: "jsx-167325002"
   }, "Mayor precio"), __jsx("option", {
     value: "asc",
-    className: "jsx-3898475978"
+    className: "jsx-167325002"
   }, "Menor precio"))), __jsx("button", {
     onClick: showFiltrosMobile,
-    className: "jsx-3898475978" + " " + (`boton bg-yellow mt-3 d-none` + ' ' + Productos_module_default.a.boton_filtrar_mobile || false)
+    className: "jsx-167325002" + " " + (`boton bg-yellow mt-3 d-none` + ' ' + Productos_module_default.a.boton_filtrar_mobile || false)
   }, "Filtrar")), __jsx("div", {
-    className: "jsx-3898475978" + " " + "row feedProductos"
+    className: "jsx-167325002" + " " + "row feedProductos"
   }, !props.productos ? null : props.productos.map(prd => __jsx("div", {
     key: prd.idProducto,
-    className: "jsx-3898475978" + " " + "col-6 col-md-3"
+    className: "jsx-167325002" + " " + "col-6 col-md-3"
   }, __jsx(CardProducto["a" /* default */], {
     imagen: prd.foto,
     prd: prd
@@ -1460,10 +1460,10 @@ const Productos = props => {
     style: {
       height: '50px'
     },
-    className: "jsx-3898475978" + " " + "alert alert-warning text-center w-100"
+    className: "jsx-167325002" + " " + "alert alert-warning text-center w-100"
   }, "No se encontraron m\xE1s resultados") : renderBotonCargarMas())), __jsx(style_default.a, {
-    id: "3898475978"
-  }, [".feedProductos.jsx-3898475978{height:75vh;overflow-y:scroll;}", ".btn-vermas.jsx-3898475978{position:relative;height:40px;}", ".feedProductos.jsx-3898475978::-webkit-scrollbar{width:8px;height:5px;}", ".feedProductos.jsx-3898475978::-webkit-scrollbar-thumb{background:#FFB347;border-radius:4px;}", ".feedProductos.jsx-3898475978::-webkit-scrollbar-thumb.jsx-3898475978:hover{background:#b3b3b3;box-shadow:0 0 2px 1px rgba(0,0,0,0.2);}", "@media(max-width:768px){.feedProductos.jsx-3898475978{height:68vh;overflow-y:scroll;}.feedProductos.jsx-3898475978::-webkit-scrollbar{width:8px;height:10px;}}"]));
+    id: "167325002"
+  }, [".feedProductos.jsx-167325002{max-height:75vh;overflow-y:scroll;}", ".btn-vermas.jsx-167325002{position:relative;height:40px;}", ".feedProductos.jsx-167325002::-webkit-scrollbar{width:8px;height:5px;}", ".feedProductos.jsx-167325002::-webkit-scrollbar-thumb{background:#FFB347;border-radius:4px;}", ".feedProductos.jsx-167325002::-webkit-scrollbar-thumb.jsx-167325002:hover{background:#b3b3b3;box-shadow:0 0 2px 1px rgba(0,0,0,0.2);}", "@media(max-width:768px){.feedProductos.jsx-167325002{height:68vh;overflow-y:scroll;}.feedProductos.jsx-167325002::-webkit-scrollbar{width:8px;height:10px;}}"]));
 };
 
 const mapStateToProps = reducers => {
