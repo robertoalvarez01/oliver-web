@@ -54,7 +54,7 @@ const SliderFotosProducto = props => {
     setImagenActiva(props.imagenes[0]);
   }, []);
 
-  const setImagenActive = (event, key, peso, precioUnidad, tamaño, idSubProducto, subProducto, stock) => {
+  const setImagenActive = (event, key, peso, precioUnidad, tamaño, idSubProducto, subProducto, stock, codigoBarra) => {
     const imagen = event.target;
     const parentElement = event.srcElement.parentNode;
 
@@ -65,7 +65,7 @@ const SliderFotosProducto = props => {
     imagen.classList.add('active');
     const urlPhoto = imagen.getAttribute('src');
     setImagenActiva(urlPhoto);
-    props.changePeso(key, `${peso}`, precioUnidad, `${tamaño}`, idSubProducto, `${subProducto}`, stock);
+    props.changePeso(key, `${peso}`, precioUnidad, `${tamaño}`, idSubProducto, `${subProducto}`, stock, codigoBarra);
   }; //console.log(imagenActiva);
 
 
@@ -84,7 +84,7 @@ const SliderFotosProducto = props => {
         className: "active"
       }, key) : /*#__PURE__*/react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("img", {
         src: img,
-        onClick: () => setImagenActive(event, key, `${props.subProductos[key].peso}`, props.subProductos[key].precioUnidad, `${props.subProductos[key].tamaño}`, props.subProductos[key].idSubProducto, `${props.subProductos[key].subProducto}`, `${props.subProductos[key].stock}`),
+        onClick: () => setImagenActive(event, key, `${props.subProductos[key].peso}`, props.subProductos[key].precioUnidad, `${props.subProductos[key].tamaño}`, props.subProductos[key].idSubProducto, `${props.subProductos[key].subProducto}`, `${props.subProductos[key].stock}`, `${props.subProductos[key].codigoBarra}`),
         alt: props.subProductos[key].subProducto
       }, key))
     }), /*#__PURE__*/react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_style__WEBPACK_IMPORTED_MODULE_2__/* .ImagenActiva */ .Bx, {

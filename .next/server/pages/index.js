@@ -554,7 +554,8 @@ const Home = props => {
   }, []);
   return /*#__PURE__*/(0,jsx_runtime_.jsxs)(jsx_runtime_.Fragment, {
     children: [/*#__PURE__*/jsx_runtime_.jsx(Head/* default */.Z, {
-      title: "Oliver PetShop"
+      title: "Oliver PetShop",
+      metadesc: "Bienvenido al sitio oficial de Oliver PetShop, somos una PYME familiar con una considerable experiencia y reconocimiento de nuestros clientes en el rubro de las mascotas."
     }), /*#__PURE__*/jsx_runtime_.jsx(components_SliderPublicidad, {
       banners: props.banners
     }), /*#__PURE__*/jsx_runtime_.jsx(infoCompra, {}), /*#__PURE__*/jsx_runtime_.jsx("div", {
@@ -795,7 +796,7 @@ module.exports = require("sweetalert2");
 var __webpack_require__ = require("../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [664,260,642,500,675,542,840,705,353,438,535], () => (__webpack_exec__(8501)));
+var __webpack_exports__ = __webpack_require__.X(0, [664,260,642,500,675,542,840,705,341,438,535], () => (__webpack_exec__(8501)));
 module.exports = __webpack_exports__;
 
 })();

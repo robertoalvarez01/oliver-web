@@ -17,7 +17,7 @@ exports.modules = {
 /* harmony export */ });
 const API = 'https://api.oliverpetshop.com.ar';
 const PUBLIC_URL = "https://developers.oliverpetshop.com.ar";
-const URL_PROCESAR_VENTA = "http://localhost:3000/procesarVenta";
+const URL_PROCESAR_VENTA = "https://developers.oliverpetshop.com.ar/procesarVenta";
 const MP_AC_TOKEN = "TEST-3132396576920746-020118-c75647e085784e05058d12358ef9e782-528050104";
 const URL_CLOUD_STORAGE = 'https://storage.googleapis.com/web-oliver';
 const GOOGLE_CLIENT_ID = '85508910542-jfaoom4l84q0a9cdmeg382vi9hl986j1.apps.googleusercontent.com';

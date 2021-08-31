@@ -19,7 +19,7 @@ exports.modules = {
 /* harmony export */ });
 const API = 'https://api.oliverpetshop.com.ar';
 const PUBLIC_URL = "https://developers.oliverpetshop.com.ar";
-const URL_PROCESAR_VENTA = "http://localhost:3000/procesarVenta";
+const URL_PROCESAR_VENTA = "https://developers.oliverpetshop.com.ar/procesarVenta";
 const MP_AC_TOKEN = "TEST-3132396576920746-020118-c75647e085784e05058d12358ef9e782-528050104";
 const URL_CLOUD_STORAGE = 'https://storage.googleapis.com/web-oliver';
 const GOOGLE_CLIENT_ID = '85508910542-jfaoom4l84q0a9cdmeg382vi9hl986j1.apps.googleusercontent.com';
@@ -567,7 +567,7 @@ const Item = external_styled_components_default().div.withConfig({
 const Icono = external_styled_components_default().div.withConfig({
   displayName: "style__Icono",
   componentId: "sc-h5fgk1-15"
-})(["margin:0px 20px 0px 0px;>svg{width:30px;color:var(--oliver);}"]);
+})(["margin:0px 20px 0px 0px;>svg,>img{width:30px;color:var(--oliver);}"]);
 ;// CONCATENATED MODULE: ./src/components/Navbar/index.jsx
 
 
@@ -818,6 +818,16 @@ const Navbar = props => {
             }), /*#__PURE__*/jsx_runtime_.jsx("p", {
               children: "Productos"
             })]
+          }), /*#__PURE__*/(0,jsx_runtime_.jsxs)(Item, {
+            onClick: () => navegar('/nosotros'),
+            children: [/*#__PURE__*/jsx_runtime_.jsx(Icono, {
+              children: /*#__PURE__*/jsx_runtime_.jsx("img", {
+                src: `${config/* URL_CLOUD_STORAGE */.mp}/static/Perro.png`,
+                alt: "Oliver pet shop"
+              })
+            }), /*#__PURE__*/jsx_runtime_.jsx("p", {
+              children: "Nosotros"
+            })]
           }), props.logueado && props.usuario ? /*#__PURE__*/(0,jsx_runtime_.jsxs)(jsx_runtime_.Fragment, {
             children: [/*#__PURE__*/(0,jsx_runtime_.jsxs)(Item, {
               onClick: () => navegar('/perfil'),
@@ -990,8 +1000,8 @@ const productosReducer_INITIAL_STATE = {
   filtrando: false,
   sinResultados: false,
   paginacion: {
-    limiteMobile: 10,
-    limiteDesktop: 20,
+    limiteMobile: 6,
+    limiteDesktop: 12,
     desde: 0
   },
   filtros: {

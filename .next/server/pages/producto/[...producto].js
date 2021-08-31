@@ -86,11 +86,12 @@ const ProductoSingle = props => {
         tamaño,
         idSubProducto,
         subProducto,
-        stock
+        stock,
+        codigoBarra
       } = props.subProductos[0];
-      guardarProductoEnState(foto, peso, precioFinal, producto, tamaño, idSubProducto, marca, subProducto, idProducto, stock);
+      guardarProductoEnState(foto, peso, precioFinal, producto, tamaño, idSubProducto, marca, subProducto, idProducto, stock, codigoBarra);
     } else {
-      guardarProductoEnState(`${config/* URL_CLOUD_STORAGE */.mp}/sin-imagen.png`, null, null, producto, null, null, marca, null, idProducto, null);
+      guardarProductoEnState(`${config/* URL_CLOUD_STORAGE */.mp}/sin-imagen.png`, null, null, producto, null, null, marca, null, idProducto, null, null);
     }
   }, [props.producto]);
   const {
@@ -139,7 +140,8 @@ const ProductoSingle = props => {
     }));
   };
 
-  const changePeso = (index, peso, precio, tamaño, idSubProducto, subProducto, stock) => {
+  const changePeso = (index, peso, precio, tamaño, idSubProducto, subProducto, stock, codigoBarra) => {
+    console.log(codigoBarra);
     let cajaPeso = document.getElementsByClassName((ProductoSingle_module_default()).caja_cantidadKg);
 
     for (let index = 0; index < cajaPeso.length; index++) {
@@ -154,7 +156,8 @@ const ProductoSingle = props => {
         precio: props.subProductos[0].precioFinal,
         idSubProducto: props.subProductos[0].idSubProducto,
         subProducto: props.subProductos[0].subProducto,
-        stock: props.subProductos[0].stock
+        stock: props.subProductos[0].stock,
+        codigoBarra: props.subProductos[0].codigoBarra
       }));
     }
 
@@ -164,7 +167,8 @@ const ProductoSingle = props => {
       tamaño,
       idSubProducto,
       subProducto,
-      stock
+      stock,
+      codigoBarra
     }));
   };
 
@@ -175,7 +179,7 @@ const ProductoSingle = props => {
 
   const closeModalCarrito = () => setModalIsOpen(false);
 
-  const guardarProductoEnState = (foto, peso, precio, producto, tamaño, idSubProducto, marca, subProducto, idProducto, stock) => {
+  const guardarProductoEnState = (foto, peso, precio, producto, tamaño, idSubProducto, marca, subProducto, idProducto, stock, codigoBarra) => {
     setProductoData({
       producto,
       foto,
@@ -187,7 +191,8 @@ const ProductoSingle = props => {
       subProducto,
       idProducto,
       stock,
-      precio
+      precio,
+      codigoBarra
     });
   };
 
@@ -232,7 +237,7 @@ const ProductoSingle = props => {
             className: "row justify-content-center",
             children: props.subProductos.map((mp, key) => key == 0 ? /*#__PURE__*/(0,jsx_runtime_.jsxs)("div", {
               className: (ProductoSingle_module_default()).caja_cantidadKg + ' ' + (ProductoSingle_module_default()).active,
-              onClick: () => changePeso(key, `${mp.peso}`, mp.precioFinal, `${mp.tamaño}`, mp.idSubProducto, `${mp.subProducto}`, mp.stock),
+              onClick: () => changePeso(key, `${mp.peso}`, mp.precioFinal, `${mp.tamaño}`, mp.idSubProducto, `${mp.subProducto}`, mp.stock, `${mp.codigoBarra}`),
               children: [/*#__PURE__*/(0,jsx_runtime_.jsxs)("p", {
                 className: (ProductoSingle_module_default()).kilos,
                 children: [mp.peso, " Kgs"]
@@ -242,7 +247,7 @@ const ProductoSingle = props => {
               })]
             }, key) : /*#__PURE__*/(0,jsx_runtime_.jsxs)("div", {
               className: (ProductoSingle_module_default()).caja_cantidadKg,
-              onClick: () => changePeso(key, `${mp.peso}`, mp.precioFinal, `${mp.tamaño}`, mp.idSubProducto, `${mp.subProducto}`, mp.stock),
+              onClick: () => changePeso(key, `${mp.peso}`, mp.precioFinal, `${mp.tamaño}`, mp.idSubProducto, `${mp.subProducto}`, mp.stock, `${mp.codigoBarra}`),
               children: [/*#__PURE__*/(0,jsx_runtime_.jsxs)("p", {
                 className: (ProductoSingle_module_default()).kilos,
                 children: [mp.peso, " Kgs"]
@@ -774,7 +779,7 @@ module.exports = require("sweetalert2");
 var __webpack_require__ = require("../../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [664,642,500,675,542,840,705,353,88,438,190,294,44], () => (__webpack_exec__(5257)));
+var __webpack_exports__ = __webpack_require__.X(0, [664,642,500,675,542,840,705,341,88,438,190,294,44], () => (__webpack_exec__(5257)));
 module.exports = __webpack_exports__;
 
 })();

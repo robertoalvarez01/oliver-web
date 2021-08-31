@@ -29,8 +29,8 @@ var jsx_runtime_ = __webpack_require__(5282);
 var Head = __webpack_require__(2642);
 // EXTERNAL MODULE: external "react"
 var external_react_ = __webpack_require__(9297);
-// EXTERNAL MODULE: ./src/components/CardProducto/index.js + 1 modules
-var CardProducto = __webpack_require__(7444);
+// EXTERNAL MODULE: ./src/components/CardProducto/index.js + 2 modules
+var CardProducto = __webpack_require__(2160);
 // EXTERNAL MODULE: external "react-redux"
 var external_react_redux_ = __webpack_require__(79);
 // EXTERNAL MODULE: ./store/actions/productosActions.js
@@ -745,7 +745,7 @@ module.exports = require("styled-jsx/style");
 var __webpack_require__ = require("../../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [664,642,500,840,705,353,535], () => (__webpack_exec__(6941)));
+var __webpack_exports__ = __webpack_require__.X(0, [664,642,500,840,705,341,535], () => (__webpack_exec__(6941)));
 module.exports = __webpack_exports__;
 
 })();
