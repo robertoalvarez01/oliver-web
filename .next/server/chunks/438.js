@@ -29,7 +29,7 @@ exports.modules = {
 const Promociones = props => {
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
     if (!props.data.length) {
-      props.traerOfertas(4);
+      props.traerOfertas(8);
     }
   }, []);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {

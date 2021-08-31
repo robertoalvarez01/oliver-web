@@ -1,13 +1,67 @@
+"use strict";
 (() => {
 var exports = {};
 exports.id = 31;
 exports.ids = [31];
 exports.modules = {
 
+/***/ 3005:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "oF": () => (/* binding */ slug),
+/* harmony export */   "tq": () => (/* binding */ isMobile),
+/* harmony export */   "g_": () => (/* binding */ ObtenerDia)
+/* harmony export */ });
+/* harmony import */ var slugify__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4111);
+/* harmony import */ var slugify__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(slugify__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function slug(name) {
+  return slugify__WEBPACK_IMPORTED_MODULE_0___default()(name, {
+    lower: true
+  }).replace(/[^\w\-]+/g, '');
+}
+
+function isMobile() {
+  if (false) {}
+}
+
+function ObtenerDia(numberDay) {
+  switch (numberDay) {
+    case 1:
+      return 'Lunes';
+
+    case 2:
+      return 'Martes';
+
+    case 3:
+      return 'Miercoles';
+
+    case 4:
+      return 'Jueves';
+
+    case 5:
+      return 'Viernes';
+
+    case 6:
+      return 'Sabado';
+
+    case 7:
+      return 'Domingo';
+
+    default:
+      break;
+  }
+}
+
+
+
+/***/ }),
+
 /***/ 2:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
@@ -247,7 +301,6 @@ const _oferta_mapStateToProps = ({
 /***/ 2953:
 /***/ ((module) => {
 
-"use strict";
 module.exports = require("@fortawesome/free-brands-svg-icons");
 
 /***/ }),
@@ -255,7 +308,6 @@ module.exports = require("@fortawesome/free-brands-svg-icons");
 /***/ 887:
 /***/ ((module) => {
 
-"use strict";
 module.exports = require("@fortawesome/free-solid-svg-icons");
 
 /***/ }),
@@ -263,7 +315,6 @@ module.exports = require("@fortawesome/free-solid-svg-icons");
 /***/ 799:
 /***/ ((module) => {
 
-"use strict";
 module.exports = require("@fortawesome/react-fontawesome");
 
 /***/ }),
@@ -271,7 +322,6 @@ module.exports = require("@fortawesome/react-fontawesome");
 /***/ 9325:
 /***/ ((module) => {
 
-"use strict";
 module.exports = require("next/dist/server/denormalize-page-path.js");
 
 /***/ }),
@@ -279,7 +329,6 @@ module.exports = require("next/dist/server/denormalize-page-path.js");
 /***/ 5378:
 /***/ ((module) => {
 
-"use strict";
 module.exports = require("next/dist/shared/lib/i18n/normalize-locale-path.js");
 
 /***/ }),
@@ -287,7 +336,6 @@ module.exports = require("next/dist/shared/lib/i18n/normalize-locale-path.js");
 /***/ 7162:
 /***/ ((module) => {
 
-"use strict";
 module.exports = require("next/dist/shared/lib/mitt.js");
 
 /***/ }),
@@ -295,7 +343,6 @@ module.exports = require("next/dist/shared/lib/mitt.js");
 /***/ 8773:
 /***/ ((module) => {
 
-"use strict";
 module.exports = require("next/dist/shared/lib/router-context.js");
 
 /***/ }),
@@ -303,7 +350,6 @@ module.exports = require("next/dist/shared/lib/router-context.js");
 /***/ 2248:
 /***/ ((module) => {
 
-"use strict";
 module.exports = require("next/dist/shared/lib/router/utils/get-asset-path-from-route.js");
 
 /***/ }),
@@ -311,7 +357,6 @@ module.exports = require("next/dist/shared/lib/router/utils/get-asset-path-from-
 /***/ 9372:
 /***/ ((module) => {
 
-"use strict";
 module.exports = require("next/dist/shared/lib/router/utils/is-dynamic.js");
 
 /***/ }),
@@ -319,7 +364,6 @@ module.exports = require("next/dist/shared/lib/router/utils/is-dynamic.js");
 /***/ 665:
 /***/ ((module) => {
 
-"use strict";
 module.exports = require("next/dist/shared/lib/router/utils/parse-relative-url.js");
 
 /***/ }),
@@ -327,7 +371,6 @@ module.exports = require("next/dist/shared/lib/router/utils/parse-relative-url.j
 /***/ 2747:
 /***/ ((module) => {
 
-"use strict";
 module.exports = require("next/dist/shared/lib/router/utils/querystring.js");
 
 /***/ }),
@@ -335,7 +378,6 @@ module.exports = require("next/dist/shared/lib/router/utils/querystring.js");
 /***/ 333:
 /***/ ((module) => {
 
-"use strict";
 module.exports = require("next/dist/shared/lib/router/utils/route-matcher.js");
 
 /***/ }),
@@ -343,7 +385,6 @@ module.exports = require("next/dist/shared/lib/router/utils/route-matcher.js");
 /***/ 3456:
 /***/ ((module) => {
 
-"use strict";
 module.exports = require("next/dist/shared/lib/router/utils/route-regex.js");
 
 /***/ }),
@@ -351,7 +392,6 @@ module.exports = require("next/dist/shared/lib/router/utils/route-regex.js");
 /***/ 7620:
 /***/ ((module) => {
 
-"use strict";
 module.exports = require("next/dist/shared/lib/utils.js");
 
 /***/ }),
@@ -359,7 +399,6 @@ module.exports = require("next/dist/shared/lib/utils.js");
 /***/ 701:
 /***/ ((module) => {
 
-"use strict";
 module.exports = require("next/head");
 
 /***/ }),
@@ -367,7 +406,6 @@ module.exports = require("next/head");
 /***/ 6731:
 /***/ ((module) => {
 
-"use strict";
 module.exports = require("next/router");
 
 /***/ }),
@@ -375,7 +413,6 @@ module.exports = require("next/router");
 /***/ 9297:
 /***/ ((module) => {
 
-"use strict";
 module.exports = require("react");
 
 /***/ }),
@@ -383,7 +420,6 @@ module.exports = require("react");
 /***/ 2268:
 /***/ ((module) => {
 
-"use strict";
 module.exports = require("react-dom");
 
 /***/ }),
@@ -391,7 +427,6 @@ module.exports = require("react-dom");
 /***/ 9290:
 /***/ ((module) => {
 
-"use strict";
 module.exports = require("react-lazy-load-image-component");
 
 /***/ }),
@@ -399,7 +434,6 @@ module.exports = require("react-lazy-load-image-component");
 /***/ 79:
 /***/ ((module) => {
 
-"use strict";
 module.exports = require("react-redux");
 
 /***/ }),
@@ -407,7 +441,6 @@ module.exports = require("react-redux");
 /***/ 5282:
 /***/ ((module) => {
 
-"use strict";
 module.exports = require("react/jsx-runtime");
 
 /***/ }),
@@ -415,7 +448,6 @@ module.exports = require("react/jsx-runtime");
 /***/ 4111:
 /***/ ((module) => {
 
-"use strict";
 module.exports = require("slugify");
 
 /***/ }),
@@ -423,7 +455,6 @@ module.exports = require("slugify");
 /***/ 9914:
 /***/ ((module) => {
 
-"use strict";
 module.exports = require("styled-components");
 
 /***/ }),
@@ -431,15 +462,7 @@ module.exports = require("styled-components");
 /***/ 3289:
 /***/ ((module) => {
 
-"use strict";
 module.exports = require("styled-jsx/style");
-
-/***/ }),
-
-/***/ 2431:
-/***/ (() => {
-
-/* (ignored) */
 
 /***/ })
 
@@ -450,7 +473,7 @@ module.exports = require("styled-jsx/style");
 var __webpack_require__ = require("../../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [664,651,5,675,491,353,438,294], () => (__webpack_exec__(2)));
+var __webpack_exports__ = __webpack_require__.X(0, [664,642,500,675,542,353,438,294], () => (__webpack_exec__(2)));
 module.exports = __webpack_exports__;
 
 })();

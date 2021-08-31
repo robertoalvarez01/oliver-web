@@ -5,29 +5,6 @@ exports.id = 596;
 exports.ids = [596];
 exports.modules = {
 
-/***/ 1130:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "bl": () => (/* binding */ API),
-/* harmony export */   "fQ": () => (/* binding */ PUBLIC_URL),
-/* harmony export */   "mp": () => (/* binding */ URL_CLOUD_STORAGE),
-/* harmony export */   "wL": () => (/* binding */ GOOGLE_CLIENT_ID),
-/* harmony export */   "uv": () => (/* binding */ MP_AC_TOKEN),
-/* harmony export */   "T7": () => (/* binding */ URL_PROCESAR_VENTA),
-/* harmony export */   "B1": () => (/* binding */ FOTO_DEFAULT)
-/* harmony export */ });
-const API = 'https://api.oliverpetshop.com.ar';
-const PUBLIC_URL = "https://developers.oliverpetshop.com.ar";
-const URL_PROCESAR_VENTA = "http://localhost:3000/procesarVenta";
-const MP_AC_TOKEN = "TEST-3132396576920746-020118-c75647e085784e05058d12358ef9e782-528050104";
-const URL_CLOUD_STORAGE = 'https://storage.googleapis.com/web-oliver';
-const GOOGLE_CLIENT_ID = '85508910542-jfaoom4l84q0a9cdmeg382vi9hl986j1.apps.googleusercontent.com';
-const FOTO_DEFAULT = 'https://storage.googleapis.com/web-oliver/user-default.png';
-
-
-/***/ }),
-
 /***/ 7692:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -406,7 +383,7 @@ module.exports = require("styled-jsx/style");
 var __webpack_require__ = require("../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [664,5,675,73,491,705], () => (__webpack_exec__(7692)));
+var __webpack_exports__ = __webpack_require__.X(0, [664,642,675,542,840,705], () => (__webpack_exec__(7692)));
 module.exports = __webpack_exports__;
 
 })();

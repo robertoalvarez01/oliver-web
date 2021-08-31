@@ -5,6 +5,7 @@
   "/checkout": "pages/checkout.html",
   "/": "pages/index.js",
   "/new-password/[token]": "pages/new-password/[token].js",
+  "/nosotros": "pages/nosotros.html",
   "/oferta/[...oferta]": "pages/oferta/[...oferta].js",
   "/ofertas": "pages/ofertas.js",
   "/perfil": "pages/perfil.html",
