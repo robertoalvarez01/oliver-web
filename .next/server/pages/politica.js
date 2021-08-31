@@ -18,7 +18,7 @@ exports.modules = {
 /* harmony export */   "B1": () => (/* binding */ FOTO_DEFAULT)
 /* harmony export */ });
 const API = 'https://api.oliverpetshop.com.ar';
-const PUBLIC_URL = "http://localhost:3000";
+const PUBLIC_URL = "https://developers.oliverpetshop.com.ar";
 const URL_PROCESAR_VENTA = "http://localhost:3000/procesarVenta";
 const MP_AC_TOKEN = "TEST-3132396576920746-020118-c75647e085784e05058d12358ef9e782-528050104";
 const URL_CLOUD_STORAGE = 'https://storage.googleapis.com/web-oliver';
