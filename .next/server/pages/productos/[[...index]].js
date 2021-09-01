@@ -225,7 +225,7 @@ const mapStateToProps = reducers => {
 const Container = external_styled_components_default().div.withConfig({
   displayName: "style__Container",
   componentId: "sc-oyv0pg-0"
-})(["height:100vh;position:fixed;top:66px;left:", ";width:25vh;padding:10px 15px 0px 15px;background-color:white;z-index:200;box-shadow:0px 2px 1px -1px rgba(2,2,2,0.2),0px 5px 1px 0px rgba(3,3,3,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);transition:all 0.5s ease;> svg{position:absolute;right:-30px;top:40%;width:30px;height:30px;border-radius:100%;background-color:var(--oliver);border:none;color:white;box-shadow:0px 2px 1px -1px rgba(19,18,18,0.2),0px 1px 10px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);transition:all .5s ease;cursor:pointer;&.rotar{transform:rotate(180deg);}}"], props => props.show ? '0px' : '-25vh');
+})(["height:100vh;position:fixed;top:66px;left:", ";width:25vh;padding:10px 15px 0px 15px;background-color:white;z-index:200;box-shadow:0px 2px 1px -1px rgba(2,2,2,0.2),0px 5px 1px 0px rgba(3,3,3,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);transition:all 0.5s ease;> svg{position:absolute;padding:10px 10px 10px 20px;right:-30px;top:40%;width:50px;height:50px;border-radius:100%;background-color:var(--oliver);border:none;color:white;box-shadow:0px 2px 1px -1px rgba(19,18,18,0.2),0px 1px 10px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);transition:all .5s ease;cursor:pointer;&.rotar{transform:rotate(180deg);}}"], props => props.show ? '0px' : '-25vh');
 const style_Boton = external_styled_components_default().button.withConfig({
   displayName: "style__Boton",
   componentId: "sc-oyv0pg-1"

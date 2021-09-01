@@ -370,6 +370,12 @@ const FormContacto = () => {
     setEmail('');
 
     if (guardarEmail.status !== 200) {
+      const data = await guardarEmail.json();
+
+      if (data.error.includes('ER_DUP_ENTRY')) {
+        return Swal.fire('Atención', 'El email ya se encuentra registrado', 'warning');
+      }
+
       return Swal.fire('Upss...', 'Ha ocurrido un error en la operación, intentalo más tarde.', 'error');
     }
 

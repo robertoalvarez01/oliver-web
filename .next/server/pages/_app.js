@@ -912,7 +912,9 @@ router_default().events.on('routeChangeError', () => external_nprogress_default(
 const Layout = props => {
   return /*#__PURE__*/(0,jsx_runtime_.jsxs)(jsx_runtime_.Fragment, {
     children: [/*#__PURE__*/(0,jsx_runtime_.jsxs)((head_default()), {
-      children: [/*#__PURE__*/jsx_runtime_.jsx("link", {
+      children: [/*#__PURE__*/jsx_runtime_.jsx("script", {
+        src: "https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyDh6iZtfmNFUiGqEn6-7qENrzRKSIqh6qw"
+      }), /*#__PURE__*/jsx_runtime_.jsx("link", {
         rel: "preconnect",
         href: "https://fonts.googleapis.com"
       }), /*#__PURE__*/jsx_runtime_.jsx("link", {
@@ -1030,7 +1032,8 @@ const subproductosReducer = (state = productosReducer_INITIAL_STATE, action) => 
     case productosTypes/* TRAER_UNO */.JY:
       return productosReducer_objectSpread(productosReducer_objectSpread({}, state), {}, {
         producto: action.payload,
-        loading: false
+        loading: false,
+        error: false
       });
 
     case productosTypes/* TRAER_PROMOCIONES */.wW:

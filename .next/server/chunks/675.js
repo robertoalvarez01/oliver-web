@@ -35,7 +35,7 @@ const Wrapper = external_styled_components_default().div.withConfig({
 const Body = external_styled_components_default().div.withConfig({
   displayName: "style__Body",
   componentId: "sc-s03ap1-1"
-})(["position:relative;top:", ";width:35%;max-height:80vh;background-color:white;border-radius:13px;padding:10px 16px;overflow-y:auto;overflow-x:hidden;transition:all 0.5s ease;display:flex;align-items:center;>svg{width:32px;height:32px;padding:6px;border-radius:100%;background-color:var(--oliver);color:white;position:absolute;right:0;top:-20px;z-index:3000;display:block;}@media(max-width:768px){width:85%;}"], props => props.show ? '0px' : '-500px');
+})(["position:relative;top:", ";width:35%;max-height:80vh;background-color:white;border-radius:13px;padding:10px 16px;overflow-y:auto;overflow-x:hidden;transition:all 0.5s ease;display:flex;align-items:center;>svg{width:32px;height:32px;padding:6px;border-radius:100%;background-color:var(--oliver);color:white;position:absolute;right:5px;top:5px;z-index:3000;display:block;}@media(max-width:768px){width:85%;}"], props => props.show ? '0px' : '-500px');
 const Content = external_styled_components_default().div.withConfig({
   displayName: "style__Content",
   componentId: "sc-s03ap1-2"

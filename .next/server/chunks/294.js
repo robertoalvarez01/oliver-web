@@ -39,7 +39,10 @@ const Error = ({
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(9297);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _style__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(1433);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(79);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _style__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(1433);
+
 
 
 
@@ -69,9 +72,10 @@ const SliderFotosProducto = props => {
   }; //console.log(imagenActiva);
 
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_style__WEBPACK_IMPORTED_MODULE_2__/* .Slider */ .iR, {
+  console.log(imagenActiva);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_style__WEBPACK_IMPORTED_MODULE_3__/* .Slider */ .iR, {
     className: "row",
-    children: [/*#__PURE__*/react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_style__WEBPACK_IMPORTED_MODULE_2__/* .Items */ .ob, {
+    children: [/*#__PURE__*/react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_style__WEBPACK_IMPORTED_MODULE_3__/* .Items */ .ob, {
       className: "col-12 col-md-3 text-center pt-5",
       children: props.oferta ? /*#__PURE__*/react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("img", {
         src: props.imagenes[0],
@@ -87,7 +91,7 @@ const SliderFotosProducto = props => {
         onClick: () => setImagenActive(event, key, `${props.subProductos[key].peso}`, props.subProductos[key].precioUnidad, `${props.subProductos[key].tamaño}`, props.subProductos[key].idSubProducto, `${props.subProductos[key].subProducto}`, `${props.subProductos[key].stock}`, `${props.subProductos[key].codigoBarra}`),
         alt: props.subProductos[key].subProducto
       }, key))
-    }), /*#__PURE__*/react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_style__WEBPACK_IMPORTED_MODULE_2__/* .ImagenActiva */ .Bx, {
+    }), /*#__PURE__*/react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx(_style__WEBPACK_IMPORTED_MODULE_3__/* .ImagenActiva */ .Bx, {
       className: "col-12 col-md-9",
       children: /*#__PURE__*/react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx("img", {
         src: imagenActiva,
@@ -97,7 +101,15 @@ const SliderFotosProducto = props => {
   });
 };
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SliderFotosProducto);
+const mapStateToProps = ({
+  productosReducer
+}) => {
+  return {
+    productosReducer
+  };
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,react_redux__WEBPACK_IMPORTED_MODULE_2__.connect)(mapStateToProps, {})(SliderFotosProducto));
 
 /***/ }),
 
