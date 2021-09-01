@@ -5,8 +5,8 @@
   "devFiles": [],
   "ampDevFiles": [],
   "lowPriorityFiles": [
-    "static/fJFVIXtyfEKh4qlDf1irM/_buildManifest.js",
-    "static/fJFVIXtyfEKh4qlDf1irM/_ssgManifest.js"
+    "static/UHMG-FkC2eEmA1am5Xjc6/_buildManifest.js",
+    "static/UHMG-FkC2eEmA1am5Xjc6/_ssgManifest.js"
   ],
   "pages": {
     "/": [
@@ -24,7 +24,7 @@
       "static/chunks/framework-2191d16384373197bc0a.js",
       "static/chunks/main-222191e14496d29481e0.js",
       "static/css/6b9cae372f078ab4a172.css",
-      "static/chunks/pages/_app-adbc461ac1319acd7262.js"
+      "static/chunks/pages/_app-45d9da7c94159830a271.js"
     ],
     "/_error": [
       "static/chunks/webpack-0e0f5c5c9fa5a29e0d78.js",
@@ -37,7 +37,7 @@
       "static/chunks/framework-2191d16384373197bc0a.js",
       "static/chunks/main-222191e14496d29481e0.js",
       "static/chunks/455-d6dcdc0056d9aa1e6c35.js",
-      "static/chunks/pages/checkout-2128d00790e436b84742.js"
+      "static/chunks/pages/checkout-04735c378d6492df8a99.js"
     ],
     "/new-password/[token]": [
       "static/chunks/webpack-0e0f5c5c9fa5a29e0d78.js",
@@ -104,7 +104,7 @@
       "static/chunks/framework-2191d16384373197bc0a.js",
       "static/chunks/main-222191e14496d29481e0.js",
       "static/chunks/679-82e1229813b5bd88fc38.js",
-      "static/chunks/pages/productos/[[...index]]-75731c53f3c83e21f3bb.js"
+      "static/chunks/pages/productos/[[...index]]-eb8082cbe83b7ff3eb00.js"
     ]
   },
   "ampFirstPages": []

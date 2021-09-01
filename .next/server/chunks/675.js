@@ -35,11 +35,15 @@ const Wrapper = external_styled_components_default().div.withConfig({
 const Body = external_styled_components_default().div.withConfig({
   displayName: "style__Body",
   componentId: "sc-s03ap1-1"
-})(["position:relative;top:", ";width:35%;max-height:80vh;background-color:white;border-radius:13px;padding:10px 16px;overflow-y:auto;overflow-x:hidden;transition:all 0.5s ease;display:flex;align-items:center;>svg{width:32px;height:32px;padding:6px;border-radius:100%;background-color:var(--oliver);color:white;position:absolute;right:5px;top:5px;z-index:3000;display:block;}@media(max-width:768px){width:85%;}"], props => props.show ? '0px' : '-500px');
+})(["position:relative;top:", ";width:35%;max-height:80vh;background-color:white;border-radius:13px;padding:10px 16px;overflow-y:auto;overflow-x:hidden;transition:all 0.5s ease;display:flex;align-items:center;@media (max-width:768px){width:85%;}"], props => props.show ? '0px' : '-500px');
+const BotonCerrar = external_styled_components_default().button.withConfig({
+  displayName: "style__BotonCerrar",
+  componentId: "sc-s03ap1-2"
+})(["width:32px;height:32px;border-radius:100%;background-color:var(--oliver);color:white;position:absolute;right:5px;top:5px;z-index:3000;display:block;border:none;display:flex;align-items:center;"]);
 const Content = external_styled_components_default().div.withConfig({
   displayName: "style__Content",
-  componentId: "sc-s03ap1-2"
-})(["border:none!important;display:flex;flex-direction:column;justify-content:center;padding:15px 0px;width:100%;"]);
+  componentId: "sc-s03ap1-3"
+})(["border:none !important;display:flex;flex-direction:column;justify-content:center;padding:15px 0px;width:100%;"]);
 ;// CONCATENATED MODULE: ./src/components/Modal/index.jsx
 
 
@@ -70,9 +74,11 @@ const Modal = props => {
     children: /*#__PURE__*/(0,jsx_runtime_.jsxs)(Body, {
       id: "body__modal_buscador",
       show: show,
-      children: [/*#__PURE__*/jsx_runtime_.jsx(react_fontawesome_.FontAwesomeIcon, {
-        icon: free_solid_svg_icons_.faTimes,
-        onClick: close
+      children: [/*#__PURE__*/jsx_runtime_.jsx(BotonCerrar, {
+        onClick: close,
+        children: /*#__PURE__*/jsx_runtime_.jsx(react_fontawesome_.FontAwesomeIcon, {
+          icon: free_solid_svg_icons_.faTimes
+        })
       }), /*#__PURE__*/jsx_runtime_.jsx(Content, {
         children: props.children
       })]

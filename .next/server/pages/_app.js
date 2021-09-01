@@ -18,9 +18,9 @@ exports.modules = {
 /* harmony export */   "B1": () => (/* binding */ FOTO_DEFAULT)
 /* harmony export */ });
 const API = 'https://api.oliverpetshop.com.ar';
-const PUBLIC_URL = "https://developers.oliverpetshop.com.ar";
-const URL_PROCESAR_VENTA = "https://developers.oliverpetshop.com.ar/procesarVenta";
-const MP_AC_TOKEN = "TEST-3132396576920746-020118-c75647e085784e05058d12358ef9e782-528050104";
+const PUBLIC_URL = "https://oliverpetshop.com.ar";
+const URL_PROCESAR_VENTA = "https://oliverpetshop.com.ar/procesarVenta";
+const MP_AC_TOKEN = "APP_USR-3132396576920746-020118-9ad6cc05aff511f0f740f42fe2bfb76e-528050104";
 const URL_CLOUD_STORAGE = 'https://storage.googleapis.com/web-oliver';
 const GOOGLE_CLIENT_ID = '85508910542-jfaoom4l84q0a9cdmeg382vi9hl986j1.apps.googleusercontent.com';
 const FOTO_DEFAULT = 'https://storage.googleapis.com/web-oliver/user-default.png';

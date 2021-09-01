@@ -225,26 +225,30 @@ const mapStateToProps = reducers => {
 const Container = external_styled_components_default().div.withConfig({
   displayName: "style__Container",
   componentId: "sc-oyv0pg-0"
-})(["height:100vh;position:fixed;top:66px;left:", ";width:25vh;padding:10px 15px 0px 15px;background-color:white;z-index:200;box-shadow:0px 2px 1px -1px rgba(2,2,2,0.2),0px 5px 1px 0px rgba(3,3,3,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);transition:all 0.5s ease;> svg{position:absolute;padding:10px 10px 10px 20px;right:-30px;top:40%;width:50px;height:50px;border-radius:100%;background-color:var(--oliver);border:none;color:white;box-shadow:0px 2px 1px -1px rgba(19,18,18,0.2),0px 1px 10px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);transition:all .5s ease;cursor:pointer;&.rotar{transform:rotate(180deg);}}"], props => props.show ? '0px' : '-25vh');
+})(["height:100vh;position:fixed;top:66px;left:", ";width:25vh;padding:10px 15px 0px 15px;background-color:white;z-index:200;box-shadow:0px 2px 1px -1px rgba(2,2,2,0.2),0px 5px 1px 0px rgba(3,3,3,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);transition:all 0.5s ease;"], props => props.show ? '0px' : '-25vh');
+const BotonAbrirFiltro = external_styled_components_default().button.withConfig({
+  displayName: "style__BotonAbrirFiltro",
+  componentId: "sc-oyv0pg-1"
+})(["position:absolute;right:-30px;display:flex;align-items:center;padding:20px;top:40%;width:50px;height:50px;border-radius:100%;border:none;color:white;background-color:var(--oliver);box-shadow:0px 2px 1px -1px rgba(19,18,18,0.2),0px 1px 10px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);transition:all 0.5s ease;cursor:pointer;&.rotar{transform:rotate(180deg);}"]);
 const style_Boton = external_styled_components_default().button.withConfig({
   displayName: "style__Boton",
-  componentId: "sc-oyv0pg-1"
+  componentId: "sc-oyv0pg-2"
 })(["color:white;background-color:var(--oliver);border:1px solid var(--oliver);transition:all 0.5s ease;padding:5px 10px;font-size:12px;width:100%;font-size:16px;border-radius:10px;margin:5px 0px;display:", ";> svg{width:20px;margin-right:15px;}"], props => props.show ? 'block' : 'none');
 const Body = external_styled_components_default().div.withConfig({
   displayName: "style__Body",
-  componentId: "sc-oyv0pg-2"
+  componentId: "sc-oyv0pg-3"
 })([""]);
 const Seccion = external_styled_components_default().section.withConfig({
   displayName: "style__Seccion",
-  componentId: "sc-oyv0pg-3"
+  componentId: "sc-oyv0pg-4"
 })(["> h4{}"]);
 const Lista = external_styled_components_default().ul.withConfig({
   displayName: "style__Lista",
-  componentId: "sc-oyv0pg-4"
+  componentId: "sc-oyv0pg-5"
 })(["list-style:none;padding:0px 10px 0px 0px;border-bottom:1px solid #b6b6b6;overflow-x:hidden;overflow-y:", ";height:", ";::-webkit-scrollbar{width:4px;height:3px;}::-webkit-scrollbar-thumb{background:var(--oliver);border-radius:4px;}"], props => props.overflowY, props => props.overflowY == 'auto' ? 'calc(52vh - 45px)' : 'auto');
 const Item = external_styled_components_default().li.withConfig({
   displayName: "style__Item",
-  componentId: "sc-oyv0pg-5"
+  componentId: "sc-oyv0pg-6"
 })(["> div{display:flex;align-items:center;justify-content:space-between;margin:10px 0px;font-size:16px;font-family:'Lato',sans-serif;cursor:pointer;background-color:", ";padding:", ";border-radius:", ";> svg{color:#6c757d;cursor:pointer;width:15px;display:", ";}}"], props => props.active == 'true' ? '#c2c0c0' : 'transparent', props => props.active == 'true' ? '5px' : '0px', props => props.active == 'true' ? '5px' : '0px', props => props.active == 'true' ? 'block' : 'none');
 // EXTERNAL MODULE: ./store/actions/marcasActions.js
 var marcasActions = __webpack_require__(4788);
@@ -380,10 +384,13 @@ const Filtro = props => {
 
   return /*#__PURE__*/(0,jsx_runtime_.jsxs)(Container, {
     show: show,
-    children: [/*#__PURE__*/jsx_runtime_.jsx(react_fontawesome_.FontAwesomeIcon, {
-      id: "iconFiltroContainer",
-      icon: free_solid_svg_icons_.faChevronRight,
-      onClick: () => setShow(!show)
+    children: [/*#__PURE__*/jsx_runtime_.jsx(BotonAbrirFiltro, {
+      type: "button",
+      onClick: () => setShow(!show),
+      children: /*#__PURE__*/jsx_runtime_.jsx(react_fontawesome_.FontAwesomeIcon, {
+        id: "iconFiltroContainer",
+        icon: free_solid_svg_icons_.faChevronRight
+      })
     }), /*#__PURE__*/(0,jsx_runtime_.jsxs)(style_Boton, {
       className: "boton bg-yellow mb-3",
       onClick: handleRestablecer,
